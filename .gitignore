@@ -1,0 +1,4 @@
+data/emb/*
+results/model_tuning/*
+slurm*
+src/wandb/*
