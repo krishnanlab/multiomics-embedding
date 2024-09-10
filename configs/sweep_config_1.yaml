@@ -1,0 +1,43 @@
+command:
+- python
+- ${program}
+- --fold
+- 1
+- --n2v
+- Pre
+- ${args}
+method: grid
+metric:
+  goal: maximize
+  name: val_balanced_accuracy_avg
+name: multiomics-fold-1
+parameters:
+  c:
+    values:
+    - 0.1
+    - 1
+    - 10
+    - 100
+    - 1000
+  g:
+    values:
+    - 0.0
+  p:
+    values:
+    - 0.01
+    - 0.1
+    - 1
+    - 10
+    - 100
+  penalty:
+    values:
+    - l1
+    - l2
+  q:
+    values:
+    - 0.01
+    - 0.1
+    - 1
+    - 10
+    - 100
+program: /mnt/home/f0106093/Projects/multiomics-embedding/src/sweep.py

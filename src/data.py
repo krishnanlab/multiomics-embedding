@@ -57,11 +57,11 @@ class MultiomicsEmbedding():
         gamma = self.gamma
         seed = self.seed
         fold = self.fold 
-        edg_file = f'data/edg/edge_list_fold_{fold}.csv'
+        edg_file = f'data/edg/edge_list_fold_{fold}.tsv'
         if self.nv2_mode == 'OTF':
             print('Embedding network using SparseOTF')
             g = node2vec.SparseOTF(p=p, q=q, workers=4, verbose=True, extend=True, gamma=gamma, random_state=seed)
-            g.read_edg(edg_file, weighted=True, directed=False, delimiter=',')
+            g.read_edg(edg_file, weighted=True, directed=False)
         elif self.nv2_mode == 'Pre':
             print('Embedding network using PreComp')
             g = node2vec.PreComp(p=p, q=q, workers=4, verbose=True, extend=True, gamma=gamma, random_state=seed)

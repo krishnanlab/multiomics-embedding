@@ -10,11 +10,11 @@ parameters:
   q:
     values: [0.01, 0.1, 1, 10, 100]
   g:
-    values: [0.0, 0.01, 0.1, 0.5, 0.7]
+    values: [0.0]
   penalty:
     values: ["l1", "l2"]
   c:
-    values: [1, 10, 100, 1000]
+    values: [0.1, 1, 10, 100, 1000]
 command:
 - python
 - ${program}
@@ -23,6 +23,6 @@ command:
 - --fold
 - 1
 - --n2v
-- OTF
+- Pre
 - ${args}
 

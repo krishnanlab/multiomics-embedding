@@ -20,7 +20,6 @@ for fold in [1,2,3,4,5]:
     #splits['Time'] = splits['Time'].map({'Baseline': 0, 'Endpoint': 1})
 
     train_ids = splits[splits['partition'] == 'train']['nodes'].reset_index(drop=True)
-    print(train_ids)
     train_labels = splits[splits['partition'] == 'train']['Time']
     train_data = pd.DataFrame(0, index=train_ids, columns=['Column1', 'Column2', 'Column3'])
 
