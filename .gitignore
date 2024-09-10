@@ -1,4 +1,5 @@
 data/emb/*
-results/model_tuning/*
 slurm*
-src/wandb/*
+*wandb*
+run_logs/*
+*__pycache__*
