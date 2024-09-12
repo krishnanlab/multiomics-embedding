@@ -6,7 +6,7 @@ This script performs feature selection and normalization.
 Then creates an edge list. 
 '''
 
-
+from argparse import ArgumentParser
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -15,6 +15,7 @@ import matplotlib.pyplot as plt
 # higher tau score indicates a feature is specfific to a subset of samples
 # a lower score indicates a more uniform distribution of feature across all samples
 TAU_THRESHOLD = 0.8
+MISSINGNESS_MIN = 0.
 
 def calculate_tau(feature):
     '''
@@ -37,15 +38,15 @@ def calculate_tau_scores(splits, data):
     tau_scores.to_csv(f'../results/tau_scores/tau_scores_fold_{fold}.csv')
     return(tau_scores)
 
-def plot_tau_scores(tau_scores, fold):
+def plot_scores(scores, fold, filter):
     '''
     plots tau scores
     '''
-    tau_scores.hist()
-    plt.xlabel('Tau Scores')
+    scores.hist()
+    plt.xlabel(f'{filter}')
     plt.ylabel('Frequency')
     plt.title(f'Fold {fold}')
-    plt.savefig(f'../results/tau_scores/tau_scores_histogram_fold_{fold}.png')
+    plt.savefig(f'../results/{filter}_scores/histogram_fold_{fold}.png')
     plt.close()
 
 def select_top_features(tau_scores, threshold, data):
@@ -94,20 +95,39 @@ def load_data():
     return df.drop(columns=['Unnamed: 0', 'sample.ID'])
 
 
+def tau_filter(splits, data):
+    # calculae tau scores considering only samples in training set for each fold
+    tau_scores = calculate_tau_scores(splits, data)
+    plot_scores(tau_scores, fold, 'tau')
+    # select features where tau score > threshold
+    top_features = select_top_features(tau_scores, TAU_THRESHOLD, data)
+    # rank normalize features
+    transformed_matrix = rank_normalization(top_features)
+    # convert matrix to edge list and save
+    create_edge_list(transformed_matrix, fold)
 
 if __name__ == '__main__':
+
+    parser = ArgumentParser()
+
+    parser.add_argument("--filter",
+                        help="filtering method for feature selection",
+                        required=True,
+                        type=str,
+                        choices = ['tau', 'missingness'])
+    args = parser.parse_args()
+    filter = args.filter
+
+
     # train/test splits for each fold 
     splits = pd.read_csv('../data/from_adelle/sample_breakdown.csv')
     # microbe/metabolite data
     data = load_data()
 
     for fold in splits['run'].unique():
-        # calculae tau scores considering only samples in training set for each fold
-        tau_scores = calculate_tau_scores(splits, data)
-        plot_tau_scores(tau_scores, fold)
-        # select features where tau score > threshold
-        top_features = select_top_features(tau_scores, TAU_THRESHOLD, data)
-        # rank normalize features
-        transformed_matrix = rank_normalization(top_features)
-        # convert matrix to edge list and save
-        create_edge_list(transformed_matrix, fold)
+        if filter == 'tau':
+            tau_filter(splits, data)
+        elif filter == 'missingness':
+            missingness_filter(splits, data)
+        
+            

@@ -25,8 +25,9 @@ def main(seed, fold, params):
         c = config.c
         penalty = config.penalty
         n2v_mode = config.n2v_mode
+        filter = config.filter
         os.makedirs(f'data/emb/{fold}',exist_ok=True)
-        data = MultiomicsEmbedding(fold, p, q, gamma, seed, n2v_mode)
+        data = MultiomicsEmbedding(fold, p, q, gamma, seed, n2v_mode, filter)
         trainer = Trainer(penalty, c)
         trainer.train(data)
 
@@ -69,6 +70,11 @@ if __name__ == '__main__':
                         type=str,
                         choices = ['OTF', 'Pre'],
                         default='OTF')
+    parser.add_argument("--filter",
+                        help="filtering method for feature selection",
+                        required=True,
+                        type=str,
+                        choices = ['tau', 'missingness'])
     
     args = parser.parse_args()
 
@@ -81,7 +87,8 @@ if __name__ == '__main__':
               # inverse of regularization strength
               # smaller number == stronger regularization
               'c' : args.c,
-              'n2v_mode' : args.n2v}
+              'n2v_mode' : args.n2v,
+              'filter' : args.filter}
     main(seed, fold, params)
 
 

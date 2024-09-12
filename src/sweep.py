@@ -14,9 +14,9 @@ from train import Trainer
 
 
 
-def main(fold, p, q, g, penalty, c, seed, n2v_mode):
+def main(fold, p, q, g, penalty, c, seed, n2v_mode, filter):
     with wandb.init(): 
-        data = MultiomicsEmbedding(fold, p, q, g, seed, n2v_mode)
+        data = MultiomicsEmbedding(fold, p, q, g, seed, n2v_mode, filter)
         trainer = Trainer(penalty, c)
         trainer.train(data)
 
@@ -59,6 +59,11 @@ if __name__ == '__main__':
                         type=str,
                         choices = ['OTF', 'Pre'],
                         default='Pre')
+    parser.add_argument("--filter",
+                        help="filtering method for feature selection",
+                        required=True,
+                        type=str,
+                        choices = ['tau', 'missingness'])
     
     args = parser.parse_args()
 
@@ -69,7 +74,8 @@ if __name__ == '__main__':
     q = args.q
     g = args.g
     penalty = args.penalty
+    filter = args.filter
     # inverse of regularization strength
     # smaller number == stronger regularization
     c = args.c
-    main(fold, p, q, g, penalty, c, seed, n2v_mode)
+    main(fold, p, q, g, penalty, c, seed, n2v_mode, filter)

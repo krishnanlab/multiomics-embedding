@@ -27,13 +27,14 @@ class MultiomicsEmbedding():
     SparseOTF is slower but uses less memory. 
 
     '''
-    def __init__(self, fold, p, q, gamma, seed, n2v_mode):
+    def __init__(self, fold, p, q, gamma, seed, n2v_mode, filter):
         self.fold = fold
         self.p = p
         self.q = q
         self.gamma = gamma
         self.seed = seed
         self.nv2_mode = n2v_mode
+        self.filter = filter
         self.load_labels()
         self.load_embedding()
         self.setup_cv_datasets()
@@ -57,7 +58,8 @@ class MultiomicsEmbedding():
         gamma = self.gamma
         seed = self.seed
         fold = self.fold 
-        edg_file = f'data/edg/edge_list_fold_{fold}.tsv'
+        filter = self.filter
+        edg_file = f'data/edg/{filter}/edge_list_fold_{fold}.tsv'
         if self.nv2_mode == 'OTF':
             print('Embedding network using SparseOTF')
             g = node2vec.SparseOTF(p=p, q=q, workers=4, verbose=True, extend=True, gamma=gamma, random_state=seed)
@@ -83,12 +85,14 @@ class MultiomicsEmbedding():
         q = self.q
         gamma = self.gamma
         fold = self.fold  
-        emb_file = f'data/emb/{fold}/emb_p_{p}_q_{q}_g_{gamma}.tsv'
+        filter = self.filter
+        root = f'data/emb/{filter}/{fold}'
+        emb_file = f'{root}/emb_p_{p}_q_{q}_g_{gamma}.tsv'
         if os.path.exists(emb_file):
             print(f'Loading embedding from file')
             self.emb = pd.read_csv(emb_file, sep='\t', index_col=0)
         else:
-            os.makedirs(f'data/emb/{fold}',exist_ok=True)  
+            os.makedirs(root,exist_ok=True)  
             self.embed_network(emb_file)
             
     
