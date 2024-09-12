@@ -15,7 +15,7 @@ from argparse import ArgumentParser
 
 def create_yaml_config(fold):
     config = {
-        'program': '/mnt/home/f0106093/Projects/multiomics-embedding/src/sweep.py',
+        'program': 'src/sweep.py',
         'name': f'multiomics-fold-{fold}',
         'method': 'grid',
         'metric': {
@@ -30,13 +30,13 @@ def create_yaml_config(fold):
                 'values': [0.01, 0.1, 1, 10, 100]
             },
             'g': {
-                'values': [0.0]
+                'values': [1]
             },
             'penalty': {
                 'values': ["l1", "l2"]
             },
             'c': {
-                'values': [0.1, 1, 10, 100, 1000]
+                'values': [0.0001, 0.001, 0.01, 0.1]
             }
         },
         'command': [
@@ -79,6 +79,7 @@ def submit_sweep_jobs(sweep_id, fold, job_dir, num_runs):
         jobConn.write(f"#SBATCH --array=0-{num_runs-1} \n")
         jobConn.write("module purge\n")
         jobConn.write("module load Conda/3\n")
+        jobConn.write("conda activate multiomics\n")
         jobConn.write(f"wandb agent -p multiomics-fold-{fold} -e keenan-manpearl --count 1 {sweep_id}\n")
         jobConn.write("conda deactivate\n")
 
@@ -105,7 +106,7 @@ if __name__ == '__main__':
     num_runs = args.runs
 
     # where to write job files
-    job_dir = '/mnt/home/f0106093/Projects/multiomics-embedding/run_logs/sweep'
+    job_dir = 'run_logs/sweep'
     if not os.path.exists(job_dir):
         os.mkdir(job_dir)    
 

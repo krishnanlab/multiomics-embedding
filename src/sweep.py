@@ -7,9 +7,7 @@ and trains a node classifier
 as part of a wandb hyperparameter sweep
 
 '''
-
-import os
-
+import wandb
 from argparse import ArgumentParser
 from data import MultiomicsEmbedding
 from train import Trainer
@@ -17,10 +15,10 @@ from train import Trainer
 
 
 def main(fold, p, q, g, penalty, c, seed, n2v_mode):
-    os.makedirs(f'../data/emb/{fold}',exist_ok=True)
-    data = MultiomicsEmbedding(fold, p, q, g, seed, n2v_mode)
-    trainer = Trainer(penalty, c)
-    trainer.train(data)
+    with wandb.init(): 
+        data = MultiomicsEmbedding(fold, p, q, g, seed, n2v_mode)
+        trainer = Trainer(penalty, c)
+        trainer.train(data)
 
 if __name__ == '__main__':
     parser = ArgumentParser()
@@ -30,21 +28,21 @@ if __name__ == '__main__':
                         required=True,
                         type=int)
     parser.add_argument("--p",
-                        help="node2vec p parameter: 0 <= p <= 1",
+                        help="node2vec p parameter",
                         required=True,
                         type=float)
     parser.add_argument("--q",
-                        help="node2vec q parameter: 0 <= q <= 1",
+                        help="node2vec q parameter",
                         required=True,
                         type=float)
     parser.add_argument("--g",
-                        help="node2vec gamma parameter: 0 <= g <= 1",
+                        help="node2vec gamma parameter",
                         required=True,
-                        type=float)
+                        type=int)
     parser.add_argument("--c",
                         help="inverse of regularization strength for logistic regression",
                         required=True,
-                        type=int)
+                        type=float)
     parser.add_argument("--penalty",
                         help="regularization type for logistic regression",
                         required=False,
@@ -67,10 +65,10 @@ if __name__ == '__main__':
     fold = args.fold
     seed = args.seed
     n2v_mode = args.n2v
-    p = args.p,
-    q = args.q,
-    g = args.g,
-    penalty = args.penalty,
+    p = args.p
+    q = args.q
+    g = args.g
+    penalty = args.penalty
     # inverse of regularization strength
     # smaller number == stronger regularization
     c = args.c

@@ -82,6 +82,7 @@ def create_edge_list(matrix, fold):
     convert matrix to edge list and save as three column tsv
     '''
     edge_list = matrix.reset_index().melt(id_vars='sample.ID', var_name='Feature', value_name='Weight')
+    edge_list = edge_list[edge_list['Weight'] > 0]
     edge_list.to_csv(f'../data/edg/edge_list_fold_{fold}.tsv', index=False, header=False, sep='\t')
 
 def load_data():

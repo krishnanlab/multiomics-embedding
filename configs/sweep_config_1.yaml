@@ -14,14 +14,13 @@ name: multiomics-fold-1
 parameters:
   c:
     values:
+    - 0.0001
+    - 0.001
+    - 0.01
     - 0.1
-    - 1
-    - 10
-    - 100
-    - 1000
   g:
     values:
-    - 0.0
+    - 1
   p:
     values:
     - 0.01
@@ -40,4 +39,4 @@ parameters:
     - 1
     - 10
     - 100
-program: /mnt/home/f0106093/Projects/multiomics-embedding/src/sweep.py
+program: src/sweep.py

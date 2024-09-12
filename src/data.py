@@ -65,7 +65,7 @@ class MultiomicsEmbedding():
         elif self.nv2_mode == 'Pre':
             print('Embedding network using PreComp')
             g = node2vec.PreComp(p=p, q=q, workers=4, verbose=True, extend=True, gamma=gamma, random_state=seed)
-            g.read_edg(edg_file, weighted=True, directed=False, delimiter=',')
+            g.read_edg(edg_file, weighted=True, directed=False)
             g.preprocess_transition_probs()
         nodes = g.nodes
         emb = g.embed()
@@ -82,12 +82,13 @@ class MultiomicsEmbedding():
         p = self.p
         q = self.q
         gamma = self.gamma
-        fold = self.fold    
+        fold = self.fold  
         emb_file = f'data/emb/{fold}/emb_p_{p}_q_{q}_g_{gamma}.tsv'
         if os.path.exists(emb_file):
             print(f'Loading embedding from file')
             self.emb = pd.read_csv(emb_file, sep='\t', index_col=0)
         else:
+            os.makedirs(f'data/emb/{fold}',exist_ok=True)  
             self.embed_network(emb_file)
             
     
@@ -114,7 +115,7 @@ class MultiomicsEmbedding():
             for split in ['train', 'val']:
                 idx = self.get_idx(split, cv_fold)
                 self.datasets[cv_fold][f'{split}_labels'] = self.labels.loc[idx]['Time'].values
-                self.datasets[cv_fold][f'{split}_data'] =  self.emb.loc[idx]
+                self.datasets[cv_fold][f'{split}_data'] =  self.emb.loc[idx].values
 
 
         

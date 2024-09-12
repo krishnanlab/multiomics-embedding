@@ -14,7 +14,7 @@ from sklearn.metrics import accuracy_score, balanced_accuracy_score, precision_s
 
 class Trainer:
     def __init__(self, penalty, c):
-        solver = self.get_solver()
+        solver = self.get_solver(penalty)
         self.model = LogisticRegression(penalty=penalty, C=c, solver=solver)
         self.metrics = {'train_accuracy': {}, 
                         'val_accuracy': {}, 
@@ -28,7 +28,7 @@ class Trainer:
                         'val_f1': {}
             }
 
-    def get_solver(penalty):
+    def get_solver(self, penalty):
         if penalty == 'l1':
             return 'liblinear'
         else:
