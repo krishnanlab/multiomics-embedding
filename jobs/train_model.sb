@@ -1,5 +1,5 @@
 #!/bin/bash -login
-#SBATCH --time=4:00:00 
+#SBATCH --time=3:59:00 
 ### Request the total amount of memory you need
 #SBATCH --mem=400GB
 ### Request the number of nodes you need
@@ -18,5 +18,5 @@ module purge
 module load Conda/3
 
 conda activate multiomics
-python main.py --fold 1 --p 1 --q 1 --g 0.1 --c 1 --penalty l2 --n2v Pre
+python main.py --fold 1 --p 1 --q 1 --g 0 --c 1 --penalty l2 --n2v Pre --filter missingness
 conda deactivate

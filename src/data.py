@@ -53,20 +53,14 @@ class MultiomicsEmbedding():
         '''
         load the edge list and create a node2vec+ embedding
         '''
-        p = self.p
-        q = self.q
-        gamma = self.gamma
-        seed = self.seed
-        fold = self.fold 
-        filter = self.filter
-        edg_file = f'data/edg/{filter}/edge_list_fold_{fold}.tsv'
+        edg_file = f'data/edg/{self.filter}/edge_list_full.tsv'
         if self.nv2_mode == 'OTF':
             print('Embedding network using SparseOTF')
-            g = node2vec.SparseOTF(p=p, q=q, workers=4, verbose=True, extend=True, gamma=gamma, random_state=seed)
+            g = node2vec.SparseOTF(p=self.p, q=self.q, workers=4, verbose=True, extend=True, gamma=self.gamma, random_state=self.seed)
             g.read_edg(edg_file, weighted=True, directed=False)
         elif self.nv2_mode == 'Pre':
             print('Embedding network using PreComp')
-            g = node2vec.PreComp(p=p, q=q, workers=4, verbose=True, extend=True, gamma=gamma, random_state=seed)
+            g = node2vec.PreComp(p=self.p, q=self.q, workers=4, verbose=True, extend=True, gamma=self.gamma, random_state=self.seed)
             g.read_edg(edg_file, weighted=True, directed=False)
             g.preprocess_transition_probs()
         nodes = g.nodes
@@ -84,9 +78,8 @@ class MultiomicsEmbedding():
         p = self.p
         q = self.q
         gamma = self.gamma
-        fold = self.fold  
         filter = self.filter
-        root = f'data/emb/{filter}/{fold}'
+        root = f'data/emb/{filter}'
         emb_file = f'{root}/emb_p_{p}_q_{q}_g_{gamma}.tsv'
         if os.path.exists(emb_file):
             print(f'Loading embedding from file')

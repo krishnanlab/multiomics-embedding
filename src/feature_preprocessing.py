@@ -6,6 +6,7 @@ This script performs feature selection and normalization.
 Then creates an edge list. 
 '''
 
+import os
 from argparse import ArgumentParser
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -15,7 +16,20 @@ import matplotlib.pyplot as plt
 # higher tau score indicates a feature is specfific to a subset of samples
 # a lower score indicates a more uniform distribution of feature across all samples
 TAU_THRESHOLD = 0.8
-MISSINGNESS_MIN = 0.
+# minimum and maximum missingness thresholds
+# from adelle
+MISSINGNESS_MIN = 0.1
+MISSINGNESS_MAX = 0.75
+
+
+
+def load_data():
+    '''
+    load raw microbe/metabolite data
+    '''
+    df = pd.read_csv('../data/from_adelle/unfiltered_micro_metab.csv')
+    df.index = df['sample.ID']
+    return df.drop(columns=['Unnamed: 0', 'sample.ID'])
 
 def calculate_tau(feature):
     '''
@@ -25,36 +39,74 @@ def calculate_tau(feature):
     n = len(feature)
     return sum(1 - x_i) / (n - 1)
 
-
-def calculate_tau_scores(splits, data):
+def calculate_missingness(feature):
     '''
-    calculates tau scores for all features
+    calculates missingness score for a given feature
+    '''
+    return sum(feature == 0) / len(feature)
+
+
+def calculate_scores(splits, data, fold, filter):
+    '''
+    calculates tau or missingness scores for all features
     only uses samples in the training set
     higher score = more variability across samples
     '''
-    samples = splits[(splits['run'] == fold) & (splits['partition'] == 'train')]['nodes']
-    subset = data.loc[samples]
-    tau_scores = subset.apply(calculate_tau)
-    tau_scores.to_csv(f'../results/tau_scores/tau_scores_fold_{fold}.csv')
-    return(tau_scores)
+    if fold != 'full':
+        samples = splits[(splits['run'] == fold) & (splits['partition'] == 'train')]['nodes']
+        data = data.loc[samples]
+    if filter == 'tau':
+        scores = data.apply(calculate_tau)
+    elif filter == 'missingness':
+        scores = data.apply(calculate_missingness)
+    scores.to_csv(f'../results/{filter}/scores_{fold}.csv')
+    return scores
+
 
 def plot_scores(scores, fold, filter):
     '''
-    plots tau scores
+    plots scores (tau or missingness) as a histogram
     '''
     scores.hist()
     plt.xlabel(f'{filter}')
     plt.ylabel('Frequency')
-    plt.title(f'Fold {fold}')
-    plt.savefig(f'../results/{filter}_scores/histogram_fold_{fold}.png')
+    plt.title(f'Dataset: {fold}')
+    plt.savefig(f'../results/{filter}/histogram_{fold}.png')
     plt.close()
 
-def select_top_features(tau_scores, threshold, data):
+def select_top_features(scores, data, min_threshold, max_threshold=None):
     '''
-    select microbe/metabolite features where tau > threshold
+    select microbe/metabolite features where 
+    score (tau or missingness) is above a minimum threshold
+    and optionally below a maximum threshold
     '''
-    features = tau_scores[tau_scores > threshold].index.tolist()
-    return data.loc[:, features]
+    features = scores[scores > min_threshold]
+    if max_threshold is not None:
+        features = features[features < max_threshold]
+    return data.loc[:, features.index.tolist()]
+
+def feature_selection(data, filter, fold, splits=None):
+    '''
+    perform feature selection on data
+    using either tau or missingness (filter)
+    fold either specifies 'full' to use all samples
+    or a specific fold to use only training samples.
+    If using training samples splits is used to filter samples
+    '''
+    # Define the computation and filtering logic based on the filter_type
+    if filter == 'tau':
+        threshold_min, threshold_max = TAU_THRESHOLD, None
+    elif filter == 'missingness':
+        threshold_min, threshold_max = MISSINGNESS_MIN, MISSINGNESS_MAX
+    else:
+        raise ValueError("Invalid filter_type. Must be 'tau' or 'missingness'.")
+    # Calculate tau or missingness scores
+    scores = calculate_scores(splits, data, fold, filter)
+    # Plot the scores (either tau or missingness)
+    plot_scores(scores, fold, filter)
+    # Select features based on thresholds
+    top_features = select_top_features(scores, data, threshold_min, threshold_max)
+    return top_features
 
 def rank_normalization(data):
     '''
@@ -78,56 +130,67 @@ def rank_normalization(data):
     rank_matrix[data == 0] = 0
     return rank_matrix
 
-def create_edge_list(matrix, fold):
+def create_edge_list(matrix, filter, fold):
     '''
     convert matrix to edge list and save as three column tsv
     '''
+    if filter is None:
+        filter = 'all_features'
     edge_list = matrix.reset_index().melt(id_vars='sample.ID', var_name='Feature', value_name='Weight')
     edge_list = edge_list[edge_list['Weight'] > 0]
-    edge_list.to_csv(f'../data/edg/edge_list_fold_{fold}.tsv', index=False, header=False, sep='\t')
+    edge_list.to_csv(f'../data/edg/{filter}/edge_list_{fold}.tsv', index=False, header=False, sep='\t')
 
-def load_data():
-    '''
-    load raw microbe/metabolite data
-    '''
-    df = pd.read_csv('../data/from_adelle/unfiltered_micro_metab.csv')
-    df.index = df['sample.ID']
-    return df.drop(columns=['Unnamed: 0', 'sample.ID'])
-
-
-def tau_filter(splits, data):
-    # calculae tau scores considering only samples in training set for each fold
-    tau_scores = calculate_tau_scores(splits, data)
-    plot_scores(tau_scores, fold, 'tau')
-    # select features where tau score > threshold
-    top_features = select_top_features(tau_scores, TAU_THRESHOLD, data)
-    # rank normalize features
-    transformed_matrix = rank_normalization(top_features)
+def create_network(data, filter, fold, splits):
+    if filter is not None:
+        # apply filter
+        features = feature_selection(data, filter, fold, splits)
+    else:
+        features = data
+    # get rank normalized features
+    transformed_matrix = rank_normalization(features)
     # convert matrix to edge list and save
-    create_edge_list(transformed_matrix, fold)
+    create_edge_list(transformed_matrix, filter, fold)
 
 if __name__ == '__main__':
 
     parser = ArgumentParser()
 
     parser.add_argument("--filter",
-                        help="filtering method for feature selection",
-                        required=True,
+                        help="filtering method if feature selection is desired (tau or missingness)",
+                        required=False,
                         type=str,
-                        choices = ['tau', 'missingness'])
+                        choices = ['tau', 'missingness'],
+                        default=None)
+    parser.add_argument("--set",
+                        help="whether to use training or full dataset for feature selection",
+                        required=False,
+                        type=str,
+                        choices = ['train', 'full'],
+                        default='train')
+    
     args = parser.parse_args()
     filter = args.filter
+    set = args.set
 
+    if filter is not None:
+        out_results = f'../results/{filter}'
+        if not os.path.exists(out_results):
+            os.makedirs(out_results)
+        out_edge = f'../data/edg/{filter}'
+        if not os.path.exists(out_edge):
+            os.makedirs(out_edge)
+    else: 
+        out_edge = f'../data/edg/all_features'
+        if not os.path.exists(out_edge):
+            os.makedirs(out_edge)
 
     # train/test splits for each fold 
     splits = pd.read_csv('../data/from_adelle/sample_breakdown.csv')
     # microbe/metabolite data
     data = load_data()
-
-    for fold in splits['run'].unique():
-        if filter == 'tau':
-            tau_filter(splits, data)
-        elif filter == 'missingness':
-            missingness_filter(splits, data)
-        
+    
+    if set == 'train':
+        [create_network(data, filter, fold, splits) for fold in splits['run'].unique()]
+    else:
+        create_network(data, filter, set, splits)
             

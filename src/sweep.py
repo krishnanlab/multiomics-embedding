@@ -63,7 +63,7 @@ if __name__ == '__main__':
                         help="filtering method for feature selection",
                         required=True,
                         type=str,
-                        choices = ['tau', 'missingness'])
+                        choices = ['tau', 'missingness', 'all_features'])
     
     args = parser.parse_args()
 

@@ -39,7 +39,7 @@ def create_yaml_config(fold):
                 'values': [0.0001, 0.001, 0.01, 0.1, 1, 10, 100]
             },
             'filter': {
-                'values': ['Tau', 'Missingness']
+                'values': ['tau', 'missingness', 'all_features']
             }
         },
         'command': [
