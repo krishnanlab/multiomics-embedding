@@ -18,5 +18,11 @@ module purge
 module load Conda/3
 
 conda activate multiomics
-python main.py --fold 1 --p 1 --q 1 --g 0 --c 1 --penalty l2 --n2v Pre --filter missingness
+python main.py --fold 1 --p 1 --q 1 --g 0 --c 44 --penalty l1 --n2v OTF --filter from_adelle
+python main.py --fold 2 --p 1 --q 1 --g 0 --c 38 --penalty l1 --n2v OTF --filter from_adelle
+python main.py --fold 3 --p 1 --q 1 --g 0 --c 59 --penalty l1 --n2v OTF --filter from_adelle
+python main.py --fold 4 --p 1 --q 1 --g 0 --c 23.5 --penalty l1 --n2v OTF --filter from_adelle
+python main.py --fold 5 --p 1 --q 1 --g 0 --c 250 --penalty l1 --n2v OTF --filter from_adelle
+
+
 conda deactivate

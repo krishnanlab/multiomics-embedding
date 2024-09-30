@@ -6,12 +6,12 @@ This script performs n2v+ embeddig with pecanpy
 and creates cross-validation datasets
 
 '''
-
+import os
 import pandas as pd
 from pecanpy import pecanpy as node2vec
-import os
 
-NUM_CV_FOLDS = 5
+
+NUM_CV_FOLDS = 10
 
 class MultiomicsEmbedding():
     '''
@@ -27,7 +27,14 @@ class MultiomicsEmbedding():
     SparseOTF is slower but uses less memory. 
 
     '''
-    def __init__(self, fold, p, q, gamma, seed, n2v_mode, filter):
+    def __init__(self, 
+                 fold: int, 
+                 p: float, 
+                 q: float, 
+                 gamma: float, 
+                 seed: int, 
+                 n2v_mode: str, 
+                 filter: str):
         self.fold = fold
         self.p = p
         self.q = q
@@ -38,22 +45,26 @@ class MultiomicsEmbedding():
         self.load_labels()
         self.load_embedding()
         self.setup_cv_datasets()
+        self.setup_test_data()
 
     def load_labels(self):
         '''
-        Convert timepoints into binary labels for ML
+        Convert time points into binary labels for ML
         '''
-        labels = pd.read_csv('data/from_adelle/sample_breakdown.csv')
-        labels= labels[labels['run'] == self.fold]
+        labels = pd.read_csv('data/raw/sample_breakdown.csv')
+        labels = labels[labels['run'] == self.fold]
         labels['Time'] = labels['Time'].map({'Baseline': 0, 'Endpoint': 1})
         labels.index = labels['nodes']
         self.labels = labels
     
-    def embed_network(self, emb_file):
+    def embed_network(self, emb_file: str):
         '''
         load the edge list and create a node2vec+ embedding
         '''
-        edg_file = f'data/edg/{self.filter}/edge_list_full.tsv'
+        if self.filter != 'from_adelle':
+            edg_file = f'data/edg/{self.filter}/edge_list_full.tsv'
+        else:
+            edg_file = 'data/edg/from_adelle/full_data_pecan_3.tsv'
         if self.nv2_mode == 'OTF':
             print('Embedding network using SparseOTF')
             g = node2vec.SparseOTF(p=self.p, q=self.q, workers=4, verbose=True, extend=True, gamma=self.gamma, random_state=self.seed)
@@ -89,7 +100,7 @@ class MultiomicsEmbedding():
             self.embed_network(emb_file)
             
     
-    def get_idx(self, split, cv_fold):
+    def get_cv_idx(self, split: str, cv_fold: int):
         '''
         Load the proper CV split indices.
         '''
@@ -104,18 +115,28 @@ class MultiomicsEmbedding():
         For a specified fold, 
         create 5-fold CV datasets for hyperparameter tuning.
         The folds are held constant across all models
-        get_idx retrieves the proper indices for each CV.
+        get_idx retrieves the proper train/val  indices for each CV.
         '''
         self.datasets = {}
         for cv_fold in range(NUM_CV_FOLDS):
             self.datasets[cv_fold] = {}
             for split in ['train', 'val']:
-                idx = self.get_idx(split, cv_fold)
+                idx = self.get_cv_idx(split, cv_fold)
                 self.datasets[cv_fold][f'{split}_labels'] = self.labels.loc[idx]['Time'].values
                 self.datasets[cv_fold][f'{split}_data'] =  self.emb.loc[idx].values
 
+    def setup_test_data(self):
+        '''
+        Set up the test data for the given fold.
+        This is the final test set and should NOT be used for hyperparameter tuning.
 
-        
+        '''
+        test_idx = self.labels[self.labels['partition'] == 'test'].index
+        train_idx = self.labels[self.labels['partition'] == 'train'].index
+        self.test_dataset = {'test_labels': self.labels.loc[test_idx]['Time'].values,
+                             'test_data': self.emb.loc[test_idx].values,
+                             'train_labels': self.labels.loc[train_idx]['Time'].values,
+                             'train_data': self.emb.loc[train_idx].values}
     
 
 

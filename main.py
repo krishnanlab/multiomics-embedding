@@ -13,10 +13,10 @@ import wandb
 
 from argparse import ArgumentParser
 from src.data import MultiomicsEmbedding
-from src.train import Trainer
+from src.model import LogReg
 
 
-def main(seed, fold, params):
+def main(seed, params):
     with wandb.init(project=f"multiomics", config=params):
         config = wandb.config
         p = config.p
@@ -26,10 +26,11 @@ def main(seed, fold, params):
         penalty = config.penalty
         n2v_mode = config.n2v_mode
         filter = config.filter
-        os.makedirs(f'data/emb/{fold}',exist_ok=True)
+        fold = config.fold
         data = MultiomicsEmbedding(fold, p, q, gamma, seed, n2v_mode, filter)
-        trainer = Trainer(penalty, c)
-        trainer.train(data)
+        model = LogReg(penalty, c)
+        model.train(data)
+        model.eval(data.test_dataset)
 
 if __name__ == '__main__':
     parser = ArgumentParser()
@@ -74,11 +75,10 @@ if __name__ == '__main__':
                         help="filtering method for feature selection",
                         required=True,
                         type=str,
-                        choices = ['tau', 'missingness', 'all_features'])
+                        choices = ['tau', 'missingness', 'all_features', 'from_adelle'])
     
     args = parser.parse_args()
 
-    fold = args.fold
     seed = args.seed
     params = {'p' : args.p,
               'q' : args.q,
@@ -88,7 +88,8 @@ if __name__ == '__main__':
               # smaller number == stronger regularization
               'c' : args.c,
               'n2v_mode' : args.n2v,
-              'filter' : args.filter}
-    main(seed, fold, params)
+              'filter' : args.filter,
+              'fold' : args.fold}
+    main(seed, params)
 
 

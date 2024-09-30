@@ -13,52 +13,63 @@ import yaml
 import subprocess
 from argparse import ArgumentParser
 
-def create_yaml_config(fold):
+def create_yaml_config(sweep_name, metric, fold):
+    if fold is None:
+        fold = {'values': [1,2,3,4,5]}
+        file_name = f'configs/sweep_config_{sweep_name}.yaml'
+    else:
+        file_name = f'configs/sweep_config_{sweep_name}_fold_{fold}.yaml'
+        fold = {'value': fold}
     config = {
         'program': 'src/sweep.py',
-        'name': f'multiomics-fold-{fold}',
-        'method': 'grid',
+        'name': sweep_name,
+        'method': 'random',
         'metric': {
-            'name': 'val_balanced_accuracy_avg',
+            'name': metric,
             'goal': 'maximize'
         },
         'parameters': {
+            'fold': fold,
             'p': {
-                'values': [0.01, 0.1, 1, 10, 100]
+                'distribution': 'int_uniform',
+                'min': 1,
+                'max': 25
             },
             'q': {
-                'values': [0.01, 0.1, 1, 10, 100]
+                'distribution': 'uniform',
+                'min': 0.1,
+                'max': 10
             },
             'g': {
-                'values': [1]
+                'values': [0, 1, 2]
             },
             'penalty': {
-                'values': ["l1", "l2"]
+                'values': ['l1', "l2"]
             },
             'c': {
-                'values': [0.0001, 0.001, 0.01, 0.1, 1, 10, 100]
-            },
-            'filter': {
-                'values': ['tau', 'missingness', 'all_features']
+                'distribution': 'int_uniform',
+                'min': 10,
+                'max': 300
             }
         },
         'command': [
             'python',
             '${program}',
-            '--fold',
-            fold,
             '--n2v',
-            'Pre',
-            '${args}'
+            'OTF',
+            '--sweep',
+            sweep_name,
+            '--filter',
+            'from_adelle',
+            '${args}',
         ]
     }
-    file_name = f'configs/sweep_config_{fold}.yaml'
     with open(file_name, 'w') as file:
         yaml.dump(config, file, default_flow_style=False)
-    return(file_name)
+    return file_name
 
-def start_sweep(config_file, fold):
-    bash_command = ["wandb", "sweep", "-p", f"multiomics-fold-{fold}", config_file]
+def start_sweep(config_file, sweep_name):
+    bash_command = ["wandb", "sweep", "-p", sweep_name, config_file]
     result = subprocess.run(bash_command, capture_output=True, text=True)
     output = result.stderr.splitlines()
     for line in output:
@@ -66,13 +77,14 @@ def start_sweep(config_file, fold):
             sweep_id = line.split()[-1]
             print(f"Started sweep with ID: {sweep_id}")
             return sweep_id
+    print(output)
 
-def submit_sweep_jobs(sweep_id, fold, job_dir, num_runs):
+def submit_sweep_jobs(sweep_id, sweep_name, job_dir, num_runs):
     jobsh = f"{sweep_id}.sh"
     with open(os.path.join(job_dir, jobsh), 'w') as jobConn:
         jobConn.write("#!/bin/bash -login\n")
         jobConn.write("#SBATCH --time=3:59:00\n")
-        jobConn.write("#SBATCH --mem=400GB\n")
+        jobConn.write("#SBATCH --mem=512GB\n")
         jobConn.write("#SBATCH --nodes=1\n")
         jobConn.write("#SBATCH --cpus-per-task=4\n")
         jobConn.write(f"#SBATCH --job-name={sweep_id}\n")
@@ -83,7 +95,7 @@ def submit_sweep_jobs(sweep_id, fold, job_dir, num_runs):
         jobConn.write("module purge\n")
         jobConn.write("module load Conda/3\n")
         jobConn.write("conda activate multiomics\n")
-        jobConn.write(f"wandb agent -p multiomics-fold-{fold} -e keenan-manpearl --count 1 {sweep_id}\n")
+        jobConn.write(f"wandb agent -p {sweep_name} -e keenan-manpearl --count 1 {sweep_id}\n")
         jobConn.write("conda deactivate\n")
 
     os.system(f"sbatch {os.path.join(job_dir, jobsh)}")
@@ -97,25 +109,52 @@ if __name__ == '__main__':
                         help="number of models to train in hyperparameter sweep",
                         required=True,
                         type=int)
-    parser.add_argument("--fold",
-                        help="fold to run hyperparameter sweep on",
-                        required=True,
-                        type=int)
+    parser.add_argument("--model",
+                        help="model number to run hyperparameter sweep on if not all",
+                        required=False,
+                        type=int, 
+                        default=None)
+    parser.add_argument("--name",
+                        help="optional sweep name",
+                        required=False,
+                        type=str,
+                        default=None)
+    parser.add_argument("--sweep",
+                        help="optional sweep ID to add runs to existing sweep, sweep names must match",
+                        required=False,
+                        type=str,
+                        default=None)
+    parser.add_argument("--metric",
+                        help="metric to optimize in sweep",
+                        required=False,
+                        type=str,
+                        default='f1_val_avg')
+    
     
     args = parser.parse_args()
     # fold to perform sweep on
-    fold = args.fold
+    model = args.model
     # how many models (hyperparameter combos) to train
     num_runs = args.runs
+    metric = args.metric
+    # optional sweep name
+    if args.name is None:
+        sweep_name = f"multiomics_model_{model}"
+    else:
+        sweep_name = args.name
 
     # where to write job files
     job_dir = 'run_logs/sweep'
     if not os.path.exists(job_dir):
         os.mkdir(job_dir)    
 
-    # create yaml file for fold
-    file_name = create_yaml_config(fold)
-    # start sweep and get ID
-    sweep_id = start_sweep(file_name, fold)
+    # start the sweep if its new 
+    if args.sweep is None:
+        # create yaml file for model
+        file_name = create_yaml_config(sweep_name, metric, model)
+        sweep_id = start_sweep(file_name, sweep_name)
+    else:
+        # get ID if resuming 
+        sweep_id = args.sweep
     # submit each run as a job
-    submit_sweep_jobs(sweep_id, fold, job_dir,num_runs)
+    submit_sweep_jobs(sweep_id, sweep_name, job_dir, num_runs)

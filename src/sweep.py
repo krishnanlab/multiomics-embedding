@@ -10,15 +10,16 @@ as part of a wandb hyperparameter sweep
 import wandb
 from argparse import ArgumentParser
 from data import MultiomicsEmbedding
-from train import Trainer
+from model import LogReg
 
 
 
-def main(fold, p, q, g, penalty, c, seed, n2v_mode, filter):
-    with wandb.init(): 
+def main(fold, p, q, g, penalty, c, seed, n2v_mode, filter, sweep_name):
+    with wandb.init(project=sweep_name): 
         data = MultiomicsEmbedding(fold, p, q, g, seed, n2v_mode, filter)
-        trainer = Trainer(penalty, c)
-        trainer.train(data)
+        model = LogReg(penalty, c)
+        model.train(data)
+        model.eval(data.test_dataset)
 
 if __name__ == '__main__':
     parser = ArgumentParser()
@@ -47,7 +48,7 @@ if __name__ == '__main__':
                         help="regularization type for logistic regression",
                         required=False,
                         type=str,
-                        default='l2')
+                        default='l1')
     parser.add_argument("--seed",
                         help="seed for reproducibility",
                         required=False,
@@ -63,7 +64,11 @@ if __name__ == '__main__':
                         help="filtering method for feature selection",
                         required=True,
                         type=str,
-                        choices = ['tau', 'missingness', 'all_features'])
+                        choices = ['tau', 'missingness', 'all_features', 'from_adelle'])
+    parser.add_argument("--sweep",
+                        help="sweep name",
+                        required=True,
+                        type=str)
     
     args = parser.parse_args()
 
@@ -75,7 +80,8 @@ if __name__ == '__main__':
     g = args.g
     penalty = args.penalty
     filter = args.filter
-    # inverse of regularization strength
+    # inverse of regularization strengthq
     # smaller number == stronger regularization
     c = args.c
-    main(fold, p, q, g, penalty, c, seed, n2v_mode, filter)
+    sweep_name = args.sweep
+    main(fold, p, q, g, penalty, c, seed, n2v_mode, filter, sweep_name)

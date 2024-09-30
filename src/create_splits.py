@@ -13,21 +13,28 @@ import os
 from sklearn.model_selection import StratifiedKFold
 
 
-for fold in [1,2,3,4,5]:
-    os.makedirs(f'../data/cv_folds/{fold}', exist_ok=True)
-    all_splits = pd.read_csv('../data/from_adelle/sample_breakdown.csv')
-    splits = all_splits[all_splits['run'] == fold]
-    #splits['Time'] = splits['Time'].map({'Baseline': 0, 'Endpoint': 1})
+NSPLITS = 10
 
+for model in [1,2,3,4,5]:
+    # make dir to save splits
+    os.makedirs(f'../data/cv_folds/{model}', exist_ok=True)
+    # read in sample breakdown file from addelle
+    all_splits = pd.read_csv('../data/raw/sample_breakdown.csv')
+    # get splits for specied model 
+    splits = all_splits[all_splits['run'] == model]
+
+    # get taining IDS
     train_ids = splits[splits['partition'] == 'train']['nodes'].reset_index(drop=True)
+    # get time point for training IDS
     train_labels = splits[splits['partition'] == 'train']['Time']
+    # fake training data for making plits
     train_data = pd.DataFrame(0, index=train_ids, columns=['Column1', 'Column2', 'Column3'])
 
-    skf = StratifiedKFold(n_splits=5)
+    skf = StratifiedKFold(n_splits=NSPLITS)
     for i, (train_index, test_index) in enumerate(skf.split(train_data, train_labels)):
-        with open(f'../data/cv_folds/{fold}/train_{i}.txt', 'w') as f:
+        with open(f'../data/cv_folds/{model}/train_{i}.txt', 'w') as f:
             for idx in train_index:
                 f.write(f'{train_ids[idx]}\n')
-        with open(f'../data/cv_folds/{fold}/test_{i}.txt', 'w') as f:
+        with open(f'../data/cv_folds/{model}/test_{i}.txt', 'w') as f:
             for idx in test_index:
                 f.write(f'{train_ids[idx]}\n')

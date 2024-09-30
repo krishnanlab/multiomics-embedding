@@ -1,0 +1,45 @@
+command:
+- python
+- ${program}
+- --n2v
+- OTF
+- --sweep
+- 20240927_multiomics
+- --filter
+- from_adelle
+- ${args}
+method: random
+metric:
+  goal: maximize
+  name: f1_val_avg
+name: 20240927_multiomics
+parameters:
+  c:
+    distribution: int_uniform
+    max: 300
+    min: 10
+  fold:
+    values:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+  g:
+    values:
+    - 0
+    - 1
+    - 2
+  p:
+    distribution: int_uniform
+    max: 25
+    min: 1
+  penalty:
+    values:
+    - l1
+    - l2
+  q:
+    distribution: uniform
+    max: 10
+    min: 0.1
+program: src/sweep.py

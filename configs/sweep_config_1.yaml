@@ -1,42 +1,40 @@
 command:
 - python
 - ${program}
-- --fold
-- 1
 - --n2v
-- Pre
+- OTF
 - ${args}
+- --sweep
+- 20240927_multiomics
+- --filter
+- from_adelle
 method: grid
 metric:
   goal: maximize
-  name: val_balanced_accuracy_avg
-name: multiomics-fold-1
+  name: f1_val_avg
+name: 20240927_multiomics
 parameters:
   c:
-    values:
-    - 0.0001
-    - 0.001
-    - 0.01
-    - 0.1
+    distribution: int_uniform
+    max: 300
+    min: 10
+  fold:
+    value: 1
   g:
     values:
+    - 0
     - 1
+    - 2
   p:
-    values:
-    - 0.01
-    - 0.1
-    - 1
-    - 10
-    - 100
+    distribution: int_uniform
+    max: 25
+    min: 1
   penalty:
     values:
     - l1
     - l2
   q:
-    values:
-    - 0.01
-    - 0.1
-    - 1
-    - 10
-    - 100
+    distribution: uniform
+    max: 10
+    min: 0.1
 program: src/sweep.py

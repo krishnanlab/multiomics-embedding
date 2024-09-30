@@ -7,12 +7,3 @@ MD-08_Base
 MD-08_End
 MD-09_Base
 MD-09_End
-MD-12_Base
-MD-14_Base
-MD-14_End
-MD-15_Base
-MD-15_End
-MD-17_Base
-MD-17_End
-MD-18_Base
-MD-18_End
