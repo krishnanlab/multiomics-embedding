@@ -1,0 +1,31 @@
+command:
+- python
+- ${program}
+- --n2v
+- OTF
+- --sweep
+- stability_p_6
+- --seed
+- '30'
+- ${args}
+method: random
+metric:
+  goal: maximize
+  name: f1
+name: stability_p_6
+parameters:
+  g:
+    values:
+    - 0
+    - 1
+    - 2
+  p:
+    values:
+    - 5.5
+    - 6
+    - 6.5
+  q:
+    distribution: uniform
+    max: 10
+    min: 0.1
+program: src/sweep.py

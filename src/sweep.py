@@ -8,29 +8,16 @@ for each of the 5 models.
 as part of a wandb hyperparameter sweep
 
 '''
-import os 
+
 import wandb
 from argparse import ArgumentParser
-from data import MultiomicsEmbedding
-from model import cv, train, eval, log_model, log_final_metrics
+from model import train_loop
 
 
-def main(p, q, gamma, random_seed, n2v_mode, sweep_name):
+def main(p, q, gamma, random_seed, n2v_mode, sweep_name, save):
     with wandb.init(project=sweep_name): 
-        scores = {'time': [], 'diet': []}
-        for model in range(1,6):
-            data = MultiomicsEmbedding(model, p, q, gamma, random_seed, n2v_mode)
-            for classifier_type in ['time', 'diet']:
-                dataset = data.datasets[classifier_type]
-                params, avg_score = cv(dataset, classifier_type, model, random_seed)
-                log_model(classifier_type, model, params)
-                scores[classifier_type].append(avg_score)
-                classifier = train(dataset, params, random_seed)
-                eval(classifier, dataset['train_data'], dataset['train_labels'], 'train', classifier_type, model)
-                eval(classifier, dataset['test_data'], dataset['test_labels'], 'test', classifier_type, model)
-        log_final_metrics(scores)
+        train_loop(p, q, gamma, random_seed, n2v_mode, save)
     wandb.finish()
-    os.system("rm -f core.*")
 
 if __name__ == '__main__':
     parser = ArgumentParser()
@@ -61,6 +48,11 @@ if __name__ == '__main__':
                         help="sweep name",
                         required=True,
                         type=str)
+    parser.add_argument("--save",
+                        help="whether to save the model",
+                        required=False,
+                        type=bool,
+                        default=False)
     
     args = parser.parse_args()
 
@@ -70,4 +62,5 @@ if __name__ == '__main__':
     q = args.q
     g = args.g
     sweep_name = args.sweep
-    main(p, q, g, seed, n2v_mode, sweep_name)
+    save = args.save
+    main(p, q, g, seed, n2v_mode, sweep_name, save)
