@@ -18,5 +18,8 @@ module purge
 module load Conda/3
 
 conda activate multiomics
-python main.py --name best_emb --p 19 --q 8.483911078685804 --g 2 --save True
+python main.py --name best_emb --p 7.305688086564288 --q 7.517332462471247 --g 2 --save True
+python main.py --name best_emb --p 5.5 --q 9.010757520712524 --g 1 --save True
+python main.py --name best_emb --p 19 --q 9.122152261131532 --g 1 --save True
+python main.py --name best_emb --p 0.5 --q 1.895944090041435 --g 1 --save True
 conda deactivate

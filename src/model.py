@@ -15,7 +15,7 @@ from scipy.stats import uniform
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import RandomizedSearchCV
 from sklearn.metrics import accuracy_score, balanced_accuracy_score, precision_score, recall_score, f1_score
-from data import MultiomicsEmbedding
+from src.data import MultiomicsEmbedding
 
 
 NUM_CV_FOLDS = 10
@@ -39,12 +39,12 @@ def cv(data: dict, classifier_type: str, model_num: int, seed: int) -> tuple[dic
     '''
     train_data = data['train_data']
     train_labels = data['train_labels']
-    params =[ #{'C': uniform(0.1, 500.0),
-                #'penalty': ['l1'],
-                #'solver': ['liblinear']},
-                #{'C': uniform(0.1, 500.0),
-                #'penalty': ['l2'],
-                #'solver': ['lbfgs']},
+    params =[ {'C': uniform(0.1, 500.0),
+                'penalty': ['l1'],
+                'solver': ['liblinear']},
+                {'C': uniform(0.1, 500.0),
+                'penalty': ['l2'],
+                'solver': ['lbfgs']},
                 {'C': uniform(0.1, 500.0),
                 'penalty': ['elasticnet'],
                 'l1_ratio': uniform(0, 1),
