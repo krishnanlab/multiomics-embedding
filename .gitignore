@@ -1,6 +1,7 @@
 data/emb/*
 slurm*
-*wandb*
+wandb/*
+src/wandb/*
 run_logs/*
 *__pycache__*
 core.*
