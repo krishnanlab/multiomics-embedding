@@ -1,0 +1,77 @@
+============== Node2Vec Parameters ==============
+p: 0.8055551041134607
+q: 0.1
+gamma: 1
+
+============== Timepoint Classification ==============
+best C: 390.11708914027196
+best l1_ratio: 0.8467089857076403
+best penalty: elasticnet
+best solver: saga
+
+f1 validation scores
+fold 0: 0.8571428571428572
+fold 1: 0.761904761904762
+fold 2: 0.8571428571428572
+fold 3: 0.823529411764706
+fold 4: 0.9523809523809523
+median score: 0.8571428571428572
+IQR: 0.03361344537815125
+variance: 0.003808896107462588
+
+balanced_accuracy validation scores
+fold 0: 0.8535353535353536
+fold 1: 0.7636363636363637
+fold 2: 0.8636363636363636
+fold 3: 0.8333333333333333
+fold 4: 0.9444444444444444
+median score: 0.8535353535353536
+IQR: 0.030303030303030387
+variance: 0.0033679828588919483
+
+accuracy validation scores
+fold 0: 0.85
+fold 1: 0.7619047619047619
+fold 2: 0.8636363636363636
+fold 3: 0.8333333333333334
+fold 4: 0.9473684210526315
+median score: 0.85
+IQR: 0.030303030303030276
+variance: 0.0035394627748766673
+
+
+============== Diet Classification ==============
+best C: 210.36901765718736
+best penalty: l1
+best solver: liblinear
+
+f1 validation scores
+fold 0: 0.7499999999999999
+fold 1: 0.4444444444444445
+fold 2: 0.7692307692307693
+fold 3: 0.75
+fold 4: 0.6666666666666665
+median score: 0.7499999999999999
+IQR: 0.08333333333333348
+variance: 0.014669807874936078
+
+balanced_accuracy validation scores
+fold 0: 0.8
+fold 1: 0.5333333333333333
+fold 2: 0.75
+fold 3: 0.775
+fold 4: 0.7083333333333333
+median score: 0.75
+IQR: 0.06666666666666676
+variance: 0.009016666666666668
+
+accuracy validation scores
+fold 0: 0.8181818181818182
+fold 1: 0.5454545454545454
+fold 2: 0.7272727272727273
+fold 3: 0.7777777777777778
+fold 4: 0.7
+median score: 0.7272727272727273
+IQR: 0.07777777777777783
+variance: 0.008740169370472405
+

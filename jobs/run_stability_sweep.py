@@ -3,7 +3,7 @@ import yaml
 import time 
 import subprocess
 
-from run_sweep import start_sweep, submit_sweep_jobs
+from jobs.run_sweep import start_sweep, submit_sweep_jobs
 
 def create_yaml_config(sweep_name, constant_param, param_value):
     '''
