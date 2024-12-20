@@ -9,9 +9,7 @@ Logging is done with wandb.
 '''
 
 import wandb
-import os
 from argparse import ArgumentParser
-from src.data import MultiomicsEmbedding
 from src.model import train_loop
 
 
