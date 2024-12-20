@@ -20,6 +20,7 @@ from src.data import MultiomicsEmbedding
 
 NUM_CV_FOLDS = 10
 MAX_ITER = 1000
+N_MODELS = 500
 
 
 def log_cv(search, classifier_type: str, model_num: int):
@@ -51,7 +52,7 @@ def cv(data: dict, classifier_type: str, model_num: int, seed: int) -> tuple[dic
                 'solver': ['saga']
                 }]
     log_reg = LogisticRegression(random_state=seed, max_iter=MAX_ITER)
-    clf = RandomizedSearchCV(log_reg, params, n_iter=500, cv=NUM_CV_FOLDS, scoring='f1', random_state=seed)
+    clf = RandomizedSearchCV(log_reg, params, n_iter=N_MODELS, cv=NUM_CV_FOLDS, scoring='f1', random_state=seed)
     search = clf.fit(train_data, train_labels)
     log_cv(search, classifier_type, model_num)
     return search.best_params_, search.best_score_

@@ -8,9 +8,14 @@ from scipy.stats import uniform
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import RandomizedSearchCV, PredefinedSplit
 
+import warnings
+from sklearn.exceptions import ConvergenceWarning
+warnings.filterwarnings("ignore", category=ConvergenceWarning)
+
+
 SEED = 22
-MAX_ITER = 10
-N_MODELS = 5
+MAX_ITER = 100
+N_MODELS = 500
 
 
 def load_test_indices():
@@ -162,6 +167,7 @@ def main(p,q,g, tag):
     main function to train models to evaluate embedding space using CV
     and extract final weights from full model 
     '''
+    print(tag)
     # get indices for each split 
     time_indices = load_test_indices()
     diet_indices = get_diet_indices(time_indices)
