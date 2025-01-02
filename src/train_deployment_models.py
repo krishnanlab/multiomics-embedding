@@ -7,8 +7,11 @@ import numpy as np
 from scipy.stats import uniform
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import RandomizedSearchCV, PredefinedSplit
-
+from argparse import ArgumentParser
+from datetime import datetime
 import warnings
+import pickle
+import os
 from sklearn.exceptions import ConvergenceWarning
 warnings.filterwarnings("ignore", category=ConvergenceWarning)
 
@@ -143,30 +146,80 @@ def logging(time_search, diet_search, file_path, p=None, q=None, g=None):
         f.write('\n')
         write_scores(search=diet_search, file=f)
 
-def save_model_weights(model, model_type, tag):
+def save_model_weights(model, model_type, out_root, tag):
     '''
     save the model weights to a file
     '''
     coefficients = model.coef_[0]
-    with open(f'results/best/{tag}_{model_type}_model_weights.txt', 'w') as f:
+    with open(f'{out_root}/{tag}_{model_type}_model_weights.txt', 'w') as f:
         f.writelines(f'{coef}\n' for coef in coefficients)
 
-def train_full_model(best_params, emb, labels, model_type, tag):
+def save_model(model, model_type, out_root, tag):
+    '''
+    save the model to a file
+    '''
+    with open(f'{out_root}/{tag}_{model_type}_model.pkl', 'wb') as f:
+        pickle.dump(model, f)
+
+def generate_feature_predictions(model,model_type,out_root,tag,p,q,g):
+    '''
+    generate predictions for each feature in the embedding
+    and save to file 
+    '''
+    colnames ={'time': ['baseline', 'endpoint'], 'diet': ['dairy', 'meat']}
+    # load all embeddings
+    emb_file = f'data/best_emb/emb_p_{p}_q_{q}_g_{g}.tsv.gz'
+    emb = pd.read_csv(emb_file, sep='\t', index_col=0)
+    # get features 
+    features = emb[~emb.index.str.startswith('MD')]
+    # feature predictions
+    preds = model.predict_proba(features)
+    preds = pd.DataFrame(preds, index=features.index, columns=colnames[model_type])
+    preds.to_csv(f'{out_root}/{tag}_{model_type}_feature_predictions.tsv', sep='\t')
+
+
+def train_full_model(best_params, emb, labels, model_type, out_root, tag, p ,q ,g):
     '''
     train the full model with the best hyperparameters
-    and write the model weights to a file
+    save model, weights, and feature predictions
     '''
     log_reg = LogisticRegression(random_state=SEED, max_iter=MAX_ITER)
     log_reg.set_params(**best_params)
     log_reg.fit(emb, labels)
-    save_model_weights(model=log_reg, model_type=model_type, tag=tag)
+    save_model_weights(model=log_reg, 
+                       model_type=model_type,
+                       out_root=out_root,  
+                       tag=tag)
+    save_model(model=log_reg, 
+               model_type=model_type, 
+               out_root=out_root, 
+               tag=tag)
+    generate_feature_predictions(model=log_reg,
+                                 model_type=model_type,
+                                 out_root=out_root, 
+                                 tag=tag,
+                                 p=p,
+                                 q=q,
+                                 g=g)
 
 
-def main(p,q,g, tag):
+
+def setup_output_dir(out_dir):
+    '''
+    create output directory if it does not exist
+    '''
+    if out_dir is None:
+        current_date = datetime.now().strftime('%Y-%m-%d')
+        out_dir = f'results/best_{current_date}'
+    os.makedirs(out_dir, exist_ok=True)
+    return out_dir
+
+def main(p,q,g, out_dir, tag):
     '''
     main function to train models to evaluate embedding space using CV
     and extract final weights from full model 
     '''
+
     print(tag)
     # get indices for each split 
     time_indices = load_test_indices()
@@ -181,7 +234,7 @@ def main(p,q,g, tag):
     diet_search = cv_search(diet_indices, diet_emb, diet_labels)
     logging(time_search=time_search, 
             diet_search=diet_search, 
-            file_path=f'results/best/{tag}_logging.txt', 
+            file_path=f'{out_dir}/{tag}_logging.txt', 
             p=p, 
             q=q, 
             g=g)
@@ -189,18 +242,34 @@ def main(p,q,g, tag):
                      emb=time_emb, 
                      labels=time_labels, 
                      model_type='time', 
-                     tag=tag)
+                     out_root=out_dir,
+                     tag=tag,
+                     p=p,
+                     q=q,
+                     g=g)
     train_full_model(best_params=diet_search.best_params_, 
                      emb=diet_emb, 
                      labels=diet_labels, 
                      model_type='diet', 
-                     tag=tag)
+                     out_root=out_dir,
+                     tag=tag,
+                     p=p,
+                     q=q,
+                     g=g)
     
     
    
 
 if __name__ == '__main__':
 
+    parser = ArgumentParser()
+    parser.add_argument("--out",
+                        help="output directory to save files",
+                        required=False,
+                        type=str,
+                        default=None)
+    args = parser.parse_args()
+    out_dir = setup_output_dir(args.out)
 
     models = {'wcksnlsg' : {'p' : 19.0, 'q' : 9.122152261131532, 'g' : 1},
               'ai9n4jxs' : {'p' : 0.8055551041134607, 'q' : 0.1, 'g' : 1},
@@ -209,5 +278,6 @@ if __name__ == '__main__':
               'q2gzu1o3' : {'p' : 19.0, 'q' : 8.483911078685804, 'g' : 2},
               '8lofhbbf' : {'p' : 7.305688086564288, 'q' : 7.517332462471247, 'g' : 2},
               'qb4y98x0': {'p': 5.5, 'q': 9.010757520712524, 'g': 1}}
+    
     for model, params in models.items():
-        main(p=params['p'], q=params['q'], g=params['g'], tag=model)
+        main(p=params['p'], q=params['q'], g=params['g'], out_dir=out_dir, tag=model)
