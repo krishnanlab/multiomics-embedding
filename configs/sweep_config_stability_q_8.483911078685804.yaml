@@ -1,0 +1,31 @@
+command:
+- python
+- ${program}
+- --n2v
+- OTF
+- --sweep
+- stability_q_8.483911078685804
+- ${args}
+method: random
+metric:
+  goal: maximize
+  name: f1
+name: stability_sweep
+parameters:
+  g:
+    values:
+    - 0
+    - 1
+    - 2
+  p:
+    distribution: uniform
+    max: 20
+    min: 0.1
+  q:
+    values:
+    - 7.983911078685804
+    - 8.383911078685804
+    - 8.483911078685804
+    - 8.583911078685803
+    - 8.983911078685804
+program: src/sweep.py

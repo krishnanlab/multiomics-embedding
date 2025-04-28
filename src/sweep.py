@@ -3,31 +3,24 @@ Author: Keenan Manpearl
 Date: 2024-09-09
 
 This script performs n2v+ embedding
-and trains a node classifier
+and trains a diet and timepoint node classifier
+for each of the 5 models.
 as part of a wandb hyperparameter sweep
 
 '''
+
 import wandb
 from argparse import ArgumentParser
-from data import MultiomicsEmbedding
-from model import LogReg
+from model import train_loop
 
 
-
-def main(fold, p, q, g, penalty, c, seed, n2v_mode, filter, sweep_name):
+def main(p, q, gamma, random_seed, n2v_mode, sweep_name, save):
     with wandb.init(project=sweep_name): 
-        data = MultiomicsEmbedding(fold, p, q, g, seed, n2v_mode, filter)
-        model = LogReg(penalty, c)
-        model.train(data)
-        model.eval(data.test_dataset)
+        train_loop(p, q, gamma, random_seed, n2v_mode, save)
+    wandb.finish()
 
 if __name__ == '__main__':
     parser = ArgumentParser()
-
-    parser.add_argument("--fold",
-                        help="required to load proper edge list and labels",
-                        required=True,
-                        type=int)
     parser.add_argument("--p",
                         help="node2vec p parameter",
                         required=True,
@@ -40,15 +33,6 @@ if __name__ == '__main__':
                         help="node2vec gamma parameter",
                         required=True,
                         type=int)
-    parser.add_argument("--c",
-                        help="inverse of regularization strength for logistic regression",
-                        required=True,
-                        type=float)
-    parser.add_argument("--penalty",
-                        help="regularization type for logistic regression",
-                        required=False,
-                        type=str,
-                        default='l1')
     parser.add_argument("--seed",
                         help="seed for reproducibility",
                         required=False,
@@ -59,29 +43,24 @@ if __name__ == '__main__':
                         required=False,
                         type=str,
                         choices = ['OTF', 'Pre'],
-                        default='Pre')
-    parser.add_argument("--filter",
-                        help="filtering method for feature selection",
-                        required=True,
-                        type=str,
-                        choices = ['tau', 'missingness', 'all_features', 'from_adelle'])
+                        default='OTF')
     parser.add_argument("--sweep",
                         help="sweep name",
                         required=True,
                         type=str)
+    parser.add_argument("--save",
+                        help="whether to save the model",
+                        required=False,
+                        type=bool,
+                        default=False)
     
     args = parser.parse_args()
 
-    fold = args.fold
     seed = args.seed
     n2v_mode = args.n2v
     p = args.p
     q = args.q
     g = args.g
-    penalty = args.penalty
-    filter = args.filter
-    # inverse of regularization strengthq
-    # smaller number == stronger regularization
-    c = args.c
     sweep_name = args.sweep
-    main(fold, p, q, g, penalty, c, seed, n2v_mode, filter, sweep_name)
+    save = args.save
+    main(p, q, g, seed, n2v_mode, sweep_name, save)

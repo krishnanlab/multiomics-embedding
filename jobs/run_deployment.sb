@@ -1,0 +1,16 @@
+#!/bin/bash -login
+#SBATCH --time=3:59:00 
+#SBATCH --mem=128GB
+#SBATCH --nodes=1
+#SBATCH --job-name=deployment
+#SBATCH --output=run_logs/deployment.out
+#SBATCH -e run_logs/deployment.err
+#SBATCH --account=wang-krishnan
+
+
+
+module purge
+module load Conda/3
+conda activate multiomics
+python src/train_deployment_models.py
+conda deactivate
