@@ -1,4 +1,13 @@
 
+'''
+Author: Keenan Manpearl
+Date: 2024-09-09
+
+This script trains a model using raw features
+not an embedding space.
+
+'''
+
 import pandas as pd
 from train_deployment_models import load_test_indices, get_diet_indices, create_timepoint_labels, load_diet_labels, cv_search, logging
 

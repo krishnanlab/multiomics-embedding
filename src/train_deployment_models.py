@@ -1,5 +1,13 @@
 
+'''
+Author: Keenan Manpearl
+Date: 2024-09-09
 
+This script trains a classifier using all availble samples per fold.
+Training/evaluations are done using samples (infants)
+and predictions are made for features (microbes and metabolites).
+
+'''
 
 
 import pandas as pd
