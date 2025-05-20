@@ -40,8 +40,8 @@ variance: 0.0009007455175794679
 
 
 ============== Diet Classification ==============
-best C: 39.94890037745809
-best l1_ratio: 0.43505150903278134
+best C: 48.98904792140958
+best l1_ratio: 0.954786677678734
 best penalty: elasticnet
 best solver: saga
 

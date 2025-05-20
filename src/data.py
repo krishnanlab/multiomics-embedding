@@ -49,7 +49,7 @@ class MultiomicsEmbedding():
         p = self.p
         q = self.q
         gamma = self.gamma
-        root = f'data/emb/from_adelle'
+        root = f'data/emb/'
         emb_file = f'{root}/emb_p_{p}_q_{q}_g_{gamma}.tsv'
         if os.path.exists(emb_file):
             print(f'Loading embedding from file')
@@ -110,7 +110,7 @@ def embed_network(emb_file: str, nv2_mode: str, p: float, q: float, gamma: int, 
     '''
     load the edge list and create a node2vec+ embedding
     '''
-    edg_file = 'data/edg/from_adelle/full_data_pecan_3.tsv'
+    edg_file = 'data/edg/full_data_pecan_3.tsv'
     if nv2_mode == 'OTF':
         print('Embedding network using SparseOTF')
         g = node2vec.SparseOTF(p=p, q=q, workers=4, verbose=True, extend=True, gamma=gamma, random_state=seed)
