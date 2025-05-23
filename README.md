@@ -36,8 +36,9 @@ Run `bash scripts/<name>.sh --help` for details.
 
 ```
 ├── data/            # raw and processed data
-├── src/             # code code
-├── results/         # generated figures/tables for the top performing embedding spaces
+├── notebooks/       # exploratory analysis 
+├── src/             # main code
+├── results/         # all results for top performing embedding spaces
 ├── run/             # shell scripts to call run code
 ├── environment.yml  # conda environment
 
