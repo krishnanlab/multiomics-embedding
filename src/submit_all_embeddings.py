@@ -17,7 +17,7 @@ def submit_param_jobs(
     cmds = []
     for p, q, g in params_list:
         cmds.append([
-            "python", "main.py",
+            "python", "src/train_model.py",
             "--name", "all_embeddings",
             "--p", str(p),
             "--q", str(q),
