@@ -1,0 +1,15 @@
+name: multiomics
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - numpy=1.26.4
+  - matplotlib=3.10.0
+  - scikit-learn=1.6.1
+  - scipy=1.13.1
+  - pandas=2.2.3
+  - pip=25.1
+  - wandb=0.16.6
+  - pip:
+      - pecanpy=2.0.9

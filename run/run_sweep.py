@@ -11,8 +11,8 @@ and performs the sweep on the specified fold
 import os
 import yaml
 import subprocess
-from argparse import ArgumentParser
-from typing import Union 
+import argparse
+from job_utils import run_commands_concurrently
 
 
 def get_config_file(name):
@@ -66,7 +66,7 @@ def create_yaml_config(sweep_name, metric, p_min, p_max, q_min, q_max, g_min, g_
                 'max': q_max
             },
             'g': {
-                'values': range(g_min, g_max+1)
+                'values': list(range(g_min, g_max+1))
             }
         },
         'command': [
@@ -100,45 +100,48 @@ def start_sweep(config_file: str, sweep_name: str):
             print(f"Started sweep with ID: {sweep_id}")
             return sweep_id
 
-def submit_sweep_jobs(sweep_id: str, sweep_name: str, num_runs: int):
-    '''
-    write and submit a slurm array job
-    '''
-    # where to write job files
-    job_dir = f'/mnt/scratch/f0106093/multiomics_embedding/run_logs/sweep/{sweep_id}'
-    if not os.path.exists(job_dir):
-        os.mkdir(job_dir) 
-
-    jobsh = f"{sweep_id}.sh"
-    with open(os.path.join(job_dir, jobsh), 'w') as jobConn:
-        jobConn.write("#!/bin/bash -login\n")
-        jobConn.write("#SBATCH --time=3:59:00\n")
-        jobConn.write("#SBATCH --mem=512GB\n")
-        jobConn.write("#SBATCH --nodes=1\n")
-        jobConn.write("#SBATCH --cpus-per-task=4\n")
-        jobConn.write(f"#SBATCH --job-name={sweep_id}\n")
-        jobConn.write(f"#SBATCH --output={os.path.join(job_dir, sweep_id)}_%A_%a.out\n")
-        jobConn.write(f"#SBATCH -e {os.path.join(job_dir, sweep_id)}_%A_%a.err\n")
-        jobConn.write("#SBATCH --account=wang-krishnan\n")
-        jobConn.write(f"#SBATCH --array=0-{num_runs-1} \n")
-        jobConn.write("module purge\n")
-        jobConn.write("module load Conda/3\n")
-        jobConn.write("conda activate multiomics\n")
-        jobConn.write(f"wandb agent -p {sweep_name} -e keenan-manpearl --count 1 {sweep_id}\n")
-        jobConn.write("conda deactivate\n")
-
-    os.system(f"sbatch {os.path.join(job_dir, jobsh)}")
+def submit_sweep_jobs(
+    sweep_id: str,
+    sweep_name: str,
+    user_name: str,
+    num_runs: int,
+    max_jobs: int,
+):
+    cmds = [
+        ["wandb", "agent", "-p", sweep_name, "-e", user_name, "--count", "1", sweep_id]
+        for _ in range(num_runs)
+    ]
+    run_commands_concurrently(commands=cmds, 
+                              max_jobs=max_jobs, 
+                              log_file=os.path.join("logs", f"{sweep_name}.log"))
+def number_type(x):
+    try:
+        return int(x)
+    except ValueError:
+        try:
+            return float(x)
+        except ValueError:
+            raise argparse.ArgumentTypeError(f"{x!r} is not a valid int or float")
 
 
 if __name__ == '__main__':
 
-    parser = ArgumentParser()
+    parser = argparse.ArgumentParser()
 
+    parser.add_argument("--username",
+                        help="wandb username.",
+                        type=str
+                        )
     parser.add_argument("--runs",
                         help="number of models to train in hyperparameter sweep",
                         required=False,
                         type=int,
                         default=100)
+    parser.add_argument("--max_jobs",
+                        help="number of models to train at one time",
+                        required=False,
+                        type=int,
+                        default=4)
     parser.add_argument("--name",
                         help="optional sweep name",
                         required=False,
@@ -157,22 +160,22 @@ if __name__ == '__main__':
     parser.add_argument("--p_min",
                         help="minimum p value to test",
                         required=False,
-                        type=Union[int, float],
+                        type=number_type,
                         default=1)
     parser.add_argument("--p_max",
                         help="maximum p value to test",
                         required=False,
-                        type=Union[int, float],
+                        type=number_type,
                         default=25)
     parser.add_argument("--q_min",
                         help="minimum q value to test",
                         required=False,
-                        type=Union[int, float],
+                        type=number_type,
                         default=0.1)
     parser.add_argument("--q_max",
                         help="maximum q value to test",
                         required=False,
-                        type=Union[int, float],
+                        type=number_type,
                         default=10)
     parser.add_argument("--g_min",
                         help="minimum g value to test",
@@ -189,10 +192,10 @@ if __name__ == '__main__':
     
     args = parser.parse_args()
 
+    username = args.username
     sweep_name = args.name
-    # how many hyperparameter combos to try
     num_runs = args.runs
-    # metric to optimize during sweep
+    max_jobs = args.max_jobs
     metric = args.metric
    
 
@@ -207,8 +210,14 @@ if __name__ == '__main__':
         g_max = args.g_max
         file_name = create_yaml_config(sweep_name, metric, p_min, p_max, q_min, q_max, g_min, g_max)
         sweep_id = start_sweep(file_name, sweep_name)
+        if sweep_id is None:
+            ValueError("Sweep ID not found. Are you logged into wandb?")
     else:
         # or get ID if resuming sweep
         sweep_id = args.sweep
     # submit each run as a slurm job
-    submit_sweep_jobs(sweep_id, sweep_name, num_runs)
+    submit_sweep_jobs(sweep_id = sweep_id, 
+                      sweep_name=sweep_name, 
+                      user_name=username, 
+                      num_runs=num_runs,
+                      max_jobs=max_jobs)
