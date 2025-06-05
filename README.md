@@ -49,14 +49,9 @@ In this repository we only include data and results for our top performing embed
 ## License 
 This repository and all its contents are released under the BSD 3-Clause License[https://opensource.org/license/BSD-3-Clause]; See LICENSE[https://github.com/krishnanlab/multiomics-embedding/blob/main/LICENSE]
 
-
-## Original Data
-
-Link to paper from original study?
-
-## Citation 
-
 ## Authors 
+Adelle Price, Sakaiza Rasolofomanana-Rajery, Keenan Manpearl, Charles E. Robertson, Nancy F. Krebs, Daniel N. Frank, Arjun Krishnan*, Audrey E. Hendricks*, Minghua Tang*  
+*These authors contributed equally.
 
 ## Funding
-
+NIH (NIDDK) 1K01DK111665-01, 1R01DK126710, the Beef Checkoff through the National Cattlemen’s Beef Association, and the National Pork Board.
