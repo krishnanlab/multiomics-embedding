@@ -22,7 +22,9 @@
 
 4. `raw/`
 
-    - `microbe_metabolites_filtered_rank_normalized.csv` - used to make edge list
+    - `metabolite_data_for_differential_abundance.csv` - metabolite feature abundance data used for differential abundance analysis
+    - `microbiome_data_for_differential_abundance.csv` - microbiome feature abundance data used for differential abundance analysis
+    - `microbe_metabolites_filtered_rank_normalized.csv` - rank normalized and merged microbiome and metabolite feature data used to make non-embedding diet and time classifiers 
     - `unfiltered_micro_metab.csv` - raw abundance of microbes and metbolites
     - `microbiome_info_data.csv` - diet group and other metadata
     - `sample_breakdown.csv` - 5 train/test splits with balanced baseline vs endpoint samples
