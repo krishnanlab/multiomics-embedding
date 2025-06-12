@@ -47,7 +47,7 @@ In this repository we only include data and results for our top performing embed
 
 
 ## License 
-This repository and all its contents are released under the (BSD 3-Clause License)[https://opensource.org/license/BSD-3-Clause]; See (LICENSE)[https://github.com/krishnanlab/multiomics-embedding/blob/main/LICENSE]
+This repository and all its contents are released under the [BSD 3-Clause License](https://opensource.org/license/BSD-3-Clause); See [LICENSE](https://github.com/krishnanlab/multiomics-embedding/blob/main/LICENSE)
 
 ## Authors 
 Adelle Price, Sakaiza Rasolofomanana-Rajery, Keenan Manpearl, Charles E. Robertson, Nancy F. Krebs, Daniel N. Frank, Arjun Krishnan*, Audrey E. Hendricks*, Minghua Tang*  
