@@ -28,4 +28,5 @@
     - `unfiltered_micro_metab.csv` - raw abundance of microbes and metbolites
     - `microbiome_info_data.csv` - diet group and other metadata
     - `sample_breakdown.csv` - 5 train/test splits with balanced baseline vs endpoint samples
+    - `All_micro_metab_KEY.csv` - Table of metabolite and microbiome feature identifiers linked to letter-numeric labels across all files
 
