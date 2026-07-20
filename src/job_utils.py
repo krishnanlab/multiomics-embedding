@@ -3,11 +3,12 @@ import time
 import logging
 from pathlib import Path
 
+
 def run_commands_concurrently(
     commands: list[list[str]],
     max_jobs: int,
     log_file: Path,
-    poll_interval: float = 30.0
+    poll_interval: float = 30.0,
 ):
 
     logging.basicConfig(
@@ -35,11 +36,9 @@ def run_commands_concurrently(
 
         print("Launching:", cmd)
         assert all(arg is not None for arg in cmd), f"Found None in {cmd!r}"
-        
+
         proc = subprocess.Popen(
-            cmd, stdout=subprocess.PIPE,
-                   stderr=subprocess.PIPE,
-                   text=True
+            cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
         )
         active[proc.pid] = (proc, idx)
         logging.info(f"[#{idx}] START PID {proc.pid}: {' '.join(cmd)}")
