@@ -10,7 +10,7 @@ Logging is done with wandb.
 
 import wandb
 from argparse import ArgumentParser
-from src.model import train_loop
+from model import train_loop
 
 
 def main(

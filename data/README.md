@@ -10,7 +10,7 @@
     so for each of the 5 original splits we need to create 10 cross validaton folds
     using the training samples only. 
 
-    These folds were created once using `src/create_splits.py` and held constant. 
+    These folds were created once using `scripts/create_splits.py` and held constant. 
     The sample IDs used for training/testing for each fold can be found in
     the `data/cv_folds/` folders. 
     Each folder (labeled 1-5) contains training node lists

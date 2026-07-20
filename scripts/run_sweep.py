@@ -56,7 +56,7 @@ def create_yaml_config(
     p_dist = get_distribution(p_min)
     q_dist = get_distribution(q_min)
     config = {
-        "program": "src/sweep.py",
+        "program": "scripts/sweep.py",
         "name": sweep_name,
         "method": "random",
         "metric": {"name": metric, "goal": "maximize"},
