@@ -6,10 +6,12 @@ This script trains a node classifier to predict
 baseline vs endpoint samples.
 
 This study's specifics: node2vec+ embeddings are generated (or loaded from
-cache) from data/edg/full_data_pecan_3.tsv, one per (p, q, gamma) combination,
-cached under data/emb/. Sample splits and time/diet labels come from
-data/raw/sample_breakdown.csv and data/raw/microbiome_info_data.csv via
-sample_labels.py.
+cache) from data/edges.tsv, one per (p, q, gamma) combination, cached under
+emb_cache/ (ephemeral per-trial output - not to be confused with data/emb/,
+which holds the curated "best" embeddings used for deployment). Time/diet
+labels come from data/{label_name}_labels.tsv and CV fold assignment from
+data/node_splits.tsv (see sample_labels.py and generate_splits.py to
+regenerate them).
 
 """
 
@@ -23,14 +25,15 @@ import wandb
 from src.dataset import Dataset
 from src.classifier import LogisticRegressionClassifier
 from src.embedding import load_or_create_embedding
-from sample_labels import load_timepoint_labels, load_sweep_diet_labels
+from sample_labels import load_time_labels, load_diet_labels
+from generate_splits import load_node_splits
 
 
 NUM_CV_FOLDS = 10
 MAX_ITER = 1000
 FIT_MAX_ITER = 500
 N_MODELS = 500
-EDG_FILE = "data/edg/full_data_pecan_3.tsv"
+EDG_FILE = "data/edges.tsv"
 
 
 def _load_sweep_dataset(
@@ -44,33 +47,28 @@ def _load_sweep_dataset(
 ) -> Dataset:
     """
     Build a Dataset for one of the 5 per-fold embeddings used to evaluate
-    node2vec+ parameters.
+    node2vec+ parameters. model_num is the held-out fold: nodes whose split
+    equals model_num are the test set, everything else (including nodes
+    with no defined split - always train, never held out) is training data.
     """
-    emb_file = f"data/emb/emb_p_{p}_q_{q}_g_{gamma}.tsv"
+    emb_file = f"emb_cache/emb_p_{p}_q_{q}_g_{gamma}.tsv"
     emb = load_or_create_embedding(EDG_FILE, emb_file, n2v_mode, p, q, gamma, seed)
-    time_labels = load_timepoint_labels(model_num)
-    train_time_idx = time_labels[time_labels["partition"] == "train"].index
-    test_time_idx = time_labels[time_labels["partition"] == "test"].index
 
-    if label_name == "time":
-        train_idx, test_idx = train_time_idx, test_time_idx
-        train_labels = time_labels.loc[train_idx, "Label"]
-        test_labels = time_labels.loc[test_idx, "Label"]
-    else:
-        train_idx = [idx for idx in train_time_idx if "End" in idx]
-        test_idx = [idx for idx in test_time_idx if "End" in idx]
-        diet_labels = load_sweep_diet_labels()
-        train_labels = diet_labels.loc[train_idx, "Label"]
-        test_labels = diet_labels.loc[test_idx, "Label"]
+    labels = load_time_labels() if label_name == "time" else load_diet_labels()
+    splits = load_node_splits()
+    joined = labels.join(splits, how="inner")
+
+    train_idx = joined.index[joined["split"] != model_num]
+    test_idx = joined.index[joined["split"] == model_num]
 
     dataset = Dataset.from_tables(
         label_name=label_name,
         feature_table=emb,
-        labels=train_labels,
+        labels=joined.loc[train_idx, "label"],
         cv_folds=NUM_CV_FOLDS,
     )
     dataset.test_data = emb.loc[test_idx]
-    dataset.test_labels = test_labels.to_numpy()
+    dataset.test_labels = joined.loc[test_idx, "label"].to_numpy()
     return dataset
 
 

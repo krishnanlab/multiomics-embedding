@@ -25,7 +25,7 @@ class FeatureZScorer:
     def from_files(cls, file_paths: dict[str, str]) -> "FeatureZScorer":
         """
         build a FeatureZScorer from files listing feature IDs, one per line,
-        e.g. {"microbes": "data/raw/microbes.txt", "metabolites": "data/raw/metabolites.txt"}
+        e.g. {"microbes": "data/nodes/microbes.txt", "metabolites": "data/nodes/metabolites.txt"}
         """
         feature_lists = {}
         for name, fp in file_paths.items():

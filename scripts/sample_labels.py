@@ -2,76 +2,61 @@
 Author: Keenan Manpearl
 Date: 2024-09-09
 
-Study-specific label loaders shared by train_deployment_models.py,
-train_baseline_models.py, and model.py: reads this study's
-data/raw/sample_breakdown.csv (partition/run/nodes columns) and
-data/raw/microbiome_info_data.csv (Group/Time columns, Dairy/Meat mapping)
-to build binary time-point and diet labels. Not part of the generic src/
-library - this is where this dataset's specific columns/paths live.
+Study-specific label generation and loading, shared by train_deployment_models.py,
+train_baseline_models.py, and model.py.
+
+Run this script directly to (re)generate data/time_labels.tsv and
+data/diet_labels.tsv from all_data/raw/sample_breakdown.csv and
+all_data/raw/microbiome_info_data.csv:
+
+    python scripts/sample_labels.py
+
+Each tsv has just two columns: node (index) and label (binary 0/1). CV fold
+assignment is stored separately in data/node_splits.tsv (see
+generate_splits.py) and shared across all label types - Dataset.from_label_tsv
+joins the two on node.
 
 """
 
 import pandas as pd
-import numpy as np
+
+TIME_LABELS_PATH = "data/time_labels.tsv"
+DIET_LABELS_PATH = "data/diet_labels.tsv"
 
 
-def load_test_indices() -> pd.DataFrame:
-    """
-    Load the test indices for cross validation
-    """
-    labels = pd.read_csv("data/raw/sample_breakdown.csv")
-    subset = labels[labels["partition"] == "test"]
-    return subset[["nodes", "run"]]
+def load_time_labels() -> pd.DataFrame:
+    """load node/label for the time-point classification target"""
+    return pd.read_csv(TIME_LABELS_PATH, sep="\t", index_col="node")
 
 
-def get_diet_indices(time_indices: pd.DataFrame) -> pd.DataFrame:
-    """
-    Get the endpoint samples for diet classification
-    """
-    return time_indices.loc[time_indices["nodes"].str.contains("End")]
+def load_diet_labels() -> pd.DataFrame:
+    """load node/label for the diet classification target"""
+    return pd.read_csv(DIET_LABELS_PATH, sep="\t", index_col="node")
 
 
-def create_timepoint_labels(time_index: pd.Index) -> pd.Series:
+def generate_label_tsvs() -> None:
     """
-    Convert time points into binary labels for ML
+    (Re)build time_labels.tsv and diet_labels.tsv from the raw study data.
     """
-    return pd.Series(
-        [1 if "End" in item else 0 for item in time_index], index=time_index
+    breakdown = pd.read_csv("all_data/raw/sample_breakdown.csv")
+    breakdown_by_node = breakdown.drop_duplicates("nodes").set_index("nodes")
+
+    time_labels = breakdown_by_node["Time"].map({"Baseline": 0, "Endpoint": 1})
+    time_labels = time_labels.rename("label").rename_axis("node").to_frame()
+    time_labels.to_csv(TIME_LABELS_PATH, sep="\t")
+
+    diet_info = pd.read_csv(
+        "all_data/raw/microbiome_info_data.csv",
+        usecols=["sample.name", "Group", "Time"],
     )
+    diet_info = diet_info.set_index("sample.name")
+    diet_info = diet_info[~diet_info.index.duplicated(keep="first")]
+
+    diet_nodes = time_labels.index[time_labels.index.str.contains("End")]
+    diet_labels = diet_info.loc[diet_nodes, "Group"].map({"Dairy": 0, "Meat": 1})
+    diet_labels = diet_labels.rename("label").rename_axis("node").to_frame()
+    diet_labels.to_csv(DIET_LABELS_PATH, sep="\t")
 
 
-def load_diet_labels(diet_index: pd.Index) -> pd.Series:
-    """
-    Convert diet into binary labels for ML
-    """
-    labels = pd.read_csv(
-        "data/raw/microbiome_info_data.csv", usecols=["sample.name", "Group", "Time"]
-    )
-    labels.index = labels["sample.name"]
-    labels["Label"] = labels["Group"].map({"Dairy": 0, "Meat": 1})
-    labels = labels[~labels.index.duplicated(keep="first")]
-    return labels.loc[diet_index, "Label"]
-
-
-def load_timepoint_labels(model: int) -> pd.DataFrame:
-    """
-    Convert time points into binary labels for ML, for one sweep fold
-    """
-    labels = pd.read_csv("data/raw/sample_breakdown.csv")
-    labels = labels[labels["run"] == model]
-    labels["Label"] = labels["Time"].map({"Baseline": 0, "Endpoint": 1})
-    labels.index = labels["nodes"]
-    return labels
-
-
-def load_sweep_diet_labels() -> pd.DataFrame:
-    """
-    Convert diet into binary labels for ML, for the sweep pipeline
-    """
-    labels = pd.read_csv(
-        "data/raw/microbiome_info_data.csv", usecols=["sample.name", "Group", "Time"]
-    )
-    labels.index = labels["sample.name"]
-    labels["Label"] = labels["Group"].map({"Dairy": 0, "Meat": 1})
-    labels = labels[~labels.index.duplicated(keep="first")]
-    return labels
+if __name__ == "__main__":
+    generate_label_tsvs()

@@ -6,7 +6,7 @@ This script trains a model using raw features
 not an embedding space.
 
 This study's specifics: raw feature counts come from
-data/raw/microbe_metabolites_filtered_rank_normalized.csv, indexed by sample.
+all_data/raw/microbe_metabolites_filtered_rank_normalized.csv, indexed by sample.
 There is no joint sample-feature embedding here, so no feature-level
 predictions are generated (see train_deployment_models.py for that).
 
@@ -18,16 +18,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import pandas as pd
-from sklearn.model_selection import PredefinedSplit
 
 from src.dataset import Dataset
 from src.classifier import LogisticRegressionClassifier
-from sample_labels import (
-    load_test_indices,
-    get_diet_indices,
-    create_timepoint_labels,
-    load_diet_labels,
-)
 from train_deployment_models import SEED, MAX_ITER, N_MODELS, N_FOLDS, SCORING
 
 
@@ -36,23 +29,16 @@ def _load_raw_omics_dataset(label_name: str) -> Dataset:
     Build a Dataset for the given classifier target using raw rank-normalized
     -omics counts, with all 5 folds combined and used as PredefinedSplit CV folds.
     """
-    time_indices = load_test_indices()
-    diet_indices = get_diet_indices(time_indices)
-    split_indices = time_indices if label_name == "time" else diet_indices
-
-    fp = "data/raw/microbe_metabolites_filtered_rank_normalized.csv"
+    fp = "all_data/raw/microbe_metabolites_filtered_rank_normalized.csv"
     raw = pd.read_csv(fp, index_col="sample").fillna(0)
-    labels = (
-        create_timepoint_labels(split_indices["nodes"])
-        if label_name == "time"
-        else load_diet_labels(split_indices["nodes"])
-    )
+    label_tsv = f"data/{label_name}_labels.tsv"
 
-    return Dataset.from_tables(
+    return Dataset.from_label_tsv(
         label_name=label_name,
         feature_table=raw,
-        labels=labels,
-        cv_folds=PredefinedSplit(split_indices["run"]),
+        label_tsv=label_tsv,
+        split_tsv="data/node_splits.tsv",
+        samples_path="data/nodes/samples.txt",
     )
 
 

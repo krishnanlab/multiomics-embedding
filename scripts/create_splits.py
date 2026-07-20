@@ -17,9 +17,9 @@ NSPLITS = 10
 
 for model in [1, 2, 3, 4, 5]:
     # make dir to save splits
-    os.makedirs(f"../data/cv_folds/{model}", exist_ok=True)
+    os.makedirs(f"all_data/cv_folds/{model}", exist_ok=True)
     # read in sample breakdown file from addelle
-    all_splits = pd.read_csv("../data/raw/sample_breakdown.csv")
+    all_splits = pd.read_csv("all_data/raw/sample_breakdown.csv")
     # get splits for specied model
     splits = all_splits[all_splits["run"] == model]
 
@@ -34,9 +34,9 @@ for model in [1, 2, 3, 4, 5]:
 
     skf = StratifiedKFold(n_splits=NSPLITS)
     for i, (train_index, test_index) in enumerate(skf.split(train_data, train_labels)):
-        with open(f"../data/cv_folds/{model}/train_{i}.txt", "w") as f:
+        with open(f"all_data/cv_folds/{model}/train_{i}.txt", "w") as f:
             for idx in train_index:
                 f.write(f"{train_ids[idx]}\n")
-        with open(f"../data/cv_folds/{model}/test_{i}.txt", "w") as f:
+        with open(f"all_data/cv_folds/{model}/test_{i}.txt", "w") as f:
             for idx in test_index:
                 f.write(f"{train_ids[idx]}\n")

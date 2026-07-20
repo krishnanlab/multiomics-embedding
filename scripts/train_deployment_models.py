@@ -7,10 +7,13 @@ Training/evaluations are done using samples (infants)
 and predictions are made for features (microbes and metabolites).
 
 This study's specifics: samples and features are jointly embedded via
-node2vec+, with rows whose index starts with "MD" being samples and every
-other row being a microbe or metabolite feature; the "best" embedding for a
-given (p, q, g) is expected to already be cached at
-data/best_emb/emb_p_{p}_q_{g}.tsv.gz.
+node2vec+, with which rows are samples vs. features given explicitly by
+data/nodes/samples.txt and data/nodes/{microbes,metabolites}.txt (not a
+naming-convention heuristic); the "best" embedding for a given (p, q, g) is
+expected to already be cached at data/emb/emb_p_{p}_q_{g}.tsv.gz. Labels
+come from data/{label_name}_labels.tsv and CV fold assignment from
+data/node_splits.tsv (see sample_labels.py and generate_splits.py to
+regenerate them).
 
 """
 
@@ -25,18 +28,11 @@ import warnings
 import os
 
 import pandas as pd
-from sklearn.model_selection import PredefinedSplit
 from sklearn.exceptions import ConvergenceWarning
 
 from src.dataset import Dataset
 from src.classifier import LogisticRegressionClassifier
 from src.zscoring import FeatureZScorer
-from sample_labels import (
-    load_test_indices,
-    get_diet_indices,
-    create_timepoint_labels,
-    load_diet_labels,
-)
 
 warnings.filterwarnings("ignore", category=ConvergenceWarning)
 
@@ -67,25 +63,17 @@ def _load_embedding_dataset(p: float, q: float, g: int, label_name: str) -> Data
     PredefinedSplit CV folds. There is no separate held-out test set: the
     same data is used for CV search and the final full-data fit.
     """
-    time_indices = load_test_indices()
-    diet_indices = get_diet_indices(time_indices)
-    split_indices = time_indices if label_name == "time" else diet_indices
-
-    emb_file = f"data/best_emb/emb_p_{p}_q_{q}_g_{g}.tsv.gz"
+    emb_file = f"data/emb/emb_p_{p}_q_{q}_g_{g}.tsv.gz"
     emb = pd.read_csv(emb_file, sep="\t", index_col=0)
-    labels = (
-        create_timepoint_labels(split_indices["nodes"])
-        if label_name == "time"
-        else load_diet_labels(split_indices["nodes"])
-    )
-    feature_matrix = emb[~emb.index.str.startswith("MD")]
+    label_tsv = f"data/{label_name}_labels.tsv"
 
-    return Dataset.from_tables(
+    return Dataset.from_label_tsv(
         label_name=label_name,
         feature_table=emb,
-        labels=labels,
-        cv_folds=PredefinedSplit(split_indices["run"]),
-        feature_matrix=feature_matrix,
+        label_tsv=label_tsv,
+        split_tsv="data/node_splits.tsv",
+        samples_path="data/nodes/samples.txt",
+        feature_paths=["data/nodes/microbes.txt", "data/nodes/metabolites.txt"],
     )
 
 
@@ -133,7 +121,10 @@ def main(p: float, q: float, g: int, out_dir: str, tag: str) -> None:
         diet_clf.write_results(f, n_folds=N_FOLDS)
 
     zscorer = FeatureZScorer.from_files(
-        {"microbes": "data/raw/microbes.txt", "metabolites": "data/raw/metabolites.txt"}
+        {
+            "microbes": "data/nodes/microbes.txt",
+            "metabolites": "data/nodes/metabolites.txt",
+        }
     )
     for clf, result, model_type in [
         (time_clf, time_result, "time"),

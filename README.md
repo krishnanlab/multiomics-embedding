@@ -31,7 +31,12 @@ The pipeline runs in this order:
 
 ## Data
 
-`data/raw/` contains the microbiome and metabolomics abundance data underlying this project, plus sample metadata and CV splits; see [data/README.md](data/README.md) for a full description of each file. Briefly:
+There are two data directories:
+
+- **`all_data/`** is the complete raw-data archive - microbiome and metabolomics abundance data, sample metadata, and the full edge list; see [all_data/README.md](all_data/README.md) for a full description of each file.
+- **`data/`** is the minimal set of files actually needed to run the deployment pipeline - the 7 curated "best" node2vec+ embeddings, the edge list, and feature-ID lists; see [data/README.md](data/README.md).
+
+Briefly, the feature types themselves:
 
 - Microbial features are gene functional annotations (KEGG `K#####` orthologs, `COG####` clusters, eggNOG `ENOG#...` groups) and taxonomic lineage strings (`k_...p_...c_...o_...f_...g_...s_...`).
 - Metabolite features are anonymized compound IDs split by extraction method (`N_AQ.###` for aqueous, `N_LP.###` for lipid).
@@ -39,7 +44,9 @@ The pipeline runs in this order:
 ## Repository Organization 
 
 ```
-├── data/            # raw and processed data
+├── all_data/        # complete raw-data archive
+├── data/            # minimal data needed to run the deployment pipeline
+├── emb_cache/        # gitignored: ephemeral per-trial embeddings written during a sweep
 ├── notebooks/       # exploratory analysis 
 ├── src/             # generic library: Dataset, LogisticRegressionClassifier, FeatureZScorer, embedding utilities
 ├── scripts/         # this study's pipelines (paths, column names, label definitions), built on src/
@@ -54,7 +61,7 @@ In this repository we only include data and results for our top performing embed
 
 **`src/` is what you need if you want to use this method on your own multi-omics data.** It's a small, dataset-agnostic library with no knowledge of this study's file paths, column names, or label names - any number of feature types, any set of binary labels. See [Library Reference](#library-reference-src) below for the full API.
 
-**`scripts/` is what reproduces our results.** It holds this study's specifics - reading `data/raw/sample_breakdown.csv`'s `partition`/`run`/`nodes` columns and `data/raw/microbiome_info_data.csv`'s `Group`/`Time` columns (`scripts/sample_labels.py`), this study's embedding file naming convention and the `MD`-prefix sample/feature split (`scripts/train_deployment_models.py`, `scripts/model.py`), and the two feature-type lists (`data/raw/microbes.txt`, `data/raw/metabolites.txt`) - and calls into `src/` to do the actual work. This is also where `run/`'s shell scripts point (`scripts/train_deployment_models.py`, `scripts/train_baseline_models.py`, `scripts/run_sweep.py`, `scripts/submit_all_embeddings.py`).
+**`scripts/` is what reproduces our results.** It holds this study's specifics - reading `all_data/raw/sample_breakdown.csv`'s `partition`/`run`/`nodes` columns and `all_data/raw/microbiome_info_data.csv`'s `Group`/`Time` columns to build `data/node_splits.tsv` (`scripts/generate_splits.py`) and `data/{time,diet}_labels.tsv` (`scripts/sample_labels.py`), this study's embedding file naming convention (`scripts/train_deployment_models.py`, `scripts/model.py`), and the explicit sample/feature-ID lists (`data/nodes/samples.txt`, `data/nodes/microbes.txt`, `data/nodes/metabolites.txt`) - and calls into `src/` to do the actual work. This is also where `run/`'s shell scripts point (`scripts/train_deployment_models.py`, `scripts/train_baseline_models.py`, `scripts/run_sweep.py`, `scripts/submit_all_embeddings.py`).
 
 ## Library Reference (`src/`)
 
@@ -64,8 +71,9 @@ This section documents every public class and method in `src/`, for anyone who w
 
 A container for one binary classification target: a train split (and optionally a held-out test split) with labels, plus an optional matrix of extra rows to generate predictions for once a classifier is trained (e.g. feature-nodes that share an embedding space with the samples).
 
-- **`Dataset(label_name, train_data, train_labels, cv_folds, test_data=None, test_labels=None, feature_matrix=None)`** - direct constructor. `train_data`/`test_data`: DataFrame or ndarray, rows = samples. `train_labels`/`test_labels`: 1-D binary (0/1) array-like, aligned with the corresponding data's rows. `cv_folds`: an int for plain k-fold, or any scikit-learn CV splitter (e.g. `PredefinedSplit`) usable as `RandomizedSearchCV`'s `cv` argument. `feature_matrix`: a DataFrame indexed by feature ID, only if your data source jointly embeds samples and features - otherwise leave it `None`.
-- **`Dataset.from_tables(label_name, feature_table, labels, cv_folds, feature_matrix=None)`** *(classmethod)* - the easiest way to build a `Dataset`: pass in an already-loaded feature table and a `labels` Series, and it aligns `feature_table.loc[labels.index]` for you. This is what every script in `scripts/` uses.
+- **`Dataset(label_name, train_data, train_labels, cv_folds, test_data=None, test_labels=None, feature_matrix=None)`** - direct constructor. `train_data`/`test_data`: DataFrame or ndarray, rows = samples. `train_labels`/`test_labels`: 1-D binary (0/1) array-like, aligned with the corresponding data's rows. `feature_matrix`: a DataFrame indexed by feature ID, only if your data source jointly embeds samples and features - otherwise leave it `None`.
+- **`Dataset.from_tables(label_name, feature_table, labels, cv_folds, feature_matrix=None)`** *(classmethod)* - build a `Dataset` from an already-loaded feature table and a `labels` Series; aligns `feature_table.loc[labels.index]` for you.
+- **`Dataset.from_label_tsv(label_name, feature_table, label_tsv, split_tsv, samples_path=None, feature_paths=None, no_split_sentinel=-1)`** *(classmethod)* - build a `Dataset` from tab-separated files instead of in-memory tables: `label_tsv` (columns `node`, `label`) joined against `split_tsv` (columns `node`, `split`). This is what every script in `scripts/` uses. **`cv_folds` and nested CV**: `split` in `split_tsv` defines the **outer** CV folds - which fold each node is held out in as a genuine test set. You build this file yourself (see `data/README.md`), stratified by class label and any other property you want balanced across folds; nothing in `src/` invents outer folds. Rows whose split equals `no_split_sentinel` (never held out) are dropped before building the `PredefinedSplit`. Passing a plain int as `cv_folds` elsewhere (e.g. to the constructor directly, or via `run_sweep`'s nested design) instead requests scikit-learn's own **inner** k-fold CV, which is automatically label-stratified since the classifier here is `LogisticRegression`. **`samples_path`/`feature_paths`**: optional plain-text files (one ID per line) telling `feature_table` which rows are training samples vs. extra feature-prediction rows, instead of relying on a naming convention (e.g. an "MD" prefix). Every listed sample must have both a label and a row in `feature_table`; every listed feature must have a row in `feature_table` - otherwise this raises `ValueError`. Rows in `feature_table`/`label_tsv` not covered by either path raise a `UserWarning`.
 - **`.features_to_predict()`** → `DataFrame | None` - returns `feature_matrix`.
 - **`.with_shuffled_labels(rng)`** → `Dataset` - returns a copy with `train_labels` randomly permuted. This is the intended extension point for permutation testing: retrain a classifier on the shuffled copy via `fit_full`, predict on features via `predict_features`, and z-score the result via `FeatureZScorer.score` to build a null distribution.
 
@@ -88,7 +96,7 @@ Runs hyperparameter search, trains a final model, evaluates it, and (if the `Dat
 Z-scores predictions within any number of named feature subsets (this study uses two: microbes and metabolites).
 
 - **`FeatureZScorer(feature_lists)`** - `feature_lists` is a `dict[str, list[str]]` mapping a subset name to the feature IDs in it.
-- **`FeatureZScorer.from_files(file_paths)`** *(classmethod)* - builds one from files listing feature IDs, one per line, e.g. `{"microbes": "data/raw/microbes.txt", "metabolites": "data/raw/metabolites.txt"}`.
+- **`FeatureZScorer.from_files(file_paths)`** *(classmethod)* - builds one from files listing feature IDs, one per line, e.g. `{"microbes": "data/nodes/microbes.txt", "metabolites": "data/nodes/metabolites.txt"}`.
 - **`.score(preds)`** → `dict[str, DataFrame]` - z-scores `preds` within each named subset, in memory. The extension point for permutation testing (build a null distribution without writing every permutation to disk).
 - **`.score_and_save(preds, out_root, tag, model_type)`** - calls `.score()` and writes each subset to `{out_root}/zscores/{tag}_{model_type}_{name}_predictions_zscored.tsv`.
 
@@ -106,8 +114,9 @@ bash run/run_deployment.sh
 
 which is equivalent to `python scripts/train_deployment_models.py` from the project root. This iterates the 7 selected embedding parameter sets hardcoded in that script's `__main__` block and, for each, requires:
 
-- a cached embedding at `data/best_emb/emb_p_{p}_q_{g}.tsv.gz` (already provided in this repo for the 7 selected spaces),
-- `data/raw/microbes.txt` and `data/raw/metabolites.txt` (the feature-ID lists used to split predictions by feature type).
+- a cached embedding at `data/emb/emb_p_{p}_q_{g}.tsv.gz` (already provided in this repo for the 7 selected spaces),
+- `data/nodes/samples.txt`, `data/nodes/microbes.txt`, and `data/nodes/metabolites.txt` (explicit ID lists saying which embedding rows are samples vs. which feature type),
+- `data/{time,diet}_labels.tsv` and `data/node_splits.tsv` (labels and CV fold assignment - see `data/README.md`; regenerate with `scripts/sample_labels.py` and `scripts/generate_splits.py` if needed).
 
 For each embedding and each classifier target (`time`, `diet`), it writes to `results/best_<date>/` (or `--out <dir>`):
 

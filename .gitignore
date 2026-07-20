@@ -1,4 +1,4 @@
-data/emb/*
+emb_cache/*
 slurm*
 wandb/*
 src/wandb/*
@@ -7,3 +7,4 @@ run_logs/*
 core.*
 configs/*
 logs/*
+results/test_deployment/*
