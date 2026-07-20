@@ -13,7 +13,17 @@ from argparse import ArgumentParser
 from src.model import train_loop
 
 
-def main(random_seed, param_dict, project_name, n2v_mode, save):
+def main(
+    random_seed: int,
+    param_dict: dict,
+    project_name: str,
+    n2v_mode: str,
+    save: bool,
+) -> None:
+    """
+    run one node2vec+ embedding and classifier training pass,
+    reading p, q, and gamma from the wandb sweep config
+    """
     with wandb.init(project=project_name, config=param_dict):
         config = wandb.config
         p = config.p

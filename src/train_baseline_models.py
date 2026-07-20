@@ -18,7 +18,9 @@ from train_deployment_models import (
 )
 
 
-def load_data(time_index, diet_index):
+def load_data(
+    time_index: pd.Index, diet_index: pd.Index
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
     load raw rank normalized data
     """
@@ -27,7 +29,7 @@ def load_data(time_index, diet_index):
     return data.loc[time_index], data.loc[diet_index]
 
 
-def main():
+def main() -> None:
     """
     main function to train models to evaluate embedding space using CV
     and extract final weights from full model

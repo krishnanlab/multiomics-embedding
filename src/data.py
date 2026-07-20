@@ -31,7 +31,11 @@ class MultiomicsEmbedding:
 
     def __init__(
         self, model: int, p: float, q: float, gamma: float, seed: int, n2v_mode: str
-    ):
+    ) -> None:
+        """
+        Load or create the embedding for the given parameters
+        and set up the associated train/test datasets.
+        """
         self.model = model
         self.p = p
         self.q = q
@@ -40,7 +44,7 @@ class MultiomicsEmbedding:
         self.nv2_mode = n2v_mode
         self.datasets = self.setup_data()
 
-    def setup_embedding(self):
+    def setup_embedding(self) -> pd.DataFrame:
         """
         Check if an embedding file with specified parameters exits.
         If not, create one.
@@ -57,7 +61,7 @@ class MultiomicsEmbedding:
             os.makedirs(root, exist_ok=True)
             return embed_network(emb_file, self.nv2_mode, p, q, gamma, self.seed)
 
-    def setup_data(self):
+    def setup_data(self) -> dict:
         """
         Set up the datasets for the given model
         """
@@ -86,7 +90,7 @@ class MultiomicsEmbedding:
         }
 
 
-def load_timepoint_labels(model: int):
+def load_timepoint_labels(model: int) -> pd.DataFrame:
     """
     Convert time points into binary labels for ML
     """
@@ -97,7 +101,7 @@ def load_timepoint_labels(model: int):
     return labels
 
 
-def load_diet_labels():
+def load_diet_labels() -> pd.DataFrame:
     """
     Convert diet into binary labels for ML
     """
@@ -112,7 +116,7 @@ def load_diet_labels():
 
 def embed_network(
     emb_file: str, nv2_mode: str, p: float, q: float, gamma: int, seed: int
-):
+) -> pd.DataFrame:
     """
     load the edge list and create a node2vec+ embedding
     """

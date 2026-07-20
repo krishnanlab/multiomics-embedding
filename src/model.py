@@ -29,7 +29,7 @@ MAX_ITER = 1000
 N_MODELS = 500
 
 
-def log_cv(search, classifier_type: str, model_num: int):
+def log_cv(search: RandomizedSearchCV, classifier_type: str, model_num: int) -> None:
     """
     parse and log the results of CV search to wandb
     """
@@ -105,7 +105,7 @@ def eval(
     split: str,
     classifier_type: str,
     model_num: int,
-):
+) -> None:
     """
     generate and log all metrics for a given split (train or test)
     """
@@ -125,7 +125,7 @@ def eval(
         wandb.summary[f"{classifier_type}_model_{model_num}_{split}_{metric}"] = score
 
 
-def log_model(classifier_type: str, model: int, params: dict):
+def log_model(classifier_type: str, model: int, params: dict) -> None:
     """
     log model hyperparameters to wandb
     """
@@ -133,7 +133,7 @@ def log_model(classifier_type: str, model: int, params: dict):
         wandb.summary[f"{classifier_type}_model_{model}_{parameter}"] = value
 
 
-def log_final_metrics(scores: dict):
+def log_final_metrics(scores: dict) -> None:
     """
     log aggregate metrics for each classifier
     and an overall embedding score to wandb
@@ -148,7 +148,7 @@ def log_final_metrics(scores: dict):
 
 def train_loop(
     p: float, q: float, gamma: int, random_seed: int, n2v_mode: str, save: bool
-):
+) -> None:
     """
     trains and evaluates all models associated with an embedding space
     """

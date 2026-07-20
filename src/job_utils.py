@@ -9,8 +9,11 @@ def run_commands_concurrently(
     max_jobs: int,
     log_file: Path,
     poll_interval: float = 30.0,
-):
-
+) -> None:
+    """
+    run a list of shell commands, keeping at most max_jobs
+    running concurrently, and log their output to log_file
+    """
     logging.basicConfig(
         filename=log_file,
         level=logging.INFO,

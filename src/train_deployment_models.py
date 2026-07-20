@@ -10,6 +10,7 @@ and predictions are made for features (microbes and metabolites).
 
 import pandas as pd
 import numpy as np
+from typing import TextIO
 from scipy.stats import uniform
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import RandomizedSearchCV, PredefinedSplit
@@ -28,7 +29,7 @@ MAX_ITER = 100
 N_MODELS = 500
 
 
-def load_test_indices():
+def load_test_indices() -> pd.DataFrame:
     """
     Load the test indices for cross validation
     """
@@ -37,14 +38,16 @@ def load_test_indices():
     return subset[["nodes", "run"]]
 
 
-def get_diet_indices(time_indices):
+def get_diet_indices(time_indices: pd.DataFrame) -> pd.DataFrame:
     """
     Get the endpoint samples for diet classification
     """
     return time_indices.loc[time_indices["nodes"].str.contains("End")]
 
 
-def load_embedding(p, q, g, time_index, diet_index):
+def load_embedding(
+    p: float, q: float, g: int, time_index: pd.Index, diet_index: pd.Index
+) -> tuple[pd.DataFrame, pd.DataFrame]:
     """
     load embedding file and return sample embeddings
     """
@@ -53,14 +56,14 @@ def load_embedding(p, q, g, time_index, diet_index):
     return emb.loc[time_index], emb.loc[diet_index]
 
 
-def create_timepoint_labels(time_index):
+def create_timepoint_labels(time_index: pd.Index) -> np.ndarray:
     """
     Convert time points into binary labels for ML
     """
     return np.array([1 if "End" in item else 0 for item in time_index])
 
 
-def load_diet_labels(diet_index):
+def load_diet_labels(diet_index: pd.Index) -> np.ndarray:
     """
     Convert diet into binary labels for ML
     """
@@ -73,7 +76,9 @@ def load_diet_labels(diet_index):
     return labels.loc[diet_index, ["Label"]].to_numpy().ravel()
 
 
-def cv_search(split_indices, emb, labels):
+def cv_search(
+    split_indices: pd.DataFrame, emb: pd.DataFrame, labels: np.ndarray
+) -> RandomizedSearchCV:
     """
     perform a randomized search to find the best hyperparameters
     """
@@ -101,7 +106,7 @@ def cv_search(split_indices, emb, labels):
     return clf.fit(emb, labels)
 
 
-def get_scores(results, best_idx):
+def get_scores(results: dict, best_idx: int) -> dict:
     """
     extract the scores from the cross validation results
     """
@@ -113,7 +118,7 @@ def get_scores(results, best_idx):
     return scores
 
 
-def write_params(param_dict, file):
+def write_params(param_dict: dict, file: TextIO) -> None:
     """
     write the best parameters to a file
     """
@@ -121,14 +126,14 @@ def write_params(param_dict, file):
         file.write(f"best {param}: {value}\n")
 
 
-def calculate_iqr(scores):
+def calculate_iqr(scores: list[float]) -> float:
     """
     calculate the interquartile range of the scores
     """
     return np.percentile(scores, 75) - np.percentile(scores, 25)
 
 
-def write_scores(search, file):
+def write_scores(search: RandomizedSearchCV, file: TextIO) -> None:
     """
     write the scores to a file
     """
@@ -143,7 +148,14 @@ def write_scores(search, file):
         file.write("\n")
 
 
-def logging(time_search, diet_search, file_path, p=None, q=None, g=None):
+def logging(
+    time_search: RandomizedSearchCV,
+    diet_search: RandomizedSearchCV,
+    file_path: str,
+    p: float | None = None,
+    q: float | None = None,
+    g: int | None = None,
+) -> None:
     """
     log all model results to a file
     """
@@ -165,7 +177,9 @@ def logging(time_search, diet_search, file_path, p=None, q=None, g=None):
         write_scores(search=diet_search, file=f)
 
 
-def save_model_weights(model, model_type, out_root, tag):
+def save_model_weights(
+    model: LogisticRegression, model_type: str, out_root: str, tag: str
+) -> None:
     """
     save the model weights to a file
     """
@@ -174,7 +188,9 @@ def save_model_weights(model, model_type, out_root, tag):
         f.writelines(f"{coef}\n" for coef in coefficients)
 
 
-def save_model(model, model_type, out_root, tag):
+def save_model(
+    model: LogisticRegression, model_type: str, out_root: str, tag: str
+) -> None:
     """
     save the model to a file
     """
@@ -182,7 +198,15 @@ def save_model(model, model_type, out_root, tag):
         pickle.dump(model, f)
 
 
-def generate_feature_predictions(model, model_type, out_root, tag, p, q, g):
+def generate_feature_predictions(
+    model: LogisticRegression,
+    model_type: str,
+    out_root: str,
+    tag: str,
+    p: float,
+    q: float,
+    g: int,
+) -> None:
     """
     generate predictions for each feature in the embedding
     and save to file
@@ -199,7 +223,17 @@ def generate_feature_predictions(model, model_type, out_root, tag, p, q, g):
     preds.to_csv(f"{out_root}/{tag}_{model_type}_feature_predictions.tsv", sep="\t")
 
 
-def train_full_model(best_params, emb, labels, model_type, out_root, tag, p, q, g):
+def train_full_model(
+    best_params: dict,
+    emb: pd.DataFrame,
+    labels: np.ndarray,
+    model_type: str,
+    out_root: str,
+    tag: str,
+    p: float,
+    q: float,
+    g: int,
+) -> None:
     """
     train the full model with the best hyperparameters
     save model, weights, and feature predictions
@@ -214,7 +248,7 @@ def train_full_model(best_params, emb, labels, model_type, out_root, tag, p, q, 
     )
 
 
-def setup_output_dir(out_dir):
+def setup_output_dir(out_dir: str | None) -> str:
     """
     create output directory if it does not exist
     """
@@ -225,7 +259,7 @@ def setup_output_dir(out_dir):
     return out_dir
 
 
-def main(p, q, g, out_dir, tag):
+def main(p: float, q: float, g: int, out_dir: str, tag: str) -> None:
     """
     main function to train models to evaluate embedding space using CV
     and extract final weights from full model

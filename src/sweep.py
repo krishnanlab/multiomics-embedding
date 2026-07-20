@@ -14,7 +14,19 @@ from argparse import ArgumentParser
 from model import train_loop
 
 
-def main(p, q, gamma, random_seed, n2v_mode, sweep_name, save):
+def main(
+    p: float,
+    q: float,
+    gamma: int,
+    random_seed: int,
+    n2v_mode: str,
+    sweep_name: str,
+    save: bool,
+) -> None:
+    """
+    run one node2vec+ embedding and classifier training pass
+    as part of a wandb hyperparameter sweep
+    """
     with wandb.init(project=sweep_name):
         train_loop(p, q, gamma, random_seed, n2v_mode, save)
     wandb.finish()

@@ -4,7 +4,7 @@ from pathlib import Path
 from job_utils import run_commands_concurrently
 
 
-def get_emb_params(emb_file):
+def get_emb_params(emb_file: str) -> tuple[str, str, str]:
     """
     parses filepath and returns p, q, and g
     """
@@ -15,7 +15,11 @@ def get_emb_params(emb_file):
 def submit_param_jobs(
     params_list: list[tuple[int, int, int]],
     max_jobs: int,
-):
+) -> None:
+    """
+    submit a training job for each (p, q, g) parameter combination,
+    running at most max_jobs concurrently
+    """
     cmds = []
     for p, q, g in params_list:
         cmds.append(

@@ -15,7 +15,7 @@ import argparse
 from job_utils import run_commands_concurrently
 
 
-def get_config_file(name):
+def get_config_file(name: str) -> str:
     """
     Get a unique file name for starting a new sweep.
     Ensures that different sweeps with the same name have different config files.
@@ -28,7 +28,7 @@ def get_config_file(name):
     return fp
 
 
-def get_distribution(min_val):
+def get_distribution(min_val: float) -> str:
     """
     if minimum value is a faction, return uniform distrubtion
     else return int unifrom
@@ -39,7 +39,16 @@ def get_distribution(min_val):
         return "int_uniform"
 
 
-def create_yaml_config(sweep_name, metric, p_min, p_max, q_min, q_max, g_min, g_max):
+def create_yaml_config(
+    sweep_name: str,
+    metric: str,
+    p_min: float,
+    p_max: float,
+    q_min: float,
+    q_max: float,
+    g_min: int,
+    g_max: int,
+) -> str:
     """
     write a yaml file with the sweep configuration
     """
@@ -71,7 +80,7 @@ def create_yaml_config(sweep_name, metric, p_min, p_max, q_min, q_max, g_min, g_
     return file_name
 
 
-def start_sweep(config_file: str, sweep_name: str):
+def start_sweep(config_file: str, sweep_name: str) -> str | None:
     """
     start a new sweep using the parameters specified in config_file
     and return the sweep ID
@@ -95,7 +104,11 @@ def submit_sweep_jobs(
     user_name: str,
     num_runs: int,
     max_jobs: int,
-):
+) -> None:
+    """
+    submit num_runs wandb agent jobs for the given sweep,
+    running at most max_jobs concurrently
+    """
     cmds = [
         ["wandb", "agent", "-p", sweep_name, "-e", user_name, "--count", "1", sweep_id]
         for _ in range(num_runs)
@@ -107,7 +120,10 @@ def submit_sweep_jobs(
     )
 
 
-def number_type(x):
+def number_type(x: str) -> int | float:
+    """
+    parse a command line argument as an int if possible, else a float
+    """
     try:
         return int(x)
     except ValueError:
