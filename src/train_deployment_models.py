@@ -198,6 +198,31 @@ def save_model(
         pickle.dump(model, f)
 
 
+def calculate_zscores(
+    preds: pd.DataFrame, model_type: str, out_root: str, tag: str
+) -> None:
+    """
+    z-score predictions separately for microbe and metabolite features,
+    using the feature lists in data/raw/microbes.txt and data/raw/metabolites.txt
+    to subset the prediction index, and save each subset to its own tsv
+    """
+    feature_files = {
+        "microbes": "data/raw/microbes.txt",
+        "metabolites": "data/raw/metabolites.txt",
+    }
+    zscore_dir = f"{out_root}/zscores"
+    os.makedirs(zscore_dir, exist_ok=True)
+    for feature_type, fp in feature_files.items():
+        with open(fp) as f:
+            features = f.read().splitlines()
+        subset = preds.loc[features]
+        zscored = (subset - subset.mean()) / subset.std()
+        zscored.to_csv(
+            f"{zscore_dir}/{tag}_{model_type}_{feature_type}_predictions_zscored.tsv",
+            sep="\t",
+        )
+
+
 def generate_feature_predictions(
     model: LogisticRegression,
     model_type: str,
@@ -221,6 +246,7 @@ def generate_feature_predictions(
     preds = model.predict_proba(features)
     preds = pd.DataFrame(preds, index=features.index, columns=colnames[model_type])
     preds.to_csv(f"{out_root}/{tag}_{model_type}_feature_predictions.tsv", sep="\t")
+    calculate_zscores(preds=preds, model_type=model_type, out_root=out_root, tag=tag)
 
 
 def train_full_model(
