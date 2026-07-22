@@ -16,4 +16,7 @@ exec conda run -n multiomics \
        --name time_point \
        --metric time_avg_val_f1 \
        --p_max 100 \
-       --q_max 100
+       --q_max 100 \
+       --edges-file data/edges.tsv \
+       --samples-file data/nodes/samples.txt \
+       --feature-files data/nodes/microbes.txt data/nodes/metabolites.txt

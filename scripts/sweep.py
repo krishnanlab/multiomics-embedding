@@ -2,68 +2,94 @@
 Author: Keenan Manpearl
 Date: 2024-09-09
 
-This script performs n2v+ embedding
-and trains a diet and timepoint node classifier
-for each of the 5 models.
-as part of a wandb hyperparameter sweep
+This script parses CLI args into an EmbeddingParams and runs one
+node2vec+ embedding + classifier sweep pass (see src/sweep.py's
+SweepRunner) for this study's time/diet classifiers (see
+scripts/sweep_setup.py), optionally as part of a wandb hyperparameter
+sweep (or standalone, see --no-wandb).
 
 """
 
-import wandb
 from argparse import ArgumentParser
-from model import train_loop
+
+from cli_common import (
+    add_embedding_args,
+    add_wandb_args,
+    require_wandb_project,
+    resolve_embedding,
+    run_with_optional_wandb,
+)
+from sweep_setup import build_sweep_runner  # fixes sys.path for src.*
+from src.sweep import EmbeddingParams
 
 
 def main(
-    p: float,
-    q: float,
-    gamma: int,
-    random_seed: int,
-    n2v_mode: str,
-    sweep_name: str,
-    save: bool,
-) -> None:
+    params: EmbeddingParams,
+    edg_file: str,
+    sweep_name: "str | None",
+    save_to: "str | None",
+    log_wandb: bool,
+    embedding=None,
+    inner_cv_folds: int = 10,
+) -> dict:
     """
-    run one node2vec+ embedding and classifier training pass
-    as part of a wandb hyperparameter sweep
+    run one node2vec+ embedding and classifier training pass, optionally as
+    part of a wandb hyperparameter sweep. Always returns the SweepRunner's
+    results dict.
     """
-    with wandb.init(project=sweep_name):
-        train_loop(p, q, gamma, random_seed, n2v_mode, save)
-    wandb.finish()
+    runner = build_sweep_runner(edg_file=edg_file, inner_cv_folds=inner_cv_folds)
+    return run_with_optional_wandb(
+        lambda wandb_on: runner.run(
+            params, log_wandb=wandb_on, save_models_to=save_to, embedding=embedding
+        ),
+        sweep_name,
+        log_wandb,
+    )
 
 
 if __name__ == "__main__":
     parser = ArgumentParser()
-    parser.add_argument("--p", help="node2vec p parameter", required=True, type=float)
-    parser.add_argument("--q", help="node2vec q parameter", required=True, type=float)
-    parser.add_argument("--g", help="node2vec gamma parameter", required=True, type=int)
+    add_embedding_args(parser)
+    add_wandb_args(parser)
     parser.add_argument(
-        "--seed", help="seed for reproducibility", required=False, type=int, default=42
+        "--save-to",
+        help="directory to save the model and results JSON to (default: don't save)",
+        required=False,
+        default=None,
     )
     parser.add_argument(
-        "--n2v",
-        help="node2vec graph type: effects time and memory usage",
+        "--inner-cv-folds",
+        help="number of inner CV folds for the hyperparameter search within "
+        "each outer fold",
         required=False,
-        type=str,
-        choices=["OTF", "Pre"],
-        default="OTF",
-    )
-    parser.add_argument("--sweep", help="sweep name", required=True, type=str)
-    parser.add_argument(
-        "--save",
-        help="whether to save the model",
-        required=False,
-        type=bool,
-        default=False,
+        type=int,
+        default=10,
     )
 
     args = parser.parse_args()
+    require_wandb_project(args)
 
-    seed = args.seed
-    n2v_mode = args.n2v
-    p = args.p
-    q = args.q
-    g = args.g
-    sweep_name = args.sweep
-    save = args.save
-    main(p, q, g, seed, n2v_mode, sweep_name, save)
+    embedding = resolve_embedding(args)
+
+    params = EmbeddingParams(
+        p=args.p,
+        q=args.q,
+        gamma=args.g,
+        dim=args.dim,
+        walk_length=args.walk_length,
+        window_size=args.window_size,
+        n2v_mode=args.n2v,
+        seed=args.seed,
+        workers=args.workers,
+    )
+    results = main(
+        params=params,
+        edg_file=args.edges_file,
+        sweep_name=args.sweep,
+        save_to=args.save_to,
+        log_wandb=not args.no_wandb,
+        embedding=embedding,
+        inner_cv_folds=args.inner_cv_folds,
+    )
+    if args.no_wandb:
+        print(results)

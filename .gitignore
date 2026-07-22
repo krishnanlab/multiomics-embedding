@@ -1,10 +1,14 @@
 emb_cache/*
 slurm*
 wandb/*
+sweep/*
 src/wandb/*
 run_logs/*
 *__pycache__*
 core.*
 configs/*
 logs/*
+logging/*
+jobs/*
+test_data/*
 results/test_deployment/*

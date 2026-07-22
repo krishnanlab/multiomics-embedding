@@ -2,8 +2,8 @@
 Author: Keenan Manpearl
 Date: 2024-09-09
 
-Z-scores prediction probabilities within named feature subsets (e.g. microbes
-vs metabolites), given feature ID lists. Works on any prediction DataFrame
+Z-scores prediction probabilities within named feature subsets (e.g. microbial
+vs metabolite), given feature ID lists. Works on any prediction DataFrame
 indexed by feature ID, not specific to any one Dataset or pipeline.
 
 """

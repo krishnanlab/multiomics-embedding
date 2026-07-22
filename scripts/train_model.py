@@ -10,7 +10,9 @@ Logging is done with wandb.
 
 import wandb
 from argparse import ArgumentParser
-from model import train_loop
+
+from sweep_setup import build_sweep_runner  # fixes sys.path for src.*
+from src.sweep import EmbeddingParams
 
 
 def main(
@@ -24,12 +26,21 @@ def main(
     run one node2vec+ embedding and classifier training pass,
     reading p, q, and gamma from the wandb sweep config
     """
+    runner = build_sweep_runner()
     with wandb.init(project=project_name, config=param_dict):
         config = wandb.config
-        p = config.p
-        q = config.q
-        gamma = config.gamma
-        train_loop(p, q, gamma, random_seed, n2v_mode, save)
+        params = EmbeddingParams(
+            p=config.p,
+            q=config.q,
+            gamma=config.gamma,
+            n2v_mode=n2v_mode,
+            seed=random_seed,
+        )
+        runner.run(
+            params,
+            log_wandb=True,
+            save_models_to="results/models" if save else None,
+        )
     wandb.finish()
 
 

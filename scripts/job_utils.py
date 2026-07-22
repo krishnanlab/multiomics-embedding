@@ -14,6 +14,7 @@ def run_commands_concurrently(
     run a list of shell commands, keeping at most max_jobs
     running concurrently, and log their output to log_file
     """
+    Path(log_file).parent.mkdir(parents=True, exist_ok=True)
     logging.basicConfig(
         filename=log_file,
         level=logging.INFO,

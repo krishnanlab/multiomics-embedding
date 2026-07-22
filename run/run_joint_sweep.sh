@@ -13,4 +13,7 @@ exec conda run -n multiomics \
        --username "$USERNAME" \
        --runs 200 \
        --max_jobs 4 \
-       --name joint_optimization_test
+       --name joint_optimization_test \
+       --edges-file data/edges.tsv \
+       --samples-file data/nodes/samples.txt \
+       --feature-files data/nodes/microbes.txt data/nodes/metabolites.txt

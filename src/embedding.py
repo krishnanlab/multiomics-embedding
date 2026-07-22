@@ -30,16 +30,36 @@ def load_or_create_embedding(
     q: float,
     gamma: float,
     seed: int,
+    dim: int = 128,
+    walk_length: int = 80,
+    window_size: int = 10,
+    workers: int = 4,
 ) -> pd.DataFrame:
     """
     Load a cached embedding from emb_file if it exists; otherwise create one
     from edg_file with the given node2vec+ parameters and cache it there.
+    dim/walk_length/window_size default to pecanpy's own library defaults.
+    workers should match however many CPUs are actually available (e.g. a
+    SLURM job's --cpus-per-task) - pecanpy/gensim parallelize within this
+    one process via threads, not separate tasks.
     """
     if os.path.exists(emb_file):
         print(f"Loading embedding from file")
         return pd.read_csv(emb_file, sep="\t", index_col=0)
     os.makedirs(os.path.dirname(emb_file), exist_ok=True)
-    return _embed_network(edg_file, emb_file, n2v_mode, p, q, gamma, seed)
+    return _embed_network(
+        edg_file,
+        emb_file,
+        n2v_mode,
+        p,
+        q,
+        gamma,
+        seed,
+        dim,
+        walk_length,
+        window_size,
+        workers,
+    )
 
 
 def _embed_network(
@@ -50,6 +70,10 @@ def _embed_network(
     q: float,
     gamma: int,
     seed: int,
+    dim: int,
+    walk_length: int,
+    window_size: int,
+    workers: int,
 ) -> pd.DataFrame:
     """
     load the edge list and create a node2vec+ embedding
@@ -59,7 +83,7 @@ def _embed_network(
         g = node2vec.SparseOTF(
             p=p,
             q=q,
-            workers=4,
+            workers=workers,
             verbose=True,
             extend=True,
             gamma=gamma,
@@ -71,7 +95,7 @@ def _embed_network(
         g = node2vec.PreComp(
             p=p,
             q=q,
-            workers=4,
+            workers=workers,
             verbose=True,
             extend=True,
             gamma=gamma,
@@ -80,7 +104,7 @@ def _embed_network(
         g.read_edg(edg_file, weighted=True, directed=False)
         g.preprocess_transition_probs()
     nodes = g.nodes
-    emb = g.embed()
+    emb = g.embed(dim=dim, walk_length=walk_length, window_size=window_size)
     df = pd.DataFrame(emb, index=nodes)
     df.to_csv(emb_file, sep="\t")
     return df

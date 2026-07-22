@@ -79,14 +79,14 @@ import numpy as np
 from sklearn.model_selection import BaseCrossValidator, PredefinedSplit
 
 
-def _read_ids(path: str) -> "set[str]":
+def read_ids(path: str) -> "set[str]":
     """read a newline-separated list of IDs (samples or features) from a text file"""
     with open(path) as f:
         return {line.strip() for line in f if line.strip()}
 
 
-def _require_present(
-    ids: "set[str]", available: "pd.Index", kind: str, requirement: str
+def require_present(
+    ids: "set[str]", available: "pd.Index | set[str]", kind: str, requirement: str
 ) -> None:
     """raise ValueError listing any of ids missing from available"""
     missing = ids - set(available)
@@ -98,8 +98,8 @@ def _require_present(
         )
 
 
-def _warn_if_unaccounted(
-    available: "pd.Index", accounted_for: "set[str]", description: str
+def warn_if_unaccounted(
+    available: "pd.Index | set[str]", accounted_for: "set[str]", description: str
 ) -> None:
     """warn listing any entries of available missing from accounted_for"""
     extra = set(available) - accounted_for
@@ -191,13 +191,11 @@ class Dataset:
         # validate against the raw label file, before the sentinel-fold filter below
         # drops nodes with no CV fold - those still have labels, just no fold to train/test on
         samples = (
-            _read_ids(samples_path) if samples_path is not None else set(labels.index)
+            read_ids(samples_path) if samples_path is not None else set(labels.index)
         )
-        _require_present(samples, labels.index, "sample", "a label")
-        _require_present(
-            samples, feature_table.index, "sample", "a row in feature_table"
-        )
-        _warn_if_unaccounted(labels.index, samples, "label_tsv rows")
+        require_present(samples, labels.index, "sample", "a label")
+        require_present(samples, feature_table.index, "sample", "a row in feature_table")
+        warn_if_unaccounted(labels.index, samples, "label_tsv rows")
 
         joined = pd.concat([labels, splits], axis=1, join="inner")
         joined = joined[joined.index.isin(samples)]
@@ -205,14 +203,14 @@ class Dataset:
 
         features: "set[str]" = set()
         for path in feature_paths or []:
-            features |= _read_ids(path)
+            features |= read_ids(path)
         if feature_paths is not None:
-            _require_present(
+            require_present(
                 features, feature_table.index, "feature", "a row in feature_table"
             )
 
         if samples_path is not None or feature_paths is not None:
-            _warn_if_unaccounted(
+            warn_if_unaccounted(
                 feature_table.index, samples | features, "feature_table rows"
             )
 

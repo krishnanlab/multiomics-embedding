@@ -1,0 +1,168 @@
+"""
+Generic node2vec+ -> classifier deployment runner. Not specific to any
+one study: given an edge list, a set of node2vec+ parameters, and any
+number of binary-classification label tsvs, handles generating (or
+loading a cached) embedding, then for each label fits a final classifier
+on *all* available data (via LogisticRegressionClassifier.run_deployment
+- a PredefinedSplit built from every fold is used for the hyperparameter
+search itself, but there is no held-out test set - see
+src/classifier.py), optionally saving the model/weights/feature-
+predictions.
+
+Sibling to src/sweep.py's SweepRunner, both extending BaseRunner there
+for the shared embedding-generation/caching and classifier-construction
+logic - kept as separate classes (not folded into SweepRunner) since
+"evaluate this embedding via nested CV" and "fit the final model on
+everything" are genuinely different procedures, not variants of one.
+
+Required data format
+---------------------
+- labels: dict[str, DeploymentTask], one entry per classifier to train -
+  each names its own label tsv and prediction column order (see
+  DeploymentTask). samples_path/feature_paths/split_tsv are shared across
+  every label (see Dataset.from_label_tsv for their exact format).
+
+"""
+
+from dataclasses import dataclass
+
+import pandas as pd
+import wandb
+
+from src.dataset import Dataset
+from src.sweep import BaseRunner, EmbeddingParams
+
+
+@dataclass
+class DeploymentTask:
+    """
+    One binary classifier to train as part of a deployment run. samples_path
+    is per-task (not shared across labels, unlike feature_paths) since which
+    samples must have a label genuinely varies by label - e.g. this study's
+    diet label only applies to endpoint samples, not baseline, so its
+    samples_path is None (Dataset.from_label_tsv then just trusts label_tsv's
+    own rows instead of validating against an explicit list).
+    """
+
+    label_tsv: str  # path: two columns, node/label (0/1)
+    pred_columns: list[str]  # [negative_class_name, positive_class_name]
+    samples_path: "str | None" = None
+
+
+class DeploymentRunner(BaseRunner):
+    """
+    Fits a final classifier per label on all available data for one
+    embedding space (no held-out test set - see module docstring).
+    """
+
+    def __init__(
+        self,
+        edg_file: str,
+        split_tsv: str,
+        feature_paths: list[str],
+        labels: dict[str, DeploymentTask],
+        scoring: "str | list[str]" = "f1",
+        refit: "bool | str" = True,
+        **kwargs,
+    ) -> None:
+        super().__init__(edg_file, **kwargs)
+        self.split_tsv = split_tsv
+        self.feature_paths = feature_paths
+        self.labels = labels
+        self.scoring = scoring
+        self.refit = refit
+
+    def _dataset_for_label(self, label_name: str, emb: pd.DataFrame) -> Dataset:
+        task = self.labels[label_name]
+        return Dataset.from_label_tsv(
+            label_name=label_name,
+            feature_table=emb,
+            label_tsv=task.label_tsv,
+            split_tsv=self.split_tsv,
+            samples_path=task.samples_path,
+            feature_paths=self.feature_paths,
+        )
+
+    def run(
+        self,
+        params: EmbeddingParams,
+        save_to: str | None = None,
+        embedding: "pd.DataFrame | None" = None,
+        log_wandb: bool = False,
+    ) -> dict:
+        """
+        Generate/load the embedding once (or use the given embedding
+        as-is, skipping generation entirely, if one is passed), then for
+        each label fit a final model on all data. Returns a dict with
+        each label's best hyperparameters, feature predictions (if any),
+        and median/IQR/mean CV score (from the deployment fit's own
+        hyperparameter search - there's no held-out fold here, so this is
+        the closest equivalent to SweepRunner's val score) plus an
+        overall combined_score; always returned, independent of save_to.
+        """
+        emb = self._load_embedding(params, embedding)
+        if save_to:
+            self._ensure_save_dir(save_to)
+        # RandomizedSearchCV names the score column "score" for a single
+        # scoring string, or the metric's own name (must be in scoring)
+        # for a list of scoring metrics - same convention as
+        # LogisticRegressionClassifier.run_sweep's score_metric
+        score_metric = self.refit if isinstance(self.scoring, list) else "score"
+
+        results: dict = {}
+        scores: dict[str, list[float]] = {}
+        for label_name, task in self.labels.items():
+            dataset = self._dataset_for_label(label_name, emb)
+            clf = self._make_classifier(
+                label_name,
+                task.pred_columns,
+                params.seed,
+                scoring=self.scoring,
+                refit=self.refit,
+                n_jobs=params.workers,
+            )
+            result = clf.run_deployment(dataset)
+            n_folds = dataset.cv_folds.get_n_splits()
+            fold_scores = clf._cv_fold_scores(score_metric, n_folds)
+            scores[label_name] = list(fold_scores.values())
+            if log_wandb:
+                self._log_label_wandb(label_name, fold_scores, result.best_params)
+            if save_to:
+                tag = params.cache_tag(self.edg_file)
+                if isinstance(self.scoring, list):
+                    with open(f"{save_to}/{label_name}_{tag}_logging.txt", "w") as f:
+                        f.write("============== Node2Vec Parameters ==============\n")
+                        for param_name, value in vars(params).items():
+                            f.write(f"{param_name}: {value}\n")
+                        f.write("\n")
+                        clf.write_results(f, n_folds=n_folds)
+                clf.save(f"{save_to}/{label_name}_{tag}_model.pkl")
+                clf.save_weights(f"{save_to}/{label_name}_{tag}_weights.txt")
+                if result.feature_predictions is not None:
+                    result.feature_predictions.to_csv(
+                        f"{save_to}/{label_name}_{tag}_feature_predictions.tsv",
+                        sep="\t",
+                    )
+            results[label_name] = {
+                "best_params": result.best_params,
+                "feature_predictions": result.feature_predictions,
+            }
+
+        metrics = self._aggregate(scores)
+        if log_wandb:
+            self._log_summary_wandb(metrics)
+        for label_name in results:
+            results[label_name].update(metrics[label_name])
+
+        full_results = {"edg_file": self.edg_file, **vars(params), **results,
+                         "combined_score": metrics["combined_score"]}
+        if save_to:
+            self._save_results_json(save_to, params, full_results)
+        return full_results
+
+    @staticmethod
+    def _log_label_wandb(label_name: str, fold_scores: dict, best_params: dict) -> None:
+        for fold_idx, score in fold_scores.items():
+            wandb.summary[f"{label_name}_val_{fold_idx}_f1"] = score
+        for param, value in best_params.items():
+            wandb.summary[f"{label_name}_{param}"] = value

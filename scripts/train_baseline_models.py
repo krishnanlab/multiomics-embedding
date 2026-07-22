@@ -6,7 +6,7 @@ This script trains a model using raw features
 not an embedding space.
 
 This study's specifics: raw feature counts come from
-all_data/raw/microbe_metabolites_filtered_rank_normalized.csv, indexed by sample.
+raw_data/microbe_metabolites_filtered_rank_normalized.csv, indexed by sample.
 There is no joint sample-feature embedding here, so no feature-level
 predictions are generated (see train_deployment_models.py for that).
 
@@ -21,7 +21,14 @@ import pandas as pd
 
 from src.dataset import Dataset
 from src.classifier import LogisticRegressionClassifier
-from train_deployment_models import SEED, MAX_ITER, N_MODELS, N_FOLDS, SCORING
+from train_deployment_models import SEED, MAX_ITER, N_MODELS, SCORING
+
+
+# time_labels.tsv covers every sample (Base + End), so it's validated
+# against the full samples.txt; diet_labels.tsv only covers endpoint samples
+# (diet group isn't meaningful at baseline), so it has no samples_path -
+# Dataset.from_label_tsv just trusts diet_labels.tsv's own rows instead
+SAMPLES_PATH = {"time": "data/nodes/samples.txt", "diet": None}
 
 
 def _load_raw_omics_dataset(label_name: str) -> Dataset:
@@ -29,7 +36,7 @@ def _load_raw_omics_dataset(label_name: str) -> Dataset:
     Build a Dataset for the given classifier target using raw rank-normalized
     -omics counts, with all 5 folds combined and used as PredefinedSplit CV folds.
     """
-    fp = "all_data/raw/microbe_metabolites_filtered_rank_normalized.csv"
+    fp = "raw_data/microbe_metabolites_filtered_rank_normalized.csv"
     raw = pd.read_csv(fp, index_col="sample").fillna(0)
     label_tsv = f"data/{label_name}_labels.tsv"
 
@@ -38,7 +45,7 @@ def _load_raw_omics_dataset(label_name: str) -> Dataset:
         feature_table=raw,
         label_tsv=label_tsv,
         split_tsv="data/node_splits.tsv",
-        samples_path="data/nodes/samples.txt",
+        samples_path=SAMPLES_PATH[label_name],
     )
 
 
@@ -71,10 +78,10 @@ def main() -> None:
 
     with open("results/best/baseline_logging.txt", "w") as f:
         f.write("============== Timepoint Classification ==============\n")
-        time_clf.write_results(f, n_folds=N_FOLDS)
+        time_clf.write_results(f, n_folds=time_dataset.cv_folds.get_n_splits())
         f.write("\n")
         f.write("============== Diet Classification ==============\n")
-        diet_clf.write_results(f, n_folds=N_FOLDS)
+        diet_clf.write_results(f, n_folds=diet_dataset.cv_folds.get_n_splits())
 
 
 if __name__ == "__main__":

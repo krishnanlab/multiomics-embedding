@@ -36,6 +36,11 @@ from sklearn.metrics import (
 from src.dataset import Dataset
 
 
+def iqr(scores: list[float]) -> float:
+    """interquartile range (75th percentile - 25th percentile)"""
+    return np.percentile(scores, 75) - np.percentile(scores, 25)
+
+
 @dataclass
 class SweepResult:
     """Everything a caller needs to report on one run_sweep() call."""
@@ -83,6 +88,7 @@ class LogisticRegressionClassifier:
         scoring: str | list[str] = "f1",
         refit: bool | str = True,
         param_distributions: list[dict] | None = None,
+        n_jobs: int | None = None,
     ) -> None:
         self.label_name = label_name
         self.pred_columns = pred_columns
@@ -93,13 +99,16 @@ class LogisticRegressionClassifier:
         self.scoring = scoring
         self.refit = refit
         self.param_distributions = param_distributions or DEFAULT_PARAM_DISTRIBUTIONS
+        self.n_jobs = n_jobs
         self.search_: RandomizedSearchCV | None = None
         self.model_: LogisticRegression | None = None
 
     def cv_search(self, dataset: Dataset) -> "LogisticRegressionClassifier":
         """
         use a RandomizedSearchCV to find the best hyperparameters,
-        validating on dataset.cv_folds
+        validating on dataset.cv_folds. n_jobs parallelizes across
+        candidate x fold combinations via joblib - None (the sklearn
+        default) means single-threaded, -1 means "all available cores".
         """
         log_reg = LogisticRegression(random_state=self.seed, max_iter=self.cv_max_iter)
         clf = RandomizedSearchCV(
@@ -110,6 +119,7 @@ class LogisticRegressionClassifier:
             scoring=self.scoring,
             refit=self.refit,
             random_state=self.seed,
+            n_jobs=self.n_jobs,
         )
         self.search_ = clf.fit(dataset.train_data, dataset.train_labels)
         return self
@@ -173,13 +183,9 @@ class LogisticRegressionClassifier:
             for fold, s in scores.items():
                 file.write(f"fold {fold}: {s}\n")
             file.write(f"median score: {np.median(list(scores.values()))}\n")
-            file.write(f"IQR: {self._iqr(list(scores.values()))}\n")
+            file.write(f"IQR: {iqr(list(scores.values()))}\n")
             file.write(f"variance: {np.var(list(scores.values()))}\n")
             file.write("\n")
-
-    @staticmethod
-    def _iqr(scores: list[float]) -> float:
-        return np.percentile(scores, 75) - np.percentile(scores, 25)
 
     def predict_features(self, dataset: Dataset) -> pd.DataFrame | None:
         """

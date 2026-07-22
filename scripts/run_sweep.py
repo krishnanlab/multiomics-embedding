@@ -13,6 +13,7 @@ import yaml
 import subprocess
 import argparse
 from job_utils import run_commands_concurrently
+import slurm_utils
 
 
 def get_config_file(name: str) -> str:
@@ -20,6 +21,7 @@ def get_config_file(name: str) -> str:
     Get a unique file name for starting a new sweep.
     Ensures that different sweeps with the same name have different config files.
     """
+    os.makedirs("configs", exist_ok=True)
     fp = f"configs/sweep_config_{name}.yaml"
     count = 1
     while os.path.exists(fp):
@@ -48,9 +50,21 @@ def create_yaml_config(
     q_max: float,
     g_min: int,
     g_max: int,
+    edges_file: str,
+    samples_file: str,
+    feature_files: list[str],
+    workers: int,
 ) -> str:
     """
-    write a yaml file with the sweep configuration
+    write a yaml file with the sweep configuration. edges_file/
+    samples_file/feature_files are passed through as-is to scripts/sweep.py
+    (required there since this session's node-list validation was added) -
+    this script doesn't hardcode which study/graph is being swept, that's
+    the caller's job (see run/run_initial_sweep.sh, run/run_joint_sweep.sh).
+    workers is fixed across every trial (not swept) - pass it explicitly
+    rather than relying on scripts/sweep.py's own default so it can be
+    matched to the actual CPUs available, whether that's local (--max_jobs
+    concurrent agents sharing a machine) or per-SLURM-job (--slurm-cpus).
     """
     file_name = get_config_file(sweep_name)
     p_dist = get_distribution(p_min)
@@ -72,6 +86,14 @@ def create_yaml_config(
             "OTF",
             "--sweep",
             sweep_name,
+            "--edges-file",
+            edges_file,
+            "--samples-file",
+            samples_file,
+            "--feature-files",
+            *feature_files,
+            "--workers",
+            str(workers),
             "${args}",
         ],
     }
@@ -104,20 +126,40 @@ def submit_sweep_jobs(
     user_name: str,
     num_runs: int,
     max_jobs: int,
+    slurm: bool = False,
+    slurm_time: str = slurm_utils.DEFAULT_TIME,
+    slurm_mem: str = slurm_utils.DEFAULT_MEM,
+    slurm_cpus: int = slurm_utils.DEFAULT_CPUS,
 ) -> None:
     """
-    submit num_runs wandb agent jobs for the given sweep,
-    running at most max_jobs concurrently
+    Submit num_runs wandb agent jobs for the given sweep. By default (slurm=
+    False - the non-SLURM case) these run as local subprocesses, at most
+    max_jobs concurrently, exactly as before. If slurm=True, each run is
+    instead submitted as its own SLURM job via scripts/slurm_utils.py (and
+    jobs/template.sh - edit that per-cluster, nothing here needs to change);
+    max_jobs is unused in that case since SLURM's own queue manages
+    concurrency.
     """
-    cmds = [
-        ["wandb", "agent", "-p", sweep_name, "-e", user_name, "--count", "1", sweep_id]
-        for _ in range(num_runs)
-    ]
-    run_commands_concurrently(
-        commands=cmds,
-        max_jobs=max_jobs,
-        log_file=os.path.join("logs", f"{sweep_name}.log"),
-    )
+    agent_cmd = ["wandb", "agent", "-p", sweep_name, "-e", user_name, "--count", "1", sweep_id]
+
+    if not slurm:
+        cmds = [agent_cmd for _ in range(num_runs)]
+        run_commands_concurrently(
+            commands=cmds,
+            max_jobs=max_jobs,
+            log_file=os.path.join("logs", f"{sweep_name}.log"),
+        )
+        return
+
+    for i in range(num_runs):
+        slurm_utils.submit_job(
+            command=" ".join(agent_cmd),
+            job_name=f"{sweep_name}_{i}",
+            log_dir="logging",
+            time=slurm_time,
+            mem=slurm_mem,
+            cpus=slurm_cpus,
+        )
 
 
 def number_type(x: str) -> int | float:
@@ -207,6 +249,47 @@ if __name__ == "__main__":
     parser.add_argument(
         "--g_max", help="maximum g value to test", required=False, type=int, default=2
     )
+    parser.add_argument(
+        "--edges-file", help="edge list to sweep over", required=True
+    )
+    parser.add_argument(
+        "--samples-file",
+        help="path to a newline-separated list of sample node IDs",
+        required=True,
+    )
+    parser.add_argument(
+        "--feature-files",
+        help="one or more newline-separated lists of feature node IDs",
+        required=True,
+        nargs="+",
+    )
+    parser.add_argument(
+        "--slurm",
+        help="submit each wandb agent run as its own SLURM job (via "
+        "jobs/template.sh - see scripts/slurm_utils.py) instead of running "
+        "them as local concurrent subprocesses",
+        action="store_true",
+    )
+    parser.add_argument(
+        "--slurm-time", default=slurm_utils.DEFAULT_TIME, help="SLURM --time per run"
+    )
+    parser.add_argument(
+        "--slurm-mem", default=slurm_utils.DEFAULT_MEM, help="SLURM --mem per run"
+    )
+    parser.add_argument(
+        "--slurm-cpus",
+        type=int,
+        default=slurm_utils.DEFAULT_CPUS,
+        help="SLURM --cpus-per-task per run",
+    )
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=None,
+        help="thread count each trial's scripts/sweep.py uses (embedding "
+        "generation + CV search) - defaults to --slurm-cpus when --slurm is "
+        "set (matching the job's own allocation), else 4",
+    )
 
     args = parser.parse_args()
 
@@ -215,6 +298,9 @@ if __name__ == "__main__":
     num_runs = args.runs
     max_jobs = args.max_jobs
     metric = args.metric
+    workers = args.workers if args.workers is not None else (
+        args.slurm_cpus if args.slurm else 4
+    )
 
     # either start a new sweep if no sweep ID is provided
     if args.sweep is None:
@@ -226,19 +312,23 @@ if __name__ == "__main__":
         g_min = args.g_min
         g_max = args.g_max
         file_name = create_yaml_config(
-            sweep_name, metric, p_min, p_max, q_min, q_max, g_min, g_max
+            sweep_name, metric, p_min, p_max, q_min, q_max, g_min, g_max,
+            args.edges_file, args.samples_file, args.feature_files, workers,
         )
         sweep_id = start_sweep(file_name, sweep_name)
         if sweep_id is None:
-            ValueError("Sweep ID not found. Are you logged into wandb?")
+            raise ValueError("Sweep ID not found. Are you logged into wandb?")
     else:
         # or get ID if resuming sweep
         sweep_id = args.sweep
-    # submit each run as a slurm job
     submit_sweep_jobs(
         sweep_id=sweep_id,
         sweep_name=sweep_name,
         user_name=username,
         num_runs=num_runs,
         max_jobs=max_jobs,
+        slurm=args.slurm,
+        slurm_time=args.slurm_time,
+        slurm_mem=args.slurm_mem,
+        slurm_cpus=args.slurm_cpus,
     )
