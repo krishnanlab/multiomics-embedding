@@ -1,7 +1,7 @@
 
 This directory holds the minimal set of files needed to run the deployment
 pipeline (`scripts/train_deployment_models.py`) - not the full raw-data
-archive, which lives in [`all_data/`](../all_data/README.md).
+archive, which lives in [`raw_data/`](../raw_data/README.md).
 
 1. `emb/`
 
@@ -42,7 +42,7 @@ archive, which lives in [`all_data/`](../all_data/README.md).
       never held out (still valid training data for every fold, just never
       evaluated on)
     - these are hand-defined, fixed folds - see "Nested cross-validation"
-      below - generated from `all_data/raw/sample_breakdown.csv` by
+      below - generated from `raw_data/sample_breakdown.csv` by
       `scripts/generate_splits.py`. 
     - shared across every label type, so fold assignment is stored once
       rather than duplicated into each label file
@@ -50,8 +50,8 @@ archive, which lives in [`all_data/`](../all_data/README.md).
 5. `time_labels.tsv`, `diet_labels.tsv`
 
     - two columns each: `node`, `label` (binary 0/1)
-    - generated from `all_data/raw/sample_breakdown.csv` and
-      `all_data/raw/microbiome_info_data.csv` by `scripts/sample_labels.py`
+    - generated from `raw_data/sample_breakdown.csv` and
+      `raw_data/microbiome_info_data.csv` by `scripts/sample_labels.py`
     - joined against `node_splits.tsv` at load time (see
       `src/dataset.py`'s `Dataset.from_label_tsv`) - a label tsv on its own
       doesn't carry fold information
@@ -69,25 +69,28 @@ The deployment/sweep pipelines use a **nested** CV design:
   balanced ratio of meat/dairy endpoint samples. These folds should always be stratified 
   for class label (and optionally any additioanl properties - age, batch, site, etc.).
 - **Inner CV is automatic.** Within a given outer fold's training data, the
-  sweep pipeline (`scripts/model.py`, `Classifier.run_sweep`) runs its own
-  hyperparameter search using a plain integer `cv_folds` (see
+  sweep pipeline (`scripts/sweep.py`, `LogisticRegressionClassifier.run_sweep`)
+  runs its own hyperparameter search using a plain integer `cv_folds` (see
   `src/dataset.py`'s docstring) - since the classifier is a
   `LogisticRegression`, scikit-learn automatically uses label-stratified
   k-fold for this, with no extra configuration. Sratification for other attributes is
   not currently implented for inner folds.
 
 **Selecting an embedding space.** Selection is based only on the inner CV validation 
-performance: for each outer fold, inner CV on that fold's training data gives one median 
-validation score per outer fold; the best embedding space(s) are chosen by looking at the
-median validation perofmrance and IQR across all 5 outer folds. 
+performance: for each outer fold, all inner validation performances are averaged;
+to get one mean validation score. The best embedding space(s) are chosen by looking at 
+the median validation perofmrance and IQR across all 5 outer folds. 
 
 **Assessing generalizability to new samples.** For each embedding space that passed our 
-validation performance and IQR thresholds, we use the best performing hyper-parameters to 
-train one model per outer-fold and report the performance on the unseen test samples 
-for that fold. 
+validation performance and IQR thresholds, we use the best performing hyper-parameters 
+(determined through CV on the innter training folds) to train one model per outer-fold.
+We report the performance on the completely unseen test samples for each fold. 
 
 **Using deployment models to prioritize features.** The deployment pipeline 
 (`scripts/train_deployment_models.py`) is intended for feature prioritization not 
 sample classification, and runs on an already-selected embedding space. 
 It uses the outer folds (`PredefinedSplit`) as the validation splits for
-a hyperparameter search, then trains the final deployment model on all available samples. 
+a hyperparameter search, then trains the final deployment model on all available samples.
+For each feature type, the zscore of its predicted probability is used to identify features
+associated with a sample attribute. For our purposes, we consider a feature to be associted 
+with a diet group if it had a zscore >= 2 in at least 60% (4/7) of embedding spaces. 

@@ -3,7 +3,7 @@ Author: Keenan Manpearl
 Date: 2024-09-09
 
 Generates data/node_splits.tsv - a two-column (node, split) tsv replacing
-the old multi-column all_data/raw/sample_breakdown.csv for CV purposes.
+the old multi-column raw_data/sample_breakdown.csv for CV purposes.
 split is the run (1-5) in which a node is held out as test; NO_SPLIT (-1)
 marks nodes that are never held out (still valid training data for every
 fold, just never evaluated on). This file is shared by every label type
@@ -28,11 +28,11 @@ def load_node_splits() -> pd.DataFrame:
 
 def generate_node_splits() -> None:
     """
-    (Re)build node_splits.tsv from all_data/raw/sample_breakdown.csv.
+    (Re)build node_splits.tsv from raw_data/sample_breakdown.csv.
     split = the run in which a node is held out as test (NO_SPLIT if it's
     never held out in any run).
     """
-    breakdown = pd.read_csv("all_data/raw/sample_breakdown.csv")
+    breakdown = pd.read_csv("raw_data/sample_breakdown.csv")
     all_nodes = breakdown["nodes"].drop_duplicates()
 
     split = (

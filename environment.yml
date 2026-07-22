@@ -12,4 +12,4 @@ dependencies:
   - pip=25.1
   - wandb=0.16.6
   - pip:
-      - pecanpy=2.0.9
+      - pecanpy==2.0.9
