@@ -31,6 +31,7 @@ def load_or_create_embedding(
     gamma: float,
     seed: int,
     dim: int = 128,
+    num_walks: int = 10,
     walk_length: int = 80,
     window_size: int = 10,
     workers: int = 4,
@@ -38,10 +39,10 @@ def load_or_create_embedding(
     """
     Load a cached embedding from emb_file if it exists; otherwise create one
     from edg_file with the given node2vec+ parameters and cache it there.
-    dim/walk_length/window_size default to pecanpy's own library defaults.
-    workers should match however many CPUs are actually available (e.g. a
-    SLURM job's --cpus-per-task) - pecanpy/gensim parallelize within this
-    one process via threads, not separate tasks.
+    dim/num_walks/walk_length/window_size default to pecanpy's own library
+    defaults. workers should match however many CPUs are actually available
+    (e.g. a SLURM job's --cpus-per-task) - pecanpy/gensim parallelize within
+    this one process via threads, not separate tasks.
     """
     if os.path.exists(emb_file):
         print(f"Loading embedding from file")
@@ -56,6 +57,7 @@ def load_or_create_embedding(
         gamma,
         seed,
         dim,
+        num_walks,
         walk_length,
         window_size,
         workers,
@@ -71,6 +73,7 @@ def _embed_network(
     gamma: int,
     seed: int,
     dim: int,
+    num_walks: int,
     walk_length: int,
     window_size: int,
     workers: int,
@@ -104,7 +107,9 @@ def _embed_network(
         g.read_edg(edg_file, weighted=True, directed=False)
         g.preprocess_transition_probs()
     nodes = g.nodes
-    emb = g.embed(dim=dim, walk_length=walk_length, window_size=window_size)
+    emb = g.embed(
+        dim=dim, num_walks=num_walks, walk_length=walk_length, window_size=window_size
+    )
     df = pd.DataFrame(emb, index=nodes)
     df.to_csv(emb_file, sep="\t")
     return df

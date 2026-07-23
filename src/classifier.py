@@ -2,17 +2,18 @@
 Trains and evaluates a logistic regression classifier against a Dataset.
 
 One class is reused for every binary label a caller trains against (e.g.
-"diet", "disease_status", ...) and every pipeline that needs a classifier -
+"diet", "time point", ...) and every pipeline that needs a classifier -
 label_name and pred_columns are just tags/config supplied by the caller,
 nothing about a particular study's labels is hardcoded here.
 
 Required data format
 ---------------------
 See src/dataset.py's Dataset docstring for what train_data/train_labels/
-cv_folds/feature_matrix must look like. pred_columns must be a 2-element
-list naming the two classes in the order LogisticRegression.predict_proba
-returns them (i.e. [negative_class_name, positive_class_name] for labels
-encoded as 0/1).
+cv_folds/feature_matrix must look like. pred_columns, if given, must be a
+2-element list naming the two classes in the order
+LogisticRegression.predict_proba returns them (i.e.
+[negative_class_name, positive_class_name] for labels encoded as 0/1) -
+if omitted, feature predictions are left labeled with the raw 0/1 classes.
 
 """
 
@@ -57,7 +58,7 @@ class DeploymentResult:
     """Everything a caller needs to report on one run_deployment() call."""
 
     best_params: dict
-    feature_predictions: "pd.DataFrame | None"
+    feature_predictions: pd.DataFrame | None
 
 
 DEFAULT_PARAM_DISTRIBUTIONS = [
@@ -80,7 +81,8 @@ class LogisticRegressionClassifier:
     def __init__(
         self,
         label_name: str,
-        pred_columns: list[str],
+        pred_columns: list[str] | None = None,
+        *,
         seed: int,
         cv_max_iter: int,
         n_iter_search: int,
@@ -190,13 +192,17 @@ class LogisticRegressionClassifier:
     def predict_features(self, dataset: Dataset) -> pd.DataFrame | None:
         """
         generate predictions for each feature in dataset.features_to_predict(),
-        or None if this dataset doesn't support feature-level predictions
+        or None if this dataset doesn't support feature-level predictions.
+        Columns are named by pred_columns ([negative_class_name,
+        positive_class_name]) if given, else left as the raw 0/1 labels
+        (self.model_.classes_).
         """
         features = dataset.features_to_predict()
         if features is None:
             return None
         probs = self.model_.predict_proba(features)
-        return pd.DataFrame(probs, index=features.index, columns=self.pred_columns)
+        columns = self.pred_columns if self.pred_columns is not None else self.model_.classes_
+        return pd.DataFrame(probs, index=features.index, columns=columns)
 
     def run_sweep(
         self, dataset: Dataset, n_folds: int, score_metric: str = "score"

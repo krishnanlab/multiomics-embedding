@@ -1,3 +1,16 @@
+"""
+Consensus Louvain clustering: runs Louvain community detection --NumLouvain
+times on a graph, builds a node-pair co-occurrence matrix counting how often
+each pair landed in the same community, keeps only pairs co-occurring in at
+least --Cooccur_percent of runs, and reports the connected components of
+that thresholded co-occurrence graph as the final consensus clusters -
+more stable than a single Louvain run, since community assignments can vary
+run to run. Currently runs against a synthetic stochastic block model graph
+(for testing the clustering/thresholding logic itself, not real data) and
+writes results to connected_components.csv.
+
+"""
+
 import networkx as nx
 import pandas as pd
 import community as community_louvain

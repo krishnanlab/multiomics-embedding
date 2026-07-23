@@ -11,5 +11,6 @@ dependencies:
   - pandas=2.2.3
   - pip=25.1
   - wandb=0.16.6
+  - ipykernel=7.3.0
   - pip:
       - pecanpy==2.0.9

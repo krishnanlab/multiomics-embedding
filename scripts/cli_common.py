@@ -42,7 +42,7 @@ def add_embedding_args(parser: ArgumentParser) -> None:
     parser.add_argument(
         "--embedding-file",
         help="use this pre-built embedding directly instead of generating one - "
-        "if set, -p/-q/-g/--dim/--walk-length/--window-size are ignored",
+        "if set, -p/-q/-g/--dim/--num-walks/--walk-length/--window-size are ignored",
         required=False,
         default=None,
     )
@@ -53,6 +53,13 @@ def add_embedding_args(parser: ArgumentParser) -> None:
     )
     parser.add_argument(
         "--dim", help="embedding dimensionality", required=False, type=int, default=128
+    )
+    parser.add_argument(
+        "--num-walks",
+        help="node2vec random walks per node",
+        required=False,
+        type=int,
+        default=10,
     )
     parser.add_argument(
         "--walk-length",
@@ -149,7 +156,7 @@ def resolve_embedding(args: Namespace) -> "pd.DataFrame | None":
 
     if embedding is not None:
         warnings.warn(
-            "--embedding-file was given: -p/-q/-g/--dim/--walk-length/"
-            "--window-size/--workers are being ignored."
+            "--embedding-file was given: -p/-q/-g/--dim/--num-walks/"
+            "--walk-length/--window-size/--workers are being ignored."
         )
     return embedding

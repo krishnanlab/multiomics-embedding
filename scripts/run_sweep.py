@@ -2,9 +2,7 @@
 Author: Keenan Manpearl
 Date: 2024-09-09
 
-This script submits one run of a wandb sweep
-per array specified in num_runs
-and performs the sweep on the specified fold
+This script submits one run of a wandb sweep per parameter combo specified in num_runs
 
 """
 
@@ -54,6 +52,10 @@ def create_yaml_config(
     samples_file: str,
     feature_files: list[str],
     workers: int,
+    inner_cv_folds: int,
+    n_iter_search: int,
+    num_walks: int,
+    walk_length: int,
 ) -> str:
     """
     write a yaml file with the sweep configuration. edges_file/
@@ -61,10 +63,11 @@ def create_yaml_config(
     (required there since this session's node-list validation was added) -
     this script doesn't hardcode which study/graph is being swept, that's
     the caller's job (see run/run_initial_sweep.sh, run/run_joint_sweep.sh).
-    workers is fixed across every trial (not swept) - pass it explicitly
-    rather than relying on scripts/sweep.py's own default so it can be
-    matched to the actual CPUs available, whether that's local (--max_jobs
-    concurrent agents sharing a machine) or per-SLURM-job (--slurm-cpus).
+    workers/inner_cv_folds/n_iter_search/num_walks/walk_length are fixed
+    across every trial (not swept) - pass them explicitly rather than
+    relying on scripts/sweep.py's own defaults, e.g. to match workers to
+    the actual CPUs available (local --max_jobs sharing a machine, or
+    per-SLURM-job --slurm-cpus) or to shrink the search for a quick test.
     """
     file_name = get_config_file(sweep_name)
     p_dist = get_distribution(p_min)
@@ -94,6 +97,14 @@ def create_yaml_config(
             *feature_files,
             "--workers",
             str(workers),
+            "--inner-cv-folds",
+            str(inner_cv_folds),
+            "--n-iter-search",
+            str(n_iter_search),
+            "--num-walks",
+            str(num_walks),
+            "--walk-length",
+            str(walk_length),
             "${args}",
         ],
     }
@@ -290,6 +301,31 @@ if __name__ == "__main__":
         "generation + CV search) - defaults to --slurm-cpus when --slurm is "
         "set (matching the job's own allocation), else 4",
     )
+    parser.add_argument(
+        "--inner-cv-folds",
+        type=int,
+        default=10,
+        help="inner CV folds each trial's scripts/sweep.py uses (see "
+        "SweepRunner's own default)",
+    )
+    parser.add_argument(
+        "--n-iter-search",
+        type=int,
+        default=500,
+        help="RandomizedSearchCV candidates each trial's scripts/sweep.py tries",
+    )
+    parser.add_argument(
+        "--num-walks",
+        type=int,
+        default=10,
+        help="node2vec random walks per node for each trial's embedding",
+    )
+    parser.add_argument(
+        "--walk-length",
+        type=int,
+        default=80,
+        help="node2vec random walk length for each trial's embedding",
+    )
 
     args = parser.parse_args()
 
@@ -314,6 +350,7 @@ if __name__ == "__main__":
         file_name = create_yaml_config(
             sweep_name, metric, p_min, p_max, q_min, q_max, g_min, g_max,
             args.edges_file, args.samples_file, args.feature_files, workers,
+            args.inner_cv_folds, args.n_iter_search, args.num_walks, args.walk_length,
         )
         sweep_id = start_sweep(file_name, sweep_name)
         if sweep_id is None:

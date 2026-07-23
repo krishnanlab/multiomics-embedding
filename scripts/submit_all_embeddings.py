@@ -1,3 +1,17 @@
+"""
+Author: Keenan Manpearl
+Date: 2026-07-22
+
+Re-evaluates every embedding cached in a directory (e.g. emb_cache/,
+populated by scripts/run_sweep.py's wandb sweeps) via scripts/sweep.py's
+nested-CV pass, so they can be compared and the top performers selected -
+this study's "step 3" (run/run_all.sh), following the two wandb sweeps.
+Parses each embedding's node2vec+ (p, q, g) straight from its filename
+(see EmbeddingParams.cache_tag) and passes it to scripts/sweep.py via
+--embedding-file, which skips regeneration entirely.
+
+"""
+
 import os
 import re
 import argparse
@@ -25,38 +39,45 @@ def submit_param_jobs(
     feature_files: list[str],
     out_dir: str,
     max_jobs: int,
+    inner_cv_folds: "int | None" = None,
+    n_iter_search: "int | None" = None,
 ) -> None:
     """
     evaluate each (p, q, g) embedding via scripts/sweep.py, running at most
     max_jobs concurrently - --embedding-file points directly at the
     already-generated embedding (skips regenerating it), so this just scores
-    every embedding space the sweep already produced.
+    every embedding space the sweep already produced. inner_cv_folds/
+    n_iter_search are passed through only if given, else scripts/sweep.py's
+    own defaults apply - override for a faster/smaller test run.
     """
     cmds = []
     for emb_file, (p, q, g) in params_list:
-        cmds.append(
-            [
-                "python",
-                "scripts/sweep.py",
-                "--edges-file",
-                edges_file,
-                "--samples-file",
-                samples_file,
-                "--feature-files",
-                *feature_files,
-                "--embedding-file",
-                os.path.join(data_dir, emb_file),
-                "--p",
-                p,
-                "--q",
-                q,
-                "--g",
-                g,
-                "--save-to",
-                out_dir,
-                "--no-wandb",
-            ]
-        )
+        cmd = [
+            "python",
+            "scripts/sweep.py",
+            "--edges-file",
+            edges_file,
+            "--samples-file",
+            samples_file,
+            "--feature-files",
+            *feature_files,
+            "--embedding-file",
+            os.path.join(data_dir, emb_file),
+            "--p",
+            p,
+            "--q",
+            q,
+            "--g",
+            g,
+            "--save-to",
+            out_dir,
+            "--no-wandb",
+        ]
+        if inner_cv_folds is not None:
+            cmd += ["--inner-cv-folds", str(inner_cv_folds)]
+        if n_iter_search is not None:
+            cmd += ["--n-iter-search", str(n_iter_search)]
+        cmds.append(cmd)
     run_commands_concurrently(
         commands=cmds,
         max_jobs=max_jobs,
@@ -89,6 +110,19 @@ if __name__ == "__main__":
     p.add_argument(
         "--max_jobs", help="Number of models to train at one time.", type=int, default=4
     )
+    p.add_argument(
+        "--inner-cv-folds",
+        type=int,
+        default=None,
+        help="override scripts/sweep.py's inner CV folds (default: its own default)",
+    )
+    p.add_argument(
+        "--n-iter-search",
+        type=int,
+        default=None,
+        help="override scripts/sweep.py's RandomizedSearchCV candidate count "
+        "(default: its own default)",
+    )
     args = p.parse_args()
 
     files = os.listdir(args.data_dir)
@@ -101,4 +135,6 @@ if __name__ == "__main__":
         feature_files=args.feature_files,
         out_dir=args.out,
         max_jobs=args.max_jobs,
+        inner_cv_folds=args.inner_cv_folds,
+        n_iter_search=args.n_iter_search,
     )

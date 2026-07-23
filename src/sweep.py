@@ -56,6 +56,7 @@ class EmbeddingParams:
     q: float
     gamma: float
     dim: int = 128
+    num_walks: int = 10
     walk_length: int = 80
     window_size: int = 10
     n2v_mode: str = "OTF"
@@ -67,7 +68,8 @@ class EmbeddingParams:
         edg_tag = Path(edg_file).stem
         return (
             f"{edg_tag}_p_{self.p}_q_{self.q}_g_{self.gamma}"
-            f"_dim_{self.dim}_wl_{self.walk_length}_ws_{self.window_size}"
+            f"_dim_{self.dim}_nw_{self.num_walks}_wl_{self.walk_length}"
+            f"_ws_{self.window_size}"
         )
 
 
@@ -139,6 +141,7 @@ class BaseRunner:
             params.gamma,
             params.seed,
             params.dim,
+            params.num_walks,
             params.walk_length,
             params.window_size,
             params.workers,
@@ -241,7 +244,7 @@ class SweepRunner(BaseRunner):
         params: EmbeddingParams,
         log_wandb: bool = False,
         save_models_to: str | None = None,
-        embedding: "pd.DataFrame | None" = None,
+        embedding: pd.DataFrame | None = None,
     ) -> dict:
         """
         Generate/load the embedding once (or use the given embedding

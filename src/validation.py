@@ -34,7 +34,7 @@ def read_graph_nodes(edg_file: str) -> set[str]:
 def validate_node_lists(
     edg_file: str,
     list_files: dict[str, str],
-    embedding_nodes: "set[str] | None" = None,
+    embedding_nodes: set[str] | None = None,
 ) -> None:
     """
     list_files: {name: path}, e.g. {"samples": ..., "microbes": ...,

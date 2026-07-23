@@ -3,17 +3,8 @@ Generic node2vec+ -> classifier deployment runner. Not specific to any
 one study: given an edge list, a set of node2vec+ parameters, and any
 number of binary-classification label tsvs, handles generating (or
 loading a cached) embedding, then for each label fits a final classifier
-on *all* available data (via LogisticRegressionClassifier.run_deployment
-- a PredefinedSplit built from every fold is used for the hyperparameter
-search itself, but there is no held-out test set - see
-src/classifier.py), optionally saving the model/weights/feature-
+on *all* available data, optionally saving the model/weights/feature-
 predictions.
-
-Sibling to src/sweep.py's SweepRunner, both extending BaseRunner there
-for the shared embedding-generation/caching and classifier-construction
-logic - kept as separate classes (not folded into SweepRunner) since
-"evaluate this embedding via nested CV" and "fit the final model on
-everything" are genuinely different procedures, not variants of one.
 
 Required data format
 ---------------------
@@ -46,7 +37,7 @@ class DeploymentTask:
 
     label_tsv: str  # path: two columns, node/label (0/1)
     pred_columns: list[str]  # [negative_class_name, positive_class_name]
-    samples_path: "str | None" = None
+    samples_path: str | None = None
 
 
 class DeploymentRunner(BaseRunner):
@@ -61,8 +52,8 @@ class DeploymentRunner(BaseRunner):
         split_tsv: str,
         feature_paths: list[str],
         labels: dict[str, DeploymentTask],
-        scoring: "str | list[str]" = "f1",
-        refit: "bool | str" = True,
+        scoring: str | list[str] = "f1",
+        refit: bool | str = True,
         **kwargs,
     ) -> None:
         super().__init__(edg_file, **kwargs)
@@ -87,7 +78,7 @@ class DeploymentRunner(BaseRunner):
         self,
         params: EmbeddingParams,
         save_to: str | None = None,
-        embedding: "pd.DataFrame | None" = None,
+        embedding: pd.DataFrame | None = None,
         log_wandb: bool = False,
     ) -> dict:
         """
@@ -98,7 +89,7 @@ class DeploymentRunner(BaseRunner):
         and median/IQR/mean CV score (from the deployment fit's own
         hyperparameter search - there's no held-out fold here, so this is
         the closest equivalent to SweepRunner's val score) plus an
-        overall combined_score; always returned, independent of save_to.
+        overall combined_score
         """
         emb = self._load_embedding(params, embedding)
         if save_to:

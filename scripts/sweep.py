@@ -31,13 +31,16 @@ def main(
     log_wandb: bool,
     embedding=None,
     inner_cv_folds: int = 10,
+    n_iter_search: int = 500,
 ) -> dict:
     """
     run one node2vec+ embedding and classifier training pass, optionally as
     part of a wandb hyperparameter sweep. Always returns the SweepRunner's
     results dict.
     """
-    runner = build_sweep_runner(edg_file=edg_file, inner_cv_folds=inner_cv_folds)
+    runner = build_sweep_runner(
+        edg_file=edg_file, inner_cv_folds=inner_cv_folds, n_iter_search=n_iter_search
+    )
     return run_with_optional_wandb(
         lambda wandb_on: runner.run(
             params, log_wandb=wandb_on, save_models_to=save_to, embedding=embedding
@@ -65,6 +68,13 @@ if __name__ == "__main__":
         type=int,
         default=10,
     )
+    parser.add_argument(
+        "--n-iter-search",
+        help="number of RandomizedSearchCV candidates to try",
+        required=False,
+        type=int,
+        default=500,
+    )
 
     args = parser.parse_args()
     require_wandb_project(args)
@@ -76,6 +86,7 @@ if __name__ == "__main__":
         q=args.q,
         gamma=args.g,
         dim=args.dim,
+        num_walks=args.num_walks,
         walk_length=args.walk_length,
         window_size=args.window_size,
         n2v_mode=args.n2v,
@@ -90,6 +101,7 @@ if __name__ == "__main__":
         log_wandb=not args.no_wandb,
         embedding=embedding,
         inner_cv_folds=args.inner_cv_folds,
+        n_iter_search=args.n_iter_search,
     )
     if args.no_wandb:
         print(results)

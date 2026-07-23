@@ -1,3 +1,11 @@
+"""
+Generic local-subprocess concurrency helper - the non-SLURM counterpart to
+scripts/slurm_utils.py's sbatch submission. Not specific to any one study
+or command; used by scripts/run_sweep.py (wandb agent runs) and
+scripts/submit_all_embeddings.py.
+
+"""
+
 import subprocess
 import time
 import logging

@@ -7,20 +7,41 @@ creating a sample X feature edge list where the edge weight between two nodes
 is their normalized count value, creating node2vec+ embeddings, selecting
 embedding spaces, and using embeddings to train diet and time point classifiers.
 
-## Installation
+## Prerequisites
 
-All python package dependencies may be installed using conda.
-If you do not already have conda installed see
-[here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
-for installation instructions.
+- **conda** - if you don't already have it, install it
+  [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
+- **A wandb account, logged in** (`wandb login`) **(optional)** - only
+  required for `scripts/run_sweep.py` (a wandb-driven random search, no
+  non-wandb mode - use `scripts/run_sweep_local.py` instead if you don't
+  have one). `scripts/sweep.py` and `scripts/deploy.py` also work without
+  one: pass `--no-wandb` to just print/return results locally instead of
+  logging them.
+- **SLURM / `sbatch`** **(optional)** - only needed if you pass `--slurm`
+  to `scripts/run_sweep.py`/`scripts/run_sweep_local.py` (see
+  `scripts/slurm_utils.py`). Also requires your own `jobs/template.sh`
+  (gitignored, cluster-specific - SBATCH partition/account/qos and
+  module/conda activation for your own HPC setup).
 
-Then run the following:
+## Dependencies
+
+All python package dependencies are installed using conda:
 
 ```
 git clone git@github.com:krishnanlab/multiomics-embedding.git
 cd multiomics-embedding
 conda env create -f environment.yml
 ```
+
+This installs:
+
+- `python` 3.10
+- `numpy`, `pandas`, `scipy` - data handling
+- `scikit-learn` - `LogisticRegression`/`RandomizedSearchCV`
+- `pecanpy` - node2vec+ embedding generation
+- `matplotlib` - plotting in `notebooks/`
+- `ipykernel` - running `notebooks/` in Jupyter
+- `wandb` **(optional)** - see [Prerequisites](#prerequisites) above.
 
 ## Usage
 
@@ -66,6 +87,15 @@ order:
   you provide yourself - plus `scripts/slurm_utils.py`).
   **Out:** every trial's embedding, cached to `emb_cache/`; results are
   logged to wandb, not written locally.
+- **`scripts/run_sweep_local.py`** (run directly, no wrapper) - the
+  non-wandb counterpart to `scripts/run_sweep.py`: same random search over
+  p/q/gamma and the same local-subprocess/`--slurm` submission choice, but
+  each trial runs `scripts/sweep.py --no-wandb` directly instead of going
+  through a wandb sweep/agent.
+  **In:** same as `scripts/run_sweep.py`, minus the wandb username/sweep
+  name/metric, plus `--out`.
+  **Out:** every trial's embedding, cached to `emb_cache/`, plus a model
+  and results JSON per trial under `--out` (no wandb logging at all).
 - **`scripts/submit_all_embeddings.py`** (`run/run_all.sh`) - re-evaluates
   every unique embedding the two sweeps above cached, so they can be
   compared and the top performers selected.

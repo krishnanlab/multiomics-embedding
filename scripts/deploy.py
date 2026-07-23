@@ -44,6 +44,7 @@ if __name__ == "__main__":
         q=args.q,
         gamma=args.g,
         dim=args.dim,
+        num_walks=args.num_walks,
         walk_length=args.walk_length,
         window_size=args.window_size,
         n2v_mode=args.n2v,

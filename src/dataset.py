@@ -3,10 +3,6 @@ A generic container for a binary-classification train split (and, optionally,
 a held-out test split), plus optionally a matrix of extra rows to generate
 predictions for once a classifier is trained on it.
 
-This class has no knowledge of any particular study's file paths, column
-names, or label semantics - those belong in the scripts that build a Dataset,
-not here. Bring your own multi-omics dataset by loading it however you like
-and constructing a Dataset from the resulting tables.
 
 Required data formats
 ----------------------
@@ -18,34 +14,27 @@ Required data formats
   scikit-learn cross-validation splitter object (e.g. PredefinedSplit) that
   can be passed directly as RandomizedSearchCV's `cv` argument.
 
-  This is also where nested cross-validation happens, and where the two
-  supported cv_folds shapes diverge in role:
+  This is where nested cross-validation happens:
 
   - A PredefinedSplit (built from a split tsv - see from_label_tsv) is a set
-    of OUTER folds that you define ahead of time, once, outside this library
-    - typically stratified by class label and any other property you care
-      about (e.g. age, site, batch). Nothing in src/ builds these folds for
-      you; that choice belongs to the caller/study, since only you know what
-      needs to be balanced across folds. When Dataset.cv_folds is a
-      PredefinedSplit, RandomizedSearchCV validates directly against those
-      outer folds - one level of CV, no nesting.
-  - An int (e.g. n_folds) tells scikit-learn to run its own INNER k-fold CV
-    automatically. Because LogisticRegression is a classifier, scikit-learn's
-    default behavior for an int cv is StratifiedKFold - so this inner CV is
-    automatically label-stratified, with no extra configuration needed.
+    of OUTER folds are defined ahead of time. When Dataset.cv_folds is a 
+    PredefinedSplit, RandomizedSearchCV validates directly against those outer 
+    folds - used for deployment models.
+  - An int (e.g. n_folds) tells scikit-learn to run its own label-stratified 
+    INNER k-fold CV automatically - used during hyperparameter tuning. 
 
   The nested design used by the sweep pipeline (see Classifier.run_sweep)
   combines both: for each user-defined OUTER fold (one PredefinedSplit value
   held out as a genuine test set), an INNER int cv_folds drives an automatic
   stratified hyperparameter search over just that fold's training data. You
   supply the outer folds; the library handles the inner ones.
+
 - test_data / test_labels: optional, same shape rules as train_data/train_labels,
-  for pipelines that evaluate against a genuinely held-out split.
+  for pipelines that evaluate against a held-out split (not used by deployment models).
 - feature_matrix: optional DataFrame indexed by feature ID (e.g. a gene,
   microbe, or metabolite name), living in the same column/embedding space as
-  train_data. Only meaningful for data sources that jointly embed samples and
-  features (e.g. a node2vec+ embedding of a sample-feature graph); leave as
-  None for data sources with no such shared space (e.g. raw feature counts).
+  train_data.L eave as None for data sources with no such shared space (e.g. 
+  baseline models trained on normalized feature counts).
 
 A label tsv + split tsv (see from_label_tsv) are an alternative to building
 a labels Series yourself: two tab-separated files, both indexed by node (the
@@ -53,15 +42,12 @@ sample ID). The label tsv has one other column, label (binary 0/1). The
 split tsv has one other column, split (an integer CV fold in which that
 node is held out as test; a sentinel value - -1 by default - marks nodes
 that are never held out, which still count as training data for every
-fold, just never evaluated on). Splitting them apart means one split tsv
-can be shared across every label type for a study, instead of duplicating
-fold assignment into every label file.
+fold, just never evaluated on).
 
 from_label_tsv also accepts samples_path and feature_paths: plain text
 files, one ID per line, telling it which of feature_table's rows are
-training samples and which are extra feature-prediction rows - replacing
-any naming-convention heuristic (e.g. an "MD" prefix) with an explicit,
-checked list. Every sample in samples_path must have both a label and a row
+training samples and which are extra feature-prediction rows.
+Every sample in samples_path must have both a label and a row
 in feature_table, and every feature in feature_paths must have a row in
 feature_table - otherwise from_label_tsv raises ValueError. Rows in
 feature_table or the label tsv that aren't listed in samples_path/
@@ -79,14 +65,14 @@ import numpy as np
 from sklearn.model_selection import BaseCrossValidator, PredefinedSplit
 
 
-def read_ids(path: str) -> "set[str]":
+def read_ids(path: str) -> set[str]:
     """read a newline-separated list of IDs (samples or features) from a text file"""
     with open(path) as f:
         return {line.strip() for line in f if line.strip()}
 
 
 def require_present(
-    ids: "set[str]", available: "pd.Index | set[str]", kind: str, requirement: str
+    ids: set[str], available: pd.Index | set[str], kind: str, requirement: str
 ) -> None:
     """raise ValueError listing any of ids missing from available"""
     missing = ids - set(available)
@@ -99,7 +85,7 @@ def require_present(
 
 
 def warn_if_unaccounted(
-    available: "pd.Index | set[str]", accounted_for: "set[str]", description: str
+    available: pd.Index | set[str], accounted_for: set[str], description: str
 ) -> None:
     """warn listing any entries of available missing from accounted_for"""
     extra = set(available) - accounted_for
@@ -120,14 +106,14 @@ class Dataset:
     """
 
     label_name: str
-    train_data: "pd.DataFrame | np.ndarray"
+    train_data: pd.DataFrame | np.ndarray
     train_labels: np.ndarray
-    cv_folds: "int | BaseCrossValidator"
-    test_data: "pd.DataFrame | np.ndarray | None" = None
-    test_labels: "np.ndarray | None" = None
-    feature_matrix: "pd.DataFrame | None" = None
+    cv_folds: int | BaseCrossValidator
+    test_data: pd.DataFrame | np.ndarray | None = None
+    test_labels: np.ndarray | None = None
+    feature_matrix: pd.DataFrame | None = None
 
-    def features_to_predict(self) -> "pd.DataFrame | None":
+    def features_to_predict(self) -> pd.DataFrame | None:
         """rows to generate predictions for; None if this data source doesn't support it"""
         return self.feature_matrix
 
@@ -149,8 +135,8 @@ class Dataset:
         label_name: str,
         feature_table: pd.DataFrame,
         labels: pd.Series,
-        cv_folds: "int | BaseCrossValidator",
-        feature_matrix: "pd.DataFrame | None" = None,
+        cv_folds: int | BaseCrossValidator,
+        feature_matrix: pd.DataFrame | None = None,
     ) -> "Dataset":
         """
         Build a Dataset from an already-loaded feature table and labels.
@@ -172,8 +158,8 @@ class Dataset:
         feature_table: pd.DataFrame,
         label_tsv: str,
         split_tsv: str,
-        samples_path: "str | None" = None,
-        feature_paths: "list[str] | None" = None,
+        samples_path: str | None = None,
+        feature_paths: list[str] | None = None,
         no_split_sentinel: int = -1,
     ) -> "Dataset":
         """
@@ -201,7 +187,7 @@ class Dataset:
         joined = joined[joined.index.isin(samples)]
         joined = joined[joined["split"] != no_split_sentinel]
 
-        features: "set[str]" = set()
+        features: set[str] = set()
         for path in feature_paths or []:
             features |= read_ids(path)
         if feature_paths is not None:
