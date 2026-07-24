@@ -2,13 +2,11 @@
 Author: Keenan Manpearl
 Date: 2026-07-21
 
-Study-specific wiring for src/sweep.py's SweepRunner and
-src/deployment.py's DeploymentRunner: builds the time/diet Tasks, loads
-node_splits.tsv, and points at this study's samples/features node lists
-(data/{label}_labels.tsv, data/node_splits.tsv, data/nodes/*.txt - see
-sample_labels.py and generate_splits.py to regenerate the first two).
-Neither runner has any idea what "time" or "diet" mean - this is just
-data in the format each expects.
+Study-specific wiring for SweepRunner/DeploymentRunner: builds the
+time/diet Tasks and points at this study's node lists (data/{label}_labels.tsv,
+data/node_splits.tsv, data/nodes/*.txt - see sample_labels.py/generate_splits.py
+to regenerate). Neither runner knows what "time"/"diet" mean - just data
+in the format each expects.
 
 """
 
@@ -46,12 +44,10 @@ def build_deployment_runner(
     edg_file: str = DEFAULT_EDG_FILE, **kwargs
 ) -> DeploymentRunner:
     """
-    build a DeploymentRunner configured for this study's time/diet
-    classifiers. time_labels.tsv covers every sample (Base + End), so it's
-    validated against the full samples.txt; diet_labels.tsv only covers
-    endpoint samples (diet group isn't meaningful at baseline), so its task
-    has no samples_path - Dataset.from_label_tsv just trusts diet_labels.tsv's
-    own rows instead.
+    DeploymentRunner for this study's time/diet classifiers. time_labels.tsv
+    covers every sample (Base+End), validated against samples.txt;
+    diet_labels.tsv only covers endpoint samples, so its task has no
+    samples_path (trusts its own rows instead).
     """
     labels = {
         "time": DeploymentTask(

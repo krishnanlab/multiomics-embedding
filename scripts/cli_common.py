@@ -2,12 +2,10 @@
 Author: Keenan Manpearl
 Date: 2026-07-21
 
-CLI argument wiring shared by scripts/sweep.py and scripts/deploy.py:
-both need the same node2vec+ embedding-parameter flags, the same
-required edge-list/samples/feature-file inputs, the same optional
-pre-built-embedding override, and the same validate-then-resolve
-sequence before doing anything else. Study-agnostic - just argparse
-plumbing and a thin wrapper around src/validation.py.
+CLI argument wiring shared by scripts/sweep.py and scripts/deploy.py: same
+node2vec+ flags, required edge-list/samples/feature-file inputs, optional
+pre-built-embedding override, and validate-then-resolve sequence. Study-
+agnostic - argparse plumbing plus a thin wrapper around src/validation.py.
 
 """
 
@@ -119,11 +117,7 @@ def require_wandb_project(args: Namespace) -> None:
 def run_with_optional_wandb(
     run_fn: Callable[[bool], dict], sweep_name: "str | None", log_wandb: bool
 ) -> dict:
-    """
-    call run_fn(log_wandb=...), optionally wrapped in a wandb run - shared
-    by scripts/sweep.py and scripts/deploy.py so the wandb.init/finish
-    wrapping isn't duplicated between them.
-    """
+    """call run_fn(log_wandb=...), optionally wrapped in a wandb run - shared wandb.init/finish plumbing."""
     if not log_wandb:
         return run_fn(False)
     with wandb.init(project=sweep_name):
@@ -134,12 +128,9 @@ def run_with_optional_wandb(
 
 def resolve_embedding(args: Namespace) -> "pd.DataFrame | None":
     """
-    Validate the samples/feature-files against the graph (and against
-    --embedding-file, if given) - raises if a listed node is missing from
-    either, warns if the graph/embedding has nodes not listed anywhere.
-    Returns the loaded embedding if --embedding-file was given (and warns
-    that the embedding-generation flags are being ignored), else None -
-    meaning the caller should generate/load-from-cache one as usual.
+    Validate samples/feature-files against the graph (and --embedding-file,
+    if given). Returns the loaded embedding if --embedding-file was given
+    (warning that generation flags are ignored), else None.
     """
     list_files = {"samples": args.samples_file}
     list_files.update(

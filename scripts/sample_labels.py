@@ -2,19 +2,14 @@
 Author: Keenan Manpearl
 Date: 2024-09-09
 
-Study-specific label generation and loading, shared by train_deployment_models.py,
-train_baseline_models.py, and model.py.
-
-Run this script directly to (re)generate data/time_labels.tsv and
-data/diet_labels.tsv from raw_data/sample_breakdown.csv and
-raw_data/microbiome_info_data.csv:
+Study-specific label generation/loading. Regenerates data/time_labels.tsv
+and data/diet_labels.tsv (node, label 0/1) from raw_data/sample_breakdown.csv
+and raw_data/microbiome_info_data.csv:
 
     python scripts/sample_labels.py
 
-Each tsv has just two columns: node (index) and label (binary 0/1). CV fold
-assignment is stored separately in data/node_splits.tsv (see
-generate_splits.py) and shared across all label types - Dataset.from_label_tsv
-joins the two on node.
+CV fold assignment lives separately in data/node_splits.tsv (see
+generate_splits.py) - Dataset.from_label_tsv joins the two on node.
 
 """
 
@@ -35,9 +30,7 @@ def load_diet_labels() -> pd.DataFrame:
 
 
 def generate_label_tsvs() -> None:
-    """
-    (Re)build time_labels.tsv and diet_labels.tsv from the raw study data.
-    """
+    """(Re)build time_labels.tsv and diet_labels.tsv from the raw study data."""
     breakdown = pd.read_csv("raw_data/sample_breakdown.csv")
     breakdown_by_node = breakdown.drop_duplicates("nodes").set_index("nodes")
 

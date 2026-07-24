@@ -1,18 +1,15 @@
 """
-Generic node2vec+ -> classifier deployment runner. Not specific to any
-one study: given an edge list, a set of node2vec+ parameters, and any
-number of binary-classification label tsvs, handles generating (or
-loading a cached) embedding, then for each label fits a final classifier
-on *all* available data, optionally saving the model/weights/feature-
-predictions.
+Author: Keenan Manpearl
+Date: 2026-07-22
 
-Required data format
----------------------
-- labels: dict[str, DeploymentTask], one entry per classifier to train -
-  each names its own label tsv and prediction column order (see
-  DeploymentTask). samples_path/feature_paths/split_tsv are shared across
-  every label (see Dataset.from_label_tsv for their exact format).
+Generic node2vec+ -> classifier deployment runner. Given an edge list,
+node2vec+ params, and any number of binary-classification label tsvs:
+generates/loads the embedding, then fits a final classifier per label on
+*all* available data, optionally saving model/weights/feature-predictions.
 
+- labels: dict[str, DeploymentTask], one entry per classifier - each names
+  its own label tsv/pred columns (see DeploymentTask). samples_path is
+  per-task; feature_paths/split_tsv are shared across labels.
 """
 
 from dataclasses import dataclass
@@ -27,12 +24,10 @@ from src.sweep import BaseRunner, EmbeddingParams
 @dataclass
 class DeploymentTask:
     """
-    One binary classifier to train as part of a deployment run. samples_path
-    is per-task (not shared across labels, unlike feature_paths) since which
-    samples must have a label genuinely varies by label - e.g. this study's
-    diet label only applies to endpoint samples, not baseline, so its
-    samples_path is None (Dataset.from_label_tsv then just trusts label_tsv's
-    own rows instead of validating against an explicit list).
+    One binary classifier to train as part of a deployment run.
+    samples_path is per-task since which samples need a label varies by
+    label (e.g. diet only applies to endpoint samples - samples_path=None
+    trusts label_tsv's own rows instead of validating against a list).
     """
 
     label_tsv: str  # path: two columns, node/label (0/1)
@@ -82,14 +77,12 @@ class DeploymentRunner(BaseRunner):
         log_wandb: bool = False,
     ) -> dict:
         """
-        Generate/load the embedding once (or use the given embedding
-        as-is, skipping generation entirely, if one is passed), then for
-        each label fit a final model on all data. Returns a dict with
-        each label's best hyperparameters, feature predictions (if any),
-        and median/IQR/mean CV score (from the deployment fit's own
-        hyperparameter search - there's no held-out fold here, so this is
-        the closest equivalent to SweepRunner's val score) plus an
-        overall combined_score
+        Generate/load the embedding (or use the one given), then fit a
+        final model per label on all data. Returns each label's best
+        hyperparameters, feature predictions, and median/IQR/mean CV score
+        (from the deployment fit's own search - no held-out fold here, so
+        this is the closest equivalent to SweepRunner's val score), plus
+        an overall combined_score.
         """
         emb = self._load_embedding(params, embedding)
         if save_to:

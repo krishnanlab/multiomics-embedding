@@ -11,4 +11,4 @@ logs/*
 logging/*
 jobs/*
 test_data/*
-results/test_deployment/*
+results/_test*

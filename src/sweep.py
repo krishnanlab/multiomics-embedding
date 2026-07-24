@@ -1,29 +1,21 @@
 """
-Generic node2vec+ -> classifier hyperparameter-sweep runner. Not specific
-to any one study: given an edge list, a set of node2vec+ parameters, and
-any number of binary-classification label sets, handles generating (or
-loading a cached) embedding, building one Dataset per outer CV fold per
-label, running LogisticRegressionClassifier.run_sweep on each, and
-aggregating median/IQR/mean validation F1 across the outer folds -
-optionally logging everything to wandb.
+Author: Keenan Manpearl
+Date: 2026-07-22
 
-BaseRunner holds what this shares with src/deployment.py's
-DeploymentRunner (embedding generation/caching, classifier construction) -
-see that module for the deployment-mode "fit on everything, no held-out
-fold" counterpart to this sweep-mode "nested CV, held-out fold" runner.
+Generic node2vec+ -> classifier hyperparameter-sweep runner. Given an edge
+list, node2vec+ params, and any number of binary-classification label sets:
+generates/loads the embedding, builds one Dataset per outer-CV-fold x label,
+runs LogisticRegressionClassifier.run_sweep on each, and aggregates
+median/IQR/mean validation F1 across outer folds - optionally to wandb.
 
-Required data format
----------------------
+BaseRunner holds what this shares with src/deployment.py's DeploymentRunner
+(embedding generation/caching, classifier construction) - see that module
+for the deployment-mode "fit on samples, predict on features" counterpart
+to this sweep-mode "nested CV, held-out fold" runner.
+
 - labels: dict[str, Task], one entry per classifier to train. See Task.
-- node_splits: a DataFrame indexed by node with an integer "split" column
-  - which outer fold a node is held out as test data in, or any
-  non-positive value for nodes that are always training data, never held
-  out. See src/dataset.py's Dataset for how this is used downstream.
-
-Callers supply study-specific data (which labels, which splits, which
-edge list) - nothing here knows about a particular study's label names,
-class names, or file layout.
-
+- node_splits: DataFrame indexed by node, integer "split" column - which
+  outer fold a node is held out in, or non-positive if never held out.
 """
 
 import json
@@ -75,12 +67,10 @@ class EmbeddingParams:
 
 class BaseRunner:
     """
-    Shared plumbing for SweepRunner (this module) and
-    src/deployment.py's DeploymentRunner: embedding generation/loading/
-    caching, and classifier construction. Each subclass only defines what
-    to *do* with an embedding once it's ready - build datasets and decide
-    what "one run" means (nested-CV sweep evaluation vs. fit-on-
-    everything deployment).
+    Shared plumbing for SweepRunner and DeploymentRunner: embedding
+    generation/loading/caching and classifier construction. Subclasses
+    define what to *do* with an embedding (nested-CV sweep vs.
+    fit-on-everything deployment).
     """
 
     def __init__(
@@ -103,16 +93,7 @@ class BaseRunner:
         os.makedirs(save_to, exist_ok=True)
 
     def _save_results_json(self, save_to: str, params: EmbeddingParams, results: dict) -> None:
-        """
-        persist a run's returned results dict (metrics, not the model
-        itself) as JSON alongside whatever else save_to holds - this is
-        what actually differed between SweepRunner and DeploymentRunner
-        before (deployment wrote an eval summary, sweep didn't); both now
-        call this the same way whenever saving is requested. Any
-        DataFrame value (e.g. feature_predictions - large, and already
-        saved separately as its own file) is replaced with a short note
-        rather than dumped inline.
-        """
+        """Persist a run's results dict (metrics, not the model) as JSON. DataFrame values (e.g. feature_predictions, saved separately) become a short note instead of being dumped inline."""
 
         def _sanitize(value):
             if isinstance(value, pd.DataFrame):
@@ -166,12 +147,7 @@ class BaseRunner:
 
     @staticmethod
     def _aggregate(scores: dict[str, list[float]]) -> dict:
-        """
-        median/IQR/mean val score per label, plus a combined_score (mean
-        of means) - shared by SweepRunner (per-outer-fold best_score) and
-        DeploymentRunner (per-CV-fold score from the deployment fit's own
-        hyperparameter search).
-        """
+        """median/IQR/mean val score per label, plus combined_score (mean of means)."""
         metrics: dict = {}
         combined = 0.0
         for label_name, fold_scores in scores.items():
@@ -219,11 +195,7 @@ class SweepRunner(BaseRunner):
         self.inner_cv_folds = inner_cv_folds
 
     def _dataset_for_fold(self, label_name: str, fold: int, emb: pd.DataFrame) -> Dataset:
-        """
-        build the Dataset for one (label, outer fold) pair: nodes whose
-        split equals fold are the test set, everything else (including
-        nodes with no defined split) is training data.
-        """
+        """Dataset for one (label, outer fold) pair: split==fold is test, everything else is training."""
         task = self.labels[label_name]
         joined = task.labels.join(self.node_splits, how="inner")
         train_idx = joined.index[joined["split"] != fold]
@@ -247,13 +219,10 @@ class SweepRunner(BaseRunner):
         embedding: pd.DataFrame | None = None,
     ) -> dict:
         """
-        Generate/load the embedding once (or use the given embedding
-        as-is, skipping generation entirely, if one is passed), then for
-        each outer fold x label, run a nested-CV classifier search and
-        collect the fold-level best score. Returns a results dict with
-        median/IQR/mean val f1 per label plus an overall combined_score -
-        always returned regardless of log_wandb, so callers don't need
-        wandb to consume results.
+        Generate/load the embedding (or use the one given), then for each
+        outer fold x label run a nested-CV classifier search. Always
+        returns the median/IQR/mean-f1 + combined_score results dict,
+        regardless of log_wandb.
         """
         emb = self._load_embedding(params, embedding)
         if save_models_to:

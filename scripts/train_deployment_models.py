@@ -2,25 +2,11 @@
 Author: Keenan Manpearl
 Date: 2024-09-09
 
-This script trains a classifier using all availble samples per fold.
-Training/evaluations are done using samples (infants)
-and predictions are made for features (microbial and metabolite).
-
-This study's specifics: samples and features are jointly embedded via
-node2vec+, with which rows are samples vs. features given explicitly by
-data/nodes/samples.txt and data/nodes/{microbes,metabolites}.txt (not a
-naming-convention heuristic); the "best" embedding for a given (p, q, g)
-is expected to already be cached at data/emb/emb_p_{p}_q_{g}.tsv.gz.
-Labels come from data/{label_name}_labels.tsv and CV fold assignment
-from data/node_splits.tsv (see sample_labels.py and generate_splits.py
-to regenerate them).
-
-The actual per-embedding training (build datasets, fit, save model/
-weights/feature-predictions) is src/deployment.py's DeploymentRunner,
-same as scripts/deploy.py uses for a single embedding - this script's
-job is just the curated-list-of-7-embeddings loop and the z-scoring
-aggregation across them, which are specific to this study's final
-deployment analysis.
+Trains a classifier on all available samples per fold and predicts on
+features (microbial/metabolite), for this study's 7 curated "best"
+embeddings. Per-embedding training is src/deployment.py's DeploymentRunner
+(same as scripts/deploy.py) - this script's job is just the curated-list
+loop and z-scoring aggregation across the 7.
 
 """
 
@@ -59,13 +45,7 @@ LEGACY_EMB_DIR = "data/emb"
 def _migrate_legacy_cache(
     params: EmbeddingParams, edg_file: str, emb_cache_dir: str = "emb_cache"
 ) -> None:
-    """
-    copy a curated embedding from its legacy cache location
-    (data/emb/emb_p_{p}_q_{q}_g_{g}.tsv.gz) into the current cache
-    location/naming (emb_cache/emb_<cache_tag>.tsv), if the current
-    location doesn't already have it - so DeploymentRunner reuses the
-    curated embedding instead of regenerating it from scratch.
-    """
+    """Copy a curated embedding from its legacy cache path to the current cache_tag path, if not already there - avoids regenerating it."""
     new_path = Path(emb_cache_dir) / f"emb_{params.cache_tag(edg_file)}.tsv"
     if new_path.exists():
         return
@@ -90,9 +70,7 @@ EMBEDDINGS = {
 
 
 def setup_output_dir(out_dir: "str | None") -> str:
-    """
-    create output directory if it does not exist
-    """
+    """Create output directory if it doesn't exist."""
     if out_dir is None:
         current_date = datetime.now().strftime("%Y-%m-%d")
         out_dir = f"results/best_{current_date}"

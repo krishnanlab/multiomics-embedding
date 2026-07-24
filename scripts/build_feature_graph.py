@@ -2,46 +2,28 @@
 Author: Keenan Manpearl
 Date: 2026-07-21
 
-Combines the raw microbiome and metabolite differential-abundance tables
-into one sample x feature matrix, rank-normalizes each feature, and writes
-the resulting sample-feature graph as an edge list for node2vec+ embedding.
+Combines the raw microbiome/metabolite differential-abundance tables into
+one sample x feature matrix, rank-normalizes each feature, and writes the
+sample-feature graph as an edge list for node2vec+ embedding.
 
-Sample IDs are mapped to the "<Vial.ID>_<Time>" convention (e.g.
-"MD-02_Base") used by
-raw_data/microbe_metabolites_filtered_rank_normalized.csv and
-data/nodes/samples.txt: metabolite rows already carry Vial.ID/Time,
-microbiome rows are joined to a sample name via
+Sample IDs use the "<Vial.ID>_<Time>" convention (e.g. "MD-02_Base"):
+metabolite rows already carry Vial.ID/Time; microbiome rows are joined via
 raw_data/microbiome_info_data.csv's Library -> sample.name crosswalk.
-Feature (column) names are left exactly as they appear in the raw files,
-including the long taxonomy strings used for species-level microbiome
-columns
+Feature (column) names are left as-is, including long taxonomy strings.
 
-Rank normalization: for each feature independently, values are converted to
-a fractional rank - rank(x, ties="average") / count(non-missing x), in
-(0, 1] - computed on that feature's full native table (all raw microbiome
-rows / all raw metabolite rows) *before* restricting to the sample overlap
-between the two omics. A raw value of exactly 0 (not detected) still
-counts as a real, rankable value for this computation - it affects the
-rank denominator and other values' relative ranks the same as any other
-measurement.
+Rank normalization: fractional rank (rank(x, ties="average") / count(non-
+missing x), in (0, 1]) computed on each feature's full native table,
+*before* restricting to the sample overlap between omics. A raw 0 (not
+detected) still counts as a real, rankable value; a true missing value is
+never ranked and never becomes an edge. edges.tsv additionally excludes
+any cell whose *raw* value was exactly 0, even though it has a real rank.
 
-A true missing value (the feature was never measured for that sample -
-not the same as a measured 0) is never ranked at all, and never becomes
-an edge.
+Also writes data/nodes/{samples,microbes,metabolites}.txt from this same
+merged feature set (used by src/validation.py, src/zscoring.py as the
+authoritative node lists). A feature counts as a metabolite if its column
+starts with "N_"/"P_", else microbial.
 
-edges.tsv is a sample-feature edge list additionally excluding any cell
-whose *raw* value was exactly 0, even though it still had a real rank
-score.
-
-Also writes data/nodes/samples.txt, data/nodes/microbes.txt, and
-data/nodes/metabolites.txt from this same merged feature set, since
-they're used elsewhere (e.g. src/validation.py's node-list checks,
-src/zscoring.py) as the authoritative sample/feature-type node lists
-A feature counts as a metabolite if its column name starts with "N_" or "P_",
-everything else (COG/ENOG/PF/K codes and taxonomy strings) is a microbial feature.
-
-Run this script directly to (re)generate data/edges.tsv and
-data/nodes/{samples,microbes,metabolites}.txt:
+    python scripts/build_feature_graph.py
 """
 
 import pandas as pd
@@ -79,12 +61,7 @@ MICROBIOME_META_COLS = [
 
 
 def _rank_normalize(features: pd.DataFrame) -> pd.DataFrame:
-    """
-    fractional rank (rank / count of non-missing) for each column
-    independently - 0 counts as a real, rankable value here; see
-    build_edge_list for where 0-valued cells are excluded from the graph
-    despite that - they still get a real rank score in this computation
-    """
+    """Fractional rank (rank / count of non-missing) per column. 0 counts as real here - see build_edge_list for where it's later excluded anyway."""
     # average so features with the same rank have same score
     return features.rank(method="average") / features.count()
 
@@ -126,13 +103,7 @@ def build_merged_features() -> tuple[pd.DataFrame, pd.DataFrame]:
 
 
 def build_edge_list(raw: pd.DataFrame, ranked: pd.DataFrame) -> pd.DataFrame:
-    """
-    melt a sample x feature rank-normalized matrix into a sample/feature/weight
-    edge list. A true missing value (never measured) is always dropped,
-    never filled with a 0 weight. A cell whose *raw* value was exactly 0 is
-    also dropped, even though ranked already gave it a real (small,
-    non-zero) score.
-    """
+    """Melt rank-normalized matrix into a sample/feature/weight edge list, dropping true-missing rows and raw-0 cells."""
     edges = ranked.reset_index().melt(
         id_vars="sample", var_name="feature", value_name="weight"
     )

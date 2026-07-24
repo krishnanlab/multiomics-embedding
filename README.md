@@ -17,8 +17,8 @@ embedding spaces, and using embeddings to train diet and time point classifiers.
   have one). `scripts/sweep.py` and `scripts/deploy.py` also work without
   one: pass `--no-wandb` to just print/return results locally instead of
   logging them.
-- **SLURM / `sbatch`** **(optional)** - only needed if you pass `--slurm`
-  to `scripts/run_sweep.py`/`scripts/run_sweep_local.py` (see
+- **SLURM / `sbatch`** **(optional)** - only needed for the `run/slurm_*.sh`
+  scripts (see [`run/` naming](#run-naming-local_nn_-vs-slurm_nn_) below,
   `scripts/slurm_utils.py`). Also requires your own `jobs/template.sh`
   (gitignored, cluster-specific - SBATCH partition/account/qos and
   module/conda activation for your own HPC setup).
@@ -46,78 +46,110 @@ This installs:
 ## Usage
 
 `scripts/` holds every step of the pipeline; `run/` has thin shell wrappers
-around the ones with a fixed, no-argument (or single-username-argument)
-invocation for this study, and should be invoked from the project root. Each
-`run/` script's header comment documents its usage. The pipeline runs in this
-order:
+around them for this study's fixed invocations, and should be invoked from
+the project root. Each `run/` script's header comment documents its usage.
 
-- **`scripts/build_feature_graph.py`** (run directly, no wrapper) - builds
-  the sample-feature graph.
+### `run/` naming: `local_NN_` vs `slurm_NN_`
+
+`run/` scripts are numbered in pipeline order (`01`-`08`). Steps 4-8 each
+have a `local_NN_*.sh` and a `slurm_NN_*.sh` variant:
+
+- **`local_NN_*.sh`** runs the step directly in your current shell (or as
+  local concurrent subprocesses, for the sweep/evaluation steps -
+  `--max_jobs 4`).
+- **`slurm_NN_*.sh`** submits the same step to SLURM instead. For steps 4-5
+  (the sweeps), each *trial* becomes its own SLURM job (via `--slurm`,
+  `jobs/template.sh`, `scripts/slurm_utils.py`) - real parallelism, one job
+  per (p, q, gamma) combo. For steps 6-8, the underlying script has no
+  per-trial `--slurm` support, so the *whole script* is submitted as one
+  SLURM job (`scripts/submit_job.py`) - not per-trial parallel, just queued
+  instead of run inline.
+
+Steps 4-5 additionally come in `_wandb` and non-`_wandb` variants -
+`scripts/run_sweep.py` requires `wandb login`; `scripts/run_sweep_local.py`
+doesn't and writes results as local JSONs instead.
+
+Both `--slurm` variants need a working `jobs/template.sh` (gitignored,
+cluster-specific - see [Prerequisites](#prerequisites)) 
+
+### Pipeline steps
+
+- **`run/local_01_build_feature_graph.sh`** (`scripts/build_feature_graph.py`)
+  - builds the sample-feature graph.
   **In:** `raw_data/metabolite_data_for_differential_abundance.csv`,
   `raw_data/microbiome_data_for_differential_abundance.csv`,
   `raw_data/microbiome_info_data.csv`.
   **Out:** `data/edges.tsv`,
   `data/nodes/{samples,microbes,metabolites}.txt`.
-- **`scripts/generate_splits.py`** (run directly, no wrapper) - builds the
-  outer CV fold assignment.
+- **`run/local_02_generate_splits.sh`** (`scripts/generate_splits.py`) -
+  builds the outer CV fold assignment.
   **In:** `raw_data/sample_breakdown.csv`.
   **Out:** `data/node_splits.tsv`.
-- **`scripts/sample_labels.py`** (run directly, no wrapper) - builds the
-  binary classification labels.
+- **`run/local_03_sample_labels.sh`** (`scripts/sample_labels.py`) - builds
+  the binary classification labels.
   **In:** `raw_data/sample_breakdown.csv`, `raw_data/microbiome_info_data.csv`.
   **Out:** `data/time_labels.tsv`, `data/diet_labels.tsv`.
-- **`scripts/sweep.py`** / **`scripts/deploy.py`** (run directly - see
-  [`src/` vs `scripts/`](#src-vs-scripts) above) - one node2vec+ embedding +
-  classifier pass for a single given set of embedding parameters; the
-  building block both `run_sweep.py` and `submit_all_embeddings.py` below
-  call under the hood.
+- **`scripts/sweep.py`** / **`scripts/deploy.py`** (run directly, no `run/`
+  wrapper - see [`src/` vs `scripts/`](#src-vs-scripts) above) - one
+  node2vec+ embedding + classifier pass for a single given set of embedding
+  parameters; the building block every sweep/evaluation step below calls
+  under the hood.
   **In:** `--edges-file`/`--samples-file`/`--feature-files`/`--p`/`--q`/`--g`
   (or `--embedding-file` to skip generation).
   **Out:** a results dict (printed, or logged to wandb), plus - if
   `--save-to`/`--out` is given - the model, its weights, and a results JSON
   (`deploy.py` also writes feature-level predictions).
-- **`scripts/run_sweep.py`** (`run/run_initial_sweep.sh <wandb_username>` -
-  time point only; `run/run_joint_sweep.sh <wandb_username>` - time point and
-  diet jointly) - random-searches node2vec+ parameters (p, q, gamma) via a
-  wandb sweep, running `scripts/sweep.py` once per trial.
-  **In:** `--edges-file`/`--samples-file`/`--feature-files`, a wandb
-  username, and the p/q/gamma search ranges. Runs each trial as a local
-  subprocess by default; pass `--slurm` to instead submit each trial as its
-  own SLURM job (`jobs/template.sh` - a local, per-cluster, gitignored file
-  you provide yourself - plus `scripts/slurm_utils.py`).
-  **Out:** every trial's embedding, cached to `emb_cache/`; results are
-  logged to wandb, not written locally.
-- **`scripts/run_sweep_local.py`** (run directly, no wrapper) - the
-  non-wandb counterpart to `scripts/run_sweep.py`: same random search over
-  p/q/gamma and the same local-subprocess/`--slurm` submission choice, but
-  each trial runs `scripts/sweep.py --no-wandb` directly instead of going
-  through a wandb sweep/agent.
-  **In:** same as `scripts/run_sweep.py`, minus the wandb username/sweep
-  name/metric, plus `--out`.
-  **Out:** every trial's embedding, cached to `emb_cache/`, plus a model
-  and results JSON per trial under `--out` (no wandb logging at all).
-- **`scripts/submit_all_embeddings.py`** (`run/run_all.sh`) - re-evaluates
-  every unique embedding the two sweeps above cached, so they can be
-  compared and the top performers selected.
-  **In:** `--data-dir` (an `emb_cache/`-style directory),
-  `--edges-file`/`--samples-file`/`--feature-files`.
+- **`run/{local,slurm}_04_initial_sweep{,_wandb}.sh`**
+  (`scripts/run_sweep.py`/`scripts/run_sweep_local.py`, 100 trials, ranked
+  by time-point validation F1) - random-searches node2vec+ parameters (p,
+  q, gamma), running `scripts/sweep.py` once per trial.
+  **Out:** every trial's embedding, cached to `emb_cache/`; results logged
+  to wandb (`_wandb` variants) or written as local JSONs under `--out`.
+- **`run/{local,slurm}_05_joint_sweep{,_wandb}.sh`** - same as step 4, but
+  200 trials ranked by the combined time+diet score.
+- **`run/{local,slurm}_06_evaluate_embeddings.sh`**
+  (`scripts/submit_all_embeddings.py`) - re-evaluates every unique
+  embedding steps 4-5 cached, so they can be compared and the top
+  performers selected.
   **Out:** one results JSON per embedding under `--out`.
-- **`scripts/train_baseline_models.py`** (`run/run_baseline.sh`) - trains
-  logistic regression models directly on the raw -omics data (no
-  embedding), as a baseline for comparison.
+- **`run/{local,slurm}_07_train_baseline.sh`**
+  (`scripts/train_baseline_models.py`) - trains logistic regression models
+  directly on the raw -omics data (no embedding), as a baseline for
+  comparison.
   **In:** `raw_data/microbe_metabolites_filtered_rank_normalized.csv`,
   `data/{time,diet}_labels.tsv`, `data/node_splits.tsv`,
   `data/nodes/samples.txt`.
   **Out:** `results/best/baseline_logging.txt`.
-- **`scripts/train_deployment_models.py`** (`run/run_deployment.sh`) - fits
-  a final deployment model per classifier for each of the 7 curated "best"
-  embedding spaces, and z-scores the resulting feature predictions.
+- **`run/{local,slurm}_08_train_deployment.sh`**
+  (`scripts/train_deployment_models.py`) - fits a final deployment model
+  per classifier for each of the 7 curated "best" embedding spaces, and
+  z-scores the resulting feature predictions.
   **In:** the 7 curated embeddings (`data/emb/*.tsv.gz`),
   `data/nodes/{samples,microbes,metabolites}.txt`,
   `data/{time,diet}_labels.tsv`, `data/node_splits.tsv`.
   **Out:** `results/best_<date>/` - see
   [Reproducing deployment z-score predictions](#reproducing-deployment-z-score-predictions)
   below for the full file list.
+
+### Dataset size and resource requirements
+
+The full graph (`data/edges.tsv`) has **26,009 nodes** - 109 samples (infant
+timepoints) and 25,900 features (17,033 microbial, 8,867 metabolite) - and
+**~2.39M edges** (~32 MB). The 7 curated "best" embeddings
+(`data/emb/*.tsv.gz`, 128-dim each) total ~145 MB.
+
+Timings below are on 4 CPUs / 5 GB memory (`scripts/slurm_utils.py`'s defaults
+ - adjust `--slurm-cpus`/`--slurm-mem` if needed):
+
+- One `scripts/sweep.py` trial (node2vec+ generation from a cold cache +
+  nested-CV search): **~2-4 minutes**.
+- `scripts/train_deployment_models.py` (all 7 curated embeddings, already
+  cached, 2 classifiers each): **~3 minutes total**.
+- One permutation trial across all 7 curated embeddings (fit only, no
+  search): **~25-30 seconds**.
+- Step 4 (100 trials) / step 5 (200 trials) locally at `--max_jobs 4`:
+  roughly `(trials / 4) x 2-4 min` wall clock - **~1-2 hours** / **~3-5
+  cpu hours**.
 
 ## Data
 
@@ -179,7 +211,9 @@ sample/feature-ID lists (`data/nodes/samples.txt`, `data/nodes/microbes.txt`,
 `data/nodes/metabolites.txt`) - and calls into `src/` to do the actual work.
 This is also where `run/`'s shell scripts point
 (`scripts/train_deployment_models.py`, `scripts/train_baseline_models.py`,
-`scripts/run_sweep.py`, `scripts/submit_all_embeddings.py`).
+`scripts/run_sweep.py`/`scripts/run_sweep_local.py`,
+`scripts/submit_all_embeddings.py`, plus `scripts/submit_job.py` for the
+`run/slurm_*.sh` variants of steps with no per-trial `--slurm` of their own).
 
 Two more scripts run a single node2vec+ embedding + classifier pass for one
 given set of embedding parameters, independent of any particular sweep or
@@ -358,15 +392,15 @@ models - the microbe/metabolite predictions used downstream in the analysis
 notebooks - run:
 
 ```
-bash run/run_deployment.sh
+bash run/local_08_train_deployment.sh
 ```
 
 which is equivalent to `python scripts/train_deployment_models.py` from the
 project root. This iterates the 7 selected embedding parameter sets
 hardcoded in that script's `__main__` block and, for each, requires:
 
-- a cached embedding at `data/emb/emb_p_{p}_q_{g}.tsv.gz` (already provided
-  in this repo for the 7 selected spaces),
+- a cached embedding at `data/emb/emb_p_{p}_q_{q}_g_{g}.tsv.gz` (already
+  provided in this repo for the 7 selected spaces),
 - `data/nodes/samples.txt`, `data/nodes/microbes.txt`, and
   `data/nodes/metabolites.txt` (explicit ID lists saying which embedding rows
   are samples vs. which feature type),

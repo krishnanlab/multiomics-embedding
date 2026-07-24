@@ -1,9 +1,8 @@
 """
 Quick manual smoke test of the deployment pipeline: trains one embedding's
-time/diet classifiers with a reduced 10-iteration hyperparameter search
-(instead of the full 500), writing output to a scratch test directory.
-Uses the exact same train_deployment_models.main() as the real pipeline -
-just with a smaller search so it runs in seconds instead of minutes.
+time/diet classifiers with a reduced 10-iteration search (vs. the full
+500), using the exact same train_deployment_models.main() as the real
+pipeline - just fast enough to run in seconds.
 
 Usage: python scripts/test_deployment.py [--out results/test_deployment]
 

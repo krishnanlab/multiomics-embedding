@@ -1,18 +1,13 @@
 """
-Generic node2vec+ embedding of an edge list, with on-disk caching.
+Author: Keenan Manpearl
+Date: 2026-07-20
 
-Not specific to any one study: takes an edge-list file and node2vec+
-parameters, and returns (loading from a cached file if one already exists at
-emb_file, otherwise computing and writing one) a DataFrame embedding, indexed
-by node ID, with one column per embedding dimension. If the input edge list
-is a sample-feature graph, the resulting embedding jointly places samples and
-features in the same space - which is what lets a classifier trained on
-sample rows also score feature rows.
-
-Required data format
----------------------
-- edg_file: a pecanpy-compatible edge list (whitespace/tab-separated
-  "node1 node2 weight" per line).
+Generic node2vec+ embedding of an edge list, with on-disk caching. Given
+edg_file (pecanpy-compatible edge list) and node2vec+ params, returns a
+DataFrame embedding indexed by node ID (loaded from emb_file if cached,
+else computed and written there). If edg_file is a sample-feature graph,
+samples and features land in the same space - which is what lets a
+classifier trained on samples also score features.
 
 """
 
@@ -36,14 +31,7 @@ def load_or_create_embedding(
     window_size: int = 10,
     workers: int = 4,
 ) -> pd.DataFrame:
-    """
-    Load a cached embedding from emb_file if it exists; otherwise create one
-    from edg_file with the given node2vec+ parameters and cache it there.
-    dim/num_walks/walk_length/window_size default to pecanpy's own library
-    defaults. workers should match however many CPUs are actually available
-    (e.g. a SLURM job's --cpus-per-task) - pecanpy/gensim parallelize within
-    this one process via threads, not separate tasks.
-    """
+    """Load emb_file if cached, else compute and cache it. workers should match available CPUs - pecanpy/gensim parallelize via threads, not separate tasks."""
     if os.path.exists(emb_file):
         print(f"Loading embedding from file")
         return pd.read_csv(emb_file, sep="\t", index_col=0)

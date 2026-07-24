@@ -1,19 +1,11 @@
 """
-Trains and evaluates a logistic regression classifier against a Dataset.
+Author: Keenan Manpearl
+Date: 2026-07-20
 
-One class is reused for every binary label a caller trains against (e.g.
-"diet", "time point", ...) and every pipeline that needs a classifier -
-label_name and pred_columns are just tags/config supplied by the caller,
-nothing about a particular study's labels is hardcoded here.
-
-Required data format
----------------------
-See src/dataset.py's Dataset docstring for what train_data/train_labels/
-cv_folds/feature_matrix must look like. pred_columns, if given, must be a
-2-element list naming the two classes in the order
-LogisticRegression.predict_proba returns them (i.e.
-[negative_class_name, positive_class_name] for labels encoded as 0/1) -
-if omitted, feature predictions are left labeled with the raw 0/1 classes.
+Trains and evaluates a logistic regression classifier against a Dataset
+(see src/dataset.py). pred_columns, if given, names the two classes in
+predict_proba's column order ([negative, positive] for 0/1 labels) - if
+omitted, feature predictions are labeled with the raw 0/1 classes.
 
 """
 
@@ -106,12 +98,7 @@ class LogisticRegressionClassifier:
         self.model_: LogisticRegression | None = None
 
     def cv_search(self, dataset: Dataset) -> "LogisticRegressionClassifier":
-        """
-        use a RandomizedSearchCV to find the best hyperparameters,
-        validating on dataset.cv_folds. n_jobs parallelizes across
-        candidate x fold combinations via joblib - None (the sklearn
-        default) means single-threaded, -1 means "all available cores".
-        """
+        """RandomizedSearchCV over dataset.cv_folds. n_jobs: None=single-threaded, -1=all cores."""
         log_reg = LogisticRegression(random_state=self.seed, max_iter=self.cv_max_iter)
         clf = RandomizedSearchCV(
             log_reg,
@@ -171,11 +158,7 @@ class LogisticRegressionClassifier:
         return {i: results[f"split{i}_test_{metric}"][best_idx] for i in range(n_folds)}
 
     def write_results(self, file: TextIO, n_folds: int) -> None:
-        """
-        write the best CV hyperparameters and per-fold validation scores
-        (median/IQR/variance) for each metric in self.scoring to an
-        already-open file. Requires self.scoring to be a list of metric names.
-        """
+        """Write best CV hyperparameters + per-fold/aggregate validation scores to an open file. Requires self.scoring to be a list of metric names."""
         for param, value in self.search_.best_params_.items():
             file.write(f"best {param}: {value}\n")
         file.write("\n")
@@ -190,13 +173,7 @@ class LogisticRegressionClassifier:
             file.write("\n")
 
     def predict_features(self, dataset: Dataset) -> pd.DataFrame | None:
-        """
-        generate predictions for each feature in dataset.features_to_predict(),
-        or None if this dataset doesn't support feature-level predictions.
-        Columns are named by pred_columns ([negative_class_name,
-        positive_class_name]) if given, else left as the raw 0/1 labels
-        (self.model_.classes_).
-        """
+        """Predictions for dataset.features_to_predict(), or None if unsupported. Columns named by pred_columns if given."""
         features = dataset.features_to_predict()
         if features is None:
             return None
@@ -208,14 +185,10 @@ class LogisticRegressionClassifier:
         self, dataset: Dataset, n_folds: int, score_metric: str = "score"
     ) -> SweepResult:
         """
-        Run the standard hyperparameter-sweep-evaluation procedure: search for
-        the best hyperparameters via cv_search, train a final model on all
-        training data, and evaluate it on the train split and (if present)
-        the test split. Returns the results for the caller to report however
-        it likes (e.g. to wandb) - score_metric is the cv_results_ column
-        name to pull per-fold scores from (RandomizedSearchCV names it
-        "score" for a single scoring string, or the metric's own name for a
-        list of scoring metrics).
+        cv_search, fit_full on all training data, evaluate on train (and
+        test, if present). score_metric is the cv_results_ column to pull
+        per-fold scores from ("score" for a single scoring string, else
+        the metric's own name).
         """
         self.cv_search(dataset)
         fold_scores = self._cv_fold_scores(score_metric, n_folds)
@@ -233,13 +206,7 @@ class LogisticRegressionClassifier:
         )
 
     def run_deployment(self, dataset: Dataset) -> DeploymentResult:
-        """
-        Run the standard deployment procedure: search for the best
-        hyperparameters via cv_search, train a final model on all training
-        data, and (if the dataset supports it) predict on its feature
-        matrix. Call write_results/save/save_weights afterward to persist
-        output - this method only returns results, it doesn't write anything.
-        """
+        """cv_search, fit_full, predict_features. Returns results only - call write_results/save/save_weights to persist."""
         self.cv_search(dataset)
         self.fit_full(dataset)
         return DeploymentResult(

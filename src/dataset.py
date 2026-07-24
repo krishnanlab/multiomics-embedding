@@ -1,58 +1,32 @@
 """
-A generic container for a binary-classification train split (and, optionally,
-a held-out test split), plus optionally a matrix of extra rows to generate
-predictions for once a classifier is trained on it.
+Author: Keenan Manpearl
+Date: 2026-07-20
 
+Generic container for a binary-classification train split (optionally a
+held-out test split), plus optionally a matrix of extra rows to predict on
+once a classifier is fit.
 
-Required data formats
-----------------------
-- train_data: a DataFrame or ndarray, one row per sample, one column per
-  feature/embedding dimension. Row order must be aligned with train_labels.
-- train_labels: a 1-D array-like of binary (0/1) labels, same length and
-  order as train_data's rows.
-- cv_folds: either an int (plain k-fold with that many folds) or any
-  scikit-learn cross-validation splitter object (e.g. PredefinedSplit) that
-  can be passed directly as RandomizedSearchCV's `cv` argument.
+Fields
+------
+- train_data/train_labels: aligned rows (DataFrame/ndarray) and 0/1 labels,
+  same order.
+- cv_folds: int (auto stratified k-fold - used as INNER CV during
+  hyperparameter tuning) or a sklearn CV splitter like PredefinedSplit
+  (fixed OUTER folds - used for deployment models, no tuning). The sweep
+  pipeline (see Classifier.run_sweep) nests both: PredefinedSplit picks each
+  outer test fold, an int drives the inner search within it.
+- test_data/test_labels: optional held-out split (deployment models have
+  none).
+- feature_matrix: optional, indexed by feature ID, same column space as
+  train_data - rows to generate predictions for. None if not applicable.
 
-  This is where nested cross-validation happens:
-
-  - A PredefinedSplit (built from a split tsv - see from_label_tsv) is a set
-    of OUTER folds are defined ahead of time. When Dataset.cv_folds is a 
-    PredefinedSplit, RandomizedSearchCV validates directly against those outer 
-    folds - used for deployment models.
-  - An int (e.g. n_folds) tells scikit-learn to run its own label-stratified 
-    INNER k-fold CV automatically - used during hyperparameter tuning. 
-
-  The nested design used by the sweep pipeline (see Classifier.run_sweep)
-  combines both: for each user-defined OUTER fold (one PredefinedSplit value
-  held out as a genuine test set), an INNER int cv_folds drives an automatic
-  stratified hyperparameter search over just that fold's training data. You
-  supply the outer folds; the library handles the inner ones.
-
-- test_data / test_labels: optional, same shape rules as train_data/train_labels,
-  for pipelines that evaluate against a held-out split (not used by deployment models).
-- feature_matrix: optional DataFrame indexed by feature ID (e.g. a gene,
-  microbe, or metabolite name), living in the same column/embedding space as
-  train_data.L eave as None for data sources with no such shared space (e.g. 
-  baseline models trained on normalized feature counts).
-
-A label tsv + split tsv (see from_label_tsv) are an alternative to building
-a labels Series yourself: two tab-separated files, both indexed by node (the
-sample ID). The label tsv has one other column, label (binary 0/1). The
-split tsv has one other column, split (an integer CV fold in which that
-node is held out as test; a sentinel value - -1 by default - marks nodes
-that are never held out, which still count as training data for every
-fold, just never evaluated on).
-
-from_label_tsv also accepts samples_path and feature_paths: plain text
-files, one ID per line, telling it which of feature_table's rows are
-training samples and which are extra feature-prediction rows.
-Every sample in samples_path must have both a label and a row
-in feature_table, and every feature in feature_paths must have a row in
-feature_table - otherwise from_label_tsv raises ValueError. Rows in
-feature_table or the label tsv that aren't listed in samples_path/
-feature_paths trigger a UserWarning rather than an error, in case that's
-unintentional.
+from_label_tsv builds a Dataset from a label tsv (columns: node, label) and
+a split tsv (columns: node, split; split == no_split_sentinel means "never
+held out" - dropped, since PredefinedSplit needs a real fold for every row).
+samples_path/feature_paths (plain text, one ID per line) say which
+feature_table rows are training samples vs. feature-prediction rows: a
+sample/feature missing its label or feature_table row raises ValueError; a
+feature_table/label row not claimed by either path just warns.
 
 """
 
@@ -118,13 +92,7 @@ class Dataset:
         return self.feature_matrix
 
     def with_shuffled_labels(self, rng: np.random.Generator) -> "Dataset":
-        """
-        Return a copy of this dataset with train_labels randomly permuted.
-        This is the extension point for permutation testing: retrain a
-        Classifier on the shuffled copy, predict features, and z-score the
-        result to build a null distribution, without changing Dataset or
-        Classifier at all.
-        """
+        """Copy with train_labels randomly permuted - the permutation-test extension point."""
         return dataclasses.replace(
             self, train_labels=rng.permutation(self.train_labels)
         )
@@ -138,11 +106,7 @@ class Dataset:
         cv_folds: int | BaseCrossValidator,
         feature_matrix: pd.DataFrame | None = None,
     ) -> "Dataset":
-        """
-        Build a Dataset from an already-loaded feature table and labels.
-        feature_table and labels are aligned by index (feature_table.loc[labels.index]),
-        so labels does not need to already be in the same row order as feature_table.
-        """
+        """Build a Dataset from an already-loaded feature table and labels, aligned by index."""
         return cls(
             label_name=label_name,
             train_data=feature_table.loc[labels.index],
@@ -162,15 +126,7 @@ class Dataset:
         feature_paths: list[str] | None = None,
         no_split_sentinel: int = -1,
     ) -> "Dataset":
-        """
-        Build a Dataset from a label tsv (columns: node, label) joined against
-        a split tsv (columns: node, split) - see the module docstring for the
-        exact format, and for what samples_path/feature_paths do. Rows whose
-        split equals no_split_sentinel (never held out in any fold) are
-        dropped, since PredefinedSplit has no meaningful fold to assign them
-        to; cv_folds is a PredefinedSplit built from the remaining rows'
-        split column.
-        """
+        """Build a Dataset from a label tsv + split tsv - see module docstring for format."""
         labels = pd.read_csv(label_tsv, sep="\t", index_col="node")["label"]
         splits = pd.read_csv(split_tsv, sep="\t", index_col="node")["split"]
 
