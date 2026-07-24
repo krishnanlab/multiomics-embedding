@@ -17,7 +17,7 @@ from dataclasses import dataclass
 import pandas as pd
 import wandb
 
-from src.dataset import Dataset
+from src.dataset import Dataset, validate_pred_columns
 from src.sweep import BaseRunner, EmbeddingParams
 
 
@@ -33,6 +33,9 @@ class DeploymentTask:
     label_tsv: str  # path: two columns, node/label (0/1)
     pred_columns: list[str]  # [negative_class_name, positive_class_name]
     samples_path: str | None = None
+
+    def __post_init__(self) -> None:
+        validate_pred_columns(self.pred_columns)
 
 
 class DeploymentRunner(BaseRunner):
@@ -52,6 +55,10 @@ class DeploymentRunner(BaseRunner):
         **kwargs,
     ) -> None:
         super().__init__(edg_file, **kwargs)
+        if not labels:
+            raise ValueError("labels must be non-empty")
+        if not feature_paths:
+            raise ValueError("feature_paths must be non-empty")
         self.split_tsv = split_tsv
         self.feature_paths = feature_paths
         self.labels = labels

@@ -98,6 +98,8 @@ def _embed_network(
     emb = g.embed(
         dim=dim, num_walks=num_walks, walk_length=walk_length, window_size=window_size
     )
-    df = pd.DataFrame(emb, index=nodes)
+    # match pd.read_csv's string column labels, so a cache-hit and a
+    # freshly-computed embedding are interchangeable, not just equal in value
+    df = pd.DataFrame(emb, index=nodes, columns=[str(c) for c in range(emb.shape[1])])
     df.to_csv(emb_file, sep="\t")
     return df

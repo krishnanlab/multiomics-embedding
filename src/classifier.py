@@ -26,7 +26,7 @@ from sklearn.metrics import (
     f1_score,
 )
 
-from src.dataset import Dataset
+from src.dataset import Dataset, require_positive_int, validate_pred_columns
 
 
 def iqr(scores: list[float]) -> float:
@@ -84,6 +84,11 @@ class LogisticRegressionClassifier:
         param_distributions: list[dict] | None = None,
         n_jobs: int | None = None,
     ) -> None:
+        validate_pred_columns(pred_columns)
+        require_positive_int(cv_max_iter, "cv_max_iter")
+        require_positive_int(n_iter_search, "n_iter_search")
+        if fit_max_iter is not None:
+            require_positive_int(fit_max_iter, "fit_max_iter")
         self.label_name = label_name
         self.pred_columns = pred_columns
         self.seed = seed

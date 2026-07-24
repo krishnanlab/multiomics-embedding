@@ -72,6 +72,34 @@ def warn_if_unaccounted(
         )
 
 
+def require_unique_index(index: pd.Index, kind: str) -> None:
+    """raise ValueError listing any duplicate values in index"""
+    dupes = index[index.duplicated()].unique()
+    if len(dupes):
+        example = ", ".join(str(d) for d in sorted(dupes)[:10])
+        suffix = ", ..." if len(dupes) > 10 else ""
+        raise ValueError(f"{len(dupes)} duplicate {kind} value(s): {example}{suffix}")
+
+
+def require_positive_int(value: int, name: str) -> None:
+    """raise ValueError/TypeError unless value is a positive int"""
+    if not isinstance(value, int) or isinstance(value, bool):
+        raise TypeError(f"{name} must be an int, got {type(value).__name__}")
+    if value <= 0:
+        raise ValueError(f"{name} must be positive, got {value}")
+
+
+def validate_pred_columns(pred_columns: "list[str] | None") -> None:
+    """raise ValueError unless pred_columns is None or exactly 2 distinct elements"""
+    if pred_columns is None:
+        return
+    if len(pred_columns) != 2 or pred_columns[0] == pred_columns[1]:
+        raise ValueError(
+            "pred_columns must have exactly 2 distinct elements "
+            f"([negative_class_name, positive_class_name]), got {pred_columns!r}"
+        )
+
+
 @dataclass
 class Dataset:
     """
@@ -86,6 +114,37 @@ class Dataset:
     test_data: pd.DataFrame | np.ndarray | None = None
     test_labels: np.ndarray | None = None
     feature_matrix: pd.DataFrame | None = None
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.cv_folds, (int, BaseCrossValidator)):
+            raise TypeError(
+                f"cv_folds must be an int or a sklearn BaseCrossValidator, "
+                f"got {type(self.cv_folds).__name__}"
+            )
+        if len(self.train_data) != len(self.train_labels):
+            raise ValueError(
+                f"train_data has {len(self.train_data)} rows but train_labels "
+                f"has {len(self.train_labels)}"
+            )
+        labels_arr = np.asarray(self.train_labels)
+        if pd.isna(labels_arr).any():
+            raise ValueError("train_labels contains NaN")
+        if not set(np.unique(labels_arr)) <= {0, 1}:
+            raise ValueError(
+                f"train_labels must be binary (0/1), got values "
+                f"{sorted(set(np.unique(labels_arr)))}"
+            )
+        if (self.test_data is None) != (self.test_labels is None):
+            raise ValueError("test_data and test_labels must both be given, or neither")
+        if self.test_data is not None and len(self.test_data) != len(self.test_labels):
+            raise ValueError(
+                f"test_data has {len(self.test_data)} rows but test_labels "
+                f"has {len(self.test_labels)}"
+            )
+        if isinstance(self.train_data, pd.DataFrame):
+            require_unique_index(self.train_data.index, "train_data row")
+        if self.feature_matrix is not None:
+            require_unique_index(self.feature_matrix.index, "feature_matrix row")
 
     def features_to_predict(self) -> pd.DataFrame | None:
         """rows to generate predictions for; None if this data source doesn't support it"""

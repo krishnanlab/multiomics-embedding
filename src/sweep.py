@@ -20,6 +20,7 @@ to this sweep-mode "nested CV, held-out fold" runner.
 
 import json
 import os
+import warnings
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -28,7 +29,7 @@ import pandas as pd
 import wandb
 
 from src.classifier import LogisticRegressionClassifier, iqr
-from src.dataset import Dataset
+from src.dataset import Dataset, require_positive_int, validate_pred_columns
 from src.embedding import load_or_create_embedding
 
 
@@ -38,6 +39,17 @@ class Task:
 
     labels: pd.DataFrame  # index=node, single "label" column (0/1)
     pred_columns: list[str]  # [negative_class_name, positive_class_name]
+
+    def __post_init__(self) -> None:
+        validate_pred_columns(self.pred_columns)
+        label_col = self.labels["label"]
+        if label_col.isna().any():
+            raise ValueError("Task.labels' label column contains NaN")
+        if not set(label_col.unique()) <= {0, 1}:
+            raise ValueError(
+                "Task.labels' label column must be binary (0/1), got values "
+                f"{sorted(set(label_col.unique()))}"
+            )
 
 
 @dataclass
@@ -54,6 +66,15 @@ class EmbeddingParams:
     n2v_mode: str = "OTF"
     seed: int = 42
     workers: int = 4  # not part of cache_tag - affects speed, not the embedding itself
+
+    def __post_init__(self) -> None:
+        if self.n2v_mode not in ("OTF", "Pre"):
+            raise ValueError(f'n2v_mode must be "OTF" or "Pre", got {self.n2v_mode!r}')
+        require_positive_int(self.dim, "dim")
+        require_positive_int(self.num_walks, "num_walks")
+        require_positive_int(self.walk_length, "walk_length")
+        require_positive_int(self.window_size, "window_size")
+        require_positive_int(self.workers, "workers")
 
     def cache_tag(self, edg_file: str) -> str:
         """a filename-safe tag identifying this embedding space"""
@@ -184,14 +205,49 @@ class SweepRunner(BaseRunner):
         labels: dict[str, Task],
         num_outer_folds: int | None = None,
         inner_cv_folds: int = 10,
+        no_split_sentinel: int = -1,
         **kwargs,
     ) -> None:
         super().__init__(edg_file, **kwargs)
+        if "split" not in node_splits.columns:
+            raise ValueError('node_splits must have a "split" column')
+        if not labels:
+            raise ValueError("labels must be non-empty")
+        require_positive_int(inner_cv_folds, "inner_cv_folds")
+
+        # same no_split_sentinel convention as Dataset.from_label_tsv - fold
+        # counting here and the row-filtering there must agree on what
+        # "never held out" means, or one silently keeps rows the other drops
+        held_out = node_splits.loc[node_splits["split"] != no_split_sentinel, "split"]
+        if not held_out.empty:
+            non_integer = held_out[held_out != held_out.round()]
+            if len(non_integer):
+                raise ValueError(
+                    "node_splits has non-integer split value(s): "
+                    f"{sorted(non_integer.unique())[:10]}"
+                )
+            if (held_out <= 0).any():
+                bad = sorted(held_out[held_out <= 0].unique())[:10]
+                raise ValueError(
+                    "node_splits has non-positive split value(s) (excluding "
+                    f"no_split_sentinel={no_split_sentinel}): {bad}"
+                )
+
         self.node_splits = node_splits
         self.labels = labels
-        self.num_outer_folds = num_outer_folds or int(
-            node_splits.loc[node_splits["split"] > 0, "split"].max()
+        self.no_split_sentinel = no_split_sentinel
+        self.num_outer_folds = num_outer_folds or (
+            int(held_out.max()) if not held_out.empty else 0
         )
+        if not held_out.empty:
+            missing = set(range(1, self.num_outer_folds + 1)) - set(
+                held_out.astype(int).unique()
+            )
+            if missing:
+                warnings.warn(
+                    f"node_splits is missing outer fold(s) {sorted(missing)} - "
+                    "SweepRunner.run() will do an empty pass for them"
+                )
         self.inner_cv_folds = inner_cv_folds
 
     def _dataset_for_fold(self, label_name: str, fold: int, emb: pd.DataFrame) -> Dataset:

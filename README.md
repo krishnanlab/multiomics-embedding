@@ -138,18 +138,25 @@ timepoints) and 25,900 features (17,033 microbial, 8,867 metabolite) - and
 **~2.39M edges** (~32 MB). The 7 curated "best" embeddings
 (`data/emb/*.tsv.gz`, 128-dim each) total ~145 MB.
 
-Timings below are on 4 CPUs / 5 GB memory (`scripts/slurm_utils.py`'s defaults
- - adjust `--slurm-cpus`/`--slurm-mem` if needed):
+Time and peak memory (`MaxRSS`, measured via `sacct`/`sstat`, not just what
+was requested) per step - all well under `scripts/slurm_utils.py`'s 5 GB
+default, so only raise `--slurm-mem` for a larger `dim`:
 
-- One `scripts/sweep.py` trial (node2vec+ generation from a cold cache +
-  nested-CV search): **~2-4 minutes**.
-- `scripts/train_deployment_models.py` (all 7 curated embeddings, already
-  cached, 2 classifiers each): **~3 minutes total**.
-- One permutation trial across all 7 curated embeddings (fit only, no
-  search): **~25-30 seconds**.
-- Step 4 (100 trials) / step 5 (200 trials) locally at `--max_jobs 4`:
-  roughly `(trials / 4) x 2-4 min` wall clock - **~1-2 hours** / **~3-5
-  cpu hours**.
+| Step | Time | Peak memory |
+|---|---|---|
+| One embedding, cold cache (steps 4-5, generation only) | ~90 min @ 4 CPUs / ~48 min @ 8 | ~1 GB |
+| One `sweep.py` trial, cold cache (steps 4-5, incl. nested-CV search) | ~1.5 hours | ~1 GB |
+| One embedding re-score, cached (step 6, `--embedding-file`) | ~2-3 min | ~1 GB |
+| `train_deployment_models.py`, all 7 embeddings (step 8) | ~3 min total | ~1.25 GB |
+| One permutation trial, full setup | ~25-30s | < 1 GB |
+| One permutation-batch worker (loads a pickled `PermutationTest`) | batch-size dependent | < 1 GB |
+
+Embedding-generation figures assume pecanpy's default `dim`/`num_walks`/
+`walk_length`/`window_size`; both time and memory scale with these - a
+larger `dim` or `walk_length` will cost more of both.
+
+Step 4 (100 trials) / step 5 (200 trials) locally at `--max_jobs 4`: roughly
+`(trials / 4) x 1.5 hours` - **~37 hours** / **~75 hours**. Slurm recommended. 
 
 ## Data
 

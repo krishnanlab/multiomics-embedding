@@ -9,6 +9,7 @@ indexed by feature ID, not specific to any one Dataset or pipeline.
 """
 
 import os
+import warnings
 
 import pandas as pd
 
@@ -19,6 +20,11 @@ class FeatureZScorer:
     """
 
     def __init__(self, feature_lists: dict[str, list[str]]) -> None:
+        if not feature_lists:
+            raise ValueError("feature_lists must be non-empty")
+        empty = [name for name, ids in feature_lists.items() if not ids]
+        if empty:
+            raise ValueError(f"feature_lists has empty subset(s): {empty}")
         self.feature_lists = feature_lists
 
     @classmethod
@@ -35,12 +41,23 @@ class FeatureZScorer:
 
     def score(self, preds: pd.DataFrame) -> dict[str, pd.DataFrame]:
         """
-        for each named feature subset, z-score preds within that subset
+        for each named feature subset, z-score preds within that subset.
+        A subset with zero (or undefined, e.g. a single-row subset)
+        variance in a column produces NaN for that column - warns rather
+        than silently returning NaN/inf.
         """
         scored = {}
         for name, features in self.feature_lists.items():
             subset = preds.loc[features]
-            scored[name] = (subset - subset.mean()) / subset.std()
+            std = subset.std()
+            degenerate = std[std.isna() | (std == 0)]
+            if len(degenerate):
+                warnings.warn(
+                    f"FeatureZScorer subset {name!r} has zero/undefined variance "
+                    f"for column(s) {list(degenerate.index)} ({len(subset)} "
+                    "feature(s) in subset) - z-scores for those columns will be NaN"
+                )
+            scored[name] = (subset - subset.mean()) / std
         return scored
 
     def score_and_save(
