@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.permutation import PermutationTest, _validate_best_params, combine
+from src.permutation import CONSENSUS_MODES, PermutationTest, _validate_best_params, combine
 from src.zscoring import FeatureZScorer
 
 
@@ -239,15 +239,16 @@ def test_save_load_round_trip(tmp_path):
     assert loaded.label_name == test.label_name
     assert loaded.best_params == test.best_params
     assert loaded.threshold == test.threshold
+    assert loaded.prob_threshold == test.prob_threshold
     np.testing.assert_array_equal(
         loaded.datasets[0].train_labels, test.datasets[0].train_labels
     )
 
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
-        original_hits = test.run_trial(np.random.default_rng(0))
-        loaded_hits = loaded.run_trial(np.random.default_rng(0))
-    pd.testing.assert_series_equal(original_hits, loaded_hits)
+        original_trial = test.run_trial(np.random.default_rng(0))
+        loaded_trial = loaded.run_trial(np.random.default_rng(0))
+    pd.testing.assert_frame_equal(original_trial, loaded_trial)
 
 
 def test_run_trial_and_observed_run_end_to_end(tmp_path):
@@ -257,9 +258,15 @@ def test_run_trial_and_observed_run_end_to_end(tmp_path):
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")  # sklearn convergence warnings on tiny data
         observed = test.observed()
-        hits = test.run_trial(np.random.default_rng(0))
+        trial = test.run_trial(np.random.default_rng(0))
 
     assert set(observed.scores.index) == {"f0", "f1"}
-    assert observed.scores.between(0, 1).all()
-    assert set(hits.index) == {"f0", "f1"}
-    assert hits.between(0, 1).all()
+    assert set(observed.scores.columns) == set(CONSENSUS_MODES)
+    assert observed.scores["hit_fraction"].between(0, 1).all()
+    assert observed.scores["mean_prob"].between(0, 1).all()
+    assert observed.scores["median_prob"].between(0, 1).all()
+    assert observed.scores["n_confident"].between(0, len(test.embeddings)).all()
+
+    assert set(trial.index) == {"f0", "f1"}
+    assert set(trial.columns) == set(CONSENSUS_MODES)
+    assert trial["hit_fraction"].between(0, 1).all()

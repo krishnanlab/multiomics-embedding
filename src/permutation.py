@@ -2,12 +2,25 @@
 Author: Keenan Manpearl
 Date: 2026-07-24
 
-Permutation testing for the per-embedding feature-consensus z-score pipeline
-(see src/zscoring.py's FeatureZScorer): fit each embedding's already-trained
-deployment hyperparameters, z-score its feature predictions, and call a
-feature a "hit" when |z| >= threshold. The observed consensus score per
-feature is the fraction of embeddings that hit; label-permutation trials
-build a null distribution for empirical p-values/BH q-values (see combine()).
+Permutation testing for the per-embedding feature-consensus pipeline (see
+src/zscoring.py's FeatureZScorer): fit each embedding's already-trained
+deployment hyperparameters, and summarize its 7 feature predictions into a
+per-feature consensus statistic. Label-permutation trials build a null
+distribution per statistic for empirical p-values/BH q-values (see combine()).
+
+Every trial computes ALL of CONSENSUS_MODES at once, from the same
+per-embedding z-scores/probabilities - the classifier fit (the expensive
+part) is identical regardless of which mode(s) you actually care about, so
+there's no reason to ever redo it just to try a different one:
+- "hit_fraction": fraction of embeddings with |z(reference_class)| >= threshold
+  (the original/default mode).
+- "mean_z"/"median_z"/"max_z": mean/median/max of |z(reference_class)|
+  across embeddings.
+- "mean_prob"/"median_prob": mean/median of the raw (pre-z-score)
+  predict_proba(reference_class) across embeddings.
+- "n_confident": count of embeddings with predict_proba(reference_class) >
+  prob_threshold (default 0.5) - a reference_class-direction "vote count",
+  unlike the other modes which are direction-agnostic.
 
 No hyperparameter search: each embedding's best_params is given directly
 (dict, or a path to its deployment run's ..._logging.txt - see
@@ -36,6 +49,17 @@ from sklearn.linear_model import LogisticRegression
 from src.classifier import DEFAULT_PARAM_DISTRIBUTIONS, LogisticRegressionClassifier
 from src.dataset import Dataset, validate_pred_columns
 from src.zscoring import FeatureZScorer
+
+
+CONSENSUS_MODES = {
+    "hit_fraction": lambda z, prob, zt, pt: (z.abs() >= zt).mean(axis=1),
+    "mean_z": lambda z, prob, zt, pt: z.abs().mean(axis=1),
+    "median_z": lambda z, prob, zt, pt: z.abs().median(axis=1),
+    "max_z": lambda z, prob, zt, pt: z.abs().max(axis=1),
+    "mean_prob": lambda z, prob, zt, pt: prob.mean(axis=1),
+    "median_prob": lambda z, prob, zt, pt: prob.median(axis=1),
+    "n_confident": lambda z, prob, zt, pt: (prob > pt).sum(axis=1),
+}
 
 
 def _parse_best_params(log_path: str) -> dict:
@@ -79,11 +103,12 @@ def _validate_best_params(params: dict) -> None:
 
 @dataclass
 class ConsensusResult:
-    """Per-feature observed (unpermuted) consensus scores/direction from PermutationTest.observed()."""
+    """Per-feature observed (unpermuted) scores/direction from PermutationTest.observed()."""
 
-    scores: pd.Series  # index=feature ID, value in [0,1] = fraction of embeddings with |z| >= threshold
+    scores: pd.DataFrame  # index=feature ID, columns=CONSENSUS_MODES key, value=that mode's statistic
     direction: "pd.Series"  # index=feature ID, value = which class the real fit leans toward
     z_scores: pd.DataFrame  # index=feature ID, columns=embedding position 0..n-1, z(reference_class)
+    probs: pd.DataFrame  # index=feature ID, columns=embedding position 0..n-1, raw predict_proba(reference_class)
 
 
 class PermutationTest:
@@ -101,6 +126,7 @@ class PermutationTest:
         pred_columns: "list[str] | None" = None,
         reference_class: "str | int | None" = None,
         threshold: float = 2.0,
+        prob_threshold: float = 0.5,
         samples_path: "str | None" = None,
         feature_paths: "list[str] | None" = None,
         seed: int = 42,
@@ -115,6 +141,8 @@ class PermutationTest:
             )
         if threshold <= 0:
             raise ValueError(f"threshold must be positive, got {threshold}")
+        if not 0 < prob_threshold < 1:
+            raise ValueError(f"prob_threshold must be in (0, 1), got {prob_threshold}")
         validate_pred_columns(pred_columns)
         self.embeddings = embeddings
         self.label_name = label_name
@@ -139,6 +167,7 @@ class PermutationTest:
             else (0 if self.reference_class == 1 else 1)
         )
         self.threshold = threshold
+        self.prob_threshold = prob_threshold
         self.samples_path = samples_path
         self.feature_paths = feature_paths
         self.seed = seed
@@ -188,46 +217,70 @@ class PermutationTest:
         scored = self.zscorer.score(preds)
         return pd.concat([df[self.reference_class] for df in scored.values()])
 
+    def _reference_prob(self, preds: pd.DataFrame) -> pd.Series:
+        """raw (pre-z-score) predict_proba(reference_class) for every feature, in the same feature order as _reference_z"""
+        return pd.concat(
+            [preds.loc[features, self.reference_class] for features in self.zscorer.feature_lists.values()]
+        )
+
+    def _score_modes(self, z_df: pd.DataFrame, prob_df: pd.DataFrame) -> pd.DataFrame:
+        """apply every CONSENSUS_MODES function to the same z/prob matrices - index=feature ID, columns=mode name"""
+        return pd.DataFrame(
+            {
+                mode: fn(z_df, prob_df, self.threshold, self.prob_threshold)
+                for mode, fn in CONSENSUS_MODES.items()
+            }
+        )
+
     def observed(self) -> ConsensusResult:
-        """Real (unpermuted) per-feature consensus score: fit_full on true labels, fraction of embeddings hitting |z| >= threshold, plus lean direction."""
+        """Real (unpermuted) per-feature scores: fit_full on true labels, every CONSENSUS_MODES statistic at once, plus lean direction."""
         z_scores = {}
+        probs = {}
         for i, (dataset, clf, params) in enumerate(
             zip(self.datasets, self.classifiers, self.best_params)
         ):
             clf.fit_full(dataset, params=params)
             preds = clf.predict_features(dataset)
             z_scores[i] = self._reference_z(preds)
+            probs[i] = self._reference_prob(preds)
         z_df = pd.DataFrame(z_scores)
+        prob_df = pd.DataFrame(probs)
 
-        scores = (z_df.abs() >= self.threshold).mean(axis=1)
+        scores = self._score_modes(z_df, prob_df)
         direction = pd.Series(
             np.where(z_df.mean(axis=1) >= 0, self.reference_class, self.other_class),
             index=z_df.index,
         )
-        return ConsensusResult(scores=scores, direction=direction, z_scores=z_df)
+        return ConsensusResult(scores=scores, direction=direction, z_scores=z_df, probs=prob_df)
 
-    def run_trial(self, rng: np.random.Generator) -> pd.Series:
-        """One null trial: shared within-fold label permutation applied to every embedding, returns per-feature hit fraction. No search - reuses best_params."""
+    def run_trial(self, rng: np.random.Generator) -> pd.DataFrame:
+        """One null trial: shared within-fold label permutation applied to every embedding, returns every CONSENSUS_MODES statistic (columns) per feature (index). No search - reuses best_params."""
         permuted = self.datasets[0].train_labels.copy()
         for idx in self._fold_groups.values():
             permuted[idx] = rng.permutation(permuted[idx])
 
-        hits = {}
+        z_scores = {}
+        probs = {}
         for i, (dataset, clf, params) in enumerate(
             zip(self.datasets, self.classifiers, self.best_params)
         ):
             shuffled = dataclasses.replace(dataset, train_labels=permuted)
             clf.fit_full(shuffled, params=params)
             preds = clf.predict_features(shuffled)
-            z = self._reference_z(preds)
-            hits[i] = z.abs() >= self.threshold
-        return pd.DataFrame(hits).mean(axis=1)
+            z_scores[i] = self._reference_z(preds)
+            probs[i] = self._reference_prob(preds)
+        z_df = pd.DataFrame(z_scores)
+        prob_df = pd.DataFrame(probs)
+        return self._score_modes(z_df, prob_df)
 
-    def run_batch(self, n_permutations: int, seed: int) -> pd.DataFrame:
-        """n_permutations independent run_trial() calls - one column per trial, index=feature ID"""
+    def run_batch(self, n_permutations: int, seed: int) -> "dict[str, pd.DataFrame]":
+        """n_permutations independent run_trial() calls, reshaped per CONSENSUS_MODES mode - one DataFrame per mode (index=feature ID, one column per trial), computed together since the expensive part (the fit) doesn't depend on which mode(s) you actually want."""
         rng = np.random.default_rng(seed)
-        trials = {i: self.run_trial(rng) for i in range(n_permutations)}
-        return pd.DataFrame(trials)
+        trials = [self.run_trial(rng) for _ in range(n_permutations)]
+        return {
+            mode: pd.concat([t[mode] for t in trials], axis=1, keys=range(n_permutations))
+            for mode in CONSENSUS_MODES
+        }
 
     def save(self, path: str) -> None:
         """pickle this PermutationTest, so worker processes can load() it without rebuilding it"""
@@ -287,7 +340,7 @@ def combine(
 
     return pd.DataFrame(
         {
-            "consensus_score": observed_scores,
+            "score": observed_scores,
             "direction": direction,
             "p_value": p_values,
             "q_value": q_values,

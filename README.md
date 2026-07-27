@@ -130,6 +130,11 @@ cluster-specific - see [Prerequisites](#prerequisites))
   **Out:** `results/best_<date>/` - see
   [Reproducing deployment z-score predictions](#reproducing-deployment-z-score-predictions)
   below for the full file list.
+- **`run/local_09_train_deployment_for_permutations.sh`** through
+  **`run/local_12_combine_permutations_{time,diet}.sh`** - the
+  significance-testing pipeline (per-feature label-permutation p-values/
+  q-values for the 7 curated embeddings) - see
+  [Significance testing](#significance-testing) below.
 
 ### Dataset size and resource requirements
 
@@ -148,8 +153,8 @@ default, so only raise `--slurm-mem` for a larger `dim`:
 | One `sweep.py` trial, cold cache (steps 4-5, incl. nested-CV search) | ~1.5 hours | ~1 GB |
 | One embedding re-score, cached (step 6, `--embedding-file`) | ~2-3 min | ~1 GB |
 | `train_deployment_models.py`, all 7 embeddings (step 8) | ~3 min total | ~1.25 GB |
-| One permutation trial, full setup | ~25-30s | < 1 GB |
-| One permutation-batch worker (loads a pickled `PermutationTest`) | batch-size dependent | < 1 GB |
+| One permutation trial (measured via `sacct` across a real 1000-batch run - see the `slurm-job-sizing` skill) | ~0.7-0.8s | ~1 GB fixed + ~1.4 MB/trial in the batch buffer |
+| One permutation-batch worker (loads a pickled `PermutationTest`), default `--batch-size 1000` | ~13-15 min | ~2.5 GB |
 
 Embedding-generation figures assume pecanpy's default `dim`/`num_walks`/
 `walk_length`/`window_size`; both time and memory scale with these - a
@@ -426,6 +431,87 @@ For each embedding and each classifier target (`time`, `diet`), it writes to
   trained model and its coefficients.
 - `<tag>_logging.txt` - the CV hyperparameters and validation scores for both
   classifiers.
+
+## Significance testing
+
+Per-feature empirical p-values/q-values via label permutation (see
+`src/permutation.py`), across the 7 curated deployment embeddings, for each
+of `time`/`diet`. See `notebooks/2026-07-24_permutation_power_analysis.ipynb`
+for how permutation count and assumed number of true positives trade off
+against statistical power for each feature type (microbes vs. metabolites) -
+worth reading before picking a permutation count.
+
+Every permutation trial computes ALL of `src/permutation.py`'s
+`CONSENSUS_MODES` at once - `hit_fraction` (fraction of embeddings with
+`|z| >= threshold`), `mean_z`/`median_z`/`max_z`, and the raw-probability
+modes `mean_prob`/`median_prob`/`n_confident` (count with
+`predict_proba(reference_class) > prob_threshold`) - since the expensive
+part (fitting the classifier on shuffled labels) is identical regardless
+of which mode(s) you actually care about. Each batch's null scores are
+saved as one `.npz` per mode, so `scripts/combine_permutations.py --mode
+<name>...` can compute p-values/q-values for any subset of modes straight
+from already-computed batches - no permutation ever needs to be rerun just
+to look at a different summary statistic. `combined.tsv` is long-format,
+one row per `(feature, mode)`.
+
+Four steps, `run/local_09_*.sh` through `run/local_12_*.sh`:
+
+1. **`run/local_09_train_deployment_for_permutations.sh`** - fits the 7
+   deployment models with correctly-separated per-label log files
+   (`results/deployment_for_permutations/`). Don't point the next step at
+   `results/best/` - those files combine both labels in one
+   `<tag>_logging.txt`, and `_parse_best_params` has no concept of
+   sections, so it would silently mix time's and diet's hyperparameters
+   together.
+2. **`run/local_10_fit_permutation_test_{time,diet}.sh`** - one-time setup
+   per label (the observed, unpermuted scores for every mode don't depend
+   on permutation count, so this isn't repeated per tier).
+3. **`run/{local,slurm}_11_run_permutations_{time,diet}.sh`** - runs
+   10,000 permutations (10 batches of 1000, the `--batch-size 1000`
+   default). The `slurm` variant submits each batch as its own job
+   (~2 CPU-hours/label, ~4 total across both labels, at the real
+   measured ~0.73s/trial - see the `slurm-job-sizing` skill; ~2.5GB
+   peak RSS per batch, single-threaded).
+4. **`run/local_12_combine_permutations_{time,diet}.sh`** - derives a
+   1,000-permutation tier as the first 10 batches of the 10,000-permutation
+   run (`scripts/slice_permutation_manifest.py` - no recomputation), then
+   writes final p-value/q-value tables for both tiers:
+   `results/permutations_{time,diet}_{1000,10000}/combined.tsv`.
+
+All `results/permutations_*/` and `results/deployment_for_permutations/`
+output is gitignored - it's fully regenerable from the `run/` scripts above.
+
+At both tiers and for both labels, under the original `hit_fraction` mode
+no feature cleared BH at q=0.05 (`min q-value = 1` everywhere) -
+consistent with the power-analysis notebook, which shows 10,000
+permutations only reaches power >= 0.8 with several dozen-to-hundred true
+positives, not one or two. Those runs predate the multi-mode `.npz` batch
+format above, so the `results/permutations_*` directories need
+regenerating (steps 2-4) before comparing `hit_fraction` against the
+other modes.
+
+**Extending to 100,000 permutations later** doesn't require rerunning the
+10,000 already computed: `scripts/run_permutations.py`'s `--extend` reuses
+a previous manifest's batches unchanged (numpy's `SeedSequence` is
+prefix-consistent given the same `--base-seed` and a fixed per-batch size,
+verified this session) and only computes the new ones - keep `--batch-size`
+the same (1000) across the extension so the existing batches stay aligned -
+```
+python scripts/run_permutations.py --fitted-state results/permutations_time_fit/fitted_state.pkl \
+    --n-permutations 100000 --batch-size 1000 --base-seed 0 \
+    --extend results/permutations_time_10000/manifest.json \
+    --out results/permutations_time_100000 \
+    --slurm --slurm-time 00:20:00 --slurm-mem 4GB --slurm-cpus 2
+```
+At the real measured rate (~0.73s/trial - see the `slurm-job-sizing`
+skill; the estimate this section originally used was ~40x too slow),
+100,000 permutations costs ~20 CPU-hours per label, ~90 net-new batch
+jobs beyond the 10,000 tier's 10 (`--extend`, as above) - or well under
+an hour wall-clock as a fresh, independent 100-batch submission if no
+compatible 10,000-tier manifest exists yet to extend from. Both labels'
+`results/permutations_{time,diet}_100000/` tiers in this repo were
+produced as fresh submissions, not extended from the (now-superseded,
+pre-multi-mode) 10,000 tier.
 
 ## License
 

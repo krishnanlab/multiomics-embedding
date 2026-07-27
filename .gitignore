@@ -12,3 +12,5 @@ logging/*
 jobs/*
 test_data/*
 results/_test*
+results/permutations_*/
+results/deployment_for_permutations/

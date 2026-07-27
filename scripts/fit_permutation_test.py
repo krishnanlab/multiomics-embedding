@@ -77,6 +77,13 @@ if __name__ == "__main__":
         "--pred-columns isn't given)",
     )
     parser.add_argument("--threshold", required=False, type=float, default=2.0)
+    parser.add_argument(
+        "--prob-threshold",
+        required=False,
+        type=float,
+        default=0.5,
+        help="predict_proba(reference_class) cutoff for the n_confident mode (default: 0.5)",
+    )
     parser.add_argument("--seed", required=False, type=int, default=42)
     parser.add_argument("--fit-max-iter", required=False, type=int, default=1000)
     parser.add_argument(
@@ -111,6 +118,7 @@ if __name__ == "__main__":
         pred_columns=args.pred_columns,
         reference_class=reference_class,
         threshold=args.threshold,
+        prob_threshold=args.prob_threshold,
         samples_path=args.samples_file,
         feature_paths=list(feature_groups.values()),
         seed=args.seed,
@@ -120,9 +128,8 @@ if __name__ == "__main__":
 
     os.makedirs(args.out, exist_ok=True)
     test.save(f"{args.out}/fitted_state.pkl")
-    observed_df = pd.DataFrame(
-        {"consensus_score": result.scores, "direction": result.direction}
-    )
+    observed_df = result.scores.copy()
+    observed_df["direction"] = result.direction
     observed_df.to_csv(f"{args.out}/observed.tsv", sep="\t")
     print(f"setup complete: {len(args.embeddings)} embeddings, {len(observed_df)} features")
     print(f"wrote {args.out}/fitted_state.pkl and {args.out}/observed.tsv")
