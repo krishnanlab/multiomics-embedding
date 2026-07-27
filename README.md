@@ -513,6 +513,46 @@ compatible 10,000-tier manifest exists yet to extend from. Both labels'
 produced as fresh submissions, not extended from the (now-superseded,
 pre-multi-mode) 10,000 tier.
 
+## Literature association lookup (LLM)
+
+`scripts/feature_annotation.py` + `scripts/llm_feature_association.py` ask
+Claude (with web search) whether a given microbe/metabolite feature has
+published literature support for an association with a study group -
+independent of this study's own statistics, which are only used upstream to
+pick which features are worth asking about. See each script's module
+docstring for the filtering rules and confidence rubric.
+
+**Requires** `ANTHROPIC_API_KEY` set in the environment, and the `anthropic`
+package (`environment.yml`).
+
+Single lookup:
+
+```
+export ANTHROPIC_API_KEY=your-key-here
+python scripts/llm_feature_association.py \
+    --feature-id "k_Bacteria.p_Actinobacteria.c_Actinobacteria.o_Bifidobacteriales.f_Bifidobacteriaceae.g_Bifidobacterium.s_Unclassified.Bifidobacterium" \
+    --omics-type microbiome --group infant_5mo \
+    --out results/llm_annotations/smoke_test.json
+```
+
+(swap in an actual taxonomy ID from `raw_data/microbiome.txt` if that exact
+one isn't present - `Bifidobacterium` at 5mo is a well-documented
+association, good for eyeballing whether the JSON, confidence score, and
+citations look sane.)
+
+Batch (one feature ID per line in `--feature-list`):
+
+```
+python scripts/llm_feature_association.py \
+    --feature-list results/permutations_diet_10000/meat_hits.txt \
+    --omics-type metabolite --group infant_12mo_meat \
+    --out-dir results/llm_annotations/
+```
+
+`--group` is one of `infant_5mo`, `infant_12mo`, `infant_12mo_meat`,
+`infant_12mo_dairy` (see `GROUPS` in `scripts/llm_feature_association.py`
+for the exact hypothesis text sent to the model).
+
 ## License
 
 This repository and all its contents are released under the
