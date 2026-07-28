@@ -41,7 +41,7 @@ from argparse import ArgumentParser
 import numpy as np
 import pandas as pd
 
-from src.permutation import combine, PermutationTest
+from src.permutation import combine, PermutationTest, SIGNED_MODES
 
 if __name__ == "__main__":
     parser = ArgumentParser()
@@ -65,7 +65,9 @@ if __name__ == "__main__":
 
     manifest = json.loads(Path(args.manifest).read_text())
     observed = pd.read_csv(manifest["observed_tsv"], sep="\t", index_col=0)
-    feature_groups = PermutationTest.load(manifest["fitted_state"]).zscorer.feature_lists
+    fitted = PermutationTest.load(manifest["fitted_state"])
+    feature_groups = fitted.zscorer.feature_lists
+    reference_class = fitted.reference_class
 
     modes = args.mode if args.mode is not None else [c for c in observed.columns if c != "direction"]
     unknown_modes = set(modes) - set(observed.columns)
@@ -107,7 +109,13 @@ if __name__ == "__main__":
         null_matrix = pd.DataFrame(np.concatenate(null_arrays, axis=1), index=observed.index)
         del null_arrays
 
-        result = combine(observed[mode], observed["direction"], null_matrix, feature_groups)
+        result = combine(
+            observed[mode],
+            observed["direction"],
+            null_matrix,
+            feature_groups,
+            reference_class=reference_class if mode in SIGNED_MODES else None,
+        )
         del null_matrix
 
         mode_out = out_path.with_name(f"{out_path.stem}_{mode}{out_path.suffix}")

@@ -85,6 +85,11 @@ CONSENSUS_MODES = {
     "hit_fraction_prob": lambda z, prob, zt, pt: _hit_fraction_prob(prob, pt),
 }
 
+# modes whose value is signed (not already folded to a direction-agnostic
+# magnitude) - combine() needs reference_class for these to test the
+# correct tail per feature; see combine()'s docstring
+SIGNED_MODES = {"mean_prob", "median_prob"}
+
 
 def _parse_best_params(log_path: str) -> dict:
     """Parse "best <param>: <value>" lines (see write_results) into a hyperparameter dict, coercing to float where possible."""
@@ -323,21 +328,37 @@ def combine(
     direction: pd.Series,
     null_scores: pd.DataFrame,
     feature_groups: "dict[str, list[str]] | None" = None,
+    reference_class: "str | int | None" = None,
 ) -> pd.DataFrame:
     """
     Combine observed per-feature consensus scores against null scores
-    (index=feature, one column per trial) into empirical one-sided p-values
-    (p = (1 + count(null >= observed)) / (1 + n_permutations), avoids p=0)
-    and BH q-values. at_permutation_floor flags features at the minimum
-    achievable p-value (no null trial ever met/exceeded observed) - a signal
-    to run more permutations, not that the result is final.
+    (index=feature, one column per trial) into empirical p-values
+    (p = (1 + count(null at least as extreme)) / (1 + n_permutations),
+    avoids p=0) and BH q-values. at_permutation_floor flags features at the
+    minimum achievable p-value (no null trial ever was as extreme) - a
+    signal to run more permutations, not that the result is final.
+
+    reference_class, if given, makes the test direction-aware: features
+    with direction == reference_class are tested upper-tailed (observed
+    unusually high), everything else lower-tailed (observed unusually
+    low) - for signed scores (mean_prob/median_prob) where "significant"
+    means different things depending on which class the feature leans
+    toward. Omit for direction-agnostic magnitude scores (hit_fraction_z,
+    mean_z, etc.), where upper-tailed alone is already correct for every
+    feature regardless of direction.
 
     feature_groups (e.g. {"microbes": [...], "metabolites": [...]}), if
     given, runs BH separately per group instead of across all features -
     appropriate since groups have different counts/base rates.
     """
     n_permutations = null_scores.shape[1]
-    exceed_counts = null_scores.ge(observed_scores, axis=0).sum(axis=1)
+    if reference_class is None:
+        exceed_counts = null_scores.ge(observed_scores, axis=0).sum(axis=1)
+    else:
+        is_reference = direction == reference_class
+        upper_counts = null_scores.ge(observed_scores, axis=0).sum(axis=1)
+        lower_counts = null_scores.le(observed_scores, axis=0).sum(axis=1)
+        exceed_counts = upper_counts.where(is_reference, lower_counts)
     p_values = (1 + exceed_counts) / (1 + n_permutations)
 
     if feature_groups is None:

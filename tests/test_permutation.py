@@ -114,6 +114,23 @@ def test_combine_p_value_formula():
     assert result.loc["f3", "at_permutation_floor"]
 
 
+def test_combine_reference_class_tests_correct_tail():
+    # f1 leans toward reference_class ("up") - unusually HIGH observed value
+    # f2 leans toward other_class ("down") - unusually LOW observed value
+    observed = pd.Series({"f1": 0.9, "f2": 0.1})
+    direction = pd.Series({"f1": "up", "f2": "down"})
+    null = pd.DataFrame({i: [0.5, 0.5] for i in range(9)}, index=["f1", "f2"])
+
+    # direction-aware: f2's unusually low value is correctly detected via the lower tail
+    result = combine(observed, direction, null, reference_class="up")
+    assert result.loc["f1", "p_value"] == pytest.approx(0.1)
+    assert result.loc["f2", "p_value"] == pytest.approx(0.1)
+
+    # without reference_class (upper-tail only), f2's low value looks unremarkable
+    result_one_sided = combine(observed, direction, null)
+    assert result_one_sided.loc["f2", "p_value"] == pytest.approx(1.0)
+
+
 def test_combine_warns_on_feature_not_covered_by_any_group():
     features = ["f1", "f2"]
     observed = pd.Series({"f1": 0.8, "f2": 0.2})
