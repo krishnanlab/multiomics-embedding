@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# Usage: ./run/local_10_fit_permutation_test_diet.sh
-# Same as run/local_10_fit_permutation_test_time.sh, for diet - no
+# Usage: ./run/10_local_fit_permutation_test_diet.sh
+# Same as run/10_local_fit_permutation_test_time.sh, for diet - no
 # --samples-file (diet_labels.tsv only covers endpoint samples, so
 # Dataset.from_label_tsv trusts its own rows - see scripts/sweep_setup.py).
 D=results/deployment_for_permutations
@@ -23,4 +23,4 @@ exec conda run -n multiomics python scripts/fit_permutation_test.py \
     --label-name diet --label-tsv data/diet_labels.tsv --split-tsv data/node_splits.tsv \
     --feature-group microbes=data/nodes/microbes.txt metabolites=data/nodes/metabolites.txt \
     --pred-columns dairy meat --threshold 2.0 --seed 42 \
-    --out results/permutations_diet_fit
+    --out results/permutations/diet/fit

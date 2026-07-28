@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# Usage: ./run/local_09_train_deployment_for_permutations.sh
-# Same underlying script as run/local_08_train_deployment.sh, but with a
+# Usage: ./run/09_local_train_deployment_for_permutations.sh
+# Same underlying script as run/08_local_train_deployment.sh, but with a
 # fixed (non-dated) --out so the permutation-testing scripts (09-12) have a
 # stable path to point at: results/best/*_logging.txt combines both labels
 # in one file (pre-refactor format), which scripts/fit_permutation_test.py

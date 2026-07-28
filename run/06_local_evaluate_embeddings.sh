@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-# Usage: ./run/local_06_evaluate_embeddings.sh
+# Usage: ./run/06_local_evaluate_embeddings.sh
 # Re-evaluates every embedding cached by the two sweeps (emb_cache/) via a
 # nested-CV pass, so they can be compared and the top performers selected.
 # Runs each embedding as a local concurrent subprocess (--max_jobs 4).

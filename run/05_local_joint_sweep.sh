@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# Usage: ./run/local_05_joint_sweep.sh
-# Non-wandb counterpart to run/local_05_joint_sweep_wandb.sh - same random
+# Usage: ./run/05_local_joint_sweep.sh
+# Non-wandb counterpart to run/05_local_joint_sweep_wandb.sh - same random
 # search, no wandb account needed. Results land as local JSONs under --out.
 # Runs trials as local concurrent subprocesses (--max_jobs 4).
 exec conda run -n multiomics \

@@ -68,6 +68,11 @@ def test_rejects_non_positive_threshold():
         PermutationTest(**make_kwargs(threshold=0))
 
 
+def test_rejects_prob_threshold_below_half():
+    with pytest.raises(ValueError, match="prob_threshold"):
+        PermutationTest(**make_kwargs(prob_threshold=0.49))
+
+
 @pytest.mark.parametrize("bad", [["only_one"], ["a", "b", "c"], ["same", "same"]])
 def test_rejects_bad_pred_columns(bad):
     with pytest.raises(ValueError):
@@ -262,11 +267,11 @@ def test_run_trial_and_observed_run_end_to_end(tmp_path):
 
     assert set(observed.scores.index) == {"f0", "f1"}
     assert set(observed.scores.columns) == set(CONSENSUS_MODES)
-    assert observed.scores["hit_fraction"].between(0, 1).all()
+    assert observed.scores["hit_fraction_z"].between(0, 1).all()
     assert observed.scores["mean_prob"].between(0, 1).all()
     assert observed.scores["median_prob"].between(0, 1).all()
-    assert observed.scores["n_confident"].between(0, len(test.embeddings)).all()
+    assert observed.scores["hit_fraction_prob"].between(0, 1).all()
 
     assert set(trial.index) == {"f0", "f1"}
     assert set(trial.columns) == set(CONSENSUS_MODES)
-    assert trial["hit_fraction"].between(0, 1).all()
+    assert trial["hit_fraction_z"].between(0, 1).all()

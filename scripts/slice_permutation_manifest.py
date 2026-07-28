@@ -5,15 +5,15 @@ Date: 2026-07-24
 Derives a smaller permutation-testing tier from a larger one's manifest.json
 without recomputing anything: takes the first N batches (in batch_id order)
 whose permutation counts sum exactly to --n-permutations, and writes a new
-manifest referencing those same batch .npy files. Pairs with
+manifest referencing those same batch .npz files. Pairs with
 scripts/run_permutations.py's --extend (see its module docstring) - e.g. a
-1,000-permutation tier is just the first 10 batches of a 100-batch/
-10,000-permutation run, if every batch is 100 permutations.
+10,000-permutation tier is just the first 10 batches of a 100-batch/
+100,000-permutation run, if every batch is 1000 permutations.
 
     python scripts/slice_permutation_manifest.py \\
-        --manifest results/permutations_time_10000/manifest.json \\
-        --n-permutations 1000 \\
-        --out results/permutations_time_1000/manifest.json
+        --manifest results/permutations/time/100000_permutations/manifest.json \\
+        --n-permutations 10000 \\
+        --out results/permutations/time/10000_permutations/manifest.json
 
 The sliced manifest works directly with scripts/combine_permutations.py -
 no other change needed.

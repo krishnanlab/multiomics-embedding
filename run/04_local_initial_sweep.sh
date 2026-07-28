@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-# Usage: ./run/local_04_initial_sweep.sh
-# Non-wandb counterpart to run/local_04_initial_sweep_wandb.sh - same
+# Usage: ./run/04_local_initial_sweep.sh
+# Non-wandb counterpart to run/04_local_initial_sweep_wandb.sh - same
 # random search over node2vec+ params, no wandb account needed. Results
 # land as local JSONs under --out instead of being logged to wandb. Runs
 # trials as local concurrent subprocesses (--max_jobs 4).

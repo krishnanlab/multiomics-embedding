@@ -527,7 +527,7 @@ Batch (one feature ID per line in `--feature-list`):
 
 ```
 python scripts/llm_feature_association.py \
-    --feature-list results/permutations_diet_10000/meat_hits.txt \
+    --feature-list results/permutations/diet/10000_permutations/meat_hits.txt \
     --omics-type metabolite --group infant_12mo_meat \
     --out-dir results/llm_annotations/
 ```

@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
-# Usage: ./run/local_04_initial_sweep_wandb.sh <wandb_username>
+# Usage: ./run/04_local_initial_sweep_wandb.sh <wandb_username>
 # Random-searches node2vec+ params (p, q, gamma), ranked by time-point
 # validation F1. Requires `wandb login`. Runs trials as local concurrent
-# subprocesses (--max_jobs 4) - see run/slurm_04_initial_sweep_wandb.sh to
+# subprocesses (--max_jobs 4) - see run/04_slurm_initial_sweep_wandb.sh to
 # submit each trial as its own SLURM job instead.
 if [ "$#" -ne 1 ]; then
   echo "Usage: $0 <wandb_username>"

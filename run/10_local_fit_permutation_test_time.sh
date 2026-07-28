@@ -1,10 +1,10 @@
 #!/usr/bin/env sh
 
-# Usage: ./run/local_10_fit_permutation_test_time.sh
+# Usage: ./run/10_local_fit_permutation_test_time.sh
 # One-time setup for the time-point permutation test (see
 # src/permutation.py): builds a PermutationTest from the 7 curated
 # embeddings' already-known best_params (run
-# run/local_09_train_deployment_for_permutations.sh first). Reused by
+# run/09_local_train_deployment_for_permutations.sh first). Reused by
 # every permutation-count tier - run once, not once per tier.
 D=results/deployment_for_permutations
 exec conda run -n multiomics python scripts/fit_permutation_test.py \
@@ -26,4 +26,4 @@ exec conda run -n multiomics python scripts/fit_permutation_test.py \
     --samples-file data/nodes/samples.txt \
     --feature-group microbes=data/nodes/microbes.txt metabolites=data/nodes/metabolites.txt \
     --pred-columns baseline endpoint --threshold 2.0 --seed 42 \
-    --out results/permutations_time_fit
+    --out results/permutations/time/fit
