@@ -82,7 +82,10 @@ if __name__ == "__main__":
         required=False,
         type=float,
         default=0.5,
-        help="predict_proba(reference_class) cutoff for the n_confident mode (default: 0.5)",
+        help="per-embedding confidence cutoff for the hit_fraction_prob mode - "
+        "an embedding counts toward whichever side (reference class or not) "
+        "its predict_proba(reference_class) is on relative to this; must be "
+        ">= 0.5 (default: 0.5)",
     )
     parser.add_argument("--seed", required=False, type=int, default=42)
     parser.add_argument("--fit-max-iter", required=False, type=int, default=1000)

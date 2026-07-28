@@ -9,18 +9,20 @@ per-feature consensus statistic. Label-permutation trials build a null
 distribution per statistic for empirical p-values/BH q-values (see combine()).
 
 Every trial computes ALL of CONSENSUS_MODES at once, from the same
-per-embedding z-scores/probabilities - the classifier fit (the expensive
-part) is identical regardless of which mode(s) you actually care about, so
-there's no reason to ever redo it just to try a different one:
-- "hit_fraction": fraction of embeddings with |z(reference_class)| >= threshold
-  (the original/default mode).
-- "mean_z"/"median_z"/"max_z": mean/median/max of |z(reference_class)|
-  across embeddings.
+per-embedding z-scores/probabilities:
+- "hit_fraction_z": max(n_high, n_low) / 7, where n_high = count of
+  embeddings with z(reference_class) >= threshold and n_low = count with
+  z(reference_class) <= -threshold.
+- "mean_z"/"median_z": |mean/median of the signed z(reference_class)
+  across embeddings|.
+- "max_z": max of |z(reference_class)| across embeddings.
 - "mean_prob"/"median_prob": mean/median of the raw (pre-z-score)
   predict_proba(reference_class) across embeddings.
-- "n_confident": count of embeddings with predict_proba(reference_class) >
-  prob_threshold (default 0.5) - a reference_class-direction "vote count",
-  unlike the other modes which are direction-agnostic.
+- "mean_confidence"/"median_confidence": max(x, 1-x), where x =
+  mean_prob/median_prob.
+- "hit_fraction_prob": max(n_high, n_low) / 7, where n_high = count of
+  embeddings with predict_proba(reference_class) > prob_threshold and
+  n_low = count with predict_proba(reference_class) < 1 - prob_threshold.
 
 No hyperparameter search: each embedding's best_params is given directly
 (dict, or a path to its deployment run's ..._logging.txt - see
@@ -51,14 +53,36 @@ from src.dataset import Dataset, validate_pred_columns
 from src.zscoring import FeatureZScorer
 
 
+def _hit_fraction_prob(prob: pd.DataFrame, pt: float) -> pd.Series:
+    """max(n_high, n_low) / n_embeddings; n_high = count(prob > pt), n_low = count(prob < 1-pt)"""
+    n_embeddings = prob.shape[1]
+    n_high = (prob > pt).sum(axis=1)
+    n_low = (prob < (1 - pt)).sum(axis=1)
+    return np.maximum(n_high, n_low) / n_embeddings
+
+
+def _hit_fraction_z(z: pd.DataFrame, zt: float) -> pd.Series:
+    """max(n_high, n_low) / n_embeddings; n_high = count(z >= zt), n_low = count(z <= -zt)"""
+    n_embeddings = z.shape[1]
+    n_high = (z >= zt).sum(axis=1)
+    n_low = (z <= -zt).sum(axis=1)
+    return np.maximum(n_high, n_low) / n_embeddings
+
+
 CONSENSUS_MODES = {
-    "hit_fraction": lambda z, prob, zt, pt: (z.abs() >= zt).mean(axis=1),
-    "mean_z": lambda z, prob, zt, pt: z.abs().mean(axis=1),
-    "median_z": lambda z, prob, zt, pt: z.abs().median(axis=1),
+    "hit_fraction_z": lambda z, prob, zt, pt: _hit_fraction_z(z, zt),
+    "mean_z": lambda z, prob, zt, pt: z.mean(axis=1).abs(),
+    "median_z": lambda z, prob, zt, pt: z.median(axis=1).abs(),
     "max_z": lambda z, prob, zt, pt: z.abs().max(axis=1),
     "mean_prob": lambda z, prob, zt, pt: prob.mean(axis=1),
     "median_prob": lambda z, prob, zt, pt: prob.median(axis=1),
-    "n_confident": lambda z, prob, zt, pt: (prob > pt).sum(axis=1),
+    "mean_confidence": lambda z, prob, zt, pt: np.maximum(
+        prob.mean(axis=1), 1 - prob.mean(axis=1)
+    ),
+    "median_confidence": lambda z, prob, zt, pt: np.maximum(
+        prob.median(axis=1), 1 - prob.median(axis=1)
+    ),
+    "hit_fraction_prob": lambda z, prob, zt, pt: _hit_fraction_prob(prob, pt),
 }
 
 
@@ -141,8 +165,8 @@ class PermutationTest:
             )
         if threshold <= 0:
             raise ValueError(f"threshold must be positive, got {threshold}")
-        if not 0 < prob_threshold < 1:
-            raise ValueError(f"prob_threshold must be in (0, 1), got {prob_threshold}")
+        if not 0.5 <= prob_threshold < 1:
+            raise ValueError(f"prob_threshold must be in [0.5, 1), got {prob_threshold}")
         validate_pred_columns(pred_columns)
         self.embeddings = embeddings
         self.label_name = label_name

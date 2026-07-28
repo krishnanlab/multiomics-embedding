@@ -14,7 +14,10 @@ src/permutation.py and scripts/run_permutation_batch.py), so switching
 which mode(s) you want p-values for is just re-reading the same files -
 no permutation trial is ever recomputed just to try a different mode.
 --mode picks which ones to compute here (default: every mode present in
-observed_tsv); the output is long-format, one row per (feature, mode).
+observed_tsv). Writes one file per mode - --out "results/x/combined.tsv"
+becomes "results/x/combined_<mode>.tsv" for each mode - rather than one
+long-format file, so a single mode can be read/shared without pulling in
+the others.
 
 Processes one mode at a time (rereads each batch's .npz once per mode,
 pulling out just that mode's array) rather than loading every mode's
@@ -51,7 +54,13 @@ if __name__ == "__main__":
         help="CONSENSUS_MODES mode(s) to compute p-values/q-values for "
         "(default: every mode present in observed_tsv)",
     )
-    parser.add_argument("--out", required=True, help="tsv to write final p-values/q-values to")
+    parser.add_argument(
+        "--out",
+        required=True,
+        help="tsv path template - one file per mode is written, with the mode "
+        "name inserted before the extension (e.g. 'combined.tsv' -> "
+        "'combined_<mode>.tsv')",
+    )
     args = parser.parse_args()
 
     manifest = json.loads(Path(args.manifest).read_text())
@@ -89,7 +98,7 @@ if __name__ == "__main__":
             "against the smaller count, not the originally requested one."
         )
 
-    results = []
+    out_path = Path(args.out)
     for mode in modes:
         null_arrays = []
         for batch in present_batches:
@@ -99,9 +108,8 @@ if __name__ == "__main__":
         del null_arrays
 
         result = combine(observed[mode], observed["direction"], null_matrix, feature_groups)
-        result.insert(0, "mode", mode)
-        results.append(result)
         del null_matrix
-    combined = pd.concat(results)
-    combined.to_csv(args.out, sep="\t")
-    print(f"wrote {len(combined)} rows ({len(modes)} mode(s) x {len(observed)} features) to {args.out}")
+
+        mode_out = out_path.with_name(f"{out_path.stem}_{mode}{out_path.suffix}")
+        result.to_csv(mode_out, sep="\t")
+        print(f"wrote {len(result)} rows to {mode_out}")
