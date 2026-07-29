@@ -17,7 +17,10 @@ consensus_score cutoff, a different baseline FDR/effect-size cutoff, or the
 import glob
 import os
 
+import numpy as np
 import pandas as pd
+from scipy import stats
+from sklearn.metrics.pairwise import cosine_similarity
 
 
 BASELINE_ID_COL = "Feature Type/Library"
@@ -205,3 +208,320 @@ def summarize_comparison(
         "direction_agreement_rate": dir_rate,
         "effect_size": effect,
     }
+
+
+def effect_size_percentiles(
+    baseline_df: pd.DataFrame,
+    feature_ids,
+    reference_ids,
+    effect_col: str = BASELINE_EFFECT_COL,
+    absolute: bool = True,
+    percentiles=(10, 25, 50, 75, 90),
+) -> dict:
+    """Where feature_ids' median |effect_col| falls within the reference_ids
+    distribution of the same column - turns "boxplots looked different" into
+    a concrete percentile rank (scipy.stats.percentileofscore), plus the
+    reference distribution's own percentile cutpoints for context. E.g.
+    reference_ids=all baseline-significant features, feature_ids=only the
+    ones a consensus mode missed - reports how "typical" the missed set's
+    effect size is relative to the significant population as a whole."""
+    ref_ids = [f for f in reference_ids if f in baseline_df.index]
+    ref_values = baseline_df.loc[ref_ids, effect_col]
+    feat_ids = [f for f in feature_ids if f in baseline_df.index]
+    feat_values = baseline_df.loc[feat_ids, effect_col]
+    if absolute:
+        ref_values = ref_values.abs()
+        feat_values = feat_values.abs()
+    cutpoints = {p: float(np.percentile(ref_values, p)) for p in percentiles} if len(ref_values) else {}
+    feat_median = float(feat_values.median()) if len(feat_values) else float("nan")
+    rank = (
+        float(stats.percentileofscore(ref_values, feat_median))
+        if len(ref_values) and len(feat_values)
+        else float("nan")
+    )
+    return {
+        "n_reference": len(ref_values),
+        "n_features": len(feat_values),
+        "reference_percentiles": cutpoints,
+        "feature_median": feat_median,
+        "feature_median_percentile_rank": rank,
+    }
+
+
+def _top_k_neighbor_ids(sim_row: np.ndarray, candidate_ids: list, k: int) -> list:
+    """Indices of the k largest finite entries in sim_row (masked entries are
+    -inf and never selected), mapped to candidate_ids - shared by
+    knn_significance_fraction/cross_embedding_neighbor_overlap."""
+    valid = np.isfinite(sim_row)
+    k_eff = min(k, int(valid.sum()))
+    if k_eff == 0:
+        return []
+    top_idx = np.argpartition(sim_row, -k_eff)[-k_eff:]
+    return [candidate_ids[j] for j in top_idx]
+
+
+def knn_significance_fraction(
+    embedding_dfs: "list[pd.DataFrame]",
+    query_ids,
+    full_candidate_ids,
+    same_omics_candidate_ids,
+    reference_sig_ids,
+    k: int = 15,
+) -> "tuple[pd.Series, pd.Series]":
+    """Cosine-similarity k-NN neighbor-significance fraction, averaged across
+    multiple node2vec+ embeddings.
+
+    embedding_dfs: list of DataFrames (one per embedding), each indexed by
+    node ID (samples and features share the same space) with embedding-dim
+    columns. For each embedding, builds a (len(query_ids), len(full_candidate_ids))
+    cosine-similarity matrix (query features vs. the full candidate pool),
+    then averages these matrices elementwise across all embeddings (keeps
+    each embedding weighted equally regardless of vector norm - not the same
+    as concatenating embeddings before computing similarity). A query
+    feature that also appears in the candidate pool is never counted as its
+    own neighbor (self-similarity masked to -inf before top-k selection).
+
+    From that single averaged matrix, derives two per-query "fraction of the
+    k nearest neighbors that fall in reference_sig_ids" results - one over
+    the full candidate pool, one restricted to same_omics_candidate_ids (a
+    subset of full_candidate_ids) - without recomputing cosine similarity a
+    second time for the narrower version.
+
+    Returns (full_pool_fractions, same_omics_fractions), each a pd.Series
+    indexed by query_ids.
+    """
+    query_ids = list(query_ids)
+    full_candidate_ids = list(full_candidate_ids)
+    same_omics_mask = np.array([c in set(same_omics_candidate_ids) for c in full_candidate_ids])
+    reference_sig_ids = set(reference_sig_ids)
+
+    sim_sum = np.zeros((len(query_ids), len(full_candidate_ids)), dtype=np.float32)
+    for emb_df in embedding_dfs:
+        q = emb_df.loc[query_ids].to_numpy(dtype=np.float32)
+        c = emb_df.loc[full_candidate_ids].to_numpy(dtype=np.float32)
+        sim_sum += cosine_similarity(q, c).astype(np.float32)
+    sim_avg = sim_sum / len(embedding_dfs)
+
+    candidate_pos = {c: j for j, c in enumerate(full_candidate_ids)}
+    for i, qid in enumerate(query_ids):
+        j = candidate_pos.get(qid)
+        if j is not None:
+            sim_avg[i, j] = -np.inf
+
+    def fraction_significant(sim_matrix: np.ndarray) -> pd.Series:
+        out = {}
+        for i, qid in enumerate(query_ids):
+            neighbors = _top_k_neighbor_ids(sim_matrix[i], full_candidate_ids, k)
+            out[qid] = (
+                sum(n in reference_sig_ids for n in neighbors) / len(neighbors)
+                if neighbors
+                else float("nan")
+            )
+        return pd.Series(out)
+
+    full_pool_fractions = fraction_significant(sim_avg)
+    same_omics_sim = np.where(same_omics_mask[np.newaxis, :], sim_avg, -np.inf)
+    same_omics_fractions = fraction_significant(same_omics_sim)
+    return full_pool_fractions, same_omics_fractions
+
+
+def cross_embedding_neighbor_overlap(
+    embedding_dfs: "list[pd.DataFrame]", query_ids, candidate_ids, k: int = 15
+) -> pd.Series:
+    """For each feature in query_ids, finds its own k nearest neighbors (by
+    cosine similarity, drawn from candidate_ids) SEPARATELY within each
+    embedding in embedding_dfs (no averaging - the opposite of
+    knn_significance_fraction), then returns the mean pairwise Jaccard
+    overlap across all C(len(embedding_dfs),2) pairs of per-embedding
+    neighbor sets: a per-feature "do the embeddings agree on who my
+    neighbors are" consistency score. 1.0 = every embedding pair has an
+    identical neighbor set; 0.0 = every pair is fully disjoint. A query
+    feature is never counted as its own neighbor."""
+    query_ids = list(query_ids)
+    candidate_ids = list(candidate_ids)
+    candidate_pos = {c: j for j, c in enumerate(candidate_ids)}
+
+    per_embedding_neighbor_sets = []
+    for emb_df in embedding_dfs:
+        q = emb_df.loc[query_ids].to_numpy(dtype=np.float32)
+        c = emb_df.loc[candidate_ids].to_numpy(dtype=np.float32)
+        sim = cosine_similarity(q, c)
+        for i, qid in enumerate(query_ids):
+            j = candidate_pos.get(qid)
+            if j is not None:
+                sim[i, j] = -np.inf
+        per_embedding_neighbor_sets.append(
+            {qid: set(_top_k_neighbor_ids(sim[i], candidate_ids, k)) for i, qid in enumerate(query_ids)}
+        )
+
+    n_emb = len(embedding_dfs)
+    pairs = [(a, b) for a in range(n_emb) for b in range(a + 1, n_emb)]
+    scores = {}
+    for qid in query_ids:
+        overlaps = []
+        for a, b in pairs:
+            sa, sb = per_embedding_neighbor_sets[a][qid], per_embedding_neighbor_sets[b][qid]
+            union = sa | sb
+            overlaps.append(len(sa & sb) / len(union) if union else float("nan"))
+        scores[qid] = float(np.nanmean(overlaps)) if overlaps else float("nan")
+    return pd.Series(scores)
+
+
+def pairwise_embedding_neighbor_agreement(
+    embedding_dfs: "list[pd.DataFrame]", feature_ids, k: int = 15
+) -> pd.DataFrame:
+    """Embedding x embedding matrix: average Jaccard overlap between each
+    pair of embeddings' k-NN neighbor sets, over every feature in
+    feature_ids (not restricted to any comparison segment - a global
+    characterization of how much two embeddings' local neighborhoods agree,
+    given their different node2vec+ p/q/g hyperparameters). Diagonal is 1.0
+    by definition."""
+    feature_ids = list(feature_ids)
+
+    neighbor_sets_per_embedding = []
+    for emb_df in embedding_dfs:
+        v = emb_df.loc[feature_ids].to_numpy(dtype=np.float32)
+        sim = cosine_similarity(v, v)
+        np.fill_diagonal(sim, -np.inf)
+        neighbor_sets_per_embedding.append(
+            [set(_top_k_neighbor_ids(sim[i], feature_ids, k)) for i in range(len(feature_ids))]
+        )
+
+    n_emb = len(embedding_dfs)
+    mat = np.eye(n_emb)
+    for a in range(n_emb):
+        for b in range(a + 1, n_emb):
+            overlaps = []
+            for i in range(len(feature_ids)):
+                sa, sb = neighbor_sets_per_embedding[a][i], neighbor_sets_per_embedding[b][i]
+                union = sa | sb
+                overlaps.append(len(sa & sb) / len(union) if union else float("nan"))
+            mat[a, b] = mat[b, a] = float(np.nanmean(overlaps)) if overlaps else float("nan")
+    return pd.DataFrame(mat, index=range(n_emb), columns=range(n_emb))
+
+
+def load_per_embedding_predictions(paths: "list[str]", column: str = "endpoint") -> pd.DataFrame:
+    """Join N deployment feature_predictions.tsv files (one per embedding,
+    e.g. results/deployment_for_permutations/time_edges_p_*_feature_predictions.tsv -
+    each a predict_proba table indexed by feature ID with one column per
+    class) into a single (n_features, N) DataFrame of the given class's
+    probability, one column per embedding, in the order paths are given."""
+    columns = []
+    for i, path in enumerate(paths):
+        df = pd.read_csv(path, sep="\t", index_col=0)
+        columns.append(df[column].rename(i))
+    return pd.concat(columns, axis=1)
+
+
+def per_feature_cross_embedding_cv(probs_df: pd.DataFrame) -> pd.Series:
+    """Per-feature (row) coefficient of variation (std/mean) across embedding
+    columns - high CV means the embeddings disagree on this feature's
+    probability (some see it, most don't); low CV means they're consistent,
+    whether confidently one way or only mildly."""
+    return probs_df.std(axis=1) / probs_df.mean(axis=1)
+
+
+def per_feature_degree(edges_path: str) -> pd.Series:
+    """Per-feature node degree in a raw_data/edges.tsv-style bipartite
+    sample-feature edge list (no header; columns: sample, feature, weight) -
+    count of samples each feature has a non-missing measurement for. A
+    data-quality/missingness covariate, since rank-normalization upstream
+    drops absent measurements rather than zero-filling them."""
+    edges = pd.read_csv(edges_path, sep="\t", header=None, names=["sample", "feature", "weight"])
+    return edges.groupby("feature").size()
+
+
+def per_feature_abundance_cv(abundance_csv_path: str, skip_cols=()) -> pd.Series:
+    """Per-feature coefficient of variation (std/mean, NaN-safe) from a raw
+    sample x feature abundance matrix (raw_data/{microbiome,metabolite}_data_
+    for_differential_abundance.csv). skip_cols excludes any non-feature
+    metadata columns (e.g. metabolites.csv's Group/Time/.../HCAZ, or
+    microbiome.csv's Library index) before computing CV over the rest."""
+    df = pd.read_csv(abundance_csv_path)
+    df = df.drop(columns=[c for c in skip_cols if c in df.columns])
+    return df.std(axis=0, skipna=True) / df.mean(axis=0, skipna=True)
+
+
+def per_feature_endpoint_higher_fraction(
+    abundance_csv_path: str,
+    subject_col: str,
+    time_col: str,
+    baseline_time_value: str,
+    endpoint_time_value: str,
+    skip_cols=(),
+) -> pd.DataFrame:
+    """Per-feature, per-subject PAIRED change (endpoint - baseline), for
+    subjects with both timepoints present - unlike per_feature_abundance_cv
+    (marginal/unpaired), this reconstructs the actual pairing the baseline
+    Wilcoxon signed-rank test uses (raw_data/{microbiome,metabolite}_data_
+    for_differential_abundance.csv have per-subject IDs and a timepoint
+    column). Returns a DataFrame with `frac_endpoint_higher` (fraction of
+    paired subjects where endpoint>baseline, NaN-safe per feature) and
+    `n_pairs` - lets a feature's paired-direction consistency be checked
+    directly, since a rank test's significance can come from a bare majority
+    of pairs agreeing, not necessarily most of them."""
+    df = pd.read_csv(abundance_csv_path, low_memory=False)
+    feature_cols = [c for c in df.columns if c not in skip_cols and c not in (subject_col, time_col)]
+    df = df[df[time_col].isin([baseline_time_value, endpoint_time_value])]
+    baseline = df[df[time_col] == baseline_time_value].drop_duplicates(subject_col).set_index(subject_col)[feature_cols]
+    endpoint = df[df[time_col] == endpoint_time_value].drop_duplicates(subject_col).set_index(subject_col)[feature_cols]
+    common = baseline.index.intersection(endpoint.index)
+    baseline_num = baseline.loc[common].apply(pd.to_numeric, errors="coerce")
+    endpoint_num = endpoint.loc[common].apply(pd.to_numeric, errors="coerce")
+    diff = endpoint_num - baseline_num
+    frac_higher = (diff > 0).sum(axis=0) / diff.notna().sum(axis=0)
+    n_pairs = diff.notna().sum(axis=0)
+    return pd.DataFrame({"frac_endpoint_higher": frac_higher, "n_pairs": n_pairs})
+
+
+def pairwise_cosine_matrix(vectors: "list[np.ndarray]") -> pd.DataFrame:
+    """Symmetric len(vectors) x len(vectors) cosine similarity matrix between
+    a list of 1-D vectors THAT ALL LIVE IN THE SAME COORDINATE SYSTEM (e.g.
+    several features' representations within one embedding). Do NOT use this
+    to compare vectors from different node2vec+ embeddings directly (e.g.
+    two different embeddings' fitted classifier weight vectors) - each
+    embedding is an independently, arbitrarily rotated/scaled space, so raw
+    cross-space vector-direction comparisons are close to meaningless (two
+    unrelated random vectors from different high-dim spaces are already
+    ~orthogonal - low cosine similarity there is a triviality, not a
+    finding). To compare something across embeddings, first reduce each
+    embedding to a well-defined scalar (e.g. per_feature_class_affinity's
+    `affinity` column) and compare those instead."""
+    mat = cosine_similarity(np.vstack(vectors))
+    return pd.DataFrame(mat, index=range(len(vectors)), columns=range(len(vectors)))
+
+
+def per_feature_class_affinity(
+    embedding_df: pd.DataFrame, feature_ids, sample_labels: pd.Series
+) -> pd.DataFrame:
+    """Within ONE embedding (a valid, single coordinate system), each
+    feature's mean cosine similarity to all class-1 samples minus its mean
+    cosine similarity to all class-0 samples (sample_labels: 0/1, e.g.
+    data/time_labels.tsv) - a geometric "which class does this feature look
+    closer to" score that doesn't depend on any classifier fit. Unlike
+    comparing raw weight vectors across embeddings (see pairwise_cosine_
+    matrix's docstring), this reduces each embedding to a per-feature scalar
+    first, so the resulting `affinity` values ARE meaningfully comparable
+    across different embeddings' calls to this function. Returns columns
+    `sim_class0`, `sim_class1`, `affinity` (=sim_class1 - sim_class0),
+    indexed by feature_ids."""
+    ids0 = [s for s in sample_labels.index[sample_labels == 0] if s in embedding_df.index]
+    ids1 = [s for s in sample_labels.index[sample_labels == 1] if s in embedding_df.index]
+    feature_ids = list(feature_ids)
+    feat_vecs = embedding_df.loc[feature_ids].to_numpy()
+    sim0 = cosine_similarity(feat_vecs, embedding_df.loc[ids0].to_numpy()).mean(axis=1)
+    sim1 = cosine_similarity(feat_vecs, embedding_df.loc[ids1].to_numpy()).mean(axis=1)
+    return pd.DataFrame({"sim_class0": sim0, "sim_class1": sim1, "affinity": sim1 - sim0}, index=feature_ids)
+
+
+def sample_class_separation(embedding_df: pd.DataFrame, sample_labels: pd.Series) -> float:
+    """Silhouette score of an embedding's SAMPLE rows (not features), given a
+    per-sample binary label (e.g. data/time_labels.tsv) - how well-separated
+    the two label classes are in that embedding's space on their own,
+    independent of any classifier fit on top of it."""
+    from sklearn.metrics import silhouette_score
+
+    ids = [s for s in sample_labels.index if s in embedding_df.index]
+    x = embedding_df.loc[ids].to_numpy()
+    y = sample_labels.loc[ids].to_numpy()
+    return float(silhouette_score(x, y))

@@ -335,8 +335,7 @@ def combine(
     (index=feature, one column per trial) into empirical p-values
     (p = (1 + count(null at least as extreme)) / (1 + n_permutations),
     avoids p=0) and BH q-values. at_permutation_floor flags features at the
-    minimum achievable p-value (no null trial ever was as extreme) - a
-    signal to run more permutations, not that the result is final.
+    minimum achievable p-value (no null trial ever was as extreme)
 
     reference_class, if given, makes the test direction-aware: features
     with direction == reference_class are tested upper-tailed (observed
