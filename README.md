@@ -498,12 +498,13 @@ python scripts/run_permutations.py --fitted-state results/permutations/time/fit/
 
 ## Literature association lookup (LLM)
 
+This section of the code was not used to generate any results. We explored using
+this approach to assist with semi-automating literature review, and leave it here for 
+anyone exploring a similar approach.
+
 `scripts/feature_annotation.py` + `scripts/llm_feature_association.py` ask
 Claude (with web search) whether a given microbe/metabolite feature has
-published literature support for an association with a study group -
-independent of this study's own statistics, which are only used upstream to
-pick which features are worth asking about. See each script's module
-docstring for the filtering rules and confidence rubric.
+published literature support for an association with a study group. 
 
 **Requires** `ANTHROPIC_API_KEY` set in the environment, and the `anthropic`
 package (`environment.yml`).
@@ -517,11 +518,6 @@ python scripts/llm_feature_association.py \
     --omics-type microbiome --group infant_5mo \
     --out results/llm_annotations/smoke_test.json
 ```
-
-(swap in an actual taxonomy ID from `results/differential_abundance/time_microbiome.txt` if that exact
-one isn't present - `Bifidobacterium` at 5mo is a well-documented
-association, good for eyeballing whether the JSON, confidence score, and
-citations look sane.)
 
 Batch (one feature ID per line in `--feature-list`):
 
