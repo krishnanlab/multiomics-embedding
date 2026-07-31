@@ -518,7 +518,7 @@ python scripts/llm_feature_association.py \
     --out results/llm_annotations/smoke_test.json
 ```
 
-(swap in an actual taxonomy ID from `raw_data/microbiome.txt` if that exact
+(swap in an actual taxonomy ID from `results/differential_abundance/time_microbiome.txt` if that exact
 one isn't present - `Bifidobacterium` at 5mo is a well-documented
 association, good for eyeballing whether the JSON, confidence score, and
 citations look sane.)
@@ -574,3 +574,7 @@ The paper associated with this codebank is:
   doi={10.1101/2024.11.01.621627}
 }
 ```
+
+## Acknowledgments
+
+Portions of this codebase were developed with assistance from [Claude Code](https://claude.com/claude-code).

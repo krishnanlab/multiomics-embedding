@@ -82,6 +82,7 @@ class DeploymentRunner(BaseRunner):
         save_to: str | None = None,
         embedding: pd.DataFrame | None = None,
         log_wandb: bool = False,
+        tag: str | None = None,
     ) -> dict:
         """
         Generate/load the embedding (or use the one given), then fit a
@@ -90,10 +91,21 @@ class DeploymentRunner(BaseRunner):
         (from the deployment fit's own search - no held-out fold here, so
         this is the closest equivalent to SweepRunner's val score), plus
         an overall combined_score.
+
+        tag: if given (e.g. a short embedding identifier like results/best's
+        wandb-run-id hex tags), output files are written to save_to/tag/ with
+        plain <label>_{logging.txt,model.pkl,weights.txt,feature_predictions.tsv}
+        names and results.json - the directory itself disambiguates the
+        embedding, so its long EmbeddingParams.cache_tag() string doesn't need
+        to also be repeated in every filename (see
+        scripts/train_deployment_models.py, results/deployment_for_permutations).
+        If omitted, falls back to the original flat save_to/<label>_<cache_tag>_*
+        naming (e.g. scripts/deploy.py's one-off runs).
         """
         emb = self._load_embedding(params, embedding)
-        if save_to:
-            self._ensure_save_dir(save_to)
+        save_dir = f"{save_to}/{tag}" if (save_to and tag) else save_to
+        if save_dir:
+            self._ensure_save_dir(save_dir)
         # RandomizedSearchCV names the score column "score" for a single
         # scoring string, or the metric's own name (must be in scoring)
         # for a list of scoring metrics - same convention as
@@ -118,20 +130,20 @@ class DeploymentRunner(BaseRunner):
             scores[label_name] = list(fold_scores.values())
             if log_wandb:
                 self._log_label_wandb(label_name, fold_scores, result.best_params)
-            if save_to:
-                tag = params.cache_tag(self.edg_file)
+            if save_dir:
+                name_prefix = label_name if tag else f"{label_name}_{params.cache_tag(self.edg_file)}"
                 if isinstance(self.scoring, list):
-                    with open(f"{save_to}/{label_name}_{tag}_logging.txt", "w") as f:
+                    with open(f"{save_dir}/{name_prefix}_logging.txt", "w") as f:
                         f.write("============== Node2Vec Parameters ==============\n")
                         for param_name, value in vars(params).items():
                             f.write(f"{param_name}: {value}\n")
                         f.write("\n")
                         clf.write_results(f, n_folds=n_folds)
-                clf.save(f"{save_to}/{label_name}_{tag}_model.pkl")
-                clf.save_weights(f"{save_to}/{label_name}_{tag}_weights.txt")
+                clf.save(f"{save_dir}/{name_prefix}_model.pkl")
+                clf.save_weights(f"{save_dir}/{name_prefix}_weights.txt")
                 if result.feature_predictions is not None:
                     result.feature_predictions.to_csv(
-                        f"{save_to}/{label_name}_{tag}_feature_predictions.tsv",
+                        f"{save_dir}/{name_prefix}_feature_predictions.tsv",
                         sep="\t",
                     )
             results[label_name] = {
@@ -147,8 +159,8 @@ class DeploymentRunner(BaseRunner):
 
         full_results = {"edg_file": self.edg_file, **vars(params), **results,
                          "combined_score": metrics["combined_score"]}
-        if save_to:
-            self._save_results_json(save_to, params, full_results)
+        if save_dir:
+            self._save_results_json(save_dir, params, full_results, filename="results.json" if tag else None)
         return full_results
 
     @staticmethod

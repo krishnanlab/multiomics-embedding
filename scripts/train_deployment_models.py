@@ -8,6 +8,11 @@ embeddings. Per-embedding training is src/deployment.py's DeploymentRunner
 (same as scripts/deploy.py) - this script's job is just the curated-list
 loop and z-scoring aggregation across the 7.
 
+Each embedding's outputs land in <out>/<tag>/ (tag = the same short hex ID
+used as the file prefix in results/best, e.g. "wcksnlsg" - see EMBEDDINGS
+below), passed through to DeploymentRunner.run()'s tag= kwarg so file names
+inside that directory don't need to repeat the embedding's full p/q/g/dim/...
+cache tag.
 """
 
 import sys
@@ -90,7 +95,7 @@ def main(p: float, q: float, g: int, out_dir: str, tag: str) -> None:
     runner = build_deployment_runner(
         cv_max_iter=MAX_ITER, n_iter_search=N_MODELS, scoring=SCORING, refit="f1"
     )
-    results = runner.run(params, save_to=out_dir)
+    results = runner.run(params, save_to=out_dir, tag=tag)
 
     zscorer = FeatureZScorer.from_files(
         {
@@ -101,7 +106,7 @@ def main(p: float, q: float, g: int, out_dir: str, tag: str) -> None:
     for label_name in runner.labels:
         feature_predictions = results[label_name]["feature_predictions"]
         if feature_predictions is not None:
-            zscorer.score_and_save(feature_predictions, out_dir, tag, label_name)
+            zscorer.score_and_save(feature_predictions, f"{out_dir}/{tag}", tag, label_name)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,811 @@
+{
+  "fitted_state": "results/permutations/diet/fit/fitted_state.pkl",
+  "observed_tsv": "results/permutations/diet/fit/observed.tsv",
+  "n_permutations": 100000,
+  "n_batches": 100,
+  "base_seed": 0,
+  "out_dir": "results/permutations/diet/100000_permutations",
+  "submitted_at": "2026-07-28T15:52:44.997162+00:00",
+  "batches": [
+    {
+      "batch_id": 0,
+      "seed": 3757552657,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0000.npz",
+      "job_id": "30523701",
+      "slurm_log": "logging/slurm-30523701_perm_batch_0.out"
+    },
+    {
+      "batch_id": 1,
+      "seed": 673228719,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0001.npz",
+      "job_id": "30523702",
+      "slurm_log": "logging/slurm-30523702_perm_batch_1.out"
+    },
+    {
+      "batch_id": 2,
+      "seed": 3241444873,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0002.npz",
+      "job_id": "30523703",
+      "slurm_log": "logging/slurm-30523703_perm_batch_2.out"
+    },
+    {
+      "batch_id": 3,
+      "seed": 3685993406,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0003.npz",
+      "job_id": "30523704",
+      "slurm_log": "logging/slurm-30523704_perm_batch_3.out"
+    },
+    {
+      "batch_id": 4,
+      "seed": 1216546553,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0004.npz",
+      "job_id": "30523705",
+      "slurm_log": "logging/slurm-30523705_perm_batch_4.out"
+    },
+    {
+      "batch_id": 5,
+      "seed": 2078861726,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0005.npz",
+      "job_id": "30523706",
+      "slurm_log": "logging/slurm-30523706_perm_batch_5.out"
+    },
+    {
+      "batch_id": 6,
+      "seed": 2471122328,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0006.npz",
+      "job_id": "30523707",
+      "slurm_log": "logging/slurm-30523707_perm_batch_6.out"
+    },
+    {
+      "batch_id": 7,
+      "seed": 23012616,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0007.npz",
+      "job_id": "30523708",
+      "slurm_log": "logging/slurm-30523708_perm_batch_7.out"
+    },
+    {
+      "batch_id": 8,
+      "seed": 3031610183,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0008.npz",
+      "job_id": "30523709",
+      "slurm_log": "logging/slurm-30523709_perm_batch_8.out"
+    },
+    {
+      "batch_id": 9,
+      "seed": 2976135721,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0009.npz",
+      "job_id": "30523710",
+      "slurm_log": "logging/slurm-30523710_perm_batch_9.out"
+    },
+    {
+      "batch_id": 10,
+      "seed": 556745865,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0010.npz",
+      "job_id": "30523711",
+      "slurm_log": "logging/slurm-30523711_perm_batch_10.out"
+    },
+    {
+      "batch_id": 11,
+      "seed": 4118645239,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0011.npz",
+      "job_id": "30523712",
+      "slurm_log": "logging/slurm-30523712_perm_batch_11.out"
+    },
+    {
+      "batch_id": 12,
+      "seed": 2090914255,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0012.npz",
+      "job_id": "30523713",
+      "slurm_log": "logging/slurm-30523713_perm_batch_12.out"
+    },
+    {
+      "batch_id": 13,
+      "seed": 1802160804,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0013.npz",
+      "job_id": "30523714",
+      "slurm_log": "logging/slurm-30523714_perm_batch_13.out"
+    },
+    {
+      "batch_id": 14,
+      "seed": 3957305396,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0014.npz",
+      "job_id": "30523715",
+      "slurm_log": "logging/slurm-30523715_perm_batch_14.out"
+    },
+    {
+      "batch_id": 15,
+      "seed": 2416193258,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0015.npz",
+      "job_id": "30523716",
+      "slurm_log": "logging/slurm-30523716_perm_batch_15.out"
+    },
+    {
+      "batch_id": 16,
+      "seed": 2322685169,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0016.npz",
+      "job_id": "30523717",
+      "slurm_log": "logging/slurm-30523717_perm_batch_16.out"
+    },
+    {
+      "batch_id": 17,
+      "seed": 3860999861,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0017.npz",
+      "job_id": "30523718",
+      "slurm_log": "logging/slurm-30523718_perm_batch_17.out"
+    },
+    {
+      "batch_id": 18,
+      "seed": 3521360814,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0018.npz",
+      "job_id": "30523719",
+      "slurm_log": "logging/slurm-30523719_perm_batch_18.out"
+    },
+    {
+      "batch_id": 19,
+      "seed": 2710367621,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0019.npz",
+      "job_id": "30523720",
+      "slurm_log": "logging/slurm-30523720_perm_batch_19.out"
+    },
+    {
+      "batch_id": 20,
+      "seed": 2613302452,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0020.npz",
+      "job_id": "30523721",
+      "slurm_log": "logging/slurm-30523721_perm_batch_20.out"
+    },
+    {
+      "batch_id": 21,
+      "seed": 691998362,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0021.npz",
+      "job_id": "30523722",
+      "slurm_log": "logging/slurm-30523722_perm_batch_21.out"
+    },
+    {
+      "batch_id": 22,
+      "seed": 3097918053,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0022.npz",
+      "job_id": "30523723",
+      "slurm_log": "logging/slurm-30523723_perm_batch_22.out"
+    },
+    {
+      "batch_id": 23,
+      "seed": 1397135628,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0023.npz",
+      "job_id": "30523724",
+      "slurm_log": "logging/slurm-30523724_perm_batch_23.out"
+    },
+    {
+      "batch_id": 24,
+      "seed": 227095882,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0024.npz",
+      "job_id": "30523725",
+      "slurm_log": "logging/slurm-30523725_perm_batch_24.out"
+    },
+    {
+      "batch_id": 25,
+      "seed": 1284190969,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0025.npz",
+      "job_id": "30523726",
+      "slurm_log": "logging/slurm-30523726_perm_batch_25.out"
+    },
+    {
+      "batch_id": 26,
+      "seed": 3043713942,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0026.npz",
+      "job_id": "30523727",
+      "slurm_log": "logging/slurm-30523727_perm_batch_26.out"
+    },
+    {
+      "batch_id": 27,
+      "seed": 587957511,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0027.npz",
+      "job_id": "30523728",
+      "slurm_log": "logging/slurm-30523728_perm_batch_27.out"
+    },
+    {
+      "batch_id": 28,
+      "seed": 1432336787,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0028.npz",
+      "job_id": "30523729",
+      "slurm_log": "logging/slurm-30523729_perm_batch_28.out"
+    },
+    {
+      "batch_id": 29,
+      "seed": 352480436,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0029.npz",
+      "job_id": "30523730",
+      "slurm_log": "logging/slurm-30523730_perm_batch_29.out"
+    },
+    {
+      "batch_id": 30,
+      "seed": 31145354,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0030.npz",
+      "job_id": "30523731",
+      "slurm_log": "logging/slurm-30523731_perm_batch_30.out"
+    },
+    {
+      "batch_id": 31,
+      "seed": 2124181941,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0031.npz",
+      "job_id": "30523732",
+      "slurm_log": "logging/slurm-30523732_perm_batch_31.out"
+    },
+    {
+      "batch_id": 32,
+      "seed": 1230359124,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0032.npz",
+      "job_id": "30523733",
+      "slurm_log": "logging/slurm-30523733_perm_batch_32.out"
+    },
+    {
+      "batch_id": 33,
+      "seed": 4183152444,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0033.npz",
+      "job_id": "30523734",
+      "slurm_log": "logging/slurm-30523734_perm_batch_33.out"
+    },
+    {
+      "batch_id": 34,
+      "seed": 3864314740,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0034.npz",
+      "job_id": "30523735",
+      "slurm_log": "logging/slurm-30523735_perm_batch_34.out"
+    },
+    {
+      "batch_id": 35,
+      "seed": 2181434260,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0035.npz",
+      "job_id": "30523736",
+      "slurm_log": "logging/slurm-30523736_perm_batch_35.out"
+    },
+    {
+      "batch_id": 36,
+      "seed": 89664926,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0036.npz",
+      "job_id": "30523737",
+      "slurm_log": "logging/slurm-30523737_perm_batch_36.out"
+    },
+    {
+      "batch_id": 37,
+      "seed": 927708477,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0037.npz",
+      "job_id": "30523738",
+      "slurm_log": "logging/slurm-30523738_perm_batch_37.out"
+    },
+    {
+      "batch_id": 38,
+      "seed": 1942326601,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0038.npz",
+      "job_id": "30523739",
+      "slurm_log": "logging/slurm-30523739_perm_batch_38.out"
+    },
+    {
+      "batch_id": 39,
+      "seed": 2095392586,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0039.npz",
+      "job_id": "30523740",
+      "slurm_log": "logging/slurm-30523740_perm_batch_39.out"
+    },
+    {
+      "batch_id": 40,
+      "seed": 3732358584,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0040.npz",
+      "job_id": "30523741",
+      "slurm_log": "logging/slurm-30523741_perm_batch_40.out"
+    },
+    {
+      "batch_id": 41,
+      "seed": 1108313345,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0041.npz",
+      "job_id": "30523742",
+      "slurm_log": "logging/slurm-30523742_perm_batch_41.out"
+    },
+    {
+      "batch_id": 42,
+      "seed": 143506814,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0042.npz",
+      "job_id": "30523743",
+      "slurm_log": "logging/slurm-30523743_perm_batch_42.out"
+    },
+    {
+      "batch_id": 43,
+      "seed": 3917595041,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0043.npz",
+      "job_id": "30523744",
+      "slurm_log": "logging/slurm-30523744_perm_batch_43.out"
+    },
+    {
+      "batch_id": 44,
+      "seed": 2981519830,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0044.npz",
+      "job_id": "30523745",
+      "slurm_log": "logging/slurm-30523745_perm_batch_44.out"
+    },
+    {
+      "batch_id": 45,
+      "seed": 3907629306,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0045.npz",
+      "job_id": "30523746",
+      "slurm_log": "logging/slurm-30523746_perm_batch_45.out"
+    },
+    {
+      "batch_id": 46,
+      "seed": 3041951927,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0046.npz",
+      "job_id": "30523747",
+      "slurm_log": "logging/slurm-30523747_perm_batch_46.out"
+    },
+    {
+      "batch_id": 47,
+      "seed": 2112316551,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0047.npz",
+      "job_id": "30523748",
+      "slurm_log": "logging/slurm-30523748_perm_batch_47.out"
+    },
+    {
+      "batch_id": 48,
+      "seed": 3551713253,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0048.npz",
+      "job_id": "30523749",
+      "slurm_log": "logging/slurm-30523749_perm_batch_48.out"
+    },
+    {
+      "batch_id": 49,
+      "seed": 3444023912,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0049.npz",
+      "job_id": "30523750",
+      "slurm_log": "logging/slurm-30523750_perm_batch_49.out"
+    },
+    {
+      "batch_id": 50,
+      "seed": 2907820693,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0050.npz",
+      "job_id": "30523751",
+      "slurm_log": "logging/slurm-30523751_perm_batch_50.out"
+    },
+    {
+      "batch_id": 51,
+      "seed": 2657384924,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0051.npz",
+      "job_id": "30523752",
+      "slurm_log": "logging/slurm-30523752_perm_batch_51.out"
+    },
+    {
+      "batch_id": 52,
+      "seed": 1705482282,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0052.npz",
+      "job_id": "30523753",
+      "slurm_log": "logging/slurm-30523753_perm_batch_52.out"
+    },
+    {
+      "batch_id": 53,
+      "seed": 2662064237,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0053.npz",
+      "job_id": "30523754",
+      "slurm_log": "logging/slurm-30523754_perm_batch_53.out"
+    },
+    {
+      "batch_id": 54,
+      "seed": 3635317158,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0054.npz",
+      "job_id": "30523755",
+      "slurm_log": "logging/slurm-30523755_perm_batch_54.out"
+    },
+    {
+      "batch_id": 55,
+      "seed": 987329362,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0055.npz",
+      "job_id": "30523756",
+      "slurm_log": "logging/slurm-30523756_perm_batch_55.out"
+    },
+    {
+      "batch_id": 56,
+      "seed": 3328500339,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0056.npz",
+      "job_id": "30523757",
+      "slurm_log": "logging/slurm-30523757_perm_batch_56.out"
+    },
+    {
+      "batch_id": 57,
+      "seed": 157738150,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0057.npz",
+      "job_id": "30523758",
+      "slurm_log": "logging/slurm-30523758_perm_batch_57.out"
+    },
+    {
+      "batch_id": 58,
+      "seed": 1755997775,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0058.npz",
+      "job_id": "30523759",
+      "slurm_log": "logging/slurm-30523759_perm_batch_58.out"
+    },
+    {
+      "batch_id": 59,
+      "seed": 2926905740,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0059.npz",
+      "job_id": "30523760",
+      "slurm_log": "logging/slurm-30523760_perm_batch_59.out"
+    },
+    {
+      "batch_id": 60,
+      "seed": 3677471389,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0060.npz",
+      "job_id": "30523761",
+      "slurm_log": "logging/slurm-30523761_perm_batch_60.out"
+    },
+    {
+      "batch_id": 61,
+      "seed": 662960536,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0061.npz",
+      "job_id": "30523762",
+      "slurm_log": "logging/slurm-30523762_perm_batch_61.out"
+    },
+    {
+      "batch_id": 62,
+      "seed": 732536926,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0062.npz",
+      "job_id": "30523763",
+      "slurm_log": "logging/slurm-30523763_perm_batch_62.out"
+    },
+    {
+      "batch_id": 63,
+      "seed": 2439046558,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0063.npz",
+      "job_id": "30523764",
+      "slurm_log": "logging/slurm-30523764_perm_batch_63.out"
+    },
+    {
+      "batch_id": 64,
+      "seed": 1858825164,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0064.npz",
+      "job_id": "30523765",
+      "slurm_log": "logging/slurm-30523765_perm_batch_64.out"
+    },
+    {
+      "batch_id": 65,
+      "seed": 1272723354,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0065.npz",
+      "job_id": "30523766",
+      "slurm_log": "logging/slurm-30523766_perm_batch_65.out"
+    },
+    {
+      "batch_id": 66,
+      "seed": 2541405669,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0066.npz",
+      "job_id": "30523767",
+      "slurm_log": "logging/slurm-30523767_perm_batch_66.out"
+    },
+    {
+      "batch_id": 67,
+      "seed": 2140915651,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0067.npz",
+      "job_id": "30523768",
+      "slurm_log": "logging/slurm-30523768_perm_batch_67.out"
+    },
+    {
+      "batch_id": 68,
+      "seed": 401703394,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0068.npz",
+      "job_id": "30523769",
+      "slurm_log": "logging/slurm-30523769_perm_batch_68.out"
+    },
+    {
+      "batch_id": 69,
+      "seed": 1543392617,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0069.npz",
+      "job_id": "30523770",
+      "slurm_log": "logging/slurm-30523770_perm_batch_69.out"
+    },
+    {
+      "batch_id": 70,
+      "seed": 2484009154,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0070.npz",
+      "job_id": "30523771",
+      "slurm_log": "logging/slurm-30523771_perm_batch_70.out"
+    },
+    {
+      "batch_id": 71,
+      "seed": 432186169,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0071.npz",
+      "job_id": "30523772",
+      "slurm_log": "logging/slurm-30523772_perm_batch_71.out"
+    },
+    {
+      "batch_id": 72,
+      "seed": 3491236957,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0072.npz",
+      "job_id": "30523773",
+      "slurm_log": "logging/slurm-30523773_perm_batch_72.out"
+    },
+    {
+      "batch_id": 73,
+      "seed": 1401453692,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0073.npz",
+      "job_id": "30523774",
+      "slurm_log": "logging/slurm-30523774_perm_batch_73.out"
+    },
+    {
+      "batch_id": 74,
+      "seed": 1860059625,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0074.npz",
+      "job_id": "30523775",
+      "slurm_log": "logging/slurm-30523775_perm_batch_74.out"
+    },
+    {
+      "batch_id": 75,
+      "seed": 1210734248,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0075.npz",
+      "job_id": "30523776",
+      "slurm_log": "logging/slurm-30523776_perm_batch_75.out"
+    },
+    {
+      "batch_id": 76,
+      "seed": 3654689226,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0076.npz",
+      "job_id": "30523777",
+      "slurm_log": "logging/slurm-30523777_perm_batch_76.out"
+    },
+    {
+      "batch_id": 77,
+      "seed": 3000632214,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0077.npz",
+      "job_id": "30523778",
+      "slurm_log": "logging/slurm-30523778_perm_batch_77.out"
+    },
+    {
+      "batch_id": 78,
+      "seed": 2923936912,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0078.npz",
+      "job_id": "30523779",
+      "slurm_log": "logging/slurm-30523779_perm_batch_78.out"
+    },
+    {
+      "batch_id": 79,
+      "seed": 574956910,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0079.npz",
+      "job_id": "30523780",
+      "slurm_log": "logging/slurm-30523780_perm_batch_79.out"
+    },
+    {
+      "batch_id": 80,
+      "seed": 2162836574,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0080.npz",
+      "job_id": "30523781",
+      "slurm_log": "logging/slurm-30523781_perm_batch_80.out"
+    },
+    {
+      "batch_id": 81,
+      "seed": 3649273447,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0081.npz",
+      "job_id": "30523782",
+      "slurm_log": "logging/slurm-30523782_perm_batch_81.out"
+    },
+    {
+      "batch_id": 82,
+      "seed": 908836073,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0082.npz",
+      "job_id": "30523783",
+      "slurm_log": "logging/slurm-30523783_perm_batch_82.out"
+    },
+    {
+      "batch_id": 83,
+      "seed": 2641798559,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0083.npz",
+      "job_id": "30523784",
+      "slurm_log": "logging/slurm-30523784_perm_batch_83.out"
+    },
+    {
+      "batch_id": 84,
+      "seed": 2959818164,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0084.npz",
+      "job_id": "30523785",
+      "slurm_log": "logging/slurm-30523785_perm_batch_84.out"
+    },
+    {
+      "batch_id": 85,
+      "seed": 622926447,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0085.npz",
+      "job_id": "30523786",
+      "slurm_log": "logging/slurm-30523786_perm_batch_85.out"
+    },
+    {
+      "batch_id": 86,
+      "seed": 3038241400,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0086.npz",
+      "job_id": "30523787",
+      "slurm_log": "logging/slurm-30523787_perm_batch_86.out"
+    },
+    {
+      "batch_id": 87,
+      "seed": 551322101,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0087.npz",
+      "job_id": "30523788",
+      "slurm_log": "logging/slurm-30523788_perm_batch_87.out"
+    },
+    {
+      "batch_id": 88,
+      "seed": 2404569086,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0088.npz",
+      "job_id": "30523790",
+      "slurm_log": "logging/slurm-30523790_perm_batch_88.out"
+    },
+    {
+      "batch_id": 89,
+      "seed": 1226897879,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0089.npz",
+      "job_id": "30523791",
+      "slurm_log": "logging/slurm-30523791_perm_batch_89.out"
+    },
+    {
+      "batch_id": 90,
+      "seed": 744913493,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0090.npz",
+      "job_id": "30523792",
+      "slurm_log": "logging/slurm-30523792_perm_batch_90.out"
+    },
+    {
+      "batch_id": 91,
+      "seed": 489196606,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0091.npz",
+      "job_id": "30523793",
+      "slurm_log": "logging/slurm-30523793_perm_batch_91.out"
+    },
+    {
+      "batch_id": 92,
+      "seed": 1054608687,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0092.npz",
+      "job_id": "30523794",
+      "slurm_log": "logging/slurm-30523794_perm_batch_92.out"
+    },
+    {
+      "batch_id": 93,
+      "seed": 4253976258,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0093.npz",
+      "job_id": "30523795",
+      "slurm_log": "logging/slurm-30523795_perm_batch_93.out"
+    },
+    {
+      "batch_id": 94,
+      "seed": 1722334846,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0094.npz",
+      "job_id": "30523796",
+      "slurm_log": "logging/slurm-30523796_perm_batch_94.out"
+    },
+    {
+      "batch_id": 95,
+      "seed": 1150669954,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0095.npz",
+      "job_id": "30523797",
+      "slurm_log": "logging/slurm-30523797_perm_batch_95.out"
+    },
+    {
+      "batch_id": 96,
+      "seed": 3374222509,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0096.npz",
+      "job_id": "30523798",
+      "slurm_log": "logging/slurm-30523798_perm_batch_96.out"
+    },
+    {
+      "batch_id": 97,
+      "seed": 1908512080,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0097.npz",
+      "job_id": "30523799",
+      "slurm_log": "logging/slurm-30523799_perm_batch_97.out"
+    },
+    {
+      "batch_id": 98,
+      "seed": 2092919000,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0098.npz",
+      "job_id": "30523800",
+      "slurm_log": "logging/slurm-30523800_perm_batch_98.out"
+    },
+    {
+      "batch_id": 99,
+      "seed": 3786996292,
+      "n_permutations": 1000,
+      "batch_path": "results/permutations/diet/100000_permutations/batches/batch_0099.npz",
+      "job_id": "30523801",
+      "slurm_log": "logging/slurm-30523801_perm_batch_99.out"
+    }
+  ]
+}

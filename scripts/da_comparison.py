@@ -27,7 +27,11 @@ BASELINE_ID_COL = "Feature Type/Library"
 BASELINE_EFFECT_COL = "Fold Change"
 BASELINE_GROUP_COL = "Group with higher relative abundace"
 BASELINE_FDR_COL = "FDR "
+# time (raw_data/{microbiome,metabolites}.txt) is a paired test - same subject,
+# two timepoints; diet (raw_data/diet_{microbiome,metabolites}.txt) is unpaired -
+# different subjects in each diet group - so the raw p-value column name differs.
 BASELINE_PVALUE_COL = "Paired Wilcoxon rank sum test raw p-value"
+BASELINE_PVALUE_COL_DIET = "Mann Whitney U test raw p-value"
 
 
 def load_baseline_da(path: str, encoding: str = "latin-1") -> pd.DataFrame:
@@ -402,7 +406,7 @@ def pairwise_embedding_neighbor_agreement(
 
 def load_per_embedding_predictions(paths: "list[str]", column: str = "endpoint") -> pd.DataFrame:
     """Join N deployment feature_predictions.tsv files (one per embedding,
-    e.g. results/deployment_for_permutations/time_edges_p_*_feature_predictions.tsv -
+    e.g. results/deployment_for_permutations/*/time_feature_predictions.tsv -
     each a predict_proba table indexed by feature ID with one column per
     class) into a single (n_features, N) DataFrame of the given class's
     probability, one column per embedding, in the order paths are given."""
@@ -525,3 +529,125 @@ def sample_class_separation(embedding_df: pd.DataFrame, sample_labels: pd.Series
     x = embedding_df.loc[ids].to_numpy()
     y = sample_labels.loc[ids].to_numpy()
     return float(silhouette_score(x, y))
+
+
+def per_feature_rank_class_gap(
+    edges_path: str, feature_ids, sample_labels: pd.Series
+) -> pd.DataFrame:
+    """Mean fractional-rank edge weight (the value node2vec+ actually consumes -
+    see build_feature_graph.py's _rank_normalize, edges.tsv's weight column) to
+    class-0 samples vs class-1 samples, computed directly on the raw,
+    pre-embedding graph input. Mirrors per_feature_class_affinity's
+    sim_class0/sim_class1/affinity shape exactly, but one pipeline stage
+    earlier, so the two are directly comparable answers to the same "does this
+    feature separate the two classes" question at different points in the
+    pipeline. Returns `rank_class0`, `rank_class1`, `rank_gap`
+    (=rank_class1-rank_class0), indexed by feature_ids. A feature only has an
+    edge to a sample if its raw value there was nonzero and non-missing
+    (build_feature_graph.py drops raw zeros even though they'd have a real
+    rank) - so these means are only over each feature's *detected* samples per
+    class, the same asymmetric-coverage caveat as per_feature_degree; a
+    feature detected in very few samples of one class can show a large gap
+    here for coverage reasons unrelated to rank magnitude."""
+    edges = pd.read_csv(edges_path, sep="\t", header=None, names=["sample", "feature", "weight"])
+    feature_ids = list(feature_ids)
+    edges = edges[edges["feature"].isin(set(feature_ids))]
+    edges = edges.join(sample_labels.rename("label"), on="sample")
+    edges = edges.dropna(subset=["label"])
+    edges["label"] = edges["label"].astype(int)
+    pivot = edges.pivot_table(index="feature", columns="label", values="weight", aggfunc="mean")
+    pivot = pivot.reindex(columns=[0, 1])
+    pivot.columns = ["rank_class0", "rank_class1"]
+    pivot["rank_gap"] = pivot["rank_class1"] - pivot["rank_class0"]
+    return pivot.reindex(feature_ids)
+
+
+def per_feature_abundance_median(abundance_csv_path: str, skip_cols=()) -> pd.Series:
+    """Per-feature median relative abundance (NaN-safe) - sibling to
+    per_feature_abundance_cv, same load/skip_cols pattern, median instead of
+    std/mean. Checks whether detection (by baseline DA or a consensus mode)
+    tracks raw abundance level, independent of effect size."""
+    df = pd.read_csv(abundance_csv_path)
+    df = df.drop(columns=[c for c in skip_cols if c in df.columns])
+    return df.median(axis=0, skipna=True)
+
+
+def _conditional_on_detection(abundance_csv_path: str, skip_cols) -> pd.DataFrame:
+    """Shared loader for the two per_feature_abundance_conditional_* functions
+    below: 0 means "not detected" in these raw abundance matrices (see
+    per_feature_degree's docstring - build_feature_graph.py only draws an edge
+    for a nonzero, non-missing raw value), not a true observed zero abundance,
+    so it's masked to NaN before any mean/median/std is taken."""
+    df = pd.read_csv(abundance_csv_path)
+    df = df.drop(columns=[c for c in skip_cols if c in df.columns])
+    return df.replace(0, np.nan)
+
+
+def per_feature_abundance_conditional_median(abundance_csv_path: str, skip_cols=()) -> pd.Series:
+    """Per-feature median relative abundance among only the samples where the
+    feature was actually detected. Unlike per_feature_abundance_median, which
+    averages the zeros from non-detected samples into the same mean, this is
+    NOT mechanically entangled with per_feature_degree - a feature detected in
+    fewer samples no longer looks lower-abundance for that reason alone."""
+    return _conditional_on_detection(abundance_csv_path, skip_cols).median(axis=0, skipna=True)
+
+
+def per_feature_abundance_conditional_cv(abundance_csv_path: str, skip_cols=()) -> pd.Series:
+    """Conditional-on-detection sibling of per_feature_abundance_cv - see
+    per_feature_abundance_conditional_median's docstring for why this
+    distinction from the marginal version matters."""
+    df = _conditional_on_detection(abundance_csv_path, skip_cols)
+    return df.std(axis=0, skipna=True) / df.mean(axis=0, skipna=True)
+
+
+def effect_size_quantile_bins(
+    baseline_df: pd.DataFrame,
+    feature_ids,
+    effect_col: str = BASELINE_EFFECT_COL,
+    absolute: bool = True,
+    n_bins: int = 10,
+) -> pd.Series:
+    """Per-feature quantile bin (pandas Interval labels, low=smallest effect)
+    over effect_col for feature_ids - quantile rather than fixed-width because
+    effect size here is heavily right-skewed (fixed-width bins would strand
+    almost everything in the first bin). duplicates="drop" collapses ties in
+    the quantile edges, so a coarse or spike-heavy column can return fewer
+    than n_bins."""
+    feature_ids = [f for f in feature_ids if f in baseline_df.index]
+    values = baseline_df.loc[feature_ids, effect_col]
+    if absolute:
+        values = values.abs()
+    return pd.qcut(values, n_bins, duplicates="drop")
+
+
+def binned_agreement_rate(
+    bin_labels: pd.Series, baseline_sig_ids: set, consensus_sig_ids: set
+) -> pd.DataFrame:
+    """Per-bin concordance rate between two significance calls: fraction of
+    features in that bin where baseline-significant == consensus-significant
+    (both flagged, or both not) - deliberately not compare_feature_sets'
+    Jaccard/overlap coefficient, which divide by a positives-only denominator
+    and degrade or go undefined in low-effect-size bins that are almost
+    entirely mutual non-significance, exactly the range a reliability curve
+    needs to characterize. bin_labels' values can be single bins (e.g. from
+    effect_size_quantile_bins) or tuples (e.g. (effect_bin, abundance_bin))
+    for a 2D grid - grouping is value-based either way. Returns one row per
+    distinct bin value: n, n_agree, rate, n_baseline_sig, n_consensus_sig."""
+    baseline_flag = pd.Series(bin_labels.index.isin(baseline_sig_ids), index=bin_labels.index)
+    consensus_flag = pd.Series(bin_labels.index.isin(consensus_sig_ids), index=bin_labels.index)
+    agree = baseline_flag == consensus_flag
+    table = pd.DataFrame(
+        {"bin": bin_labels.to_numpy(), "agree": agree, "baseline_sig": baseline_flag, "consensus_sig": consensus_flag},
+        index=bin_labels.index,
+    )
+    grouped = table.groupby("bin")
+    out = pd.DataFrame(
+        {
+            "n": grouped.size(),
+            "n_agree": grouped["agree"].sum(),
+            "n_baseline_sig": grouped["baseline_sig"].sum(),
+            "n_consensus_sig": grouped["consensus_sig"].sum(),
+        }
+    )
+    out["rate"] = out["n_agree"] / out["n"]
+    return out

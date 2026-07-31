@@ -2,7 +2,8 @@
 Author: Keenan Manpearl
 Date: 2026-07-27
 
-Filtering and formatting for raw_data/{microbiome,metabolites}.txt feature
+Filtering and formatting for
+results/differential_abundance/time_{microbiome,metabolites}.txt feature
 annotations, ahead of an LLM literature-association lookup
 (scripts/llm_feature_association.py). Most rows in both tables are
 functionally uninformative ("Function unknown", "<none>", bare chemical
@@ -54,13 +55,13 @@ _METABOLITE_ANNOTATION_TYPES = {
 }
 
 
-def load_microbiome_da(path: str = "raw_data/microbiome.txt") -> pd.DataFrame:
-    """Load raw_data/microbiome.txt via da_comparison.load_baseline_da()."""
+def load_microbiome_da(path: str = "results/differential_abundance/time_microbiome.txt") -> pd.DataFrame:
+    """Load results/differential_abundance/time_microbiome.txt via da_comparison.load_baseline_da()."""
     return load_baseline_da(path)
 
 
-def load_metabolite_da(path: str = "raw_data/metabolites.txt") -> pd.DataFrame:
-    """Load raw_data/metabolites.txt via da_comparison.load_baseline_da()."""
+def load_metabolite_da(path: str = "results/differential_abundance/time_metabolites.txt") -> pd.DataFrame:
+    """Load results/differential_abundance/time_metabolites.txt via da_comparison.load_baseline_da()."""
     return load_baseline_da(path)
 
 
@@ -131,6 +132,35 @@ def _metabolite_annotation_type(feature_id: str) -> str:
         if feature_id.startswith(prefix):
             return label
     raise ValueError(f"unrecognized metabolite feature ID prefix: {feature_id!r}")
+
+
+_TAXONOMY_RANK_PREFIXES = {
+    "phylum": "p_",
+    "class": "c_",
+    "order": "o_",
+    "family": "f_",
+    "genus": "g_",
+    "species": "s_",
+}
+
+
+def microbiome_taxonomy_rank(feature_id: str, rank: str = "phylum") -> "str | None":
+    """Parse one taxonomic rank (default phylum) out of a taxonomy-type
+    microbiome feature ID's dot-delimited lineage string (e.g.
+    "k_Bacteria.p_Firmicutes.c_Clostridia.o_Eubacteriales...."). Returns None
+    for non-taxonomy feature IDs (anything not starting with "k_") - only a
+    small minority of microbiome features are taxonomy-typed (~457 of
+    17,033), everything else is a functional-annotation ID (COG/eggNOG/Pfam/
+    KEGG ortholog) with no lineage to parse. Also returns None if the
+    requested rank is simply absent from a given lineage string (e.g. an
+    unclassified genus)."""
+    if not feature_id.startswith(_TAXONOMY_PREFIX):
+        return None
+    prefix = _TAXONOMY_RANK_PREFIXES[rank]
+    for part in feature_id.split("."):
+        if part.startswith(prefix):
+            return part[len(prefix):]
+    return None
 
 
 def build_feature_record(feature_id: str, omics_type: str, df: pd.DataFrame) -> dict:

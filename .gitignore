@@ -1,8 +1,6 @@
 emb_cache/*
-slurm*
-wandb/*
-sweep/*
-src/wandb/*
+*wandb/*
+*sweep/*
 run_logs/*
 *__pycache__*
 core.*
@@ -12,5 +10,6 @@ logging/*
 jobs/*
 test_data/*
 results/_test*
-results/permutations/
-results/deployment_for_permutations/
+results/permutations/*/10000_permutations/
+results/permutations/*/100000_permutations/batches/
+results/permutations/*/fit/fitted_state.pkl

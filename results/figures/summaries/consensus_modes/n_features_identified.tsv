@@ -1,0 +1,4 @@
+mode	microbiome-5-month-old	microbiome-12-month-old	microbiome (combined)	metabolites-5-month-old	metabolites-12-month-old	metabolites (combined)	everything (combined)
+majority_vote	8690	8343	17033	5300	3567	8867	25900
+mean_confidence	771	1197	1968	476	292	768	2736
+unanimous_vote	779	961	1740	396	212	608	2348

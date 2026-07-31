@@ -20,6 +20,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--job-name", required=True)
     parser.add_argument("--log-dir", default="logging")
+    parser.add_argument("--template", default=slurm_utils.TEMPLATE_PATH)
     parser.add_argument("--time", default=slurm_utils.DEFAULT_TIME)
     parser.add_argument("--mem", default=slurm_utils.DEFAULT_MEM)
     parser.add_argument("--cpus", type=int, default=slurm_utils.DEFAULT_CPUS)
@@ -41,6 +42,7 @@ if __name__ == "__main__":
         command=" ".join(command),
         job_name=args.job_name,
         log_dir=args.log_dir,
+        template_path=args.template,
         time=args.time,
         mem=args.mem,
         cpus=args.cpus,

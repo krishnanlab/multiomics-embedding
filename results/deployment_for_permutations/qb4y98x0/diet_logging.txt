@@ -1,0 +1,46 @@
+============== Node2Vec Parameters ==============
+p: 5.5
+q: 9.010757520712524
+gamma: 1
+dim: 128
+num_walks: 10
+walk_length: 80
+window_size: 10
+n2v_mode: OTF
+seed: 22
+workers: 4
+
+best C: 12.87292672486363
+best penalty: l1
+best solver: liblinear
+
+f1 validation scores
+fold 0: 0.8
+fold 1: 0.8
+fold 2: 0.8333333333333334
+fold 3: 1.0
+fold 4: 1.0
+median score: 0.8333333333333334
+IQR: 0.19999999999999996
+variance: 0.008711111111111109
+
+balanced_accuracy validation scores
+fold 0: 0.8166666666666667
+fold 1: 0.8166666666666667
+fold 2: 0.8333333333333333
+fold 3: 1.0
+fold 4: 1.0
+median score: 0.8333333333333333
+IQR: 0.18333333333333335
+variance: 0.007622222222222225
+
+accuracy validation scores
+fold 0: 0.8181818181818182
+fold 1: 0.8181818181818182
+fold 2: 0.8181818181818182
+fold 3: 1.0
+fold 4: 1.0
+median score: 0.8181818181818182
+IQR: 0.18181818181818177
+variance: 0.007933884297520656
+

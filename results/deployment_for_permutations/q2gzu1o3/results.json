@@ -1,0 +1,36 @@
+{
+  "edg_file": "data/edges.tsv",
+  "p": 19.0,
+  "q": 8.483911078685804,
+  "gamma": 2,
+  "dim": 128,
+  "num_walks": 10,
+  "walk_length": 80,
+  "window_size": 10,
+  "n2v_mode": "OTF",
+  "seed": 22,
+  "workers": 4,
+  "time": {
+    "best_params": {
+      "C": 55.754510161750716,
+      "penalty": "l2",
+      "solver": "lbfgs"
+    },
+    "feature_predictions": "<DataFrame 25900x2, saved separately>",
+    "avg_val_f1": 0.884090909090909,
+    "median_val_f1": 0.9090909090909091,
+    "iqr_val_f1": 0.03409090909090906
+  },
+  "diet": {
+    "best_params": {
+      "C": 16.82048019376521,
+      "penalty": "l1",
+      "solver": "liblinear"
+    },
+    "feature_predictions": "<DataFrame 25900x2, saved separately>",
+    "avg_val_f1": 0.800909090909091,
+    "median_val_f1": 0.75,
+    "iqr_val_f1": 0.07272727272727275
+  },
+  "combined_score": 0.8425
+}

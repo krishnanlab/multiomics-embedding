@@ -65,7 +65,7 @@ class EmbeddingParams:
     window_size: int = 10
     n2v_mode: str = "OTF"
     seed: int = 42
-    workers: int = 4  # not part of cache_tag - affects speed, not the embedding itself
+    workers: int = 4
 
     def __post_init__(self) -> None:
         if self.n2v_mode not in ("OTF", "Pre"):
@@ -113,8 +113,10 @@ class BaseRunner:
         """create save_to (and any missing parents) before writing any file into it"""
         os.makedirs(save_to, exist_ok=True)
 
-    def _save_results_json(self, save_to: str, params: EmbeddingParams, results: dict) -> None:
-        """Persist a run's results dict (metrics, not the model) as JSON. DataFrame values (e.g. feature_predictions, saved separately) become a short note instead of being dumped inline."""
+    def _save_results_json(
+        self, save_to: str, params: EmbeddingParams, results: dict, filename: str | None = None
+    ) -> None:
+        """Persist a run's results dict (metrics, not the model) as JSON. DataFrame values (e.g. feature_predictions, saved separately) become a short note instead of being dumped inline. filename defaults to results_<cache_tag>.json; pass an explicit name (e.g. "results.json") when save_to is already a run-specific directory."""
 
         def _sanitize(value):
             if isinstance(value, pd.DataFrame):
@@ -123,7 +125,8 @@ class BaseRunner:
                 return {k: _sanitize(v) for k, v in value.items()}
             return value
 
-        path = f"{save_to}/results_{params.cache_tag(self.edg_file)}.json"
+        filename = filename or f"results_{params.cache_tag(self.edg_file)}.json"
+        path = f"{save_to}/{filename}"
         with open(path, "w") as f:
             json.dump(_sanitize(results), f, indent=2, default=str)
 
