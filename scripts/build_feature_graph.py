@@ -27,12 +27,17 @@ starts with "N_"/"P_", else microbial.
 """
 
 import pandas as pd
+import os
 
 RAW_DIR = "raw_data"
 EDGES_PATH = "data/edges.tsv"
-SAMPLES_PATH = "data/nodes/samples.txt"
-MICROBES_PATH = "data/nodes/microbes.txt"
-METABOLITES_PATH = "data/nodes/metabolites.txt"
+NODE_DIR = "data/nodes"
+SAMPLES_PATH = f"{NODE_DIR}/samples.txt"
+MICROBES_PATH = f"{NODE_DIR}/microbes.txt"
+METABOLITES_PATH = f"{NODE_DIR}/metabolites.txt"
+
+os.makedirs(NODE_DIR, exist_ok=True)
+
 
 METABOLITE_META_COLS = [
     "Group",
