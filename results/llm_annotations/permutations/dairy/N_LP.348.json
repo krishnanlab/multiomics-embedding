@@ -1,0 +1,44 @@
+{
+  "feature_id": "N_LP.348",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The unidentified lipid-like metabolite feature with molecular formula C26H42N6O4S is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "This feature is only specified as an empirical molecular formula (C26H42N6O4S) with no compound name, database identifier (HMDB/KEGG/LIPID MAPS/PubChem CID), or structural class assignment. Repeated searches on the formula string itself returned no chemical database entry, no annotated compound, and no biomedical literature - only unrelated Wikipedia formula-index pages and unrelated sulfur-containing compounds. Because the feature is unannotated, no study can possibly report it by name, so direct feature+group evidence is unobtainable from the literature. What I did find was literature relevant to the exposure contrast itself: a controlled feeding trial in U.S. formula-fed infants randomized to meat- vs. dairy-based complementary foods from 5 to 12 months with targeted and untargeted metabolomics, plus companion gut microbiota analyses from the same trial. That trial provides the general plausibility that protein source during complementary feeding can shape the infant metabolome, but its own conclusion was that meat vs. dairy protein source did not differentially affect serum metabolites (the main source-specific finding, higher trimethylamine N-oxide, was in the meat group). Thus only generic, non-feature-specific reasoning supports the hypothesis, and the one directly on-point human study is at best neutral toward a dairy-specific increase in a sulfur/nitrogen-rich metabolite. This matches the 'Weak' tier: something relevant to the group was found, but nothing addressing this specific feature, and no directional support. Note also that a formula containing 6 nitrogens and 1 sulfur is atypical for a true lipid and more consistent with a peptide-like or nucleoside/amino-acid-conjugate species (or an adduct/artifact), so even the class-level reasoning that dairy casein/whey peptides or methionine-rich protein could raise such a species is speculative and would require MS/MS-level identification before literature support could be assessed.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": "10.3390/nu13020388",
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "U.S. formula-fed infants in a controlled feeding trial consuming meat- vs. dairy-based complementary foods from 5 to 12 months of age, with follow-up at 24 months; targeted and untargeted serum metabolomics",
+      "relevance": "Most directly on-point study for the exposure contrast (dairy vs. meat complementary protein at 12 months) with untargeted metabolomics, but it reports no compound matching C26H42N6O4S and concludes that protein source did not differentially impact serum metabolites; provides only background plausibility, not directional support."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2022.1063518/full",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "U.S. formula-fed infants randomized to meat- vs. dairy-based complementary foods during 5-12 months of age; fecal microbiota analysis",
+      "relevance": "Companion trial showing that dairy- vs. meat-based complementary protein does shape the infant gut microbial community, supporting general biological plausibility that diet-source-dependent gut metabolites could differ - but it does not report this or any comparable sulfur/nitrogen-containing metabolite feature."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6574999/",
+      "doi": null,
+      "title": "Protein Intake During Early Complementary Feeding Affects the Gut Microbiota in U.S. Formula-fed Infants (FS04-03-19)",
+      "study_population": "U.S. formula-fed infants during early complementary feeding, varying protein intake/source",
+      "relevance": "Further indirect corroboration that complementary protein intake alters the infant gut microbiota (and hence potentially microbial metabolite output), but contains no data on this specific metabolite feature or formula."
+    }
+  ],
+  "contradicting_evidence": "The single most directly relevant human study (Tang et al., Nutrients 2021, the meat- vs. dairy-based complementary feeding trial with untargeted metabolomics) concluded that protein source (meat vs. dairy) did not differentially impact serum metabolites, and the one source-specific quantitative finding reported (increased trimethylamine N-oxide from 5 to 12 months) was in the MEAT group, not the dairy group. This does not directly contradict the hypothesis for this unannotated feature (which was not measured/reported there, and which is a fecal/lipidomic-platform feature rather than a serum target), so it is not sufficient for a -1 score, but it weighs against expecting a robust dairy-specific increase.",
+  "search_queries_used": [
+    "C26H42N6O4S metabolite",
+    "infant 12 months dairy protein versus meat complementary feeding metabolome",
+    "\"C26H42N6O4S\"",
+    "HMDB formula C26H42N6O4S compound",
+    "meat versus dairy complementary diet infant metabolomics sulfur amino acid metabolites higher dairy",
+    "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet Nutrients 2021 results",
+    "PubChem C26H42N6O4S molecular formula compound sulfur peptide",
+    "infant fecal metabolome dairy versus meat protein 12 months untargeted lipidomics sulfur-containing"
+  ],
+  "caveats": "The feature is identified only by a molecular formula, so literature evaluation is intrinsically limited: many isomers/structures share C26H42N6O4S and no authoritative database hit was retrievable via web search. The formula's high nitrogen content (N6) with a single sulfur is inconsistent with a canonical lipid class despite the 'metabolite_lipid' annotation type, raising the possibility of a peptide, nucleoside conjugate, adduct, in-source fragment, or misassigned formula. Confidence could move up or down substantially once an MS/MS-based identification (or at least a candidate name/HMDB ID) is available; the score of 1 reflects only generic exposure-level plausibility, not any feature-specific finding. Searches were limited to web search results available in this session; specialized spectral libraries (GNPS, MassBank, HMDB advanced formula search) were not queryable here."
+}

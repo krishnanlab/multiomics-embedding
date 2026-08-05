@@ -1,0 +1,59 @@
+{
+  "feature_id": "N_AQ.921",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The unidentified aqueous metabolite feature with molecular formula C37H58N2O4 is increased/characteristic in 12-month-old infants fed meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "No literature was found that reports any metabolite with the molecular formula C37H58N2O4 in an infant gut/fecal metabolome, in a meat- vs dairy-based complementary feeding comparison, or as a biomarker of meat intake in any population. The feature is annotated only by an elemental formula (aqueous fraction, no compound name, no HMDB/KEGG/PubChem ID given), so no feature-specific literature search is possible beyond formula matching; a formula search returned only a non-dietary industrial hindered-phenol antioxidant/plastics additive (CAS 69851-61-2, an N,N'-bis[3-(3,5-di-tert-butyl-4-hydroxyphenyl)propanamide]-type compound) as the sole formula match in PubChemLite, and that entry itself is flagged as having no literature data. Relevant literature does exist for the group/exposure side of the hypothesis: a randomized controlled feeding trial of U.S. formula-fed infants randomized from 5 to 12 months to pureed meat vs. dairy (yogurt/cheese/whey) complementary foods reports diet-associated shifts in the fecal metagenome/metabolome and in blood metabolomics, and adult controlled-feeding metabolomics work has defined meat- vs. dairy-intake biomarkers (creatine, carnosine, taurine, hydroxyproline dipeptides for meat; acyl-glycines etc. for dairy). None of these named markers has the composition C37H58N2O4 (all are far smaller, low-carbon compounds), and a C37, two-nitrogen, four-oxygen species is more consistent with a lipid-amide/dipeptide-lipid, a bile-acid amidate-like conjugate, or an exogenous/contaminant compound than with any established meat-intake marker. Thus only generic, exposure-level reasoning (meat protein delivers more nitrogenous/amide-containing substrate for proteolytic colonic fermentation, and the meat group in this trial was enriched for microbial amino-acid metabolism genes) supports a plausible increase; there is no study on this specific feature+group combination, and no directional evidence either way. Per the rubric this is weak/theoretical-only support, not absence of any relevant literature and not contradiction.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12140001/",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "64 exclusively formula-fed U.S. infants (Denver, CO) randomized at 5 months to meat-based (n=32) or dairy-based (n=32) complementary foods, followed to 12 months; fecal metagenomics + metabolomics",
+      "relevance": "Establishes that meat- vs dairy-based complementary feeding measurably shifts the 5-12 month infant fecal metabolome/metagenome (meat group enriched for microbial amino-acid, nucleic-acid and carbohydrate metabolism genes), i.e. plausible exposure-level context for a diet-discriminating metabolite feature - but the paper reports no metabolite with formula C37H58N2O4, and traditional per-feature differential abundance in it found no significant diet associations."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7912106/",
+      "doi": null,
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "U.S. formula-fed infants in a randomized meat vs. dairy complementary feeding trial (5-12 months), blood/plasma metabolomics",
+      "relevance": "Direct human-infant evidence that the meat vs. dairy complementary protein contrast produces distinguishable metabolomic profiles at the relevant ages, but the discriminating metabolites reported are small amino-acid/acylcarnitine/lipid-class species, none corresponding to a C37H58N2O4 compound; supports the exposure but not this feature."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11459089/",
+      "doi": null,
+      "title": "Metabolomics-based biomarkers of fermented dairy and red meat intake: a randomized controlled trial in healthy adults",
+      "study_population": "Healthy adults, randomized controlled intake of fermented dairy vs. red meat, untargeted metabolomics (indirect - adult, not infant)",
+      "relevance": "Provides the current catalogue of validated meat-intake biomarkers (carnosine, taurine, creatine, hydroxyproline-containing dipeptides) and dairy-intake markers (e.g. acyl-glycines); none has the elemental composition C37H58N2O4, arguing that this feature is not an established meat-intake marker."
+    },
+    {
+      "url": "https://pubchemlite.lcsb.uni.lu/e/compound/112321",
+      "doi": null,
+      "title": "PubChemLite - 69851-61-2 (C37H58N2O4)",
+      "study_population": "Not applicable (chemical database record)",
+      "relevance": "Formula-based identification attempt: the only C37H58N2O4 entry retrieved is a bis(3,5-di-tert-butyl-4-hydroxyphenyl)propanamide-type hindered-phenol antioxidant (industrial polymer additive) with 'No literature data available for this compound', indicating no endogenous/dietary metabolite of this formula is documented and raising the possibility that the feature is exogenous or misassigned."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6937850/",
+      "doi": null,
+      "title": "Biomarkers of meat and seafood intake: an extensive literature review",
+      "study_population": "Review across human dietary intervention and observational studies (mixed ages, predominantly adults)",
+      "relevance": "Comprehensive review of candidate meat-intake biomarkers (hydroxyproline dipeptides, carnosine/anserine, creatine, isotope ratios); no compound of formula C37H58N2O4 appears among reported meat markers, corroborating the absence of feature-specific literature."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C37H58N2O4 metabolite",
+    "infant complementary feeding meat versus dairy protein metabolome",
+    "meat-based complementary food infant gut metabolome 12 months",
+    "\"C37H58N2O4\"",
+    "unidentified aqueous metabolite molecular formula infant meat dairy complementary feeding randomized trial metabolomics",
+    "infant fecal metabolome meat-based complementary food carnitine creatine 12 months randomized",
+    "Network-based representation learning age diet gut microbial metabolomic infants randomized controlled feeding trial meat dairy aqueous metabolites",
+    "PubChemLite 69851-61-2 C37H58N2O4 compound name",
+    "meat consumption biomarker lipid amide dipeptide C37 nitrogen metabolite feces"
+  ],
+  "caveats": "The feature is identified only by an elemental formula from an aqueous-fraction untargeted platform, with no confirmed structure, adduct, retention time, or database ID; formula-only features cannot be matched to literature reliably, and multiple isomeric or isobaric structures share C37H58N2O4. The single database match is an industrial antioxidant/plasticizer-type compound, so contamination or leachate origin (e.g. from packaging or sample handling) cannot be excluded, nor can a genuine but uncatalogued microbial lipid-amide/conjugate. The score reflects only the state of published literature for this formula+group combination and says nothing about whether the feature genuinely differs between groups in the investigators' own data; structural annotation (MS/MS, authentic standard) is required before any literature-based confidence can rise above weak."
+}

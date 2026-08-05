@@ -1,0 +1,60 @@
+{
+  "feature_id": "P_LP.3",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The unannotated metabolite feature with molecular formula C16 H32 N5 O7 is increased or characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches for the exact molecular formula (C16H32N5O7, and the corresponding neutral C16H31N5O7 if the reported formula is a protonated ion) returned no compound entry, no database identification, and no study of any kind linking such a feature to infant diet. The feature is therefore effectively unannotated, and no feature-specific literature exists to evaluate. The only literature that could be located is contextual: (i) the composition (16 C, 5 N, 7 O, high N content) is consistent with a small peptide/amino-acid-derived species - in silico combinatorics show it matches tetrapeptide-level compositions such as Ala/Lys/Ser/Thr or Gly/Lys/Thr/Thr residues - and dietary/microbial protein metabolism literature establishes that higher or differently-sourced dietary protein yields more small peptides and amino-acid catabolites in the gut; (ii) primary studies from the very design implied by this group (U.S. formula-fed infants randomized to meat- vs. dairy-based complementary foods, 5-12 months) report essentially no differential metabolite signatures between meat and dairy arms at 12 months. That combination is generic/theoretical reasoning only, with the closest direct studies being null rather than supportive, which maps to a score of 1 (weak) - not 0 (something relevant was found) and not -1 (no study reports this specific feature in the opposite direction; the directly relevant studies report no group difference rather than a dairy-enriched direction).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": null,
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "U.S. formula-fed infants in a controlled feeding trial, meat- vs. dairy-based complementary diet from 5 to 12 months (follow-up at 24 months); targeted and untargeted serum metabolomics",
+      "relevance": "Directly matches the exposure and timepoint of the hypothesis. Reports that essential amino acids and short-chain acylcarnitines changed with total protein intake over time, but that protein source (meat vs. dairy) did not differentially affect serum metabolites - i.e., a null result for meat-specific metabolite enrichment at 12 months. No unannotated feature of formula C16H32N5O7 is mentioned."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": null,
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "U.S. formula-fed infants, randomized meat vs. dairy complementary feeding, 5-12 months; fecal 16S microbiota",
+      "relevance": "Companion study of the same trial; explicitly notes that untargeted serum metabolomics found no significant meat-vs-dairy metabolite differences at 12 months, providing context that metabolite-level separation by protein source in this design has been hard to demonstrate."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3.full.pdf",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial (preprint)",
+      "study_population": "U.S. formula-fed infants, meat vs. dairy complementary feeding 5-12 months; fecal metagenomics and metabolomics",
+      "relevance": "Same exposure and fecal multi-omic setting; states that conventional differential-abundance analysis of individual features found no significant diet associations, and only network-embedding approaches surfaced diet-linked features. Supports that any single unannotated fecal metabolite feature claimed as meat-characteristic at 12 months lacks independent published corroboration."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7850003/",
+      "doi": null,
+      "title": "Systematic Review of Beef Protein Effects on Gut Microbiota: Implications for Health",
+      "study_population": "Review of human and animal studies of beef/meat protein and gut microbiota",
+      "relevance": "Generic/pathway-level support only: describes hydrolysis of dietary meat protein into poly-, tri- and dipeptides and free amino acids that are microbially fermented, giving a theoretical route by which a nitrogen-rich small peptide-like feature could be elevated with meat-based protein. Does not address this feature or infants."
+    },
+    {
+      "url": "https://journals.asm.org/doi/10.1128/aem.02749-18",
+      "doi": "10.1128/aem.02749-18",
+      "title": "Prebiotic Supplementation of In Vitro Fecal Fermentations Inhibits Proteolysis by Gut Bacteria, and Host Diet Shapes Gut Bacterial Metabolism and Response to Intervention",
+      "study_population": "In vitro fecal fermentation with human donor microbiota; host habitual diet varied",
+      "relevance": "Indirect, pathway-level: shows host dietary protein source shapes bacterial proteolysis and peptide/amino-acid metabolite output, consistent with (but not evidence for) a peptide-like feature distinguishing meat- from dairy-fed infants."
+    }
+  ],
+  "contradicting_evidence": "The most directly relevant primary studies - the meat vs. dairy complementary feeding randomized controlled trial in U.S. formula-fed infants (serum untargeted/targeted metabolomics at 5, 12 and 24 months, and the companion fecal microbiome/metabolome analyses) - report no significant differences in metabolite profiles attributable to protein source at 12 months by conventional per-feature testing. This is a null rather than an opposite-direction finding, so it does not warrant a -1, but it argues against an established meat-specific metabolite signature at this timepoint.",
+  "search_queries_used": [
+    "C16H32N5O7 metabolite",
+    "infant complementary feeding meat versus dairy protein metabolome",
+    "meat-based complementary food infant plasma metabolome 12 months",
+    "\"C16H32N5O7\"",
+    "Different Blood Metabolomics Profiles Infants Meat Dairy Complementary Diet metabolites increased",
+    "HMDB molecular formula C16H31N5O7 compound",
+    "infant fecal metabolome meat versus dairy complementary feeding 12 months untargeted lipidomics",
+    "unannotated metabolite feature molecular formula meat intake biomarker metabolomics children",
+    "meat protein intake fecal peptides amino acid metabolites gut microbiota proteolytic fermentation",
+    "infant gut microbiome meat complementary feeding branched chain amino acid metabolites randomized trial"
+  ],
+  "caveats": "The feature is identified only by a molecular formula (annotation_type metabolite_lipid, positive-mode feature label 'P_LP.3'), with no name, InChIKey, HMDB/KEGG ID or retention time; the reported formula C16H32N5O7 has an even H count with odd N count, so it is most likely an [M+H]+ ion of neutral C16H31N5O7. Literature search on a formula alone is intrinsically low-yield because published studies index compounds by name/ID, and many isomers share a formula. The composition is also atypical for a lipid (5 nitrogens, no phosphorus), suggesting a peptide-like or amino-acid-conjugate species possibly mis-binned to the lipid platform - annotation should be confirmed (MS/MS, standards) before literature-based interpretation. Any confidence higher than 1 would require the feature to be structurally identified first."
+}

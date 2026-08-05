@@ -1,0 +1,64 @@
+{
+  "feature_id": "N_LP.821",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "2-methyl-3-oxo-propanoic acid (methylmalonate semialdehyde) is increased/characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches identified the compound unambiguously: 2-methyl-3-oxopropanoic acid (CHEBI:16256, HMDB0001172, LIPID MAPS LMFA01060193, C4H6O3) is methylmalonate semialdehyde, the obligate intermediate of valine catabolism and of thymine/beta-aminoisobutyrate catabolism, oxidatively decarboxylated by ALDH6A1 (MMSDH) to propionyl-CoA en route to succinyl-CoA. However, no study - human or animal, fecal or systemic - was found that reports this specific metabolite (or its named synonyms) as differing between meat-based and dairy-based complementary feeding, or as elevated with meat protein intake generally. The only literature directly addressing the meat- vs dairy-based complementary feeding contrast in infants is the Denver randomized controlled feeding trial: its serum metabolomics paper reported that valine, isoleucine and phenylalanine rose from 5 to 12 months in ALL infants with explicitly non-significant differences between the meat and dairy groups (only TMAO rose specifically in the meat group), and the companion fecal multi-omics preprint states that conventional differential-abundance testing found no significant metabolome or microbiome differences between the 12-month meat and dairy groups (diet-linked feature sets emerged only from a network-embedding classifier, whose meat-associated metabolite list could not be verified to contain this compound from the search results). Thus support is limited to generic, pathway-level reasoning (meat as a valine- and nucleic-acid/pyrimidine-rich protein source feeding valine and thymine catabolism toward methylmalonate semialdehyde and propionyl-CoA), which is weakened by the fact that dairy/whey protein is itself highly BCAA-dense. Evidence is therefore generic/theoretical rather than feature+group specific, and partly null - matching the 'weak' tier rather than 'moderate' (no indirect studies pointing specifically to this metabolite and this exposure) and not 'contradicting' (nothing reports it higher in the dairy group).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.hmdb.ca/metabolites/HMDB0001172",
+      "doi": null,
+      "title": "Human Metabolome Database: metabocard for 2-Methyl-3-oxopropanoic acid (HMDB0001172)",
+      "study_population": "Not applicable - curated human metabolite database entry",
+      "relevance": "Confirms feature identity as methylmalonate semialdehyde and places it in valine/beta-alanine/pyrimidine and propanoate metabolism, the pathway-level basis for expecting sensitivity to dietary protein and nucleotide load; no diet-group comparison."
+    },
+    {
+      "url": "https://www.lipidmaps.org/databases/lmsd/LMFA01060193?LMID=LMFA01060193",
+      "doi": null,
+      "title": "LIPID MAPS LMSD entry LMFA01060193 (FA 4:1;O, C4H6O3, exact mass 102.0317)",
+      "study_population": "Not applicable - curated lipid structure database",
+      "relevance": "Verifies the external ID given with the feature corresponds to the C4H6O3 oxo-fatty-acid 2-methyl-3-oxopropanoic acid, ensuring the literature searched matches the annotated feature."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23835272/",
+      "doi": null,
+      "title": "Mutations in ALDH6A1 encoding methylmalonate semialdehyde dehydrogenase are associated with dysmyelination and transient methylmalonic aciduria",
+      "study_population": "Human children with inborn errors of metabolism (case reports/genetic study)",
+      "relevance": "Primary human evidence that this compound (MMSA) sits at the junction of valine and thymine catabolism and is converted to propionyl-CoA - the only mechanistic link available connecting it to dietary protein/nucleotide intake; it does not address meat vs dairy feeding."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": "10.3390/nu13020388",
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "US formula-fed infants, randomized meat- vs dairy-based complementary diet from 5 to 12 months, follow-up at 24 months (serum targeted + untargeted metabolomics)",
+      "relevance": "The most directly relevant human trial for this exposure: valine and other essential amino acids increased from 5 to 12 months in both groups with no significant meat-vs-dairy difference; short-chain acylcarnitines (C3, C4, C5) increased over time with protein-rich complementary feeding. Supports that the valine/propionyl-CoA axis is engaged by complementary protein feeding, but provides no meat-specific increase for this metabolite."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2.full",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "US formula-fed infants 5-12 months, randomized meat- vs dairy-based complementary foods; fecal metagenomics and metabolomics",
+      "relevance": "Reports that standard differential abundance analysis found no significant metabolome differences between 12-month meat and dairy groups; 206 metabolite features were assigned to the meat group only via network embedding. Establishes that meat-vs-dairy fecal metabolite signals in this age group are subtle and not independently corroborated for this specific compound."
+    }
+  ],
+  "contradicting_evidence": "No study reports this metabolite higher in the dairy group, so nothing directly opposes the hypothesis. However, the supporting rationale is undercut by null findings: the serum metabolomics of the meat-vs-dairy infant trial found no significant diet-group differences in valine/BCAAs (the precursor pathway), only a TMAO increase in the meat group, and fecal differential-abundance analysis in the companion study detected no significant meat-vs-dairy metabolite differences at 12 months. Additionally, dairy/whey protein is itself BCAA (valine)-rich - adult work on high milk-protein intake shows marked postprandial rises in BCAA, branched-chain keto acids and C3/C4/C5 acylcarnitines - so a valine-catabolism intermediate could plausibly be equal or higher with dairy protein.",
+  "search_queries_used": [
+    "2-methyl-3-oxo-propanoic acid metabolite",
+    "methylmalonate semialdehyde valine catabolism infant",
+    "infant meat versus dairy complementary feeding metabolome",
+    "LMFA01060193 lipid maps",
+    "Network-based representation learning infant meat dairy fecal metabolomics 12 months metabolites",
+    "meat-based complementary food infant fecal metabolome valine branched-chain amino acid catabolism",
+    "methylmalonate semialdehyde gut microbiome feces diet",
+    "propanoate metabolism gut microbiota meat protein intake infant",
+    "\"2-methyl-3-oxo-propanoic acid\" infant feces diet",
+    "\"methylmalonate semialdehyde\" OR \"2-methyl-3-oxopropanoate\" meat consumption metabolomics biomarker",
+    "infant fecal metabolome weaning valine degradation 3-hydroxyisobutyrate meat",
+    "red meat intake urinary metabolomics markers children valine metabolites",
+    "biorxiv 2024.11.01.621627 metabolites associated with meat diet embedding results",
+    "Different Blood Metabolomics Profiles Infants Meat Dairy untargeted metabolites differed diet groups 12 months"
+  ],
+  "caveats": "The feature name carries an ESI m/z-style suffix and only METLIN/LIPID MAPS IDs, i.e. a putative (MS-level, likely level 2/3) annotation of a small, chemically reactive C4H6O3 aldehyde-acid; several isomers (e.g. 3-oxobutanoate-related species, malonate semialdehyde methyl homologs, acetoacetate) share this formula, so the identification itself is uncertain and literature keyed to the exact compound name may not apply. Methylmalonate semialdehyde is also a transient intracellular intermediate rarely quantified in fecal metabolomics, which partly explains the absence of targeted literature. Finally, the only trials matching this exposure are from the same Denver meat-vs-dairy cohort that appears to underlie this study, so they cannot be treated as fully independent external replication. Two searches (BAIBA/meat markers, fecal SCFA in the meat-vs-dairy trial, weaning propanoate pathway enrichment) were attempted but not completed because the search tool limit was reached; those angles remain unexplored."
+}

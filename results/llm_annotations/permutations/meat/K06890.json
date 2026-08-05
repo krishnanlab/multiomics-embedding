@@ -1,0 +1,67 @@
+{
+  "feature_id": "K06890",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "K06890 (uncharacterized protein KEGG ortholog) is increased or characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "No published study located via search reports K06890 specifically in relation to meat- vs dairy-based complementary feeding, or in relation to infant gut microbiome development at all. K06890 is a KEGG orthology entry annotated only as 'uncharacterized protein', not assigned to any KEGG pathway or BRITE hierarchy, so there is no pathway-level literature that could be used as a proxy either; the KEGG/UniProt records I saw simply list member sequences (e.g. uncharacterized proteins in Bifidobacterium spp.) without functional data. What I did find is relevant literature on the group/exposure rather than the feature: randomized controlled feeding trials of U.S. formula-fed infants given meat- vs dairy-based complementary foods from 5 to 12 months report diet-dependent differences in gut microbiota composition and, in the metagenomic/metabolomic analysis of that cohort, that the meat group was enriched for microbial genes involved in amino acid, nucleic acid and carbohydrate metabolism. That is generic, gene-category-level reasoning (a higher-protein meat diet plausibly shifts the functional gene repertoire, and a large fraction of shifted genes in any metagenome are functionally uncharacterized), not evidence about this specific KO. Notably, the same preprint states that conventional differential-abundance analysis of individual microbiome and metabolite features found no significant diet-group differences after multiple-comparison adjustment, which further weakens any expectation of a robust, replicated meat-specific signal for a single uncharacterized KO. This meets the definition of weak/theoretical support only: something relevant was found, but nothing on this feature+group combination, so the score is 1 rather than 0 (no evidence at all) or 2 (at least one direct study).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.genome.jp/entry/K06890",
+      "doi": null,
+      "title": "KEGG ORTHOLOGY: K06890",
+      "study_population": "Database entry (not a study population)",
+      "relevance": "Confirms K06890 is annotated only as 'uncharacterized protein' with no pathway/BRITE assignment, so no functional or pathway-level literature exists to link it to dietary protein source."
+    },
+    {
+      "url": "https://www.kegg.jp/kegg-bin/uniprot_list?ko=K06890",
+      "doi": null,
+      "title": "UniProt list for KEGG Orthology K06890 (K06890; uncharacterized protein)",
+      "study_population": "Sequence database records (bacterial genomes, including Bifidobacterium spp.)",
+      "relevance": "Shows the KO's members are uncharacterized bacterial proteins with no experimentally established function; no diet- or infant-related annotation."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": null,
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term, formula-fed U.S. infants (Denver, CO) randomized to meat- or dairy-based complementary diet from 5 to 12 months; stool 16S rRNA sequencing and SCFA at 5, 10, 12 months",
+      "relevance": "Establishes that the meat vs. dairy complementary-protein exposure does shape the infant gut microbiota at 12 months, but the analysis is taxonomic/SCFA-based and does not report K06890 or any uncharacterized KEGG ortholog."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized meat vs. dairy complementary feeding; fecal metagenomics and metabolomics",
+      "relevance": "Closest available functional-genomic evidence for this exposure: reports the meat diet group enriched for microbial genes in amino acid, nucleic acid and carbohydrate metabolism. This is category-level only; K06890 (function unknown, no pathway) is not named, and the paper notes conventional differential abundance found no diet-group features surviving multiple-testing correction."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Human infants during introduction of solid foods (milk-fed to complementary feeding transition)",
+      "relevance": "Background support that the infant gut metagenome's functional/enzymatic repertoire shifts substantially with complementary feeding, providing only generic plausibility that some uncharacterized gene families change with diet type."
+    }
+  ],
+  "contradicting_evidence": "No study reporting the opposite direction for K06890 specifically was found. However, the metagenomic analysis of the meat vs. dairy infant trial states that traditional per-feature differential abundance analysis identified significant differences by age but none by diet group after multiple-comparison adjustment, which argues against a robust meat-specific enrichment of any single KEGG ortholog, including K06890.",
+  "search_queries_used": [
+    "K06890 KEGG ortholog",
+    "K06890 uncharacterized protein gene function",
+    "infant gut microbiome meat versus dairy complementary feeding metagenome KEGG orthologs",
+    "K06890 KEGG ortholog function definition",
+    "meat-based complementary food infant gut microbiome functional pathways randomized trial 12 months",
+    "K06890 gut microbiome metagenome",
+    "\"K06890\" infant",
+    "K06890 KEGG ortholog meat dairy infant gut microbiome network representation learning",
+    "biorxiv 2024.11.01.621627 KEGG orthologs enriched 12-month meat group",
+    "genome.jp K06890 uncharacterized protein genes organisms",
+    "KEGG K06890 ykfB OR yfiA OR gene name uncharacterized protein bacteria",
+    "\"K06890\" metagenomics differential abundance diet",
+    "K06890 uniprot Bifidobacterium uncharacterized protein KEGG orthology",
+    "meat-based complementary feeding infant gut microbiome protein fermentation functional gene enrichment",
+    "\"K06890\" \"meat\" diet group KEGG ortholog enriched (attempted; server tool-use limit reached)",
+    "K06890 uncharacterized protein infant stool KEGG ortholog complementary feeding (attempted; server tool-use limit reached)",
+    "uncharacterized KEGG orthologs poorly characterized function unknown infant gut microbiome weaning increase (attempted; server tool-use limit reached)"
+  ],
+  "caveats": "K06890 has no known molecular function and no pathway/module membership, so literature-based validation is intrinsically limited: uncharacterized KOs are almost never named in published diet-microbiome papers, and absence of evidence here largely reflects annotation gaps rather than biological refutation. The final three queries could not complete because the search tool's use limit was reached, so a supplementary table of the meat vs. dairy metagenomics trial could conceivably list this KO; that possibility was not fully excluded. Any KO-level signal is also strain/taxon-driven (members include Bifidobacterium and other gut taxa), so an apparent meat-group increase could simply track taxonomic shifts rather than a diet-responsive function."
+}

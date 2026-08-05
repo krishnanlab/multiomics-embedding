@@ -1,0 +1,71 @@
+{
+  "feature_id": "PF03065",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "PF03065 (Glycosyl hydrolase family 57 / GH57) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches located abundant literature on the GH57 family itself (Pfam PF03065; CAZy GH57: alpha-amylase, amylopullulanase, glycogen branching enzyme, 4-alpha-glucanotransferase, alpha-galactosidase specificities, dominated by thermophilic archaeal/bacterial members) and separate literature on the meat- vs dairy-based complementary feeding paradigm in U.S. formula-fed infants (Tang et al. RCT, 5-12 months; and a network-representation-learning metagenomic/metabolomic re-analysis of that same trial). However, no study was found that reports GH57/PF03065 gene-family abundance as differing between dairy-fed and meat-fed infants, nor any study reporting GH57 as enriched by dairy protein intake in any host or model. The published RCT reporting on this exact exposure is 16S-based (taxa and SCFAs only, no Pfam/CAZyme quantification), and the metagenomic re-analysis abstract/full text retrieved does not name PF03065 or GH57 among diet-discriminating Pfam features. The only support available is generic and indirect: GH57 encodes alpha-glucan/starch-active enzymes, and complementary feeding transitions in general enrich starch- and complex-carbohydrate-degrading capacity in the infant gut; a dairy-based regimen (with lactose/whey and typically more starchy cereal-and-dairy vehicles) could plausibly differ in alpha-glucan flux from a meat-based one, but no evidence assigns a direction. Additionally, GH57 is a comparatively rare, largely thermophile/archaea-associated family in human gut metagenomes, making even the pathway-level rationale tenuous. This matches the rubric definition of weak evidence (relevant material found, but only generic/pathway-level reasoning for this feature+group combination), so confidence_score = 1 and mechanism is left null.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.cazypedia.org/index.php/Glycoside_Hydrolase_Family_57",
+      "doi": null,
+      "title": "Glycoside Hydrolase Family 57 - CAZypedia",
+      "study_population": "Not applicable (enzyme family curation; bacterial and archaeal sequences, mostly thermophiles)",
+      "relevance": "Establishes the functional identity of the feature: GH57 members are alpha-glucan-active enzymes (alpha-amylase, amylopullulanase, branching enzyme, 4-alpha-glucanotransferase, alpha-galactosidase), all from prokaryotes with roughly a 1:4 archaea:bacteria ratio. Supplies the only (generic) mechanistic rationale linking the feature to dietary starch/alpha-glucan rather than to dairy protein specifically."
+    },
+    {
+      "url": "https://en.wikipedia.org/wiki/Glycoside_hydrolase_family_57",
+      "doi": null,
+      "title": "Glycoside hydrolase family 57 (Pfam PF03065)",
+      "study_population": "Not applicable (database/annotation reference)",
+      "relevance": "Confirms the identifier mapping PF03065 = Glyco_hydro_57 = CAZy GH57 used to anchor all searches for this feature."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22527043/?dopt=Abstract",
+      "doi": "10.1007/s00792-012-0449-9",
+      "title": "Sequence fingerprints of enzyme specificities from the glycoside hydrolase family GH57",
+      "study_population": "Not applicable (bioinformatic survey of ~700 bacterial and archaeal GH57 sequences, many from thermophiles)",
+      "relevance": "Primary bioinformatic study showing GH57 is a small, poorly characterized family concentrated in thermophilic prokaryotes - context indicating why GH57 is not a well-described component of the infant gut carbohydrate-active enzyme repertoire and why no diet-specific infant data exist."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term, formula-fed U.S. infants (Denver, CO) randomized to meat- or dairy-based complementary foods from 5 to 12 months; stool at 5, 10, 12 months, 16S rRNA sequencing and SCFAs",
+      "relevance": "The most directly relevant study of the exact exposure and timepoint, but it reports taxa (e.g., Ruminococcus, Roseburia, Bifidobacterium, Faecalibacterium) and SCFAs only - no Pfam/CAZyme-level results, hence no support for or against PF03065 specifically."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized to meat vs. dairy complementary protein; fecal metagenomics (species, KO, Pfam) and metabolomics",
+      "relevance": "Only located study that analyses Pfam-level metagenomic features in this exact meat-vs-dairy infant design; retrieved text describes the framework and feature space but does not report PF03065/GH57 as a dairy-associated feature, so it neither supports nor refutes the hypothesis."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6628288/",
+      "doi": null,
+      "title": "Resistant Starch Is Actively Fermented by Infant Faecal Microbiota and Increases Microbial Diversity",
+      "study_population": "Human infant faecal microbiota (pre- and post-complementary feeding) in in vitro fermentation",
+      "relevance": "Indirect, direction-agnostic support that alpha-glucan/starch-fermenting capacity of the infant gut community rises after complementary foods are introduced - the generic pathway-level reasoning behind an alpha-glucan hydrolase family shifting with complementary diet, but it does not compare dairy vs meat protein sources."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "PF03065 glycosyl hydrolase family 57",
+    "glycoside hydrolase family 57 GH57 infant gut microbiome",
+    "dairy versus meat protein complementary feeding infant gut microbiome 12 months",
+    "meat-based versus dairy-based complementary protein infant gut microbiome metagenome",
+    "PF03065 dairy infant gut metagenome Pfam glycosyl hydrolase family 57",
+    "Pfam glycoside hydrolase family 57 gut microbiome starch amylopullulanase abundance diet",
+    "\"glycoside hydrolase family 57\" gut bacteria Bifidobacterium starch degradation",
+    "network representation learning infant gut microbiome meat dairy Pfam glycoside hydrolase",
+    "\"Glycosyl hydrolase family 57\" dairy infants 12 months Pfam feature",
+    "infant gut microbiome starch degradation genes increase complementary feeding weaning amylase CAZyme",
+    "dairy protein infant gut microbiome Ruminococcus starch-degrading enzymes 12 months",
+    "\"family 57\" OR GH57 human gut metagenome abundance human fecal glycoside hydrolase families distribution",
+    "biorxiv 2024.11.01.621627 Pfam features dairy associated glycosyl hydrolase",
+    "GH57 4-alpha-glucanotransferase gut bacteria Firmicutes Ruminococcus genome"
+  ],
+  "caveats": "No published study links PF03065/GH57 abundance to dairy vs meat complementary protein in infants, so the score rests on generic pathway reasoning only. Two important caveats on direction: (1) GH57 is functionally a starch/alpha-glucan (not dairy-protein or lactose) enzyme family, so if anything its abundance should track carbohydrate/starch vehicle content and general weaning-associated maturation rather than protein source; (2) the one RCT on this exposure reported that alpha diversity increased over time in the meat group but not the dairy group and that meat was associated with putative SCFA producers, which could plausibly favour more carbohydrate-degrading capacity in the meat arm - this is suggestive of possible opposite-direction risk but is taxon/SCFA-level, not GH57-level, so it does not qualify as contradicting evidence under the rubric. Also note GH57 is dominated by thermophilic/archaeal members and is rare in human gut metagenomes; low-abundance Pfam features like this are prone to unstable, compositionally driven differential-abundance calls, and the one Pfam-level metagenomic analysis of this exact trial should be checked in full (including supplementary tables) before treating any direction as literature-supported."
+}

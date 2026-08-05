@@ -1,0 +1,70 @@
+{
+  "feature_id": "K05787",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "K05787 (DNA-binding protein HU-alpha, hupA) is increased or characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 2,
+  "rationale": "No study was found that reports the specific KEGG ortholog K05787/hupA as differentially abundant between meat- and dairy-fed infants. However, one directly relevant human study was located: a randomized controlled complementary feeding trial in U.S. formula-fed infants (meat- vs. dairy-based complementary diet from 5 to 12 months) analyzed by network representation learning of shotgun metagenomic and metabolomic features. In that study the meat diet group was enriched for functional gene categories that are exactly the BRITE/COG categories to which K05787 is assigned: 'DNA replication, recombination, and repair' (COG, FDR=0.03; FDR<0.05 in the earlier preprint version), Pfam families performing DNA repair (nominal significance), and KO-level features including 'chromosome and associated proteins' and ribosomal proteins. This is directional support at the pathway/category level within the exact exposure group and age window of the hypothesis, from a single trial (one study reported across preprint versions and a peer-reviewed version, i.e., not independent replicates). Broader bacteriology literature confirms HU-alpha is a core nucleoid-associated protein tied to DNA replication, repair and rapid growth, which makes it a plausible member of the enriched category, but it is a near-universal housekeeping gene whose relative metagenomic abundance largely tracks taxonomic composition and growth state rather than a diet-specific function. Because the supporting evidence is one direct study at category rather than KO resolution, plus supportive mechanistic microbiology, a score of 2 (moderate) is appropriate rather than 3.",
+  "mechanism": "Meat-based complementary foods deliver more animal protein, amino acids, heme iron and zinc to the distal gut than dairy-based foods at this age. Increased proteolytic/amino-acid substrate availability favors faster-replicating, protein- and amino-acid-fermenting taxa (e.g., Clostridiales/Lachnospiraceae, Bacteroides) over the Bifidobacterium-dominated, lactose/HMO-adapted community. Actively replicating populations carry and express high levels of core replication machinery and nucleoid-associated proteins; HU-alpha (hupA, K05787) compacts the nucleoid, assists oriC unwinding and replication initiation, and participates in recombination/repair, so its relative abundance in a fecal metagenome tends to rise with the proportion of fast-growing, replication-active Proteobacteria/Firmicutes/Bacteroidetes. This is consistent with the meat-group enrichment of COG 'DNA replication, recombination and repair', KO 'chromosome and associated proteins', translation and ribosomal-protein categories reported in the meat-vs-dairy infant trial, i.e., a general signature of higher microbial growth/biosynthetic capacity under a higher-protein complementary diet.",
+  "evidence": [
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2.full",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial (preprint v2)",
+      "study_population": "U.S. full-term formula-fed infants randomized to meat- vs. dairy-based complementary foods from 5 to 12 months; fecal shotgun metagenomics and metabolomics",
+      "relevance": "Directly matches the exposure group and age window. Reports that microbiome features classified into the meat group were enriched for COG 'DNA replication, recombination, and repair' (FDR=0.03), Pfam DNA-repair families, translation and ribosomal proteins, and nucleotide/amino acid metabolism - the same functional categories K05787 is annotated to, supporting the hypothesized direction at category level."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v1.full",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of time and diet on the gut microbial and metabolomic environment of infants (preprint v1)",
+      "study_population": "Same randomized controlled feeding trial, U.S. formula-fed infants, 5-12 months, meat vs. dairy complementary diet",
+      "relevance": "Earlier version of the same analysis states significant (FDR<0.05) COG enrichment of DNA replication, recombination and repair in the meat diet, and enrichment of lower-level KO features including 'chromosome and associated proteins' - the exact BRITE hierarchy under which K05787 (HU-alpha) is classified."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial (peer-reviewed version)",
+      "study_population": "U.S. formula-fed infants, randomized meat vs. dairy complementary feeding 5-12 months, fecal metagenomics/metabolomics",
+      "relevance": "Peer-reviewed report of the same trial concluding the meat diet group was enriched with microbial genes encoding amino acid, nucleic acid and carbohydrate metabolism, corroborating a meat-associated shift toward biosynthesis/replication-linked gene content."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term formula-fed U.S. infants randomized to meat- or dairy-based complementary diet from 5 to 12 months; 16S rRNA sequencing and SCFA at 5, 10 and 12 months",
+      "relevance": "Establishes that meat- vs. dairy-based complementary protein produces distinct gut microbiota trajectories in this exact age range (e.g., alpha diversity increased over time in the meat group; group-by-time differences in specific genera), providing the compositional basis for diet-driven differences in core housekeeping gene content, though it does not report KEGG orthologs."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6523023/",
+      "doi": "10.3389/fcimb.2019.00159",
+      "title": "Nucleoid-Associated Protein HU: A Lilliputian in Gene Regulation of Bacterial Virulence",
+      "study_population": "Bacterial molecular microbiology review (not infant/human gut)",
+      "relevance": "Background on HU-alpha/HU function: an abundant nucleoid-associated protein central to DNA compaction, replication, recombination and repair, supporting why K05787 would be expected to co-vary with the replication/repair gene category enriched in the meat group."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2021.06.17.448862v1.full",
+      "doi": null,
+      "title": "Separate physiological roles of specific and non-specific DNA binding of HU protein in Escherichia coli",
+      "study_population": "Escherichia coli laboratory strains (in vitro molecular study)",
+      "relevance": "Primary bacteriology evidence that hupA-encoded HU-alpha is growth-phase dependent (HUalpha2 predominant in exponential growth), supporting the mechanistic link between HU-alpha gene abundance/expression and actively replicating, fast-growing gut populations."
+    }
+  ],
+  "contradicting_evidence": "No study reports K05787/hupA as higher in dairy-fed infants. However, the same meat-vs-dairy trial notes that conventional per-feature differential abundance analysis found no significant diet associations - the meat-group enrichment emerged only from the network embedding approach, and some enrichments (Pfam DNA repair, KO histidine metabolism) were only nominally significant. This tempers, but does not reverse, support for the hypothesized direction.",
+  "search_queries_used": [
+    "K05787 DNA-binding protein HU-alpha infant gut microbiome",
+    "hupA HU-alpha infant gut metagenome complementary feeding",
+    "meat versus dairy protein complementary feeding infant gut microbiome metagenome",
+    "\"meat\" \"dairy\" complementary food infant gut microbiome KEGG ortholog functional pathways 12 months",
+    "Different gut microbiota U.S. formula-fed infants meat vs dairy-based complementary foods randomized controlled trial results",
+    "HU-alpha hupA nucleoid-associated protein abundance gut microbiome diet protein",
+    "biorxiv network representation learning infant meat dairy K05787 hupA DNA-binding protein HU",
+    "\"DNA-binding protein HU\" infant gut metagenome KEGG orthologs enriched diet",
+    "K05787 hupA KEGG ortholog enriched metagenome diet",
+    "Network-based representation learning infant meat dairy enriched microbial genes nucleic acid metabolism KEGG orthologs list",
+    "infant complementary feeding meat protein gut microbiome DNA replication repair genes enriched metagenome",
+    "biorxiv 621627 \"meat\" group enriched \"DNA replication, recombination, and repair\" COG categories infants",
+    "infant meat diet gut microbiome enriched genes \"DNA replication, recombination and repair\" complementary feeding"
+  ],
+  "caveats": "(1) No literature reports the specific KEGG ortholog K05787 for this contrast; support is at the BRITE/COG category level ('DNA replication, recombination and repair', 'chromosome and associated proteins'). (2) The supporting evidence comes essentially from a single randomized trial (preprint versions plus peer-reviewed version of the same Denver meat-vs-dairy cohort), which is likely the same or a closely related cohort to the present study - therefore not independent replication. (3) hupA is a near-universal, high-copy housekeeping gene; its relative metagenomic abundance is strongly confounded by taxonomic composition, genome size, and community growth rate, so a meat-associated increase would be a nonspecific growth/replication signature rather than diet-specific metabolic function. (4) Searches were truncated by a tool-use limit, so additional indirect evidence (e.g., protein-diet effects on bacterial replication rates) was not fully explored."
+}

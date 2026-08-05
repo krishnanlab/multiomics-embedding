@@ -1,0 +1,19 @@
+{
+  "feature_id": "P_LP.332",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The lipidomics feature P_LP.332 ('<none> Esi+6.2199845') is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "This feature carries no chemical annotation: the name '<none> Esi+6.2199845' is an internal untargeted-lipidomics identifier (positive-mode electrospray feature, with the numeric portion appearing to be a retention-time/index label), with no compound name, lipid class, formula, adduct m/z, InChIKey, HMDB/LIPID MAPS/KEGG identifier, or MS/MS-based putative ID supplied. Because there is no identifiable molecular entity, no literature statement can be attached to it, and targeted searches on the identifier string returned nothing relevant (only unrelated ESI/lipidomics methodology papers and a patent). Searches on the exposure contrast did retrieve directly relevant primary studies of the meat- vs. dairy-based complementary feeding trial in formula-fed U.S. infants (blood metabolomics, growth, and gut microbiota outcomes), confirming that this study design and group exist in the literature; however, none of these can be mapped to an unannotated lipid feature, so they provide no evidence for or against the specific hypothesized direction for P_LP.332. Per the rubric, this is scored 0 (no relevant literature located for this feature+group combination) rather than 1, because there is not even a generic or pathway-level argument that can be constructed for an unidentified feature - any mechanistic reasoning would require first assuming a lipid class, which the data do not provide. It is explicitly not -1, since no source reports this feature in the opposite direction either. Note that I was given no internal study data and have not assumed any direction of effect from it.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "unannotated lipid feature ESI+ infant plasma dairy protein complementary feeding",
+    "infant 12 months dairy protein vs meat protein lipidomics metabolomics",
+    "complementary feeding meat versus dairy protein infant plasma lipidome",
+    "\"Esi+6.2199845\" lipid feature",
+    "unidentified lipid feature P_LP untargeted lipidomics infant plasma annotation"
+  ],
+  "caveats": "Scoring is limited entirely by annotation, not by the biology: if this feature is later identified (e.g., via accurate mass/adduct, MS/MS spectral matching, or retention-time alignment to an in-house library), it should be re-evaluated, since several plausible dairy-responsive lipid classes (e.g., odd-chain/short-branched-chain-containing triacylglycerols, milk-fat-derived sphingomyelins, phosphatidylcholines) do have literature support in dairy-fat feeding contexts. Additionally, the relevant randomized trial of meat- vs. dairy-based complementary feeding was conducted in formula-fed U.S. infants, so even an annotated match would need to be checked for population and matrix (plasma vs. serum vs. stool) comparability. The 'P_' prefix suggests plasma and 'LP' a lipid panel, but this was inferred from the identifier and not verified."
+}

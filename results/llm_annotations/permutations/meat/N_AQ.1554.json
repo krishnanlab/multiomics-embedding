@@ -1,0 +1,20 @@
+{
+  "feature_id": "N_AQ.1554",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The unannotated aqueous-phase metabolite feature with molecular formula C37H47N3O2S is increased or characteristic in 12-month-old infants fed meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "This feature is an unidentified metabolomic entity specified only by a molecular formula (C37H47N3O2S) with no compound name, HMDB/KEGG/PubChem identifier, or chemical class assignment. Repeated searches on the exact formula string returned only generic Wikipedia molecular-formula set-index pages for unrelated formulas and an unrelated clinical-trial pharmacokinetics document - no database entry, no annotated endogenous or dietary compound, and no metabolomics study reporting this formula. Searches combining the meat- versus dairy-based complementary feeding exposure with untargeted metabolomics did retrieve work on the relevant study design (serum metabolomics in infants randomized to meat- vs dairy-based complementary foods from 5 to 12 months, and gut microbiota work from the same trial), but none of these results mentioned this formula or any compound assignable to it, and the retrieved abstracts described differences in amino acids such as threonine rather than a large sulfur- and nitrogen-containing species of this mass (~597 Da). Because the feature cannot be mapped to a named compound, even pathway-level or theoretical reasoning about a meat-versus-dairy directional effect is not possible: C37H47N3O2S is a large, highly unsaturated (rings-plus-double-bond equivalent ~17) molecule more consistent with a xenobiotic, dye/contaminant, drug-like species, or a complex conjugate than with a canonical dietary amino-acid or carnitine metabolite that would be expected to track meat intake. No literature was located that addresses this feature in any population, so the hypothesis is currently unsupported (score 0, no evidence found - not contradicted).",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C37H47N3O2S metabolite",
+    "infant complementary feeding meat versus dairy protein metabolome",
+    "\"C37H47N3O2S\"",
+    "meat-based complementary food infant serum metabolite sulfur-containing untargeted metabolomics differences",
+    "infant fecal metabolome 12 months meat protein complementary feeding untargeted",
+    "HMDB C37H47N3O2S molecular formula compound"
+  ],
+  "caveats": "A formula-only feature cannot be reliably searched: many isomers share C37H47N3O2S, and literature indexing is by compound name/ID, so relevant evidence could exist under an identity this feature has not yet been assigned. Recommended next steps before re-evaluating: obtain the measured accurate mass, adduct, retention time and MS/MS spectrum, and attempt annotation against MS/MS libraries (GNPS, mzCloud, MassBank) and formula search in HMDB/PubChem/ChemSpider; also verify the feature is not an analytical artifact, in-source fragment, dimer/adduct misassignment, or a plasticizer/contaminant, all of which are common for high-mass, high-unsaturation, sulfur-containing features in aqueous-phase extracts. Note also that the retrieved meat-vs-dairy complementary feeding literature is serum-based, whereas this feature appears to be from an infant gut/stool-oriented multi-omics panel, which further limits transferability even once annotation is achieved."
+}

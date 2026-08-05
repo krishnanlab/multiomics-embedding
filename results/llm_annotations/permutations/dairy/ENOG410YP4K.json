@@ -1,0 +1,24 @@
+{
+  "feature_id": "ENOG410YP4K",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The eggNOG orthologous group ENOG410YP4K is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for the exact identifier ENOG410YP4K (alone, quoted, and combined with eggNOG/gut/infant/dairy keywords) returned no hits for this orthologous group in any published context - the search engine returned only unrelated gene/protein pages and generic eggNOG database documentation. The feature is annotated as 'Function unknown', so there is no named enzyme, pathway, or homolog that could anchor even indirect or theoretical reasoning about a response to dairy- versus meat-based complementary protein. Searches on the underlying exposure (dairy vs. meat complementary feeding and infant gut microbiome/metagenome) did retrieve relevant trial literature at the level of taxa and metabolites, but none of these reports gene-family/eggNOG-level results for this ortholog, and the one metagenome-oriented analysis of a meat-vs-dairy infant feeding trial that appeared in results explicitly noted that conventional differential-abundance testing found no features significantly differing by diet group after multiple-comparison adjustment. Because nothing at all was located for this specific feature (not even a functional annotation to reason from), the appropriate score is 0 (no evidence found) rather than 1 (weak/theoretical reasoning available). No contradicting study for this feature was found either, so -1 does not apply.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG410YP4K",
+    "ENOG410YP4K eggNOG",
+    "\"ENOG410YP4K\"",
+    "ENOG410YP4K function unknown ortholog gut",
+    "eggNOG orthologous group infant gut microbiome dairy meat complementary feeding",
+    "dairy versus meat based complementary feeding infant gut microbiome metagenome",
+    "eggNOG ENOG410 unknown function infant gut microbiome 12 months dairy protein",
+    "Network-based representation learning infant gut microbiome eggNOG features dairy 12-month",
+    "eggNOG orthologous group unknown function differentially abundant milk protein diet gut metagenome",
+    "infant fecal metagenome eggNOG functional gene families dairy protein 12 months increased"
+  ],
+  "caveats": "Uncharacterized eggNOG orthologous group IDs are rarely mentioned by name in article text; they typically appear only in supplementary tables that are poorly indexed by general web search, so absence of search hits does not prove absence of any relevant data. A confident judgement would require querying the eggNOG database directly for the taxonomic distribution and any functional hints of ENOG410YP4K (no internet access to that resource here), then checking supplementary files of meat-vs-dairy complementary feeding metagenomic trials. Also note that the most closely related published analysis of a randomized meat-vs-dairy infant feeding trial reported diet-group effects that did not survive multiple-comparison correction, so any feature-level directional claim in this comparison should be treated as exploratory."
+}

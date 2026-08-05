@@ -1,0 +1,62 @@
+{
+  "feature_id": "PF03065",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "PF03065 (Glyco_hydro_57, glycoside hydrolase family 57) gene family abundance is increased/characteristic in the fecal metagenome of 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches for PF03065 / GH57 in combination with infant gut microbiome, complementary feeding, weaning, and dairy vs. meat protein sources returned no study - primary or otherwise - that reports this protein family (or a named GH57 enzyme such as amylopullulanase, GH57 4-alpha-glucanotransferase, GH57 branching enzyme) as differentially abundant between dairy- and meat-fed infants, or in any dairy-exposure context. What is available is only generic, family-level information: GH57 is a small, largely thermophilic/archaeal alpha-glucan-active family (alpha-amylase, amylopullulanase, branching enzyme, 4-alpha-glucanotransferase, alpha-galactosidase), and it is listed among the GH families capable of starch degradation. The relevant randomized trial infrastructure exists (U.S. formula-fed infants randomized to meat- vs. dairy-based complementary foods from 5 to 12 months, with 16S and later shotgun/metabolomic analyses including Pfam annotation), but the published outputs I found report taxa (e.g., Ruminococcus, Roseburia) and SCFA/metabolite findings, not GH57/PF03065 directionality. Because the substrate logic for GH57 points to alpha-glucan/starch (a plant-food/cereal exposure) rather than to dairy protein per se, any link to the dairy arm is speculative pathway-level reasoning. Notably, an infant-weaning-period isolate study found that assessed starch-degrading infant gut isolates encoded GH13 rather than GH57 enzymes, which further weakens (without directly contradicting) an expectation of dairy-associated GH57 enrichment. This corresponds to 'weak' on the rubric: relevant background found, but nothing on this feature+group combination.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://en.wikipedia.org/wiki/Glycoside_hydrolase_family_57",
+      "doi": null,
+      "title": "Glycoside hydrolase family 57",
+      "study_population": "Not a study population - database/encyclopedic family description (Pfam PF03065 = Glyco_hydro_57, CAZy GH57)",
+      "relevance": "Confirms the identity of the requested feature ID and that GH57 comprises alpha-glucan-active activities (alpha-amylase, 4-alpha-glucanotransferase, etc.); provides only functional context, no diet or infant association."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22527043/?dopt=Abstract",
+      "doi": null,
+      "title": "Sequence fingerprints of enzyme specificities from the glycoside hydrolase family GH57",
+      "study_population": "In silico sequence analysis of ~700 GH57 members, predominantly from thermophilic archaea/bacteria",
+      "relevance": "Establishes the enzymatic specificities of GH57 (alpha-amylase, amylopullulanase, branching enzyme, 4-alpha-glucanotransferase, alpha-galactosidase) and its concentration in thermophilic taxa, i.e. pathway-level reasoning only, with no link to infant gut or dairy feeding."
+    },
+    {
+      "url": "https://academic.oup.com/ismecommun/article/6/1/ycag136/8680006",
+      "doi": null,
+      "title": "Bifidobacterial genes upregulated by resistant starch investigated using multi-omics have orthologs in infant gut isolates",
+      "study_population": "Bacterial isolates collected from a longitudinal infant microbiome study spanning the weaning period, plus reference strains",
+      "relevance": "Notes GH57 among GH families involved in starch degradation but reports that the assessed infant/weaning-period isolates encoded GH13-family (not GH57) starch-active enzymes - indirect evidence that GH57 is a minor component of infant gut alpha-glucan metabolism, and it ties GH57 function to starch rather than dairy substrates."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term formula-fed U.S. infants randomized to meat- or dairy-based complementary diet from 5 to 12 months; stool at 5, 10, 12 months (16S rRNA, SCFA)",
+      "relevance": "Directly addresses the exposure of interest (dairy vs. meat complementary protein at 12 months) but reports taxonomic and SCFA differences only; no GH57/PF03065 or CAZyme-family result, so it neither supports nor refutes the hypothesis."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2.full",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants (n=32 meat, n=32 dairy) sampled at 5 and 12 months; shotgun metagenomic features annotated with COG/KEGG/Pfam plus fecal metabolomics",
+      "relevance": "Shows that Pfam-level functional features are analyzed in exactly this dairy-vs-meat 12-month setting, but the accessible text highlights embedding-based group separation without reporting PF03065/GH57 as a dairy-associated feature; thus no published directional support for the hypothesis was located."
+    }
+  ],
+  "contradicting_evidence": "No study reporting the opposite direction (GH57 higher in meat-fed infants) was found either. The only mildly discordant observation is indirect: in infant/weaning-period gut isolates, starch-degrading capacity was attributed to GH13 rather than GH57 enzymes, and GH57 is predominantly a thermophile/archaeal family, making substantial dairy-driven enrichment of PF03065 in the infant gut a priori unlikely. This is insufficient to score -1.",
+  "search_queries_used": [
+    "glycoside hydrolase family 57 infant gut microbiome",
+    "PF03065 glycosyl hydrolase family 57",
+    "dairy versus meat based complementary protein infant gut microbiome 12 months",
+    "meat-based complementary feeding infant microbiome randomized trial dairy protein",
+    "GH57 amylopullulanase human gut microbiome starch degradation",
+    "PF03065 Pfam infant gut metagenome diet",
+    "glycoside hydrolase family 57 Bifidobacterium gut bacteria",
+    "infant gut microbiome CAZyme starch degradation weaning complementary feeding glycoside hydrolase families",
+    "biorxiv network representation learning infant meat dairy Pfam glycosyl hydrolase",
+    "\"glycosyl hydrolase family 57\" dairy",
+    "GH57 4-alpha-glucanotransferase gut bacteria Bifidobacterium infant lactose",
+    "infant fecal metagenome dairy yogurt cheese whey protein carbohydrate active enzymes Pfam enriched"
+  ],
+  "caveats": "Pfam-level features are rarely reported individually in diet-intervention papers, so absence of literature may reflect reporting granularity rather than absence of a real effect; supplementary tables of the meat-vs-dairy trial's metagenomic/network analyses (not retrievable via search here) could contain PF03065. GH57 is also a low-abundance family in the human gut, so metagenomic estimates of PF03065 are likely noisy and driven by a few taxa, and its substrate biology (alpha-glucans/starch) is more consistent with cereal/plant intake than with dairy protein - if a dairy association were observed internally it would most plausibly be a taxon-driven, indirect signal. My search budget was exhausted before I could interrogate the trial preprint's feature tables directly."
+}

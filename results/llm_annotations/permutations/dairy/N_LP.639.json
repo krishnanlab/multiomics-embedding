@@ -1,0 +1,87 @@
+{
+  "feature_id": "N_LP.639",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "PI(16:0/18:2(9Z,12Z)) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches located no primary study reporting PI(16:0/18:2) (LMGP06010959) \u2014 or phosphatidylinositol species generally \u2014 as elevated in dairy-fed versus meat-fed infants at any complementary-feeding timepoint. The most directly relevant literature is the U.S. formula-fed infant randomized controlled feeding trial (meat- vs. dairy-based complementary foods, 5\u201312 months, Denver cohort) whose serum metabolomics paper explicitly concluded that protein source (meat vs. dairy) did not differentially impact serum metabolites, and whose companion microbiome/metabolome network-learning analysis emphasized age rather than protein source as the dominant driver; neither result surfaced PI(16:0/18:2) as a dairy-associated feature. What can be found is only generic, compositional/pathway-level reasoning: dairy fat, and specifically the milk fat globule membrane (MFGM) and buttermilk-derived polar lipid fractions used in dairy foods and formulas, contain phosphatidylinositol as a minor phospholipid class (~5\u201310% of MFGM PL), and PI species with 16:0 and 18:2 acyl chains are catalogued in milk/buttermilk lipidomes. That makes a dairy-driven increase in a PI species biologically plausible but entirely untested for this feature+group combination. Countervailing considerations further weaken the specific direction: (i) meat (muscle tissue) is itself a rich source of membrane glycerophospholipids including PI, so a dairy>meat direction is not compositionally obvious; (ii) in human milk the dominant PI species reported by lipidomic profiling is PI(18:0/18:2) rather than PI(16:0/18:2); and (iii) both arms of this type of trial typically continue the same infant formula, compressing any dairy-lipid contrast. Per the rubric, relevant material was found but it is generic/theoretical rather than feature- and group-specific, and no study points the opposite way for this exact feature, so the score is 1 (Weak) rather than 0 or -1.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7912106/",
+      "doi": null,
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "U.S. formula-fed term infants in a randomized controlled feeding trial consuming meat- vs. dairy-based complementary foods from 5 to 12 months, followed to 24 months",
+      "relevance": "Most directly matched study population and exposure contrast (dairy vs. meat complementary protein at 12 months). Targeted/untargeted serum metabolomics reported that protein-food source did not differentially impact serum metabolites; no phosphatidylinositol species such as PI(16:0/18:2) was highlighted as dairy-characteristic, so it provides no support for the hypothesized direction."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5\u201312 months, randomized to meat vs. dairy complementary protein; fecal metagenomics and metabolomics",
+      "relevance": "Same trial, fecal microbiome/metabolome readout closest to the present study design. The available text frames age as the principal driver of the microbial/metabolomic environment and does not name PI(16:0/18:2) or phosphatidylinositols as dairy-group markers."
+    },
+    {
+      "url": "https://www.frontiersin.org/articles/10.3389/fnut.2022.1063518/full",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "U.S. formula-fed infants 5\u201312 months randomized to meat- or dairy-based complementary foods",
+      "relevance": "Companion report from the same trial focused on gut microbiota and fecal SCFAs; documents the dairy vs. meat exposure contrast at 12 months but reports no lipid/phosphatidylinositol metabolite findings, confirming absence of direct evidence for this feature."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8417471/",
+      "doi": null,
+      "title": "Digestion and Absorption of Milk Phospholipids in Newborns and Adults",
+      "study_population": "Review of human newborns and adults; milk phospholipid digestion physiology",
+      "relevance": "Indirect/compositional support: documents that the milk fat globule membrane contains phosphatidylinositol along with SM, PC, PE and PS, establishing dairy foods as a dietary source of PI species that could plausibly reach the infant gut lumen \u2014 but pathway-level only, with no data on PI(16:0/18:2) or on dairy vs. meat complementary feeding."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5479857/",
+      "doi": null,
+      "title": "Fatty acid composition and phospholipid types used in infant formulas modifies the establishment of human gut bacteria in germ-free mice",
+      "study_population": "Germ-free mice colonized with human infant gut bacteria; infant formula phospholipid sources (milk MFGM vs. soy lecithin)",
+      "relevance": "Indirect animal-model evidence that dietary phospholipid source alters gut microbial establishment, and states PI comprises roughly 5\u201310% of human MFGM phospholipids; supports plausibility of a dairy-lipid-driven PI signal in the gut but does not test PI(16:0/18:2) or the dairy vs. meat infant contrast."
+    },
+    {
+      "url": "https://pubs.acs.org/doi/10.1021/acs.jafc.2c07512",
+      "doi": "10.1021/acs.jafc.2c07512",
+      "title": "Profile of Human Milk Phospholipids at Different Lactation Stages with UPLC/Q-TOF-MS: Characterization, Distribution, and Differences",
+      "study_population": "Human milk samples across lactation stages (lipidomic profiling)",
+      "relevance": "Provides the milk PI molecular-species context: PI(18:0/18:2), not PI(16:0/18:2), is reported as the most abundant PI species in human milk, tempering the assumption that PI(16:0/18:2) is a distinctive dairy-diet marker."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5372621/",
+      "doi": null,
+      "title": "In-Depth Lipidomic Analysis of Molecular Species of Triacylglycerides, Diacylglycerides, Glycerophospholipids, and Sphingolipids of Buttermilk by GC-MS/FID, HPLC-ELSD, and UPLC-QToF-MS",
+      "study_population": "Bovine buttermilk (dairy product lipidome, non-human)",
+      "relevance": "Confirms that dairy-derived polar lipid fractions contain numerous PI molecular species, i.e., a dairy dietary source exists for PI lipids; purely compositional food-chemistry evidence, not infant outcome data."
+    },
+    {
+      "url": "https://www.lipidmaps.org/databases/lmsd/LMGP06010959?LMID=LMGP06010959",
+      "doi": null,
+      "title": "LIPID MAPS LMSD record LMGP06010959 \u2014 PI(16:0_18:2)",
+      "study_population": "Not applicable (chemical database record)",
+      "relevance": "Confirms the identity/formula (C43H79O13P, exact mass 834.5258) of the queried feature so that literature searches were anchored to the correct lipid species."
+    }
+  ],
+  "contradicting_evidence": "No study was found reporting PI(16:0/18:2) as higher in meat-fed than dairy-fed infants, so there is no directly opposite finding. However, the single most relevant human trial (serum metabolomics from the 5\u201312 month meat vs. dairy randomized feeding trial) reported a null result \u2014 protein source did not differentially affect the serum metabolome \u2014 which fails to support the hypothesized dairy enrichment. Additionally, muscle/meat tissue is itself phospholipid-rich (including PI), and human-milk lipidomics identifies PI(18:0/18:2) rather than PI(16:0/18:2) as the dominant PI species, both of which weaken the compositional argument for a dairy>meat direction.",
+  "search_queries_used": [
+    "PI(16:0/18:2) phosphatidylinositol infant plasma dairy",
+    "infant complementary feeding dairy vs meat protein metabolomics lipidomics",
+    "phosphatidylinositol 16:0/18:2 dairy milk lipid",
+    "phosphatidylinositol infant fecal metabolome complementary feeding 12 months",
+    "meat dairy complementary feeding infant fecal metabolomics phospholipid Tang",
+    "PI(16:0/18:2) LMGP06010959 metabolite",
+    "dairy intake phosphatidylinositol plasma lipidomics biomarker",
+    "Network-based representation learning meat dairy infant fecal metabolomics phosphatidylinositol",
+    "infant fecal metabolome phospholipids meat dairy protein 12 months randomized trial glycerophospholipid",
+    "weaning infant gut phosphatidylinositol lipid milk fat globule membrane fecal",
+    "\"PI(16:0/18:2)\" infant",
+    "Price Hendricks Tang infant metabolites dairy group increased lipids 12 months network embedding",
+    "bovine milk phosphatidylinositol 16:0/18:2 predominant species lipidomics",
+    "beef meat phospholipid phosphatidylinositol species 18:0/20:4 muscle lipidomics (attempted; search quota exhausted)",
+    "cow milk phosphatidylinositol molecular species PI 16:0/18:2 abundant UPLC (attempted; search quota exhausted)",
+    "infant stool lipidomics complementary food protein source phospholipids 12 months (attempted; search quota exhausted)"
+  ],
+  "caveats": "Untargeted lipidomic annotations at this level (exact sn-position PI(16:0/18:2(9Z,12Z))) are typically MS1/level-2 confidence and may not be distinguishable from isobaric PI 34:2 isomers, so cross-study matching is uncertain. Sample matrix matters: if this feature was measured in stool, luminal PI reflects both diet-derived and host/mucosal/microbial membrane lipid turnover, and PI is largely hydrolyzed by pancreatic phospholipase A2 before the colon, so a direct dietary-dairy-to-fecal-PI link is not guaranteed. Both arms of the reference trial received the same infant formula, which dilutes the dairy-fat contrast. My final three planned queries (beef/muscle PI species and additional milk PI species profiling) could not be executed because the search quota was exhausted, so evidence on the meat-side PI contribution is incomplete. Absence of published evidence here is not evidence of absence \u2014 this may simply be an unstudied feature."
+}

@@ -1,0 +1,63 @@
+{
+  "feature_id": "ENOG4111GVE",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "ENOG4111GVE (Uncharacterised protein family UPF0104) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches for the eggNOG orthologous group identifier (ENOG4111GVE) and for the protein family name (UPF0104 / Pfam PF03706) in combination with infant gut microbiome, complementary feeding, and dairy-vs-meat protein keywords returned no study - human or animal - that reports this orthologous group or this uncharacterised protein family as differentially abundant with dairy-based versus meat-based complementary feeding, or with dairy protein exposure in any host. What was found is (i) family-level annotation evidence: PF03706/UPF0104 corresponds to the MprF-like (lysyl-phosphatidylglycerol synthase / lipid flippase) membrane domain found in many Firmicutes and other bacteria, best characterised in Staphylococcus aureus MprF where it modifies membrane phosphatidylglycerol and confers cationic antimicrobial peptide resistance; and (ii) group-level context evidence: randomized controlled feeding trials in U.S. formula-fed infants fed meat- versus dairy-based complementary foods from 5 to 12 months do report diet-dependent differences in gut microbiota composition and in fecal metagenomic/metabolomic profiles, and complementary feeding transition studies report broad shifts in metagenomic functional capacity by 12 months. However, none of these observed reports names this eggNOG group or the UPF0104/MprF-like family, and the direction (dairy > meat) is therefore not supported by any observed feature-specific data. This matches the rubric definition of weak evidence: only generic/pathway-level or theoretical reasoning is available for this feature+group combination, with no direct or clearly indirect directional study. It is not a 0 (relevant background literature on the family's function and on the exact dietary contrast was located) and not a -1 (no observed study reports the opposite direction for this feature either). An additional caution is that any plausible mechanistic story (dairy protein and milk-derived antimicrobial peptides/lactoferrin selecting for bacteria with MprF-like membrane-lipid modification, or dairy-associated Firmicutes/Lactobacillales carrying more UPF0104 copies) is speculative pathway-level inference, not observed evidence, and eggNOG 'function unknown' families are also notoriously sensitive to reference-database and taxonomic-composition artefacts, so an apparent dairy enrichment could simply track the abundance of a few dairy-associated taxa rather than any selected function.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term, formula-fed U.S. infants randomized to meat-based or dairy-based complementary foods from ~5 to 12 months of age",
+      "relevance": "Establishes that the exact exposure contrast in the hypothesis (dairy- vs meat-based complementary protein at 12 months) does produce measurable gut microbiota differences, but the report observed here is compositional/taxonomic and does not mention ENOG4111GVE, UPF0104 or MprF-like gene families - so it supports the plausibility of a diet effect without supporting the specific feature or its direction."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized to meat- or dairy-based protein-rich complementary foods; fecal metagenomics and metabolomics",
+      "relevance": "The only observed study applying metagenomic (gene/function-level) analysis to this precise dairy-vs-meat infant contrast; its abstract describes age- and diet-driven microbial/metabolomic differences but no mention of this eggNOG group or the UPF0104 family was observed, i.e. no feature-specific directional support. It also appears to derive from the same feeding trial, so it cannot serve as independent confirmation."
+    },
+    {
+      "url": "https://journals.asm.org/doi/10.1128/jb.02217-14",
+      "doi": "10.1128/jb.02217-14",
+      "title": "A Genetic Screen in Myxococcus xanthus Identifies Mutants That Uncouple Outer Membrane Exchange from a Downstream Cellular Response",
+      "study_population": "Bacterial genetics (Myxococcus xanthus); domain-family annotation of Pfam PF03706",
+      "relevance": "Provides the functional identity of the 'unknown function' family: it states that the best-characterized PF03706 (UPF0104) member is Staphylococcus aureus MprF, a cytoplasmic-membrane protein with phospholipid flippase activity. This is annotation/pathway-level context only, with no link to infant diet."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2774229/",
+      "doi": null,
+      "title": "The Bacterial Defensin Resistance Protein MprF Consists of Separable Domains for Lipid Lysinylation and Antimicrobial Peptide Repulsion",
+      "study_population": "In vitro bacterial molecular study (Staphylococcus aureus MprF domains)",
+      "relevance": "Mechanistic background for the UPF0104/MprF-like domain (lysinylation of phosphatidylglycerol conferring cationic antimicrobial peptide resistance), which is the only theoretical basis for a diet/antimicrobial-peptide-mediated hypothesis; it involves no infant, gut-community or dietary-protein data."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9282554/",
+      "doi": null,
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy infants followed from ~4 to 12 months during introduction of solid foods (composition, metagenomic functional capacity, metabolites)",
+      "relevance": "Documents that metagenomic functional gene category abundances shift substantially between 4 and 12 months during complementary feeding, showing that diet-linked functional-gene changes are detectable at this age - but it addresses age/complementary feeding generally, not dairy versus meat protein, and does not report UPF0104/ENOG4111GVE."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG4111GVE eggNOG",
+    "UPF0104 protein family gut microbiome",
+    "infant gut microbiome dairy versus meat complementary protein 12 months",
+    "meat vs dairy complementary foods infant gut microbiota randomized controlled trial functional pathways",
+    "UPF0104 uncharacterized protein family function",
+    "eggNOG orthologous group uncharacterized protein infant gut metagenome dairy protein",
+    "Network-based representation learning infant gut microbial metabolomic meat dairy eggNOG uncharacterized protein",
+    "\"UPF0104\" gut bacteria",
+    "PF03706 UPF0104 MprF-like membrane protein",
+    "infant complementary feeding dairy protein gut microbiome functional gene enrichment metagenomics 12 months",
+    "dairy protein diet gut microbiome lysylphosphatidylglycerol MprF antimicrobial peptide resistance genes diet",
+    "meat-based vs dairy-based complementary food infant metagenome gene families differentially abundant",
+    "Different gut microbiota U.S. formula-fed infants meat vs dairy-based complementary foods results Lachnospiraceae Bacteroides abundance (search quota exhausted before results returned)"
+  ],
+  "caveats": "No literature exists (as observed) on this specific eggNOG orthologous group in any dietary or infant context, so the score rests on family-level annotation plus group-level (dairy vs meat) trial context. Because ENOG4111GVE is an 'unknown function' orthologous group, its abundance is strongly dependent on the annotation database version and on the taxonomic composition of the sample; an apparent dairy enrichment may be a proxy for specific dairy-associated taxa rather than a selected function, and cross-study comparison of such gene-family IDs is generally not possible. The one metagenomic study covering this exact contrast is a preprint/publication from the same feeding trial and thus not independent. Any interpretation should be treated as hypothesis-generating and would benefit from taxonomic decomposition of which genomes contribute this ortholog, plus confirmation in an independent complementary-feeding cohort."
+}

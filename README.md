@@ -498,9 +498,8 @@ python scripts/run_permutations.py --fitted-state results/permutations/time/fit/
 
 ## Literature association lookup (LLM)
 
-This section of the code was not used to generate any results. We explored using
-this approach to assist with semi-automating literature review, and leave it here for 
-anyone exploring a similar approach.
+This section of the code was used to assist with semi-automating literature reviews to
+find publications with supporting (or contradicting) evidence for a feature-class association. 
 
 `scripts/feature_annotation.py` + `scripts/llm_feature_association.py` ask
 Claude (with web search) whether a given microbe/metabolite feature has
@@ -514,7 +513,7 @@ Single lookup:
 ```
 export ANTHROPIC_API_KEY=your-key-here
 python scripts/llm_feature_association.py \
-    --feature-id "k_Bacteria.p_Actinobacteria.c_Actinobacteria.o_Bifidobacteriales.f_Bifidobacteriaceae.g_Bifidobacterium.s_Unclassified.Bifidobacterium" \
+    --feature-id "k_Bacteria.p_Actinobacteria.c_Actinomycetia.o_Bifidobacteriales.f_Bifidobacteriaceae.g_Bifidobacterium.s_Bifidobacterium.bifidum" \
     --omics-type microbiome --group infant_5mo \
     --out results/llm_annotations/smoke_test.json
 ```
@@ -523,9 +522,9 @@ Batch (one feature ID per line in `--feature-list`):
 
 ```
 python scripts/llm_feature_association.py \
-    --feature-list results/permutations/diet/10000_permutations/meat_hits.txt \
-    --omics-type metabolite --group infant_12mo_meat \
-    --out-dir results/llm_annotations/
+    --feature-list results/deployment_for_permutations/dairy_metabolites.txt \
+    --omics-type metabolite --group infant_12mo_dairy \
+    --out-dir results/llm_annotations/permutations
 ```
 
 `--group` is one of `infant_5mo`, `infant_12mo`, `infant_12mo_meat`,

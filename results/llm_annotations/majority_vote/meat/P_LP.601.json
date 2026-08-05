@@ -1,0 +1,22 @@
+{
+  "feature_id": "P_LP.601",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The unidentified metabolite feature with molecular formula C8H19N4O4S is increased/characteristic in 12-month-old infants fed meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "This feature carries no chemical identity beyond a raw molecular formula (C8H19N4O4S; note the odd hydrogen count with an even nitrogen count, which suggests the string is an adduct/ion formula such as [M+H]+ of a neutral C8H18N4O4S species rather than a valid neutral molecule). Searches on the formula itself (and on the plausible neutral formula) returned only Wikipedia molecular-formula index pages and unrelated chemical-catalog/PubChem entries for different formulas (e.g., C8H18N2O4S / HEPES), with no metabolite database record, no named compound, and no biological or nutritional literature. Because the feature cannot be mapped to any named compound, homolog, or pathway, there is no published study - human, animal, or in vitro - that reports this feature in relation to meat- versus dairy-based complementary feeding, or to infant gut microbiome/metabolome development at all. Searches did retrieve the directly relevant exposure literature (the U.S. formula-fed infant meat- vs. dairy-based complementary feeding randomized controlled trial and its serum metabolomics and fecal microbiota analyses), but those reports discuss named metabolites (branched-chain and other essential amino acids, threonine, short-chain acylcarnitines, trimethylamine N-oxide) and explicitly frame protein source as having limited differential metabolite effects; none describes an unannotated sulfur/nitrogen-rich feature matching this formula. I therefore found no literature relevant to this specific feature+group combination, which is scored 0 rather than 1 because even generic pathway-level reasoning is impossible without a chemical annotation (candidate identities for a C-8, 4-nitrogen, 1-sulfur, 4-oxygen species range across guanidino/taurine conjugates, sulfur-containing dipeptides, and thiamine-related degradation products, which would imply very different and even opposite dietary expectations).",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": "No direct contradicting evidence for this feature exists, since the feature is unidentified. Contextually, the closest human study found via search (serum metabolomics of the meat- vs. dairy-based complementary feeding trial, PMC7912106 / MDPI Nutrients 13:388) reported that most metabolite changes from 5 to 12 months were driven by increased total protein intake rather than by protein source, with trimethylamine N-oxide being a notable meat-group-specific increase; this weakly argues against strong meat-vs-dairy discrimination for arbitrary individual features, but it says nothing about C8H19N4O4S specifically.",
+  "search_queries_used": [
+    "C8H19N4O4S metabolite formula",
+    "\"C8H19N4O4S\"",
+    "infant meat versus dairy complementary feeding metabolome 12 months",
+    "meat-based complementary feeding infant plasma metabolome sulfur amino acid",
+    "HMDB \"C8H18N4O4S\" compound",
+    "\"C8H18N4O4S\" metabolite identification",
+    "meat-based complementary diet infant serum untargeted metabolomics unidentified features taurine 12 months",
+    "infant complementary feeding meat dairy lipidomics sulfur-containing metabolite increased"
+  ],
+  "caveats": "The hypothesis is untestable against literature as stated: the feature ID and name provide only a molecular formula, labeled 'metabolite_lipid' although the formula (high N and S, low C, no long acyl chain) is not lipid-like, suggesting a possible mis-annotation or an ion/adduct formula. Structural elucidation (MS/MS spectral matching, retention-time/authentic-standard confirmation, or at minimum a database hit with a candidate identity) is required before any literature-based confidence assessment is meaningful. A confidence of 0 reflects absence of locatable evidence, not evidence of absence of a real group difference in the investigators' own data."
+}

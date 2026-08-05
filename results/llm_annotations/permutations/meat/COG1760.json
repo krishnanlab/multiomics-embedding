@@ -1,0 +1,73 @@
+{
+  "feature_id": "COG1760",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "COG1760 (L-serine deaminase, amino acid transport and metabolism) is increased or characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 2,
+  "rationale": "No published study was found that reports COG1760 / L-serine deaminase (sdaA/sdaB-type L-serine ammonia-lyase) specifically as differentially abundant between meat- and dairy-fed infants. However, multiple converging lines of same-direction evidence exist at the pathway/category level and mechanistically. (1) A metagenomic/metabolomic analysis of a randomized controlled complementary feeding trial in U.S. formula-fed infants (meat vs. dairy protein, 5-12 months) reported that the meat-diet group was enriched for microbial genes in the COG category 'amino acid transport and metabolism' (FDR = 0.006) - the exact functional category to which COG1760 belongs - alongside nucleotide and carbohydrate metabolism enrichments. (2) A companion report from an infant complementary feeding cohort found that meat-derived nutrients at 9 months correlated strongly with increased microbiome amino acid metabolism/biosynthesis functions. (3) The parent trial reported meat-specific increases in amino-acid-fermenting Firmicutes (Ruminococcus, Roseburia) relative to dairy, consistent with a shift toward proteolytic/amino-acid catabolic capacity. (4) Basic microbiology establishes that L-serine deaminase abundance/activity is driven by luminal L-serine availability and that gut bacteria use it as a one-step, high-yield route from serine to pyruvate + ammonia, so greater delivery of animal protein-derived free/undigested amino acids to the distal gut plausibly selects for this gene family. Because the direct group-level evidence is category-level (not feature-specific) and comes from the same trial design rather than independent cohorts, this falls short of 'strong' but satisfies 'multiple indirect/pathway-level studies pointing the same direction'.",
+  "mechanism": "L-serine deaminase (L-serine ammonia-lyase; SdaA/SdaB homologs, COG1760) catabolizes L-serine to pyruvate and ammonia in a single ATP-efficient step, letting gut bacteria use serine as a carbon/energy and nitrogen source and contributing to acid/stress tolerance. Meat-based complementary feeding increases the flux of animal protein and peptide/amino-acid substrate reaching the colon relative to a dairy-based diet, while shifting the community away from milk-oligosaccharide/lactose-driven saccharolytic Bifidobacterium toward amino-acid- and fiber-fermenting Clostridia (Roseburia, Ruminococcus) and Enterobacteriaceae that carry serine catabolic operons. Substrate-driven selection and induction of serine utilization genes would therefore raise the metagenomic abundance of COG1760 in the meat group by 12 months.",
+  "evidence": [
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2.full",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized controlled complementary feeding trial (meat- vs. dairy-based protein); fecal shotgun metagenomics + metabolomics",
+      "relevance": "Most direct evidence: reports that microbial features classified to the meat-diet group were significantly enriched for the COG functional category 'amino acid transport and metabolism' (FDR=0.006), the category containing COG1760, supporting the hypothesized direction at pathway/category level in exactly this exposure group and age window."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6574999/",
+      "doi": null,
+      "title": "Protein Intake During Early Complementary Feeding Affects the Gut Microbiota in U.S. Formula-fed Infants (FS04-03-19)",
+      "study_population": "Healthy term U.S. formula-fed infants randomized to meat- or dairy-based complementary protein, followed to 12 months",
+      "relevance": "Primary trial report showing meat-specific increases in amino-acid/protein-fermenting genera (Ruminococcus, Roseburia; significant group-by-time interaction) versus dairy, i.e. a taxonomic shift compatible with greater serine-catabolic gene capacity in the meat group at 12 months, though serine deaminase itself was not measured."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7258074/",
+      "doi": null,
+      "title": "Connecting Infant Complementary Feeding Patterns with Microbiome Development",
+      "study_population": "Infants sampled at ~6, 9 and 12 months during complementary feeding; shotgun metagenomics and global metabolite profiling with diet records",
+      "relevance": "Reports that nutrients from meat products at 9 months correlated strongly (canonical correlation >=0.6) with increased microbiome amino acid metabolism and biosynthesis functions, corroborating a meat-associated increase in amino-acid metabolic gene content of which L-serine deaminase is one component."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41564-019-0591-6",
+      "doi": null,
+      "title": "Dietary l-serine confers a competitive fitness advantage to Enterobacteriaceae in the inflamed gut",
+      "study_population": "Mouse models colonized with E. coli LF82 and Citrobacter rodentium; dietary L-serine manipulation",
+      "relevance": "Indirect mechanistic support that luminal (dietary) L-serine availability drives selection for bacterial L-serine utilization/catabolic genes, the pathway represented by COG1760, linking dietary protein-derived serine supply to serine deaminase-dependent fitness."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9765748/",
+      "doi": null,
+      "title": "Serine Deamination Is a New Acid Tolerance Mechanism Observed in Uropathogenic Escherichia coli",
+      "study_population": "In vitro bacterial genetics (uropathogenic E. coli UTI89, sdaA/sdaB deletion mutants)",
+      "relevance": "Establishes the enzymatic function and physiological role of the SdaA/SdaB L-serine deaminases (COG1760 family): import of exogenous L-serine via SdaC and deamination to pyruvate, supporting substrate-driven relevance of this gene family in the gut lumen."
+    },
+    {
+      "url": "https://www.tandfonline.com/doi/full/10.1080/19490976.2025.2465896",
+      "doi": "10.1080/19490976.2025.2465896",
+      "title": "Increased dietary protein stimulates amino acid catabolism via the gut microbiota and secondary bile acid production",
+      "study_population": "Dietary protein dose-response feeding intervention with gut microbiota and host amino acid catabolic enzyme profiling (animal/mammalian model per report; not infants)",
+      "relevance": "Indirect support that higher dietary protein intake up-regulates amino acid catabolism involving the gut microbiota, including serine-degrading enzyme activity (serine dehydratase among the amino acid degrading enzymes increased), consistent with increased serine deamination capacity on a meat/high-animal-protein diet."
+    }
+  ],
+  "contradicting_evidence": "No study was found reporting L-serine deaminase or serine catabolic genes higher in dairy-fed than meat-fed infants, so no direct contradiction. Two tempering observations: (a) the same meat-vs-dairy infant trial analysis noted that conventional differential abundance testing of individual features found no significant diet associations (the meat/amino-acid signal emerged only from the network-embedding approach), so feature-level significance for genes like COG1760 is not established; (b) dairy proteins (casein/whey) are themselves serine-rich, and a murine metatranscriptomic study of milk-protein fermentation shows milk protein also fuels microbial amino acid fermentation, so a dairy-driven increase in serine catabolic gene expression cannot be excluded.",
+  "search_queries_used": [
+    "COG1760 L-serine deaminase infant gut microbiome",
+    "serine deaminase gut microbiome meat protein infant",
+    "meat versus dairy protein complementary feeding infant gut microbiome metagenome amino acid metabolism",
+    "Network-based representation learning infant meat dairy microbial genes amino acid degradation serine",
+    "\"serine deaminase\" meat diet gut microbiome enriched protein fermentation",
+    "L-serine deaminase sdaA gut bacteria high protein diet colonic amino acid fermentation",
+    "biorxiv 2024.11.01.621627 meat diet group enriched microbial genes encoding amino acid COG",
+    "high protein diet human gut microbiome metagenome amino acid degradation genes serine catabolism increased",
+    "infant complementary feeding meat protein fecal amino acids serine metabolite metagenomics 12 months",
+    "L-serine microbiota dietary protein intestinal serine catabolism bacteria review",
+    "Metatranscriptome microbial fermentation dietary milk proteins murine gut serine deaminase upregulated",
+    "Increased dietary protein amino acid catabolism gut microbiota secondary bile acid human or mice study design serine",
+    "weaning infant gut microbiome amino acid catabolism genes increase solid food metagenome serine threonine deaminase",
+    "infant meat dairy complementary diet blood metabolomics serine amino acid higher meat group (search quota exceeded, no results returned)",
+    "Roseburia Ruminococcus serine utilization deaminase amino acid fermentation gut (search quota exceeded, no results returned)",
+    "gut microbiome serine metabolism animal protein red meat human intervention metagenomics serine dehydratase gene abundance (search quota exceeded, no results returned)"
+  ],
+  "caveats": "Key caveat: the strongest supporting source is a preprint analysis of a meat-vs-dairy infant feeding trial that very likely uses the same or a closely related cohort/dataset as the present study, so it is not an independent replication and its support is at the COG-category level ('amino acid transport and metabolism'), not for COG1760 specifically. The related 9-month correlation report also derives from the same complementary feeding cohort. Remaining evidence is mechanistic/indirect (E. coli and Pseudomonas SdaA/SdaB biochemistry, mouse dietary L-serine studies, general protein-fermentation literature) and not infant- or diet-arm-specific. COG1760 also encompasses multiple bacterial serine/threonine ammonia-lyase homologs with different taxonomic carriers (Enterobacteriaceae, Clostridia, Bacteroides), so shifts in its abundance may reflect taxonomic turnover during weaning rather than diet-specific serine substrate availability. Finally, gene abundance does not equal serine catabolic flux; paired fecal serine/pyruvate or ammonia measurements would be needed to confirm functional relevance. Search-limit quota was reached before three planned confirmatory queries could be run."
+}

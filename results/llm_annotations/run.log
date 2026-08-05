@@ -1,0 +1,99 @@
+submitting 80 requests across 8 job(s) in one batch
+submitted batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT (80 requests)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01J5B1iw6duM6jhQaAzjpLuT: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+job 0 N_LP.276: confidence_score=1 -> results/llm_annotations/permutations/dairy/N_LP.276.json
+job 0 N_AQ.1072: confidence_score=0 -> results/llm_annotations/permutations/dairy/N_AQ.1072.json
+job 0 N_AQ.614: confidence_score=1 -> results/llm_annotations/permutations/dairy/N_AQ.614.json
+job 0 P_AQ.933: confidence_score=0 -> results/llm_annotations/permutations/dairy/P_AQ.933.json
+job 0 N_AQ.1361: confidence_score=0 -> results/llm_annotations/permutations/dairy/N_AQ.1361.json
+job 0 P_LP.332: confidence_score=0 -> results/llm_annotations/permutations/dairy/P_LP.332.json
+job 0 N_AQ.887: confidence_score=0 -> results/llm_annotations/permutations/dairy/N_AQ.887.json
+job 0 P_LP.1692: confidence_score=1 -> results/llm_annotations/permutations/dairy/P_LP.1692.json
+job 0 N_LP.348: confidence_score=1 -> results/llm_annotations/permutations/dairy/N_LP.348.json
+job 0 N_LP.639: confidence_score=1 -> results/llm_annotations/permutations/dairy/N_LP.639.json
+job 1 COG0413: confidence_score=1 -> results/llm_annotations/permutations/dairy/COG0413.json
+job 1 ENOG4111GVE: confidence_score=1 -> results/llm_annotations/permutations/dairy/ENOG4111GVE.json
+job 1 ENOG4111F8R: confidence_score=0 -> results/llm_annotations/permutations/dairy/ENOG4111F8R.json
+job 1 ENOG410ZW8V: confidence_score=1 -> results/llm_annotations/permutations/dairy/ENOG410ZW8V.json
+job 1 ENOG410ZJ65: confidence_score=1 -> results/llm_annotations/permutations/dairy/ENOG410ZJ65.json
+job 1 ENOG410XR0J: confidence_score=1 -> results/llm_annotations/permutations/dairy/ENOG410XR0J.json
+job 1 COG0612: confidence_score=1 -> results/llm_annotations/permutations/dairy/COG0612.json
+job 1 PF03065: confidence_score=1 -> results/llm_annotations/permutations/dairy/PF03065.json
+job 1 PF13414: confidence_score=1 -> results/llm_annotations/permutations/dairy/PF13414.json
+job 1 ENOG410YP4K: confidence_score=0 -> results/llm_annotations/permutations/dairy/ENOG410YP4K.json
+job 2 N_AQ.1554: confidence_score=0 -> results/llm_annotations/permutations/meat/N_AQ.1554.json
+job 2 N_AQ.921: confidence_score=1 -> results/llm_annotations/permutations/meat/N_AQ.921.json
+job 2 N_LP.821: confidence_score=1 -> results/llm_annotations/permutations/meat/N_LP.821.json
+job 2 N_LP.289: confidence_score=1 -> results/llm_annotations/permutations/meat/N_LP.289.json
+job 2 P_LP.3: confidence_score=1 -> results/llm_annotations/permutations/meat/P_LP.3.json
+job 2 P_LP.594: confidence_score=0 -> results/llm_annotations/permutations/meat/P_LP.594.json
+job 2 P_AQ.1362: confidence_score=0 -> results/llm_annotations/permutations/meat/P_AQ.1362.json
+job 2 P_AQ.1733: confidence_score=1 -> results/llm_annotations/permutations/meat/P_AQ.1733.json
+job 2 N_AQ.1217: confidence_score=1 -> results/llm_annotations/permutations/meat/N_AQ.1217.json
+job 2 N_AQ.275: confidence_score=1 -> results/llm_annotations/permutations/meat/N_AQ.275.json
+job 3 K15711: confidence_score=1 -> results/llm_annotations/permutations/meat/K15711.json
+job 3 ENOG4111IRS: confidence_score=1 -> results/llm_annotations/permutations/meat/ENOG4111IRS.json
+job 3 COG1760: confidence_score=2 -> results/llm_annotations/permutations/meat/COG1760.json
+job 3 COG1488: confidence_score=1 -> results/llm_annotations/permutations/meat/COG1488.json
+job 3 COG0697: confidence_score=1 -> results/llm_annotations/permutations/meat/COG0697.json
+job 3 K06890: confidence_score=1 -> results/llm_annotations/permutations/meat/K06890.json
+job 3 PF01743: confidence_score=1 -> results/llm_annotations/permutations/meat/PF01743.json
+job 3 COG0185: confidence_score=2 -> results/llm_annotations/permutations/meat/COG0185.json
+job 3 COG2039: confidence_score=1 -> results/llm_annotations/permutations/meat/COG2039.json
+job 3 PF04977: confidence_score=1 -> results/llm_annotations/permutations/meat/PF04977.json
+job 4 N_AQ.1072: confidence_score=0 -> results/llm_annotations/majority_vote/dairy/N_AQ.1072.json
+job 4 N_AQ.614: confidence_score=1 -> results/llm_annotations/majority_vote/dairy/N_AQ.614.json
+job 4 N_LP.348: confidence_score=0 -> results/llm_annotations/majority_vote/dairy/N_LP.348.json
+job 4 P_AQ.1009: confidence_score=0 -> results/llm_annotations/majority_vote/dairy/P_AQ.1009.json
+job 4 P_LP.1536: confidence_score=0 -> results/llm_annotations/majority_vote/dairy/P_LP.1536.json
+job 4 N_LP.1768: confidence_score=0 -> results/llm_annotations/majority_vote/dairy/N_LP.1768.json
+job 4 P_LP.146: confidence_score=1 -> results/llm_annotations/majority_vote/dairy/P_LP.146.json
+job 4 N_LP.1348: confidence_score=1 -> results/llm_annotations/majority_vote/dairy/N_LP.1348.json
+job 4 N_AQ.887: confidence_score=0 -> results/llm_annotations/majority_vote/dairy/N_AQ.887.json
+job 4 P_AQ.1528: confidence_score=0 -> results/llm_annotations/majority_vote/dairy/P_AQ.1528.json
+job 5 COG0413: confidence_score=1 -> results/llm_annotations/majority_vote/dairy/COG0413.json
+job 5 ENOG410ZW8V: confidence_score=1 -> results/llm_annotations/majority_vote/dairy/ENOG410ZW8V.json
+job 5 ENOG4111GVE: confidence_score=1 -> results/llm_annotations/majority_vote/dairy/ENOG4111GVE.json
+job 5 ENOG4111F8R: confidence_score=0 -> results/llm_annotations/majority_vote/dairy/ENOG4111F8R.json
+job 5 ENOG410XR0J: confidence_score=1 -> results/llm_annotations/majority_vote/dairy/ENOG410XR0J.json
+job 5 ENOG410XSU2: confidence_score=1 -> results/llm_annotations/majority_vote/dairy/ENOG410XSU2.json
+job 5 PF13414: confidence_score=1 -> results/llm_annotations/majority_vote/dairy/PF13414.json
+job 5 K16053: confidence_score=1 -> results/llm_annotations/majority_vote/dairy/K16053.json
+job 5 PF03065: confidence_score=1 -> results/llm_annotations/majority_vote/dairy/PF03065.json
+job 5 ENOG4111SU2: confidence_score=0 -> results/llm_annotations/majority_vote/dairy/ENOG4111SU2.json
+job 6 N_LP.289: confidence_score=1 -> results/llm_annotations/majority_vote/meat/N_LP.289.json
+job 6 N_LP.659: confidence_score=1 -> results/llm_annotations/majority_vote/meat/N_LP.659.json
+job 6 N_LP.821: confidence_score=1 -> results/llm_annotations/majority_vote/meat/N_LP.821.json
+job 6 P_LP.3: confidence_score=0 -> results/llm_annotations/majority_vote/meat/P_LP.3.json
+job 6 P_AQ.1733: confidence_score=1 -> results/llm_annotations/majority_vote/meat/P_AQ.1733.json
+job 6 N_AQ.1554: confidence_score=0 -> results/llm_annotations/majority_vote/meat/N_AQ.1554.json
+job 6 N_AQ.275: confidence_score=1 -> results/llm_annotations/majority_vote/meat/N_AQ.275.json
+job 6 N_AQ.921: confidence_score=0 -> results/llm_annotations/majority_vote/meat/N_AQ.921.json
+job 6 P_LP.601: confidence_score=0 -> results/llm_annotations/majority_vote/meat/P_LP.601.json
+job 6 P_LP.210: confidence_score=1 -> results/llm_annotations/majority_vote/meat/P_LP.210.json
+job 7 K15711: confidence_score=1 -> results/llm_annotations/majority_vote/meat/K15711.json
+job 7 ENOG4111IRS: confidence_score=1 -> results/llm_annotations/majority_vote/meat/ENOG4111IRS.json
+job 7 COG1760: confidence_score=2 -> results/llm_annotations/majority_vote/meat/COG1760.json
+job 7 PF04977: confidence_score=1 -> results/llm_annotations/majority_vote/meat/PF04977.json
+job 7 COG0697: confidence_score=1 -> results/llm_annotations/majority_vote/meat/COG0697.json
+job 7 K06890: confidence_score=1 -> results/llm_annotations/majority_vote/meat/K06890.json
+job 7 COG2039: confidence_score=1 -> results/llm_annotations/majority_vote/meat/COG2039.json
+job 7 COG0185: confidence_score=2 -> results/llm_annotations/majority_vote/meat/COG0185.json
+job 7 COG0516: confidence_score=2 -> results/llm_annotations/majority_vote/meat/COG0516.json
+job 7 K05787: confidence_score=2 -> results/llm_annotations/majority_vote/meat/K05787.json

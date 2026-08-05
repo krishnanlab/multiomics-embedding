@@ -1,0 +1,24 @@
+{
+  "feature_id": "N_AQ.1072",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "2-Butanone, 4-[6-(sulfooxy)-2-naphthalenyl]- (CAS 91488-18-5) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "Repeated searches on the compound name, its CAS number (91488-18-5), its structural core (4-(6-hydroxy-2-naphthalenyl)-2-butanone / naphthylalkanone sulfate conjugate), and the METLIN identifier returned no biological or nutritional literature at all for this metabolite. The only hits were chemical-catalog/PubChem-style entries for closely related naphthylalkanones and drug-label/patent documents describing nabumetone (4-(6-methoxy-2-naphthalenyl)-2-butanone), for which a 6-hydroxy/6-sulfooxy naphthylalkanone is a plausible phase-I/phase-II (sulfate) conjugate. No study - human, animal, or in vitro - was found reporting this compound in stool, serum, or urine of infants, nor in relation to dairy versus meat protein intake, complementary feeding, weaning, or gut microbiome/metabolome composition. Searches did retrieve the relevant meat- vs. dairy-based complementary feeding trial literature (serum metabolomics and fecal metagenome/metabolome analyses in 5-12 month-old U.S. formula-fed infants), but the discriminating metabolites highlighted in those reports are amino acids (BCAAs, phenylalanine, threonine) and microbial/fermentation-related metabolites; none of the retrieved material mentioned this naphthalenyl butanone sulfate or any related sulfated naphthylalkanone. Because no literature bearing on this feature (in any direction) could be located, the rubric score is 0 rather than 1 (no pathway-level study on this feature exists to reason from beyond generic sulfotransferase-conjugation chemistry) and certainly not -1 (nothing contradicts it either).",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "2-Butanone, 4-[6-(sulfooxy)-2-naphthalenyl]-",
+    "91488-18-5 metabolite",
+    "naphthalenyl butanone sulfooxy infant metabolome",
+    "nabumetone sulfate conjugate metabolite 4-(6-hydroxy-2-naphthalenyl)-2-butanone",
+    "dairy versus meat complementary protein infant metabolomics 12 months",
+    "infant gut metabolome meat versus dairy protein weaning trial urine serum metabolites",
+    "METLIN 137 metabolite standard",
+    "\"sulfooxy\" naphthalenyl butanone dairy milk metabolite",
+    "6-hydroxy-2-naphthalenyl butanone sulfate fecal metabolome infant",
+    "infant fecal metabolome dairy complementary food sulfated aromatic metabolites 12 months randomized"
+  ],
+  "caveats": "This feature is very likely a low-confidence library match: a sulfated naphthylalkanone is structurally a xenobiotic/drug-derived (nabumetone-like) or environmental-PAH-derived conjugate rather than a known food- or microbiota-derived metabolite, so the annotation itself should be verified (MS/MS confirmation against an authentic standard, retention time, adduct/isotope checks) before biological interpretation. If real, an aromatic sulfate conjugate in infant samples would more plausibly reflect medication exposure, environmental/packaging contamination, or host sulfotransferase activity on an exogenous aromatic ketone than dairy protein intake per se; note also that gut bacterial arylsulfatases can hydrolyze such conjugates, so any group difference could reflect microbial deconjugation capacity rather than diet-derived substrate. Absence of literature is not evidence of absence - it mainly reflects that this compound is essentially unstudied in nutrition/microbiome contexts."
+}

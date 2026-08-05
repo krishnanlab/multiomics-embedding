@@ -1,0 +1,70 @@
+{
+  "feature_id": "PF13414",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The Pfam domain PF13414 (TPR repeat, TPR_11) is increased/characteristic in the fecal metagenomes of 12-month-old infants fed dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Targeted searches combining the Pfam accession/domain name with the dietary exposure returned no study reporting TPR-repeat domain (PF13414/TPR_11) abundance as differentially enriched in dairy- versus meat-fed infants, at 12 months or any other complementary-feeding timepoint. The one randomized controlled trial that directly addresses this exposure (Tang et al., formula-fed Denver infants randomized to meat- vs. dairy-based complementary foods from 5 to 12 months) profiled the microbiota by 16S rRNA gene sequencing plus SCFAs and reported taxonomic/metabolite differences (e.g., beta-diversity differing at 12 months, Chao1 richness increasing only in the meat group, Akkermansia increasing in the dairy group, butyrate higher in the meat group); it did not report gene-family/Pfam-level results, so it cannot support or refute a TPR-domain difference. A companion machine-learning preprint on the same trial explicitly states that microbiome features were annotated with COG, KEGG Orthology and Pfam classifications, confirming that Pfam-level features such as TPR repeats are analyzable in this design, but the retrievable text did not identify PF13414/TPR repeats as a dairy-associated feature at 12 months. Independent literature on TPR domains establishes only that they are extremely widespread, phylogenetically rather than lifestyle-determined, generic protein-protein interaction scaffolds present across bacteria and archaea, which means their aggregate metagenomic abundance largely tracks broad taxonomic turnover (e.g., loss of Bifidobacterium and expansion of Bacteroidota/Lachnospiraceae during weaning) rather than any specific dairy-protein response. That gives only generic, pathway/domain-level plausibility with no feature+group-specific study, i.e. weak evidence. No study pointing in the opposite direction was found either, so a contradicting score is not warranted.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term, formula-fed U.S. infants (Denver, CO) randomized to meat- or dairy-based complementary foods from 5 to 12 months; stools at 5, 10 and 12 months",
+      "relevance": "The most direct study of the exact exposure and timepoint. It shows dairy vs. meat complementary protein does reshape the 12-month infant gut microbiota (beta-diversity, richness, Akkermansia, butyrate), establishing biological plausibility that some functional gene families differ \u2014 but analysis was 16S/SCFA only, with no Pfam or TPR-domain results, so it provides no direct support for PF13414 specifically."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5\u201312 months, randomized meat- vs. dairy-based complementary diets (metagenomics + metabolomics)",
+      "relevance": "Confirms that in this meat-vs-dairy infant trial microbiome features are annotated at COG/KEGG/Pfam level, i.e. Pfam domains such as TPR repeats are among the analyzed features; however the accessible text does not report PF13414/TPR repeat as enriched in the dairy group at 12 months, so it neither supports nor contradicts the hypothesis."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40475488/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial (PubMed record)",
+      "study_population": "Same U.S. infant meat vs. dairy complementary feeding RCT (peer-reviewed version record)",
+      "relevance": "Indexed record of the only publication combining this exposure with functional (including Pfam) metagenomic annotation; located via search but no TPR/PF13414 directional finding was retrievable."
+    },
+    {
+      "url": "https://journals.asm.org/doi/full/10.1128/iai.01035-12",
+      "doi": "10.1128/iai.01035-12",
+      "title": "Tetratricopeptide Repeat Motifs in the World of Bacterial Pathogens: Role in Virulence Mechanisms",
+      "study_population": "Bacterial genomes/proteomes (not human infants)",
+      "relevance": "Background on TPR-repeat domains: highly promiscuous protein\u2013protein interaction modules occurring broadly in prokaryotes and eukaryotes and predictable from genome sequence. Supports only generic, non-diet-specific interpretation of TPR domain abundance."
+    },
+    {
+      "url": "https://www.science.gov/topicpages/r/repeat+tpr+domain",
+      "doi": null,
+      "title": "Topic collection on tandem repeat (TPR) protein domains across the tree of life",
+      "study_population": "Comparative genomics across bacteria, archaea and eukaryotes",
+      "relevance": "Indicates TPR-domain abundance in bacteria is predicted primarily by phylogenetic history rather than lifestyle or pathogenicity, implying that a shift in metagenomic TPR-repeat abundance would most likely reflect taxonomic composition change (which does differ by diet group) rather than a dairy-protein-specific function."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9282554/",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy infants sampled at ~4, 9 and 12 months (Nourish to Flourish pilot), shotgun metagenomics + LC-MS metabolomics",
+      "relevance": "Shows that functional metagenomic capacity shifts modestly during complementary feeding at 4\u201312 months (e.g., 'genetic information processing' and 'signalling and cellular processes' categories change with age), i.e. domain-level functional change is age-driven; provides indirect, non-diet-specific context only and reports no Pfam TPR result by protein source."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "PF13414 TPR repeat infant gut microbiome",
+    "meat versus dairy protein complementary feeding infant gut microbiome",
+    "tetratricopeptide repeat gene family infant gut metagenome weaning",
+    "Different gut microbiota U.S. formula-fed infants meat vs dairy-based complementary foods randomized controlled trial results Bacteroides Ruminococcus",
+    "Pfam domain tetratricopeptide repeat enriched Bacteroides Lachnospiraceae gut microbiome protein diet",
+    "TPR repeat PF13414 TPR_11 domain bacterial function",
+    "metagenomic functional Pfam analysis infant gut microbiome complementary feeding protein source 12 months",
+    "Network-based representation learning gut microbial metabolomic infants meat dairy Pfam features",
+    "TPR repeat Pfam dairy protein infant gut microbiome 12 months",
+    "tetratricopeptide repeat protein abundance milk-fed infant gut bacteria Bifidobacterium",
+    "biorxiv 2024.11.01.621627 Pfam features associated dairy 12 months TPR",
+    "\"TPR repeat\" Pfam infant microbiome dairy meat network embedding Price Krishnan Tang",
+    "tetratricopeptide repeat Bacteroides polysaccharide utilization gut adult protein-rich diet metagenome enriched"
+  ],
+  "caveats": "PF13414 is a highly generic, taxonomically widespread structural domain (one of several TPR Pfam families), so it is unlikely to be named as such in dietary-intervention literature even if its aggregate abundance genuinely differs; absence of literature therefore partly reflects reporting practice (studies emphasize taxa, KEGG pathways or CAZymes over repeat domains) rather than a tested null. Search snippets returned were truncated, so a directional TPR/Pfam result could exist inside the full text of the meat-vs-dairy metagenomics preprint (which is the same trial design as the study under evaluation, and thus not independent corroboration in any case). Domain-level enrichment, if observed, would most plausibly be a proxy for taxonomic turnover (e.g., Akkermansia/Bacteroidota vs. Bifidobacterium) rather than a dairy-protein-specific function, and would warrant confirmation by checking which contributing genomes/species carry the domain."
+}

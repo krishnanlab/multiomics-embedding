@@ -1,0 +1,20 @@
+{
+  "feature_id": "P_LP.1536",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The lipid-like feature with molecular formula C29 H53 N4 O2 is increased/characteristic in 12-month-old infants receiving dairy-based complementary protein relative to infants receiving meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "This feature is an unidentified LC-MS lipid-mode feature described only by an elemental composition (C29 H53 N4 O2, which with an odd hydrogen count and even nitrogen count is most consistent with an adduct/ion formula rather than a neutral molecule). Repeated searches on the formula (and its plausible neutral form C29H52N4O2) returned no compound record, no database identifier, and no metabolomics paper reporting a molecule of this composition; hits were unrelated lipid papers and generic 'index of chemical compounds' pages. Because no chemical identity (or even confident lipid subclass) can be assigned, there is no literature that reports this feature - or a clearly named homolog/pathway/compound - in relation to dairy- versus meat-based complementary feeding, and no compound-specific mechanistic reasoning is possible. Searches did retrieve the relevant experimental context (a US randomized controlled feeding trial comparing meat- vs dairy-based complementary diets from 5 to 12 months, with targeted/untargeted serum metabolomics and stool microbiota analyses), but the reported discriminating metabolites in that literature are amino acids/BCAAs, threonine and TMAO-type compounds, not any species matching this formula, so those papers provide no directional evidence for or against this specific feature. Accordingly the feature+group association is unsupported by any located literature (score 0), rather than merely weakly supported.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C29H53N4O2 lipid metabolite",
+    "dairy versus meat based complementary feeding infant metabolome 12 months",
+    "infant lipidomics dairy protein complementary food plasma",
+    "\"C29H52N4O2\" compound",
+    "unannotated lipid feature molecular formula infant serum metabolomics dairy meat protein 12 months",
+    "meat versus dairy complementary feeding infant untargeted metabolomics lipid species increased dairy group"
+  ],
+  "caveats": "The score reflects unidentifiability of the feature, not evidence against the hypothesis. If MS/MS-based annotation later assigns this feature to a named lipid class (e.g. an N-acyl amide, sphingoid-related species, or lipopeptide), the literature search should be repeated with that identity plus dairy/complementary-feeding keywords, since dairy fat and milk-fat-globule-membrane intake are known to shift circulating sphingolipid and complex-lipid profiles in infants. Note also that an odd-hydrogen formula with 4 N suggests the value reported is an ion/adduct formula or an in-source artifact, so the elemental composition itself should be verified before further interpretation."
+}

@@ -1,0 +1,61 @@
+{
+  "feature_id": "PF04977",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "PF04977 (septum formation initiator, FtsL/DivIC-family bacterial cell-division domain) is increased/characteristic in the gut metagenomes of 12-month-old infants fed meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches combining the Pfam accession (PF04977), its family name ('septum formation initiator', FtsL/DivIC/FtsB divisome components) and the exposure keywords (infant gut microbiome, complementary feeding, meat vs dairy protein) returned no primary study - human or animal - that reports this protein family, or the FtsL/DivIC divisome gene set generally, as differentially abundant between meat- and dairy-fed infants or between any high-animal-protein vs dairy-protein dietary contrast. What the searches did establish is (i) the identity/function of the domain (InterPro/Pfam PF04977, IPR007060: FtsL/DivIC septum-formation initiator, an essential late divisome membrane protein), and (ii) that the relevant exposure has been studied: the Denver randomized controlled feeding trial of formula-fed U.S. infants randomized at 5 months to meat- vs dairy-based complementary foods through 12 months reported diet-related differences in gut microbiota composition (16S) and, in a metagenomic/metabolomic network-embedding analysis of the same trial, an enrichment in the meat group of microbial genes for amino acid, nucleic acid and carbohydrate metabolism. That preprint used Pfam annotations, but the reported enrichments were metabolic categories, not cell-division/septum-formation families, and its conventional differential-abundance analysis found no significant diet associations. The only support for the hypothesis is therefore generic, theoretical reasoning - higher animal-protein/amino-acid availability and a shift toward faster-replicating proteolytic Firmicutes could raise the census of core divisome genes such as FtsL/DivIC, and cell-division gene content tracks bacterial replication rate - with no feature-specific data. That matches the 'weak / generic pathway-level or theoretical reasoning only' tier. It is not 0 because directly relevant exposure literature and clear functional annotation were found; it is not -1 because nothing reports the opposite direction for this feature.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ebi.ac.uk/interpro/entry/pfam/PF04977",
+      "doi": null,
+      "title": "Septum formation initiator (PF04977) - Pfam entry - InterPro",
+      "study_population": "Not a study; protein-family database entry (bacterial proteins)",
+      "relevance": "Establishes the identity and function of the feature: an FtsL/DivIC-type septum-formation initiator domain, an essential component of the bacterial divisome, i.e. a housekeeping cell-division gene family present broadly across gut bacteria rather than a diet-specific metabolic function."
+    },
+    {
+      "url": "https://www.ebi.ac.uk/interpro/entry/interpro/IPR007060",
+      "doi": null,
+      "title": "Septum formation initiator FtsL/DivIC - InterPro entry",
+      "study_population": "Not a study; database entry (bacteria)",
+      "relevance": "Corroborates that this Pfam maps to the FtsL/DivIC late-divisome proteins, supporting only a generic 'bacterial replication/cell-division capacity' interpretation of any group difference, with no diet linkage."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants (n\u224864) randomized to pureed-meat vs dairy-based complementary foods from 5 to 12 months; fecal shotgun metagenomics (COG/KO/Pfam annotations) and metabolomics",
+      "relevance": "Most directly relevant exposure study and one that annotates genes with Pfam; however the reported meat-group enrichments were amino acid, nucleic acid and carbohydrate metabolism gene families, not septum-formation/cell-division families, and standard differential abundance testing found no significant diet associations - so it neither supports nor refutes PF04977 specifically."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term formula-fed U.S. infants randomized to meat- vs dairy-based complementary diet, 5-12 months (16S rRNA gut microbiota)",
+      "relevance": "Shows the meat vs dairy complementary-protein contrast does shift infant gut microbiota composition (taxonomic level, e.g. diversity and genus-level differences), providing background plausibility for community-wide functional shifts, but it is 16S-based and reports no gene/Pfam-level cell-division findings."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6574999/",
+      "doi": null,
+      "title": "Protein Intake During Early Complementary Feeding Affects the Gut Microbiota in U.S. Formula-fed Infants (FS04-03-19)",
+      "study_population": "Healthy term formula-fed U.S. infants randomized to meat or dairy complementary foods, 5-12 months",
+      "relevance": "Reports meat-group-specific increase in alpha diversity over time and genus-level changes (e.g. Faecalibacterium up, Bifidobacterium down), consistent with a maturing, more actively replicating community in the meat arm - indirect, taxon-level context only, with no measurement of divisome gene families."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "PF04977 septum formation initiator infant gut microbiome",
+    "meat-based complementary feeding infant gut microbiome metagenome protein source",
+    "infant 12 months meat versus dairy protein complementary feeding gut microbiome",
+    "PF04977 \"septum formation initiator\"",
+    "\"septum formation initiator\" Pfam gut microbiome diet",
+    "Pfam functional gene families meat dairy infant gut metagenome complementary feeding 12 months",
+    "biorxiv 621627 network representation learning infant meat dairy Pfam metagenomics results",
+    "\"PF04977\" meat diet infant gut",
+    "\"septum formation initiator\" enriched diet microbiome protein high protein",
+    "cell division genes FtsB DivIC gut bacteria enriched high protein diet metagenome",
+    "\"septum formation initiator\" infant"
+  ],
+  "caveats": "PF04977 is a core housekeeping/structural gene family, so its metagenomic abundance largely tracks taxonomic composition, genome size and replication activity rather than any diet-responsive metabolic pathway; differences could be driven entirely by compositional shifts (e.g. Firmicutes/Bifidobacterium turnover with weaning) or by normalization artifacts, and would be hard to interpret as a meat-specific signal. Note also that the only metagenomic study found for this exact exposure (the Denver meat-vs-dairy RCT preprint) is likely the same trial/design as the study being analyzed, so it should not be treated as independent external validation. Publication-bias caveat: housekeeping Pfams are rarely highlighted in diet-microbiome papers even when they differ, so absence of literature is not strong evidence of absence of effect."
+}

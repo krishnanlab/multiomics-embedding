@@ -1,0 +1,64 @@
+{
+  "feature_id": "P_LP.1692",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "C17 sphinganine (heptadecasphinganine, d17:0) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Repeated searches found no primary study reporting C17 sphinganine (d17:0 / LMSP01040003 / METLIN 4155) - or free sphingoid bases generally - as higher in infants fed dairy-based versus meat-based complementary foods. What was found is only pathway-level/theoretical support plus one directly relevant but essentially null human trial. (i) Dairy is a rich dietary source of sphingolipids: bovine milk sphingomyelin/MFGM contains substantial d16:0/d16:1 and small amounts of other even- and odd-chain sphingoid base homologs, so a dairy-based complementary diet delivers more sphingolipid substrate than a lean-meat-based diet, and dietary sphinganine is known to reach the gut and be assimilated/remodelled by gut microbes (mouse, bioorthogonal tracing). (ii) Infant intervention studies show that milk-fat/MFGM-containing feeds raise circulating sphingolipid species (e.g., plasma sphingomyelin species differed by fat source in infants fed goat-milk-fat vs vegetable-oil formulas), giving indirect, class-level rather than feature-specific support. (iii) Critically, the single human trial matching this exact exposure contrast (US formula-fed infants randomized to meat- vs dairy-based complementary foods, 5-12 mo, serum targeted+untargeted metabolomics) concluded that protein-source did not differentially impact serum metabolites - i.e., no evidence for a dairy-specific sphingoid base signal, though also no report of the opposite direction. Because the evidence is generic/pathway-level and partly null rather than directly supportive or directly opposing, this scores 1 (Weak), not 2, 0 or -1.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": "10.3390/nu13020388",
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "US formula-fed infants in a randomized controlled complementary-feeding trial, meat- vs dairy-based diet from 5 to 12 mo, follow-up at 24 mo; serum targeted and untargeted metabolomics",
+      "relevance": "Most directly relevant human study to this exact group contrast; reports that protein-rich food source (meat vs dairy) did not differentially impact serum metabolites, providing no support (and no opposite-direction finding) for a dairy-associated increase in a specific sphingoid base such as C17 sphinganine."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11217027/",
+      "doi": "10.1016/j.tjnut.2024.04.020",
+      "title": "Plasma Sphingomyelins and Carnitine Esters of Infants Consuming Whole Goat or Cow Milk-Based Infant Formulas or Human Milk",
+      "study_population": "Healthy infants fed goat-milk-fat-based formula, cow-milk/vegetable-oil formula, or human milk (Australia/NZ trial cohort); plasma sphingolipid profiling",
+      "relevance": "Indirect, class-level support that the dairy lipid source of the diet shifts infant circulating sphingolipid (sphingomyelin) species, including odd-chain species; does not measure free C17 sphinganine or compare dairy vs meat."
+    },
+    {
+      "url": "https://www.jlr.org/article/S0022-2275(20)34680-0/fulltext",
+      "doi": null,
+      "title": "Thematic Review Series: Sphingolipids. Biodiversity of sphingoid bases ('sphingosines') and related amino alcohols",
+      "study_population": "Review of sphingoid base chemistry across mammalian tissues and foods, including bovine milk sphingomyelin and milk gangliosides",
+      "relevance": "Establishes that bovine milk sphingolipids carry a broad sphingoid base distribution (large d16 fraction plus minor even/odd-chain homologs, including d17-type bases), the chemical premise for a dairy diet raising odd-chain sphingoid bases; purely compositional, not an infant study."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7910519/",
+      "doi": null,
+      "title": "Dietary sphinganine is selectively assimilated by members of the mammalian gut microbiome",
+      "study_population": "Mice (gnotobiotic/conventional) plus in vitro Bacteroides thetaiotaomicron, bioorthogonal alkynyl-sphinganine tracing with LC-HRMS",
+      "relevance": "Shows dietary sphinganine survives to the gut and is taken up and remodelled (including into C15-C17 ceramides) by Bacteroides and other gut taxa - mechanistic plausibility that a sphingolipid-rich dairy complementary diet elevates gut/host free sphingoid bases; animal model, no dairy-vs-meat comparison."
+    },
+    {
+      "url": "https://www.lipidmaps.org/databases/lmsd/LMSP01040003",
+      "doi": null,
+      "title": "LIPID MAPS Structure Database entry LMSP01040003 - Sphinganine (d17:0)",
+      "study_population": "Chemical database record (not a study population)",
+      "relevance": "Confirms the feature identity mapped to the given external ID and notes that sphinganine (d17:0) is commonly used as an internal standard in sphingolipid LC-MS - an important annotation caveat for interpreting this feature as an endogenous/dietary analyte."
+    }
+  ],
+  "contradicting_evidence": "The one trial with the same meat- vs dairy-based complementary feeding design and metabolomics readout (Tang et al., Nutrients 2021) reported that protein source did not differentially impact serum metabolites, i.e., a null result rather than a dairy-associated increase. This is non-supportive but not opposite in direction, so it does not warrant a -1 score. No study reporting higher C17 sphinganine in meat-fed infants was found.",
+  "search_queries_used": [
+    "C17 sphinganine infant plasma dairy",
+    "sphinganine infant complementary feeding dairy meat protein metabolome",
+    "dairy versus meat complementary feeding infant metabolome 12 months",
+    "heptadecasphinganine C17:0 sphingoid base dairy milk sphingolipid",
+    "odd-chain sphingolipid C17 sphingosine plasma dairy fat intake biomarker",
+    "sphinganine dihydrosphingosine infant stool metabolome weaning",
+    "milk sphingomyelin C17:0 sphingoid base intake plasma ceramide human study",
+    "Tang Krebs meat dairy complementary feeding infant serum metabolomics sphingolipid lipid species",
+    "dairy intake plasma sphingomyelin ceramide increase children infants",
+    "milk fat globule membrane supplemented infant plasma sphingolipid sphinganine increased",
+    "infant fecal metabolome sphingolipids dairy protein formula 12 months lipidomics",
+    "bovine milk sphingomyelin sphingoid base composition d16:0 d17:0 odd chain",
+    "C17 sphinganine internal standard sphingolipid mass spectrometry",
+    "dietary sphingolipids fecal sphingoid bases gut microbiota Bacteroides sphinganine mice"
+  ],
+  "caveats": "Two major interpretive caveats: (1) d17:0 sphinganine is a standard synthetic internal standard/spike-in for sphingolipid LC-MS, so an untargeted feature annotated as 'C17 Sphinganine ESI+' may reflect an internal standard, an odd-chain isomer, or a co-eluting isobar rather than a truly endogenous dairy-responsive metabolite; annotation should be confirmed by MS/MS and by checking blanks/QC. (2) Free odd-chain sphingoid bases are trace-level in mammals, and dairy sphingolipid effects reported in infants are for sphingomyelin/ceramide classes, not free d17:0 bases; extrapolating from class-level milk-fat/MFGM findings to this specific feature is speculative. Additionally, dairy-vs-meat complementary feeding differs in total fat, protein, iron and heme content simultaneously, so any signal would be confounded beyond protein source alone, and no literature was found for the fecal/serum matrix-specific behaviour of this feature at 12 months."
+}

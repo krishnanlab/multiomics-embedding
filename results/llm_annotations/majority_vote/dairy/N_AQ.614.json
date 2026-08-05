@@ -1,0 +1,53 @@
+{
+  "feature_id": "N_AQ.614",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The unidentified aqueous-phase metabolite feature with molecular formula C33 H62 N11 O5 is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "This feature is not an annotated compound - it is only a molecular formula (C33 H62 N11 O5) from an untargeted aqueous-phase run. Repeated formula-string searches (exact-string and spaced variants) returned no chemical database entry, no named compound, and no publication reporting this formula in any biological context, let alone in infant stool/plasma or in relation to dairy vs. meat complementary feeding. Note that the formula as written has a non-integer ring-plus-double-bond equivalent (8.5), indicating it is an even-electron ion formula (e.g., [M+H]+ of neutral C33 H61 N11 O5) rather than a neutral molecule; with 11 nitrogens and only 5 oxygens it is most consistent with a small nitrogen-rich (likely peptide-/guanidino-containing) species, but this is inference, not annotation. What the search did find is relevant background literature on the exact exposure contrast: randomized controlled complementary-feeding trials in U.S. formula-fed infants comparing meat- vs. dairy-based protein from ~5 to 12 months, which report diet-source effects on gut microbiota and, in serum metabolomics, effects mainly of total protein intake (essential amino acids, short-chain acylcarnitines) with little differential effect of protein source (TMAO increased in the meat arm). This supports the biological plausibility that nitrogen-rich, protein-derived features differ between dairy and meat arms, but provides only generic, pathway-level reasoning and does not address this feature or its direction. Per the rubric this is weak evidence (1), not zero: relevant group-level literature exists, but nothing on this feature+group combination, and no directional support for dairy > meat.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": "10.3390/nu13020388",
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "U.S. formula-fed infants randomized to meat- or dairy-based protein-rich complementary foods from ~5 to 12 months of age; serum metabolomics",
+      "relevance": "Directly addresses the dairy vs. meat complementary-protein contrast at 12 months and shows that protein amount, more than source, drove most metabolite shifts (amino acids, short-chain acylcarnitines); TMAO rose in the meat arm. Provides exposure-level context only - the C33 H62 N11 O5 feature is not reported."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": null,
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "U.S. formula-fed infants in a randomized controlled complementary-feeding trial (meat vs. dairy protein, ~5-12 months)",
+      "relevance": "Demonstrates that dairy- vs. meat-based complementary protein produces distinguishable gut microbial (and by extension proteolytic/nitrogen-metabolism) profiles in the same age window, supporting general plausibility that unannotated nitrogen-rich features could differ by arm - but does not report this metabolite feature."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2.full",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. infants in a randomized controlled meat vs. dairy complementary feeding trial, paired gut microbiome and metabolome",
+      "relevance": "Closest available multi-omic study of the same design and timepoints; establishes that diet arm and age shape the infant fecal metabolome, but no evidence was found in the retrieved text that formula C33 H62 N11 O5 is an arm-discriminating feature or that it is higher in the dairy group."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6472904/",
+      "doi": null,
+      "title": "Peptidomics Analysis of Milk Protein-Derived Peptides Released over Time in the Preterm Infant Stomach",
+      "study_population": "Preterm human infants; gastric contents after milk feeding",
+      "relevance": "Indirect support that dairy protein feeding generates abundant nitrogen-rich milk-protein-derived peptides in the infant gastrointestinal tract, the compound class the formula most plausibly belongs to; however it neither identifies this formula nor examines stool at 12 months or a meat comparator."
+    }
+  ],
+  "contradicting_evidence": "No study reported this feature in the opposite direction (nothing feature-specific exists). The one directly relevant serum metabolomics trial concluded that meat vs. dairy protein source did not appreciably differentiate metabolite profiles (most source-specific differences were modest, with TMAO favoring the meat arm), which tempers rather than contradicts the hypothesis of a dairy-characteristic feature.",
+  "search_queries_used": [
+    "C33 H62 N11 O5 metabolite",
+    "infant complementary feeding dairy versus meat protein metabolomics 12 months",
+    "meat versus dairy protein infant gut microbiome metabolome randomized trial",
+    "\"C33H62N11O5\"",
+    "unannotated metabolite molecular formula peptide infant stool dairy protein complementary feeding",
+    "infant fecal metabolome dairy-based complementary food peptides amino acid metabolites 12 months",
+    "casein-derived peptides infant feces dairy protein intake untargeted metabolomics",
+    "untargeted metabolomics unknown molecular formula annotation nitrogen-rich peptide infant gut dairy vs meat",
+    "arginine-rich peptide fecal metabolite milk protein infant 12 months",
+    "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet findings amino acids"
+  ],
+  "caveats": "The feature has no compound-level annotation, so literature confirmation is essentially impossible by name; the formula as given is an ion (non-integer RDBE) and may also be an incorrect formula assignment, an adduct, or an in-source fragment. Any scoring above 1 would require MS/MS-based identification (e.g., spectral library or de novo peptide matching) first. Recommend attempting annotation (SIRIUS/CSI:FingerID, GNPS molecular networking, peptide database search against bovine casein/whey and meat protein digests) before interpreting a dairy-vs-meat direction; also note that the closest serum metabolomics trial found protein amount, not source, to be the dominant driver."
+}

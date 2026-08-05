@@ -1,0 +1,66 @@
+{
+  "feature_id": "COG0185",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "COG0185 (30S ribosomal protein S19, rpsS; translation/ribosomal structure and biogenesis) is increased or characteristic in 12-month-old infants fed meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 2,
+  "rationale": "Search located one directly relevant human infant study reporting evidence in the hypothesized direction, but at the functional-category rather than the individual-COG level. A preprint analysing a randomized controlled complementary feeding trial in U.S. formula-fed infants (meat vs. dairy protein, 5-12 months) used network representation learning on fecal metagenomes and reported that microbial features classified into the MEAT diet group were significantly enriched for the COG category 'translation, ribosomal structure and biogenesis' (FDR = 2.43e-08), along with nucleotide, amino acid and carbohydrate transport/metabolism; an earlier version of the same preprint likewise reported enrichment of KEGG orthology features for translation and 'ribosomal proteins' in the meat diet group. COG0185 is the rpsS/30S ribosomal protein S19 orthologous group and sits squarely within that COG category (confirmed by a genomics resource listing 'COG0185 J rpsS 30S ribosomal protein S19'). Companion work from the same trial confirms that meat- vs. dairy-based complementary feeding does measurably alter the infant gut microbiota (increasing alpha diversity over time in the meat group only), establishing biological plausibility for diet-driven functional shifts at 12 months. However, no study was found reporting COG0185/rpsS itself as differentially abundant between meat- and dairy-fed infants; the supporting result is category-level, comes from a single (non-peer-reviewed) analysis, and appears to derive from the same trial design as the study under evaluation, so it does not constitute independent replication. No contradicting report (ribosomal/translation COGs higher in the dairy group) was found. This pattern - exactly one direct human study plus indirect/pathway-level corroboration, same direction - maps to a Moderate score of 2 rather than 3.",
+  "mechanism": "Meat-based complementary foods deliver more highly digestible animal protein and free amino acids/peptides to the distal gut than dairy-based diets at matched total protein intake, and the meat-group metagenomes in the same trial were concurrently enriched for amino acid and nucleotide transport/metabolism COGs. Greater nitrogen and amino acid availability supports higher microbial growth rates, and bacterial ribosome content (and therefore the genomic and transcriptional representation of ribosomal protein genes such as rpsS/COG0185) scales with growth rate and translational demand; copiotrophic, fast-growing taxa also carry more rRNA/ribosomal protein operon copies. A shift in community membership toward such faster-growing amino-acid-fermenting Firmicutes during meat-based complementary feeding would therefore raise the relative abundance of translation/ribosomal-biogenesis gene families, including ribosomal protein S19, in the 12-month meat group.",
+  "evidence": [
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2.full",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. full-term formula-fed infants, 5-12 months, randomized to meat- vs. dairy-based complementary diets; fecal metagenomics and metabolomics",
+      "relevance": "Directly reports that microbiome features classified to the meat diet group were enriched for the COG category 'translation, ribosomal structure and biogenesis' (FDR = 2.43e-08) - the exact functional category of COG0185 - supporting the hypothesized direction, though not naming COG0185 itself."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v1.full.pdf",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of time and diet on the gut microbial and metabolomic environment of infants (v1)",
+      "study_population": "Same U.S. infant meat vs. dairy complementary feeding RCT (5-12 months), earlier preprint version",
+      "relevance": "States the meat diet was significantly enriched in KEGG features related to translation and in lower-level KO features including 'ribosomal proteins', corroborating a meat-associated increase in ribosomal/translational gene content."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": null,
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term formula-fed infants, Denver CO, randomized to meat- or dairy-based complementary diet 5-12 months; 16S rRNA and SCFA at 5, 10, 12 months",
+      "relevance": "Primary RCT demonstrating that meat- vs. dairy-based complementary protein measurably shifts infant gut microbiota composition through 12 months, providing the compositional basis by which translation/ribosomal gene families could differ between arms."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6574999/",
+      "doi": null,
+      "title": "Protein Intake During Early Complementary Feeding Affects the Gut Microbiota in U.S. Formula-fed Infants (FS04-03-19)",
+      "study_population": "U.S. formula-fed infants randomized to meat or dairy complementary foods, 5-12 months (~3 g/kg/d total protein)",
+      "relevance": "Reports alpha diversity increased over time in the meat group but not the dairy group, consistent with a distinct, more diverse/actively growing community in meat-fed infants at 12 months - indirect support for elevated translation-related gene content."
+    },
+    {
+      "url": "https://arxiv.org/pdf/1705.07850",
+      "doi": null,
+      "title": "Essentiality, conservation, evolutionary pressure and codon bias in bacterial genes",
+      "study_population": "Comparative bacterial genomics (not human)",
+      "relevance": "Confirms the identity mapping used in this assessment: 'COG0185 J rpsS 30S ribosomal protein S19', i.e. the feature belongs to COG functional category J (translation, ribosomal structure and biogenesis), and that ribosomal protein genes are essential, highly expressed, codon-bias-optimized housekeeping genes."
+    },
+    {
+      "url": "https://academic.oup.com/ismej/article/19/1/wraf048/8089909",
+      "doi": null,
+      "title": "Dietary protein source alters gut microbiota composition and function (ISME Journal)",
+      "study_population": "Animal model (mice) fed diets differing in protein source/amount; gut metaproteomics with curated functional categories",
+      "relevance": "Indirect evidence that dietary protein source reshapes the gut microbiota's functional investment, with 'ribosomal proteins' explicitly used as a quantified functional category, showing that protein-source-driven changes in translational machinery investment are a measurable and studied phenomenon; direction for animal- vs. dairy-protein was not extractable from the search snippet."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "COG0185 ribosomal protein S19 infant gut microbiome",
+    "meat versus dairy protein complementary feeding infant gut microbiome metagenome",
+    "ribosomal protein gene abundance gut microbiome diet protein source infant",
+    "Network-based representation learning infant meat dairy metagenomics ribosomal protein translation COG",
+    "ribosomal protein S19 rpsS gut microbiome dietary protein enrichment",
+    "translation ribosomal structure biogenesis enriched gut microbiome high protein meat diet",
+    "ISME dietary protein source alters gut microbiota composition and function ribosomal proteins investment casein whey",
+    "infant weaning complementary feeding metagenome enrichment translation ribosomal proteins COG category J",
+    "high protein diet gut microbiome metaproteome ribosomal protein abundance increased growth rate"
+  ],
+  "caveats": "(1) The supporting result is at the COG functional-category level ('translation, ribosomal structure and biogenesis'), not for COG0185/rpsS specifically; enrichment of a category does not guarantee that this individual ortholog is higher. (2) The strongest source is a bioRxiv preprint (not peer reviewed) and appears to analyse the same meat-vs-dairy complementary feeding trial as the present study, so it is not independent replication and risks circularity; the two preprint versions also differ somewhat in which databases reached significance (v1 highlighted DNA replication/recombination/repair for COGs and translation/ribosomal proteins for KEGG; v2 reported the translation/ribosomal COG enrichment), indicating some analytic instability. (3) The same preprint notes that conventional differential-abundance analysis found no significant diet associations, so the meat-group signal is method-dependent (network embedding). (4) Ribosomal protein S19 is a near-universal single-copy housekeeping gene, so its relative abundance in shotgun data largely tracks community composition, genome size, and estimated growth rates rather than a diet-specific metabolic capability - differences may be compositional artifacts and are not readily interpretable as a functional adaptation to meat protein. (5) No literature at all was found linking rpsS/COG0185 by name to complementary feeding, weaning, or dietary protein source."
+}

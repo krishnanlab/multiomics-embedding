@@ -1,0 +1,56 @@
+{
+  "feature_id": "K16053",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "K16053 (miniconductance mechanosensitive channel, MscM/YbdG-type MscS-family transporter) is increased or characteristic in the gut microbiome of 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Multiple searches combining the KEGG ortholog ID (K16053), the gene/protein name (miniconductance mechanosensitive channel, MscM, YbdG), and the exposure keywords (dairy vs. meat complementary feeding, infant gut microbiome, 12 months, metagenomics/KEGG) returned no study - human or animal - that reports this gene family or KO being differentially abundant between dairy-based and meat-based complementary protein diets, or between milk-rich and meat-rich diets more generally. What was found is: (a) well-characterized basic microbiology of MscM/YbdG as a low-conductance MscS-family channel that protects bacteria against hypoosmotic shock and sets the threshold for osmotic-shock survival (E. coli; also mscM-related desiccation/osmotic stress work in Cronobacter sakazakii, an infant-formula-associated organism); and (b) the relevant clinical exposure literature (the U.S. randomized controlled meat- vs. dairy-based complementary feeding trial and its companion metagenomic/metabolomic network-learning analysis), which reports taxonomic and amino-acid-metabolism differences between meat and dairy groups but which, in the search results observed, did not name mechanosensitive channels or K16053 as a dairy-associated function. Thus the only support available is generic/theoretical pathway-level reasoning (a dairy-based, lactose/mineral-rich luminal environment could impose different osmotic stress on gut bacteria, and MscS-family channel gene abundance also simply tracks the taxa that carry it, e.g. Enterobacteriaceae and other Gram-negatives), with no study on this feature+group combination. That maps to a Weak (1) score; it is not 0 because relevant feature-level and exposure-level literature exists, and it is not -1 because no study reported the opposite direction for this specific KO.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.pnas.org/doi/10.1073/pnas.1001405107",
+      "doi": "10.1073/pnas.1001405107",
+      "title": "YbdG in Escherichia coli is a threshold-setting mechanosensitive channel with MscM activity",
+      "study_population": "Bacterial (Escherichia coli) in vitro electrophysiology/genetics - not human infants",
+      "relevance": "Establishes the molecular identity and function of the miniconductance mechanosensitive channel (MscM/YbdG) annotated by K16053 as an osmotic-shock protection/threshold-setting channel; provides only pathway-level (not diet-group-specific) grounding for the hypothesis."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11678165/",
+      "doi": null,
+      "title": "Effects of mscM Gene on Desiccation Resistance in Cronobacter sakazakii",
+      "study_population": "Bacterial isolates (Cronobacter sakazakii, an organism associated with powdered infant formula); in vitro stress assays",
+      "relevance": "Shows mscM contributes to osmotic/desiccation stress resistance in an infant-formula-relevant Gram-negative bacterium - indirect, taxon-level plausibility that milk-matrix environments could select for mscM-carrying organisms, but no infant gut microbiome or dairy-vs-meat comparison."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term, formula-fed U.S. infants randomized to meat- or dairy-based complementary foods from ~5 to 12 months",
+      "relevance": "The key exposure-matched human infant RCT for this group definition; reports diet-group differences in gut microbiota composition but, in the results observed via search, does not report mechanosensitive channel genes or K16053, so it neither supports nor contradicts the specific hypothesis."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, meat- vs. dairy-based complementary feeding RCT; shotgun metagenomics with KEGG Orthology annotation plus metabolomics",
+      "relevance": "Most directly relevant functional-metagenomics analysis of this exact exposure and age window and it does annotate features at KO level; the diet-driven differences highlighted in the accessible text concern amino acid metabolism rather than mechanosensitive channels/transporters, so no direct support for K16053 enrichment in the dairy group was located."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "K16053 mechanosensitive channel infant gut microbiome",
+    "miniconductance mechanosensitive channel MscM gut bacteria",
+    "dairy versus meat complementary protein infant gut microbiome 12 months",
+    "meat-based versus dairy-based complementary feeding infant microbiome metagenome KEGG",
+    "K16053 dairy infant KEGG orthology complementary feeding",
+    "\"K16053\" mechanosensitive channel KEGG orthology microbiome dairy",
+    "mechanosensitive channel MscM osmotic stress lactose dairy Bifidobacterium Lactobacillus",
+    "infant gut microbiome KEGG ortholog transporters dairy protein 12 months metagenomics functional",
+    "Network-based representation learning infant meat dairy microbiome mechanosensitive channel KEGG",
+    "mechanosensitive channel gene abundance milk consumption gut microbiome osmotic stress infant",
+    "MscS family mechanosensitive channel Bifidobacterium infant gut milk oligosaccharides",
+    "Tang 2023 different gut microbiota meat vs dairy complementary foods results dairy group enriched genera",
+    "mechanosensitive channel gene enrichment gut microbiome diet metagenomics functional shift"
+  ],
+  "caveats": "K16053 is a housekeeping stress-response transporter present across many bacterial genomes, so its metagenomic abundance is largely a proxy for the abundance of carrier taxa (e.g. Enterobacteriaceae and other Gram-negatives) rather than a diet-specific functional signal; any group difference should be interpreted alongside taxonomy and normalization choices. Published functional analyses of the meat-vs-dairy infant RCT emphasize amino acid and other metabolic pathways, and full-text KO-level supplementary tables were not searchable here, so a reported dairy association for this KO cannot be fully excluded. Absence of literature on this KO+group combination reflects the general sparsity of KO-level reporting in infant complementary-feeding studies, not evidence against the hypothesis."
+}

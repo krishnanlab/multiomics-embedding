@@ -1,0 +1,72 @@
+{
+  "feature_id": "ENOG410ZW8V",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The eggNOG orthologous group ENOG410ZW8V (F5/8 type C domain; carbohydrate transport and metabolism) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "No study located reports abundance of this specific eggNOG ortholog group (ENOG410ZW8V) or of F5/8 type C / discoidin (CBM32-like) domain gene families in dairy- versus meat-based complementary feeding, at 12 months or any other age. What the literature does provide is (a) generic, domain-level reasoning: F5/8 type C (discoidin) domains function as carbohydrate-binding modules (CBM32-type) appended to milk-glycan- and mucin-directed glycosidases of infant-gut taxa such as Bifidobacterium bifidum (lacto-N-biosidase LnbB CBM32, GH33 sialidases), Ruminococcus gnavus alpha-L-fucosidases, and Akkermansia muciniphila mucin-degrading CAZymes, so a milk-glycan-richer (dairy) diet could plausibly favour organisms/genes of this type; and (b) one indirect two-step chain in the exact exposure setting: the Tang et al. randomized controlled trial of meat- vs. dairy-based complementary foods in U.S. formula-fed infants (5-12 months) found the genus Akkermansia relatively higher in the dairy group (lower in the meat group), and Akkermansia is exceptionally rich in F5/8-type-C/CBM32-containing mucin- and milk-glycan-active enzymes. This is an inference across two literature steps, not a measurement of the feature, and it is offset by a functional-category signal in the opposite direction from the metagenomic/metabolomic analysis of the same trial, which reported the meat group enriched for microbial genes of amino acid, nucleic acid and carbohydrate metabolism. Because only generic/pathway-level support exists and the available functional-level evidence is mixed, this scores 1 (Weak) rather than 2; it is not -1 because no study directly measured this feature in these groups and reported the opposite direction.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "64 full-term, formula-fed U.S. infants randomized to meat- or dairy-based complementary diet from 5 to 12 months; stool 16S rRNA and SCFAs at 5, 10, 12 months",
+      "relevance": "The only RCT directly on this exposure contrast at this age. Reports taxonomic (not functional-gene) differences, including higher relative abundance of Akkermansia in the dairy group; provides the indirect taxonomic basis for expecting more mucin/milk-glycan CBM32 (F5/8 type C) containing enzymes in dairy-fed infants, but does not report eggNOG/domain-level gene families."
+    },
+    {
+      "url": "https://www.tandfonline.com/doi/full/10.1080/10408398.2024.2439036",
+      "doi": "10.1080/10408398.2024.2439036",
+      "title": "The effect of complementary foods on the colonic microbiota of weaning infants: a systematic review",
+      "study_population": "Systematic review of complementary feeding intervention studies in weaning infants, including the dairy vs. pureed-meat trial in 5-month-old exclusively formula-fed U.S. infants",
+      "relevance": "Independently corroborates the direction of the taxonomic finding used in the inference chain: after the 7-month intervention, infants in the dairy group had increased relative abundance of Akkermansia compared with those consuming pureed meats. No functional/eggNOG gene data."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11790493/",
+      "doi": null,
+      "title": "Carbohydrate-active enzymes from Akkermansia muciniphila break down mucin O-glycans to completion",
+      "study_population": "In vitro biochemical characterization of 54 glycoside hydrolases, 11 sulfatases and 1 polysaccharide lyase from Akkermansia muciniphila (bacterial isolate, no human subjects)",
+      "relevance": "Documents the large, multi-modular glycan-degrading enzyme repertoire of the taxon reported higher in dairy-fed infants, including activity on human milk oligosaccharide, ganglioside and globoside glycans; supports the pathway-level (not feature-specific) plausibility that milk-glycan-rich diets favour accessory carbohydrate-binding domains such as F5/8 type C."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12926856/",
+      "doi": "10.1002/1873-3468.70217",
+      "title": "Structural insights into lacto-N-biose I recognition by a family 32 carbohydrate-binding module from Bifidobacterium bifidum",
+      "study_population": "Structural/biophysical study of the CBM32 domain of Bifidobacterium bifidum lacto-N-biosidase (LnbB); infant-gut symbiont, no human subjects",
+      "relevance": "Establishes that CBM32 modules belong to the F5/8 type C domain family and are appended to milk-oligosaccharide-degrading glycosidases (and to GH33 sialidases) of an infant-gut Bifidobacterium, i.e. the functional annotation link between this feature and milk-type carbohydrate metabolism."
+    },
+    {
+      "url": "https://link.springer.com/article/10.1007/s00018-020-03514-x",
+      "doi": "10.1007/s00018-020-03514-x",
+      "title": "Fucosidases from the human gut symbiont Ruminococcus gnavus",
+      "study_population": "Biochemical/structural characterization of alpha-L-fucosidases from a human gut commensal (in vitro)",
+      "relevance": "Shows an F5/8 type C domain (PF00754) appended C-terminally to a gut-bacterial fucosidase acting on fucosylated (milk/mucin-type) glycans, reinforcing that this domain marks host-/milk-glycan foraging machinery, though with no diet-group comparison in infants."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31589310/",
+      "doi": "10.1093/femsec/fiz159",
+      "title": "Carbohydrate active enzymes are affected by diet transition from milk to solid food in infant gut microbiota",
+      "study_population": "Metagenomic data from infants across the first year of life (milk-fed to solid-food transition), including 12-month samples",
+      "relevance": "Demonstrates that CAZyme/carbohydrate-module gene families partition into milk-associated versus solid-food-associated sets in infants, i.e. the general principle that dietary carbohydrate source shapes such gene families. It does not compare dairy vs. meat protein sources or report F5/8 type C specifically."
+    }
+  ],
+  "contradicting_evidence": "The metagenomic/metabolomic analysis of the same meat- vs. dairy-based complementary feeding trial (Network-based representation learning..., https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/, bioRxiv 10.1101/2024.11.01.621627) reports that the MEAT diet group was enriched for microbial genes encoding amino acid, nucleic acid and CARBOHYDRATE metabolism, and that conventional differential-abundance testing found no significant diet associations at all. Since ENOG410ZW8V is annotated to carbohydrate transport and metabolism, this category-level result points opposite to the hypothesis, although it does not name this ortholog group and therefore does not directly refute or confirm it.",
+  "search_queries_used": [
+    "dairy versus meat based complementary feeding infant gut microbiome randomized",
+    "F5/8 type C domain gut microbiome infant carbohydrate metabolism",
+    "eggNOG F5/8 type C domain infant fecal metagenome dairy meat complementary feeding",
+    "Network-based representation learning infants meat dairy metagenomics eggNOG F5/8 type C",
+    "F5/8 type C domain discoidin domain Bifidobacterium sialidase human milk oligosaccharide",
+    "biorxiv 2024.11.01.621627 \"F5/8 type C\" eggNOG meat diet enriched",
+    "\"ENOG410\" eggNOG orthologous group infant gut metagenome diet complementary feeding carbohydrate",
+    "Akkermansia muciniphila CBM32 F5/8 type C domain mucin degrading enzymes",
+    "Tang 2023 meat vs dairy complementary foods infant Akkermansia decreased Bifidobacterium results",
+    "dairy based complementary food infants 12 months Bifidobacterium increased gut microbiome",
+    "F5/8 type C domain CBM32 enriched breastfed infant gut metagenome milk glycans",
+    "Akkermansia muciniphila genome CBM32 F5/8 type C domain carbohydrate binding module glycoside hydrolase",
+    "eggNOG functional gene families infant gut metagenome milk diet vs solid food carbohydrate transport metabolism enriched",
+    "carbohydrate active enzymes diet transition milk to solid food infant gut microbiota CBM32 milk-associated families",
+    "bovine milk oligosaccharides yogurt infant gut Bifidobacterium sialidase gene abundance dairy complementary food"
+  ],
+  "caveats": "F5/8 type C is a very broadly distributed accessory domain (discoidin/CBM32-like) found across many taxa and appended to enzymes with diverse specificities, so an eggNOG group carrying this annotation is functionally ambiguous and cannot be mapped cleanly onto a single dietary substrate; its abundance may also track taxon abundance (e.g. Akkermansia, Bifidobacterium bifidum, Ruminococcus gnavus) rather than diet per se. All supporting evidence is indirect (taxon-level or enzyme-biochemistry), the supporting taxonomic result comes from a single small RCT (n=32/group) whose functional analysis found no per-feature diet differences, and dairy-based complementary foods (yogurt, cheese, whey) supply lactose and bovine milk glycans in amounts far lower than breast milk HMOs in these formula-fed infants, weakening the milk-glycan-foraging rationale. Literature searching for eggNOG identifiers is intrinsically poor coverage, so absence of a direct report may partly reflect annotation vocabulary rather than absence of biology."
+}

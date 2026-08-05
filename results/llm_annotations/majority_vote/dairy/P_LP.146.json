@@ -1,0 +1,64 @@
+{
+  "feature_id": "P_LP.146",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "Val-Leu (dipeptide) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "No study was found that directly reports the dipeptide Val-Leu as elevated in dairy-fed versus meat-fed infants at 12 months (or any comparable complementary-feeding contrast). What I did find is (a) indirect adult human evidence that ingestion of dairy (whey) protein - particularly in hydrolysed form - produces measurable increases in circulating BCAA-containing dipeptides including Val-Leu and Ile-Leu, and corroborating review statements that whey protein hydrolysates contain BCAA dipeptides such as Leu-Leu, Ile-Leu and Val-Leu; and (b) directly relevant human infant studies from a meat- vs. dairy-based complementary feeding RCT (5-12 months, U.S. formula-fed infants) in which serum untargeted/targeted metabolomics showed no significant differences attributable to protein source, and a companion fecal microbiome/metabolome analysis in which conventional differential-abundance testing found no significant diet associations (with network-embedding analysis instead highlighting enrichment of microbial amino-acid metabolism genes in the MEAT group). Thus the hypothesized direction rests on plausible pathway/food-composition reasoning (dairy proteins are BCAA-rich and yield Val-Leu on proteolysis; small peptides can be absorbed or persist in gut contents) rather than on any observed feature+group association, and the closest population-matched studies are null (or, at the pathway level, mildly opposite). Per the rubric this is 'weak/mixed' evidence: something relevant was found, but nothing on this specific feature-group combination, and no single study directly addressing Val-Leu in dairy- vs meat-fed infants points either way, so -1 is not warranted.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pubs.acs.org/doi/abs/10.1021/jf101912n",
+      "doi": null,
+      "title": "Comparison of Different Sources and Degrees of Hydrolysis of Dietary Protein: Effect on Plasma Amino Acids, Dipeptides, and Insulin Responses in Human Subjects",
+      "study_population": "Healthy adult human subjects ingesting whey vs. soy protein, intact vs. hydrolysed",
+      "relevance": "Indirect support: reports that protein hydrolysates (including dairy/whey) significantly increased plasma Val-Leu and Ile-Leu concentrations versus non-hydrolysed protein, showing Val-Leu is a dairy-protein-derivable dipeptide detectable in human biofluids after milk protein intake. Not infants, and does not contrast dairy with meat."
+    },
+    {
+      "url": "https://link.springer.com/article/10.1186/s43014-024-00280-2",
+      "doi": "10.1186/s43014-024-00280-2",
+      "title": "Milk-derived bioactive peptides (Food Production, Processing and Nutrition)",
+      "study_population": "Review of milk protein/whey hydrolysate peptide literature (human and in vitro studies)",
+      "relevance": "Corroborative, compositional: states that whey protein hydrolysates contain branched-chain amino acid dipeptides such as Leu-Leu, Ile-Leu and Val-Leu, supporting a dairy-protein origin for Val-Leu; review-level and not infant- or meat-comparison-specific."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7912106/",
+      "doi": null,
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "U.S. formula-fed infants, randomized controlled feeding trial, meat- vs dairy-based complementary diet 5-12 months (follow-up 24 months)",
+      "relevance": "Most population-matched evidence: targeted and untargeted serum metabolomics found that protein source (meat vs dairy) did not differentially affect serum metabolites; BCAAs (valine, isoleucine) rose with age in both groups. Provides no support for a dairy-specific increase in Val-Leu (null rather than opposite)."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40475488/",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, meat vs dairy complementary feeding RCT; fecal metagenomics + metabolomics",
+      "relevance": "Directly relevant population and sample type: conventional differential abundance analysis found no significant diet associations among microbiome/metabolite features, while network embedding associated the MEAT group with enrichment of microbial amino-acid metabolism genes - i.e., no reported dairy-specific enrichment of dipeptides such as Val-Leu."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Human infants across the complementary feeding transition (fecal microbiome + metabolome)",
+      "relevance": "Pathway-level context only: fecal dipeptides in infants are described as products of incomplete protein degradation/putrefaction and correlate with microbial protein-utilisation pathways, declining as carbohydrate utilisation increases - a generic rationale for diet-protein-driven fecal dipeptides but with no dairy-vs-meat contrast and no mention of Val-Leu specifically."
+    }
+  ],
+  "contradicting_evidence": "The two analyses of the most closely matched population (meat vs dairy complementary feeding RCT, 5-12 months, U.S. formula-fed infants) reported no significant protein-source differences in serum metabolites and no significant diet associations in fecal metabolites by differential abundance; the only diet signal reported at pathway level (microbial amino-acid metabolism gene enrichment) favoured the MEAT group, which is the opposite direction from a dairy-associated proteolytic dipeptide. However, neither study reports Val-Leu itself, so this is null/indirect rather than a direct contradiction.",
+  "search_queries_used": [
+    "Val-Leu dipeptide infant plasma dairy protein",
+    "dipeptides infant serum dairy versus meat complementary feeding metabolome",
+    "branched-chain amino acids infants dairy protein complementary feeding 12 months",
+    "Val-Leu dipeptide whey protein hydrolysate plasma appearance human",
+    "fecal metabolome dipeptides infant complementary feeding protein source",
+    "dipeptide metabolites plasma milk intake metabolomics biomarker leucine valine dipeptide",
+    "infant gut metabolome dairy protein dipeptides increased proteolytic fermentation",
+    "biorxiv network-based representation learning meat dairy complementary diet fecal metabolites dipeptides",
+    "Val-Leu dipeptide fecal metabolite dairy infants randomized trial",
+    "meat versus dairy complementary diet infant fecal metabolome amino acids dipeptides 12 months results",
+    "carnosine anserine meat intake infant dipeptides metabolomics",
+    "\"meat diet group was enriched\" infants network representation learning metabolites",
+    "meat-based complementary diet infant fecal metabolites enriched dipeptides dairy group enriched",
+    "infant fecal dipeptides increased milk formula protein intake metabolomics 12 months"
+  ],
+  "caveats": "Val-Leu is a small dipeptide whose untargeted LC-MS annotation (here flagged 'metabolite_lipid' with a METLIN ID) is easily confounded by isobaric/isomeric dipeptides (e.g., Leu-Val, Ile-Val, Val-Ile) that literature databases treat as distinct compounds, so search recall for this exact feature is inherently limited. Nearly all mechanistic evidence comes from adult postprandial plasma studies using hydrolysed dairy protein, whereas dairy-based complementary foods supply intact protein; fecal dipeptide levels additionally reflect microbial proteolysis and host absorption efficiency, which can decouple them from dietary protein source. Also, meat itself is a rich source of peptides (e.g., histidine dipeptides), so a dairy-specific increase cannot be assumed on compositional grounds alone. Web search coverage was truncated by a tool-use limit, so additional targeted studies may exist."
+}

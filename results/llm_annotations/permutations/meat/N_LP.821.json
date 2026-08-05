@@ -1,0 +1,64 @@
+{
+  "feature_id": "N_LP.821",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "2-methyl-3-oxo-propanoic acid (methylmalonate semialdehyde; HMDB0001172 / LMFA01060193) is increased or characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches identified the compound firmly (2-methyl-3-oxopropanoic acid = methylmalonate semialdehyde, a short-lived intermediate of valine and thymine/pyrimidine catabolism that is oxidatively decarboxylated to propionyl-CoA by ALDH6A1, feeding into propanoate metabolism), but I found no study - human or animal - reporting this metabolite (or a clearly named quantified surrogate such as urinary/plasma methylmalonate semialdehyde) as differing between meat-based and dairy-based complementary feeding, or between any comparable infant dietary protein-source groups. The most directly relevant literature is the same randomized controlled meat-vs-dairy complementary feeding trial paradigm (5-12 months, U.S. formula-fed infants): its targeted/untargeted serum metabolomics paper reported that protein-related metabolites (isoleucine, valine, phenylalanine, BCAA-weighted components, C4/C5 acylcarnitines) changed over time with increasing protein intake in all infants, and the companion gut-microbiota paper explicitly states that untargeted serum metabolomics found no significant differences between the meat and dairy groups at 12 months. That is a null rather than an opposite-direction finding, so it does not meet the bar for -1, but it removes any direct support. Additionally, purely pathway-level reasoning cuts against the hypothesis: methylmalonate semialdehyde is generated from valine catabolism, and dairy protein is described as having higher branched-chain amino acid content than meat protein, so a valine-catabolism intermediate would, if anything, be predicted to be higher in the dairy group. There is also a plausible but untested microbial route (colonic protein fermentation to propionate precursors) that could favor the meat group. With only generic pathway/theoretical reasoning and no feature-specific study, this scores 1 (Weak).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": "10.3390/nu13020388",
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "U.S. healthy term formula-fed infants in a randomized controlled feeding trial, meat- vs. dairy-based complementary diet from 5 to 12 months, followed to 24 months (serum targeted + untargeted metabolomics)",
+      "relevance": "Closest available direct study of the exact exposure (meat vs. dairy complementary protein at 12 months). It reports increases over time in valine, isoleucine, phenylalanine and C4/C5 acylcarnitines with higher total protein intake in all infants, but does not report 2-methyl-3-oxo-propanoic acid / methylmalonate semialdehyde, and does not show a meat-specific increase in valine-pathway intermediates."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2022.1063518/full",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "U.S. formula-fed infants randomized to meat vs. dairy complementary foods, 5-12 months; fecal 16S microbiota and SCFA",
+      "relevance": "States that untargeted serum metabolomics from this trial found no significant differences between meat and dairy groups at 12 months, and notes dairy protein contains more branched-chain amino acids than meat - both points argue against a meat-specific elevation of a valine-catabolism intermediate, though neither addresses this metabolite directly."
+    },
+    {
+      "url": "https://www.hmdb.ca/metabolites/HMDB0001172",
+      "doi": null,
+      "title": "Human Metabolome Database: metabocard for 2-Methyl-3-oxopropanoic acid (HMDB0001172)",
+      "study_population": "Human reference metabolite database entry (not a study population)",
+      "relevance": "Confirms feature identity and biochemical context: methylmalonate semialdehyde, an intermediate linking valine/beta-aminoisobutyrate and pyrimidine catabolism to propionyl-CoA and propanoate metabolism - the only basis for pathway-level (theoretical) reasoning about dietary protein source."
+    },
+    {
+      "url": "https://link.springer.com/article/10.1186/1750-1172-8-98",
+      "doi": "10.1186/1750-1172-8-98",
+      "title": "Mutations in ALDH6A1 encoding methylmalonate semialdehyde dehydrogenase are associated with dysmyelination and transient methylmalonic aciduria",
+      "study_population": "Human pediatric case reports of inborn errors of metabolism",
+      "relevance": "Primary human evidence that methylmalonic semialdehyde arises specifically from valine and thymine catabolism and is normally rapidly decarboxylated to propionyl-CoA; establishes that its steady-state levels track valine/pyrimidine flux rather than any meat-specific dietary component, and that it is chemically labile and usually inferred via surrogates (3-hydroxyisobutyrate, beta-alanine)."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, meat vs. dairy complementary feeding 5-12 months; fecal metagenomics + metabolomics",
+      "relevance": "Same-design multi-omics analysis reporting diet-group-associated microbiome/metabolite features (with some enrichment in the meat group), i.e. the type of study in which this feature could be tested; however no search result showed 2-methyl-3-oxo-propanoic acid / methylmalonate semialdehyde among the reported meat-associated metabolites, so it provides context rather than support."
+    }
+  ],
+  "contradicting_evidence": "The companion publications of the meat-vs-dairy infant feeding trial report no significant meat-vs-dairy differences in untargeted serum metabolomics at 12 months, and note that dairy protein is richer in branched-chain amino acids (including valine) than meat protein. Since 2-methyl-3-oxo-propanoic acid is a valine/thymine catabolic intermediate, substrate-flux reasoning would predict, if anything, higher levels with dairy-based protein - the opposite of the hypothesis. This is indirect/null evidence rather than a direct opposite-direction finding for this feature, so it lowers confidence without warranting a -1 score.",
+  "search_queries_used": [
+    "2-methyl-3-oxo-propanoic acid metabolite",
+    "methylmalonate semialdehyde valine catabolism infant",
+    "infant meat versus dairy protein complementary feeding metabolome",
+    "\"2-methyl-3-oxo-propanoic acid\" infant meat dairy complementary feeding",
+    "methylmalonate semialdehyde meat intake metabolomics biomarker",
+    "LMFA01060193 metabolomics",
+    "meat-based complementary diet infant serum metabolomics valine BCAA 12 months",
+    "propanoate metabolism pathway enriched infant meat complementary food fecal metabolome",
+    "3-hydroxyisobutyrate meat protein intake infant plasma",
+    "\"methylmalonate semialdehyde\" gut microbiome propionate infant",
+    "infant fecal metabolome meat dairy protein 12 months branched-chain amino acid catabolism",
+    "Network-based representation learning complementary feeding meat dairy metabolite features biorxiv 2024",
+    "\"2-methyl-3-oxo-propanoic\" infant",
+    "dairy protein higher branched-chain amino acids than meat infant valine catabolites serum"
+  ],
+  "caveats": "Annotation confidence is a major concern: methylmalonate semialdehyde is a highly reactive, transient aldehyde rarely measured directly, and the feature label ('Esi-1.2239991', C4H6O3, exact mass 102.03) is consistent with many isobaric small organic acids (e.g. acetoacetate, 3-oxobutanoate, methylmalonaldehyde tautomers, 2-hydroxy/oxo C4 acids), so this is likely a tentative level-2/3 identification based on m/z alone. Published dietary-biomarker work in this trial focused on TMAO, acylcarnitines and amino acids, not this intermediate. Also note the two literature axes point in opposite directions (higher dairy BCAA supply vs. potentially greater colonic protein fermentation/propionate precursor generation with meat), so directionality is genuinely unresolved; any internal-data signal should be treated as hypothesis-generating and confirmed with an authentic standard or with stable surrogates such as 3-hydroxyisobutyrate, beta-alanine or methylmalonic acid."
+}

@@ -1,0 +1,71 @@
+{
+  "feature_id": "COG1760",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "L-serine deaminase (COG1760) gene abundance is increased/characteristic in the gut microbiome of 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 2,
+  "rationale": "No study was found that reports COG1760 / L-serine deaminase (sdaA/sdaB, L-serine dehydratase) specifically as differentially abundant between meat- and dairy-fed infants, so this is not direct feature-level evidence. However, several converging indirect lines point in the hypothesized direction. Most relevantly, a network-based representation-learning analysis of the U.S. randomized meat- vs. dairy-based complementary feeding trial in formula-fed infants reported that the meat diet group was enriched for microbial genes encoding amino acid metabolism (along with nucleic acid and carbohydrate metabolism) - the functional category to which COG1760 belongs - although the authors note that conventional feature-by-feature differential abundance analysis of the same data found no significant diet associations. Consistent with this, an analysis connecting complementary feeding patterns with microbiome development in ~9-month-old infants reported that nutrients characteristic of meat products correlated positively with predicted microbial amino acid metabolism/biosynthesis, whereas dairy-associated intake correlated inversely. Adult multi-cohort metagenomics comparing omnivores with vegetarians/vegans similarly found amino acid metabolism pathways (including serine/glycine-related pathways) overrepresented in omnivore microbiomes, and mechanistic work shows that gut bacteria actively induce serine deaminase-dependent serine catabolism when luminal serine supply increases. Taken together this is pathway-level plus animal/adult indirect support in the same direction, i.e. Moderate (2), not Strong, because the specific enzyme family has never been tested in this contrast and because dairy (casein/whey) protein is itself serine-rich, making the meat-vs-dairy direction for a serine-specific enzyme uncertain.",
+  "mechanism": "L-serine deaminase (L-serine dehydratase, sdaA/sdaB family; COG1760) converts L-serine to pyruvate plus ammonia, allowing gut bacteria to use serine as a carbon/nitrogen and energy source. Higher delivery of undigested animal protein and peptides to the distal gut with meat-based complementary feeding increases the free amino acid pool available for microbial proteolytic fermentation; serine is one of the most rapidly and preferentially catabolised amino acids by enteric bacteria (Enterobacteriaceae, clostridia, Bacteroides), and its availability induces serine deaminase expression and confers a growth/fitness advantage. Meat-based feeding also shifts the infant community toward more proteolytic, amino-acid-fermenting taxa and away from the milk-oligosaccharide/lactose-adapted bifidobacterial-dominated community typical of dairy-based diets, which would raise the community-wide gene copy number of serine deaminase and other amino acid catabolic COGs.",
+  "evidence": [
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants in a randomized controlled complementary feeding trial (meat-based vs. dairy-based protein, sampled across the complementary feeding period into the second half of the first year)",
+      "relevance": "Directly addresses the meat vs. dairy complementary feeding contrast and reports that the meat diet group was enriched for microbial genes encoding amino acid metabolism - the functional category containing L-serine deaminase - supporting the hypothesized direction at pathway level."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7258074/",
+      "doi": null,
+      "title": "Connecting Infant Complementary Feeding Patterns with Microbiome Development",
+      "study_population": "Infants during complementary feeding (~9 months of age), dietary intake correlated with predicted microbiome function",
+      "relevance": "Reports that nutrients derived from meat products correlated strongly with increased microbiome amino acid metabolism and biosynthesis, with inverse correlations for other feeding patterns - indirect pathway-level support that meat-based complementary foods raise microbial amino acid catabolic capacity."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": null,
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "U.S. formula-fed infants randomized to meat- or dairy-based complementary foods (5-12 months)",
+      "relevance": "Establishes that the meat vs. dairy complementary protein source produces distinct gut microbial community composition in exactly this age window, providing the compositional basis for divergent amino acid catabolic gene content; the paper does not report serine deaminase specifically."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41564-024-01870-z",
+      "doi": null,
+      "title": "Gut microbiome signatures of vegan, vegetarian and omnivore diets and associated health outcomes across geographies and disease",
+      "study_population": "Large multi-cohort adult human metagenomic study of omnivore vs. vegetarian vs. vegan diets",
+      "relevance": "Indirect (adult) evidence that animal-food-based diets enrich microbial amino acid metabolism pathways, including serine/glycine pathways, consistent in direction with higher serine-handling enzyme abundance under meat-containing diets; notes substrates occur in both meat and dairy, so it does not resolve the meat-vs-dairy contrast."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/31686025/",
+      "doi": null,
+      "title": "Dietary L-serine confers a competitive fitness advantage to Enterobacteriaceae in the inflamed gut",
+      "study_population": "Mouse models (germ-free/SPF mice, defined amino acid diets, E. coli mono-colonization)",
+      "relevance": "Mechanistic animal evidence that dietary serine availability drives bacterial serine-utilization (serine deaminase-dependent) metabolism and expansion, supporting the idea that greater dietary protein-derived serine flux increases serine deaminase capacity in the gut community."
+    },
+    {
+      "url": "https://www.nature.com/articles/s42003-026-10133-y",
+      "doi": null,
+      "title": "L-serine at the crossroads of microbiota, intestinal health, and disorders",
+      "study_population": "Review of human and animal studies on gut microbial L-serine metabolism",
+      "relevance": "Corroborates the mechanism: bacteria utilize L-serine from diet, other bacteria, mucin and host cells via serine deaminases, gaining a growth advantage - linking dietary protein-derived serine supply to serine deaminase gene/activity abundance."
+    }
+  ],
+  "contradicting_evidence": "No study reported L-serine deaminase or serine catabolism as higher in dairy-fed than meat-fed infants. However, the evidence is not unambiguous: the adult omnivore/vegan metagenomic study attributes serine/glycine pathway substrates to both red/white meat and dairy products, and dairy proteins (casein, whey) are themselves serine-rich, so a serine-specific enzyme need not track meat over dairy. Additionally, the meat-vs-dairy infant trial's conventional differential abundance analysis reportedly found no significant diet associations for individual microbiome features, implying that any single-gene signal such as COG1760 is likely small and detectable only with multivariate/embedding approaches.",
+  "search_queries_used": [
+    "L-serine deaminase gut microbiome infant",
+    "serine dehydratase sdaA gut microbiota protein diet",
+    "meat versus dairy complementary feeding infant gut microbiome protein metabolism",
+    "Different gut microbiota U.S. formula-fed infants meat vs dairy-based complementary foods randomized controlled trial",
+    "COG1760 L-serine deaminase metagenome",
+    "meat complementary food infant fecal metabolome amino acid catabolism 12 months",
+    "meat vs dairy complementary foods infant gut microbiota PICRUSt amino acid metabolism serine",
+    "Network-based representation learning infant gut microbial metabolomic meat dairy serine",
+    "infant gut microbiome meat diet serine metabolism increased amino acid degradation",
+    "gut bacteria serine utilization high protein diet fecal serine depletion",
+    "\"meat\" \"dairy\" complementary feeding infant gut microbiota metagenomic functional pathways amino acid degradation",
+    "infant meat complementary diet fecal branched-chain amino acids urea cycle microbiome shotgun metagenomics 12 months results",
+    "serine deaminase abundance weaning infant gut metagenome amino acid transport and metabolism COG",
+    "biorxiv 2024.11.01.621627 infant meat dairy microbial metabolomic network results serine glycine metabolites diet groups"
+  ],
+  "caveats": "Evidence is pathway-level rather than feature-level: no publication observed reports COG1760/sdaA/sdaB abundance for meat- vs. dairy-fed infants. The strongest group-relevant source is a preprint/recent report from the same meat-vs-dairy infant feeding trial design, so it may not be independent of the dataset under analysis, and its amino-acid-metabolism enrichment was detected only via a representation-learning approach (not standard differential abundance). Serine deaminase abundance can also be driven by mucin-derived serine, inflammation-associated Enterobacteriaceae blooms, and general taxonomic maturation during weaning rather than by protein source per se; because dairy protein is also serine-rich, the meat-specific direction should be treated as plausible but unproven. Further search was truncated by a tool-use limit, so additional relevant primary studies may exist."
+}

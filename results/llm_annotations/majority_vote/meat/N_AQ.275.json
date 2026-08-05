@@ -1,0 +1,63 @@
+{
+  "feature_id": "N_AQ.275",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The unidentified aqueous-phase metabolite with molecular formula C5H6O7S is increased/characteristic in 12-month-old infants fed meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches for the exact formula (C5H6O7S) returned no compound record, no annotated metabolite identity, and no study of this feature in any population - formula-only searches returned unrelated set-index pages (C5H6O7, C7H6O5S, etc.), so there is no literature on this specific feature, let alone on this feature in a meat- vs dairy-fed infant contrast. What I did find is the relevant experimental context: the University of Colorado meat- vs dairy-based complementary feeding RCT in U.S. formula-fed infants (5-12 months), which has published serum metabolomics (Tang et al.) and fecal metagenomic/metabolomic network-representation-learning analyses (Price et al.). The serum metabolomics paper explicitly concluded that protein source (meat vs dairy) did not appear to differentially impact serum metabolites, i.e. it does not support a diet-arm-specific metabolite signal, although it is blood rather than stool. The fecal multi-omic analysis did report meat-arm enrichment of microbial genes for amino acid metabolism, which is a plausible but only pathway-level anchor for an increase in a small sulfur-containing organic acid (meat is a rich source of sulfur amino acids methionine/cysteine, whose microbial/host catabolism yields sulfate, sulfonates and sulfated organic acids; note, however, that dairy whey protein is also cysteine-rich, weakening the directional prediction). Adult dietary-biomarker work comparing fermented dairy and red meat meals did highlight sulfate-conjugated microbial catabolites (indoxyl sulfate, p-cresol sulfate) as discriminating profiles, but those compounds have different formulas (C8H7NO4S, C7H8O4S) and are not homologs of C5H6O7S, so this is at best analogical support that sulfur/sulfate-conjugate metabolites can track animal-protein source. Because only generic, pathway-level/theoretical reasoning was located - and no primary study on this feature+group combination in either direction - the rubric maps this to 1 (Weak), not 0 (something relevant was found) and not -1 (no study directly addressing this feature reports the opposite direction).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": null,
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "U.S. full-term formula-fed infants in a controlled feeding trial, meat- vs dairy-based complementary diet from 5 to 12 months, follow-up at 24 months (serum metabolomics)",
+      "relevance": "Directly addresses the meat vs dairy complementary-protein contrast at the same 5-12 month window, but reports that protein source did not differentially impact serum metabolites and does not report any C5H6O7S-type sulfur metabolite; provides context rather than support."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized to meat- or dairy-based complementary foods; fecal metagenomics + untargeted metabolomics",
+      "relevance": "Closest matching study design (same exposure, same ages, fecal metabolome). Reports meat-arm enrichment of microbial amino acid, nucleic acid and carbohydrate metabolism genes - pathway-level plausibility for elevated protein/sulfur-amino-acid-derived metabolites - but names sulfate metabolites (testosterone sulfate, cortisol 21-sulfate) only in the age comparison, not this formula in the meat arm."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11459089/",
+      "doi": null,
+      "title": "Metabolomics-based biomarkers of fermented dairy and red meat intake: a randomized controlled trial in healthy adults",
+      "study_population": "Healthy adults, randomized controlled meal trial comparing fermented dairy vs red meat, urine/plasma metabolomics",
+      "relevance": "Indirect analogy: sulfate-conjugated microbial amino acid catabolites (3-indoxyl sulfate, p-cresol sulfate) were explored as discriminators of meat vs dairy intake, showing sulfur/sulfate-containing metabolites can differ by animal-protein source - but in adults and for chemically distinct compounds, not C5H6O7S."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8397734/",
+      "doi": null,
+      "title": "Sulfoquinovose is a select nutrient of prominent bacteria and a source of hydrogen sulfide in the human gut",
+      "study_population": "Human fecal samples and in vitro/gnotobiotic gut microbial communities (adults)",
+      "relevance": "Background on small organosulfonate/sulfonated-sugar metabolites (e.g., C6 sulfoquinovose, sulfolactate) in the gut; establishes that low-molecular-weight C-S-O metabolites like a putative C5H6O7S sulfonate/sulfate ester are biologically plausible gut metabolites, but this evidence is plant-diet-linked and not meat-specific."
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/0378378285900878",
+      "doi": null,
+      "title": "Metabolic effects of a human milk adapted formula on sulfur amino acid degradation in full-term infants",
+      "study_population": "Full-term human infants, formula vs human milk feeding, urinary sulfur/inorganic sulfate excretion",
+      "relevance": "Shows infant sulfur-amino-acid oxidation to inorganic sulfate is diet-responsive and measurable in early infancy - generic mechanistic backdrop for a diet-protein-source effect on sulfur metabolites, but does not test meat vs dairy complementary foods or this feature."
+    }
+  ],
+  "contradicting_evidence": "The serum metabolomics analysis of the same meat- vs dairy-based complementary feeding RCT concluded that the source of protein-rich food did not differentially affect serum metabolites, which argues against a robust protein-source-specific metabolite signal in this trial; however, that analysis was serum (not fecal/aqueous stool extract), was largely targeted/untargeted annotated metabolites, and never evaluated a C5H6O7S feature, so it is contextual rather than a direct opposite-direction finding for this feature.",
+  "search_queries_used": [
+    "C5H6O7S metabolite",
+    "infant meat versus dairy complementary feeding metabolome urine",
+    "meat-based complementary food infant gut microbiome metabolome trial",
+    "\"C5H6O7S\"",
+    "HMDB C5H6O7S sulfate metabolite formula",
+    "meat protein infant fecal metabolome sulfur amino acid sulfate 12 months",
+    "infant complementary feeding meat dairy fecal metabolites amino acid metabolism enriched",
+    "PubChem molecular formula C5H6O7S compound",
+    "sulfoglutaconate OR \"sulfo-glutarate\" metabolite gut",
+    "meat intake sulfate sulfur metabolites gut microbiota hydrogen sulfide protein source",
+    "infant gut metabolome sulfated metabolites weaning age 12 months increase",
+    "Price Tang bioRxiv infant meat dairy metabolite features enriched meat diet sulfate",
+    "meat complementary feeding infant taurine methionine cysteine sulfur metabolite fecal"
+  ],
+  "caveats": "The feature is annotated only by molecular formula, with no confirmed structure; C5H6O7S is consistent with several candidate structures (e.g., a sulfate ester of a C5H6O4 dicarboxylic acid, or a sulfonated C5 organic acid), and literature searchability is essentially zero without an identity - so any confidence assignment reflects the feature class, not the exact compound. Formula-based searches can also match non-biological industrial chemicals. Confirming identity by MS/MS or authentic standard (and checking isomer/adduct/in-source-fragment artifacts) is required before literature-based prioritization is meaningful. Additionally, the meat vs dairy contrast is not a simple high- vs low-sulfur contrast, since dairy (whey) protein is also rich in cysteine, so the hypothesized direction is not mechanistically obligatory."
+}

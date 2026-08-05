@@ -1,0 +1,65 @@
+{
+  "feature_id": "COG0516",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "COG0516 (IMP dehydrogenase/GMP reductase, nucleotide transport and metabolism) is increased or characteristic of the metagenomes of 12-month-old infants fed meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 2,
+  "rationale": "Searches found one directly relevant human infant study: the network-based representation learning analysis of the U.S. randomized controlled meat- vs. dairy-based complementary feeding trial (5- and 12-month fecal metagenomics + metabolomics), which reports that microbial features consistently classified into the MEAT group were significantly enriched for the COG functional category 'nucleotide transport and metabolism' (FDR = 0.005), alongside translation/ribosomal biogenesis and amino acid transport and metabolism. This matches the hypothesized direction at exactly the pathway/COG-category level to which COG0516 belongs, although no source located mentions COG0516 (guaB/IMPDH-GuaC family) by name in this or any infant dietary comparison. Supporting indirect evidence: the parent RCT documents that meat- vs. dairy-based complementary feeding produces distinct fecal microbiota composition at 12 months; USDA/ODS-NIH purine database documentation confirms that meats are among the most purine-dense foods (hypoxanthine/adenine-rich) whereas dairy is notably purine-poor, giving the colonic community a larger purine/nucleotide substrate load in the meat arm; and a primary study in Cell Host & Microbe shows gut bacteria actively metabolize and interconvert purines (IMP/inosine/hypoxanthine) and contribute to host purine homeostasis, i.e., purine-nucleotide enzymes are diet-responsive in the gut. Because the direct human evidence is category-level rather than COG0516-specific (and comes from the same trial/cohort design as the present study, so it is partly circular), the association is graded Moderate rather than Strong. No study reporting the opposite direction (nucleotide/purine gene enrichment in dairy-fed infants) was found.",
+  "mechanism": "Meat is a dense source of nucleic acids and free purines (hypoxanthine, adenine, guanine) relative to dairy, and higher intact-protein/animal-tissue intake also raises microbial nitrogen availability. Colonic bacteria in meat-fed infants therefore face both greater purine substrate flux and, per the same analysis, a shift toward taxa with high translational/biosynthetic capacity (translation and ribosomal biogenesis COGs enriched), both of which increase demand for guanine-nucleotide interconversion. COG0516 spans IMP dehydrogenase (guaB; IMP -> XMP, the committed and rate-limiting step to GMP, required for rRNA/DNA synthesis in rapidly growing cells) and GMP reductase (guaC; GMP -> IMP, allowing salvage of dietary/host-derived guanine nucleotides back into the IMP pool and onward to inosine/hypoxanthine). Enrichment of this COG in meat-fed infants would be expected as the combined signature of (i) purine salvage/interconversion of abundant dietary guanine nucleotides and (ii) increased de novo guanine-nucleotide demand in a faster-growing, more protein-fermenting community.",
+  "evidence": [
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3.full.pdf",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants in a randomized controlled complementary feeding trial (meat- vs. dairy-based protein), fecal shotgun metagenomics and metabolomics during early complementary feeding through ~12 months",
+      "relevance": "Directly reports that microbial (COG) features classified to the meat group were significantly enriched for the COG category 'nucleotide transport and metabolism' (FDR = 0.005) - the exact functional category of COG0516 - supporting the hypothesized direction at pathway level in the same population type; however COG0516 itself is not named, and this analysis derives from the same trial design as the present study."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial (PMC record)",
+      "study_population": "Same U.S. infant randomized controlled meat vs. dairy complementary feeding cohort; fecal metagenomics/metabolomics",
+      "relevance": "Peer-review-indexed version confirming the study investigated how meat vs. dairy protein-rich complementary foods affect infant fecal metagenomic functional profiles, the setting in which nucleotide-metabolism COG enrichment in the meat group was observed."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": null,
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term, formula-fed U.S. infants (Denver metro), randomized to meat- vs. dairy-based complementary foods, followed through the first year",
+      "relevance": "Primary RCT establishing that meat- vs. dairy-based complementary protein produces measurably different infant gut microbiota through 12 months, i.e., the exposure can plausibly drive functional gene-content differences; taxon-level only, no COG0516-specific data."
+    },
+    {
+      "url": "https://www.cell.com/cell-host-microbe/fulltext/S1931-3128(23)00204-4",
+      "doi": null,
+      "title": "Gut bacterial metabolism contributes to host global purine homeostasis",
+      "study_population": "Mouse models plus human-derived gut bacterial isolates/communities (not infants)",
+      "relevance": "Indirect mechanistic support that gut bacteria carry and use purine interconversion/salvage pathways (IMP/inosine/hypoxanthine) responsive to purine availability, the biochemistry catalyzed by the COG0516 enzyme family."
+    },
+    {
+      "url": "https://www.ars.usda.gov/ARSUserFiles/80400535/Data/Purine/PURINEDATABASEDOCUMENTATION2025.pdf",
+      "doi": null,
+      "title": "USDA and ODS-NIH Database for the Purine Content of Foods, Release 2.0 (documentation)",
+      "study_population": "Food composition database (not a human study)",
+      "relevance": "Documents that meats are high in uricogenic purine bases such as hypoxanthine and adenine while dairy is purine-poor, establishing the differential dietary purine substrate load between the meat and dairy complementary feeding arms."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "IMP dehydrogenase infant gut microbiome meat complementary feeding",
+    "COG0516 IMP dehydrogenase GMP reductase gut microbiome",
+    "meat versus dairy protein complementary feeding infant gut microbiome metagenome",
+    "purine nucleotide metabolism gut microbiome meat diet infant",
+    "Different gut microbiota U.S. formula-fed infants meat vs dairy-based complementary foods randomized controlled trial functional pathways purine nucleotide",
+    "Network-based representation learning infant gut microbiome meat dairy metagenomics COG nucleotide metabolism enriched",
+    "meat consumption gut microbiome purine metabolism gene pathway enrichment",
+    "high protein animal diet gut microbiome nucleotide metabolism KEGG purine pathway enriched shotgun",
+    "weaning infant gut microbiome purine metabolism nucleotide biosynthesis pathway increase metagenomics",
+    "guaB IMP dehydrogenase gut bacteria diet enrichment",
+    "Meat intake in relation to composition and function of gut microbiota nucleotide metabolism",
+    "infant meat complementary food fecal metabolome purine inosine hypoxanthine urate increased",
+    "meat-based complementary food infant gut microbiota Proteobacteria Escherichia increased 12 months randomized",
+    "Different Blood Metabolomics Profiles Infants Meat Dairy-Based Complementary Diet purine",
+    "meat vs dairy complementary foods randomized trial infant gut microbiota results genera Bacteroides Akkermansia 12 months Tanaka Krebs"
+  ],
+  "caveats": "(1) No literature was found on COG0516 specifically in any dietary or infant context; the supporting human evidence is at the level of the broader COG category 'nucleotide transport and metabolism'. (2) The one direct human infant study is from the same U.S. meat-vs-dairy complementary feeding RCT framework as the present investigation, so it may not be an independent replication - external validation in another cohort was not found. (3) COG0516 conflates two opposite-direction enzymes (IMPDH/guaB anabolic, GMP reductase/guaC catabolic), so an increase in the COG does not identify which purine flux direction is favored. (4) Gene-content (COG) abundance is a potential, not realized, function, and shifts can be driven purely by taxonomic turnover (e.g., more Proteobacteria/faster-growing taxa) rather than diet-specific selection. (5) Dairy and nucleotide-fortified formulas also supply nucleotides, so the purine-load argument favoring meat is not absolute. (6) Formula-fed U.S. infants in a controlled trial may not generalize to breastfed or non-U.S. populations."
+}

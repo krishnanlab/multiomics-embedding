@@ -1,0 +1,71 @@
+{
+  "feature_id": "ENOG410ZW8V",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The eggNOG orthologous group ENOG410ZW8V (F5/8 type C / discoidin domain, carbohydrate transport and metabolism) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "No published study was found that reports this specific eggNOG orthologous group (ENOG410ZW8V) or the F5/8 type C / discoidin protein family as enriched in dairy-fed versus meat-fed infants. The only literature that directly addresses this exact exposure contrast in infants is the Denver meat-vs-dairy randomized complementary feeding trial (Tang/Krebs cohort, 5-12 months, US formula-fed infants) and its metagenomic/metabolomic re-analysis by Price et al. In that metagenomic analysis, traditional differential abundance testing found NO significant diet-associated microbial gene features, and the network-embedding analysis assigned far more microbial features to the meat group (785) than to the dairy group (85); the enriched COG categories in the meat group explicitly included 'carbohydrate transport and metabolism' (FDR=0.02) along with amino acid, nucleotide and translation categories, while the Pfam-level enrichments reported for the meat group were DNA repair/translation/ribosome-related and no dairy-specific carbohydrate-domain enrichment was reported. Thus, at the functional-category level to which this feature is annotated, the directly relevant evidence points toward meat rather than dairy, and nothing at the specific F5/8-type-C level was reported in either direction. Support for the hypothesis is therefore limited to generic mechanistic plausibility: F5/8 type C (discoidin) domains are non-catalytic accessory/glycan-binding modules appended to bacterial carbohydrate-active enzymes, including a Bacillus circulans beta-galactosidase in which the discoidin domain modulates galactooligosaccharide formation from lactose, and such modules are common in milk-glycan/mucin-degrading infant gut taxa (Bifidobacterium bifidum, Ruminococcus gnavus). A dairy-based complementary diet delivers lactose and bovine milk glycoconjugates, which could in principle favour bacteria carrying such lactose/galactoside-directed enzymes, but this is theoretical reasoning rather than an observed feature-group association. Because relevant literature exists but is generic/pathway-level and partly conflicting in direction, this scores 1 (weak) rather than 0 (nothing found) or -1 (direct contradiction of this specific feature).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "US formula-fed infants, 5-12 months, randomized controlled feeding trial of meat- vs dairy-based complementary protein; fecal shotgun metagenomics and metabolomics",
+      "relevance": "The only study identified that directly interrogates microbial gene-family features (COG/Pfam-level functional annotations) in exactly this meat-vs-dairy infant contrast. It reports no significant diet associations by conventional differential abundance analysis and, in the embedding-based enrichment, assigns 'carbohydrate transport and metabolism' to the meat group rather than the dairy group; the F5/8 type C domain family is not reported as dairy-associated. Relevant but non-supporting/opposing at the functional-category level."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "US formula-fed infants randomized to meat- or dairy-based complementary foods from 5 to 12 months; 16S rRNA fecal microbiota",
+      "relevance": "Establishes that the dairy vs meat complementary protein exposure does shift infant gut microbiota composition at 12 months, providing the group context; however this taxonomic analysis reports no gene-family/eggNOG functional features, so it neither supports nor refutes enrichment of the F5/8 type C domain in the dairy group."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6574999/",
+      "doi": null,
+      "title": "Protein Intake During Early Complementary Feeding Affects the Gut Microbiota in U.S. Formula-fed Infants (FS04-03-19)",
+      "study_population": "Healthy term US formula-fed infants (Denver), randomized meat vs dairy complementary food, 5-12 months",
+      "relevance": "Companion report from the same trial: alpha diversity increased over time in the meat group only, Ruminococcus and Roseburia increased only in the meat group, and Bifidobacterium declined in both groups by 12 months. This argues against a dairy-driven expansion of saccharolytic/glycan-foraging taxa that typically carry discoidin (F5/8 type C) accessory modules."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23291776/",
+      "doi": null,
+      "title": "The discoidin domain of Bacillus circulans beta-galactosidase plays an essential role in repressing galactooligosaccharide production",
+      "study_population": "In vitro bacterial enzymology (Bacillus circulans BgaD beta-galactosidase domain deletion mutants); not infant or gut microbiome",
+      "relevance": "Mechanistic/indirect only: demonstrates that an F5/8 type C (discoidin) domain is an accessory module of a bacterial beta-galactosidase acting on lactose/galactooligosaccharides, giving generic plausibility that dairy (lactose-rich) complementary feeding could favour F5/8-domain-containing carbohydrate-active enzymes. No dietary-group comparison."
+    },
+    {
+      "url": "https://www.ebi.ac.uk/interpro/entry/pfam/PF00754",
+      "doi": null,
+      "title": "F5/8 type C domain (PF00754) - Pfam entry - InterPro",
+      "study_population": "Protein family/domain database (no study population)",
+      "relevance": "Confirms feature identity: F5/8 type C (discoidin) is a widely distributed non-catalytic domain found in eukaryotic coagulation factors and in modular bacterial glycan-active proteins, i.e. a broad, taxonomically promiscuous domain rather than a diet-specific marker. Supports the caveat that domain-level abundance is hard to attribute to a single dietary substrate."
+    },
+    {
+      "url": "https://ncbi.nlm.nih.gov/pmc/articles/PMC2789033",
+      "doi": null,
+      "title": "Functional analysis of conserved aromatic amino acids in the discoidin domain of Paenibacillus beta-1,3-glucanase",
+      "study_population": "In vitro bacterial enzymology (Paenibacillus sp. LamA GH16 beta-1,3-glucanase); not human or infant gut",
+      "relevance": "Indirect functional corroboration that discoidin/F5/8C modules in bacteria act as carbohydrate/substrate-binding accessory domains appended to glycoside hydrolases, consistent with the 'carbohydrate transport and metabolism' annotation but providing no dairy-vs-meat directional information."
+    }
+  ],
+  "contradicting_evidence": "In the only directly relevant infant meat-vs-dairy metagenomic analysis (Price et al., same 5-12 month randomized trial), conventional differential abundance analysis detected no diet-associated microbial gene features at all, and the embedding-based enrichment placed the COG category to which this feature is annotated - carbohydrate transport and metabolism (FDR=0.02) - in the MEAT group, not the dairy group; only 85 of 17,033 microbial features were classified to the dairy group and no carbohydrate-binding/discoidin protein family was reported among dairy-associated Pfams. The companion 16S analyses from the same trial similarly show the saccharolytic taxa (Ruminococcus, Roseburia) and diversity increasing in the meat group rather than the dairy group. This is category/pathway-level rather than feature-specific opposition, so it does not meet the bar for a -1 score, but it materially weakens the hypothesized direction.",
+  "search_queries_used": [
+    "meat versus dairy protein complementary food infant gut microbiome randomized",
+    "F5/8 type C domain gut microbiome carbohydrate metabolism",
+    "ENOG410ZW8V eggNOG F5/8 type C domain",
+    "discoidin domain F5/8 type C bacterial glycoside hydrolase gut Bifidobacterium",
+    "Network-based representation learning infant gut microbial metabolomic meat dairy eggNOG",
+    "\"F5/8 type C domain\" infant gut metagenome abundance",
+    "eggNOG functional gene families infant gut microbiome complementary feeding dairy protein carbohydrate transport",
+    "Tang Krebs dairy protein complementary feeding infant fecal metagenome functional pathways 12 months",
+    "Price Krishnan Hendricks Tang infant network embedding dairy diet group enriched carbohydrate metabolism genes meat amino acid nucleotide",
+    "\"dairy\" group enriched carbohydrate transport metabolism eggNOG genes infant randomized meat dairy metagenomics biorxiv 621627",
+    "Price 2025 infant network embedding \"dairy group\" COG enrichment features supplementary carbohydrate transport",
+    "F5/8 type C domain protein Bifidobacterium mucin milk glycan degradation",
+    "discoidin domain Ruminococcus gnavus glycoside hydrolase gut mucin infant",
+    "milk oligosaccharide utilization enzyme F5/8 type C carbohydrate binding module lactose infant gut bacteria"
+  ],
+  "caveats": "ENOG410ZW8V / PF00754 is a broad accessory protein domain (discoidin/F5/8 type C) present in many unrelated bacterial and eukaryotic proteins, so its metagenomic abundance is a coarse, taxonomically confounded proxy rather than a specific carbohydrate pathway readout; it can also capture host- or diet-derived (e.g., bovine milk) protein sequences. Literature searching by eggNOG OG identifier returns essentially nothing, so absence of direct evidence partly reflects the fact that domain-level functional features are rarely named individually in published infant nutrition studies (they are usually reported only as aggregated COG categories or in supplementary tables that web search cannot index). No study was found that measured this domain family in dairy- versus meat-fed 12-month-old infants, and the directionally relevant category-level result from the matching trial favours the meat group; the hypothesis should be treated as exploratory and, if pursued, checked for taxonomic drivers (e.g., Bifidobacterium bifidum, Ruminococcus gnavus, Bacteroides) and against the reported COG-level result."
+}

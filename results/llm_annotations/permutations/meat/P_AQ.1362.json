@@ -1,0 +1,18 @@
+{
+  "feature_id": "P_AQ.1362",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The unannotated aqueous-phase metabolomics feature 'P_AQ.1362 / > limit Esi+1.6150023' is increased or characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "This feature is not a chemically identified metabolite. The label '> limit Esi+1.6150023' is an internal, platform-specific placeholder for an unassigned/above-quantification-limit signal in an aqueous-phase profile (an ESI-positive spectral/chemical-shift bin index), with no compound name, formula, HMDB/KEGG/ChEBI identifier, m/z, or retention time provided. Because there is no chemical identity, no published study can report an association between this specific feature and meat- versus dairy-based complementary feeding, and no pathway- or mechanism-level reasoning can be anchored to it either. Targeted searches on the feature string returned only unrelated MS/NMR methodology and metabolite-identification papers, with no hit corresponding to this feature. Broader searches did retrieve directly relevant work showing that infants randomized to meat- versus dairy-based complementary diets differ in blood metabolomic profiles (e.g., amino-acid and related pathway differences), which establishes that group-discriminating metabolite features plausibly exist in this design; however, that literature says nothing about this particular unannotated feature or its direction, so it cannot be counted as evidence for or against the hypothesis. Per the rubric this is scored 0 (no relevant literature located for this feature+group combination) rather than 1, because nothing feature-specific - not even generic pathway reasoning tied to a known compound class - could be identified. The hypothesis is therefore untestable against the literature until the feature is annotated.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "meat versus dairy protein complementary feeding infant plasma metabolome",
+    "infant 12 months meat-based complementary food metabolomics untargeted",
+    "\"Esi+1.6150023\" metabolite",
+    "\"> limit\" unannotated NMR aqueous metabolite feature Esi+ infant metabolome"
+  ],
+  "caveats": "The feature ID is an internal, non-standard identifier; annotation (accurate mass/adduct, retention time, MS/MS, or NMR chemical-shift assignment) is required before any literature-based evaluation is possible. Note also that 'above limit'/saturated signals are frequently technical artifacts and may not represent a reliable biological quantity. A score of 0 here reflects absence of feature-specific literature, not evidence against the hypothesis; if the feature is later annotated to a compound such as a meat-associated metabolite (e.g., carnitine/creatine-type or branched-chain amino acid metabolites), it should be re-scored, since randomized meat- vs dairy-based complementary feeding trials in infants do report distinct blood metabolomic profiles."
+}

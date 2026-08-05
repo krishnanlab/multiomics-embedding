@@ -1,0 +1,78 @@
+{
+  "feature_id": "ENOG410ZJ65",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The eggNOG orthologous group ENOG410ZJ65 (ErfK/YbiS/YcfS/YnhG family protein, a YkuD-domain L,D-transpeptidase-like family) is increased or characteristic in the gut metagenome of 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches on the eggNOG identifier itself (\"ENOG410ZJ65\") returned no biomedical hits at all, and searches combining the protein family name (ErfK/YbiS/YcfS/YnhG) with infant gut microbiome, weaning, complementary feeding, or dairy vs. meat protein returned no study reporting this gene family as differentially abundant by complementary protein source. What I did find is (a) solid biochemical characterization of the family: these are YkuD/L,D-transpeptidases that in E. coli (LdtA/ErfK, LdtB/YbiS, LdtC/YcfS anchor Braun's lipoprotein to peptidoglycan; LdtD/YcbB and LdtE/YnhG form 3->3 mDAP cross-links), i.e. a Gram-negative-enriched cell-envelope function of otherwise 'unknown' annotation in eggNOG; and (b) the relevant human trial literature \u2014 the Denver randomized controlled feeding trial of formula-fed U.S. infants randomized at 5 months to meat- vs. dairy-based complementary foods through 12 months \u2014 which reports diet-group differences in taxa (e.g., Ruminococcus and Roseburia increased only in the meat group; a narrative review notes dairy consumption was associated with increased Akkermansia) and, in a companion network-representation-learning preprint, joint metagenomic/metabolomic feature sets by diet and age. However, none of the retrieved reports names this ErfK-family orthologous group or any L,D-transpeptidase feature as dairy-associated, so the only support for the hypothesis is indirect, theoretical reasoning (a dairy-linked shift toward Gram-negative/Verrucomicrobial or Bacteroidota-type envelope gene content could plausibly raise the relative abundance of L,D-transpeptidase orthologs). That is generic pathway-level speculation, not feature+group evidence, so a Weak score (1) is appropriate; no contradicting study for this feature was found either, so -1 and 0 do not apply.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://journals.asm.org/doi/10.1128/jb.00084-07",
+      "doi": "10.1128/JB.00084-07",
+      "title": "Identification of the L,D-Transpeptidases Responsible for Attachment of the Braun Lipoprotein to Escherichia coli Peptidoglycan",
+      "study_population": "Bacterial (Escherichia coli, Enterococcus faecium) in vitro genetics/biochemistry",
+      "relevance": "Primary source defining the ErfK/YbiS/YcfS enzymes as L,D-transpeptidases anchoring Braun lipoprotein to peptidoglycan; establishes the biological function behind the eggNOG 'function unknown' annotation, but provides no infant-diet context."
+    },
+    {
+      "url": "https://elifesciences.org/articles/19469",
+      "doi": "10.7554/eLife.19469",
+      "title": "Factors essential for L,D-transpeptidase-mediated peptidoglycan cross-linking and beta-lactam resistance in Escherichia coli",
+      "study_population": "Escherichia coli laboratory strains",
+      "relevance": "Primary study showing E. coli encodes five L,D-transpeptidases (YbiS, ErfK, YcfS anchoring Lpp; YcbB, YnhG forming 3->3 cross-links), i.e. the family is a Gram-negative cell-envelope function; supports only pathway-level reasoning, not the dairy association."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/23832002/",
+      "doi": null,
+      "title": "Phenotypic analysis of Escherichia coli mutants lacking L,D-transpeptidases",
+      "study_population": "Escherichia coli mutant strains",
+      "relevance": "Corroborates functional roles of the five Ldt paralogues (YbiS, ErfK, YcfS, YnhG, YcbB); background function only, no microbiome or diet data."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term formula-fed U.S. infants (Denver, CO) randomized at 5 months to meat- or dairy-based complementary foods, followed to 12 months",
+      "relevance": "The most directly relevant human trial for the meat vs. dairy complementary-protein contrast at 12 months; reports taxonomic/diet differences but does not report this ErfK-family gene or any L,D-transpeptidase functional feature, so it neither supports nor refutes the specific hypothesis."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6574999/",
+      "doi": null,
+      "title": "Protein Intake During Early Complementary Feeding Affects the Gut Microbiota in U.S. Formula-fed Infants (FS04-03-19)",
+      "study_population": "Healthy term formula-fed U.S. infants randomized to meat or dairy complementary foods, 5-12 months",
+      "relevance": "Companion report from the same RCT showing group-by-time differences (Ruminococcus, Roseburia increased only in the meat group), indicating dairy-vs-meat does reshape the 12-month community; provides context for plausible functional-gene shifts but no gene-family-level data."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "64 exclusively formula-fed U.S. infants randomized to pureed meat (n=32) or dairy foods (n=32) from 5 to 12 months; fecal metagenomics and metabolomics",
+      "relevance": "Closest match in design (metagenomic gene-level features by diet group at 12 months), but the retrieved text does not identify ENOG410ZJ65 or an ErfK-family feature as dairy-enriched; preprint, not peer-reviewed."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11901692/",
+      "doi": null,
+      "title": "Complementary Feeding and Infant Gut Microbiota: A Narrative Review",
+      "study_population": "Review of human infant complementary-feeding microbiome studies",
+      "relevance": "Notes that dairy during complementary feeding was associated with increased Akkermansia in formula-fed infants, a Gram-negative-type taxon whose envelope gene content could contain L,D-transpeptidase orthologs; purely speculative bridge to this feature."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG410ZJ65 eggNOG",
+    "ErfK ybiS ycfS ynhG family protein gut microbiome infant",
+    "infant gut microbiome dairy versus meat complementary protein 12 months",
+    "L,D-transpeptidase ErfK YbiS peptidoglycan gut microbiome diet",
+    "meat vs dairy complementary food infant metagenomics functional gene eggNOG",
+    "ErfK ybiS ycfS ynhG family protein abundance metagenome diet",
+    "infant gut microbiome 12 months weaning L,D-transpeptidase peptidoglycan crosslinking Bifidobacterium",
+    "Network-based representation learning age diet gut microbial metabolomic infants randomized controlled feeding trial eggNOG features dairy",
+    "biorxiv 2024.11.01.621627 dairy meat infant metagenomics eggNOG orthologous groups results",
+    "\"ENOG410ZJ65\"",
+    "\"ErfK\" infant stool metagenome dairy yogurt cheese enriched gene family",
+    "dairy protein complementary feeding infant gut Proteobacteria Bacteroides increase 12 months metagenome functional pathways",
+    "Different gut microbiota U.S. formula-fed infants meat vs dairy complementary foods randomized trial results Bacteroides Ruminococcus dairy group",
+    "infant gut microbiome cell wall peptidoglycan biosynthesis genes enriched dairy diet weaning metagenomics"
+  ],
+  "caveats": "ENOG410ZJ65 is a taxon-restricted eggNOG orthologous group with 'function unknown' annotation; such IDs are essentially absent from the indexed literature, so absence of hits reflects annotation opacity as much as biology. Interpretation depends on which taxa carry this ortholog in the infant gut (unknown from the searches), and gene-family relative abundance in metagenomes is strongly confounded by taxonomic composition shifts rather than independent functional selection. The one preprint analyzing gene-level metagenomic features in exactly this meat-vs-dairy infant trial could not be inspected in enough detail via search snippets to confirm or exclude this feature; direct examination of its supplementary tables would be the decisive next step. Also note that L,D-transpeptidase abundance can be influenced by antibiotic exposure/beta-lactam resistance dynamics, an unmeasured confounder here."
+}

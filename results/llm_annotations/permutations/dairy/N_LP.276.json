@@ -1,0 +1,65 @@
+{
+  "feature_id": "N_LP.276",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "9-hydroperoxy-12,13-dihydroxy-10-octadecenoic acid is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Multiple searches combining the compound name, its METLIN (7445) and LIPID MAPS (LMFA01040012) identifiers, and the exposure keywords (dairy vs. meat complementary feeding, infant gut metabolome, weaning) returned no primary study - human or animal - that measured this specific oxidized linoleic acid derivative (a 9-hydroperoxy/12,13-dihydroxy C18:1 oxylipin, structurally a hydroperoxy analogue of the TriHOME family) in relation to dairy- versus meat-based complementary protein. What was found is only generic/pathway-level material: (i) biochemical documentation that linoleate 9-lipoxygenase/hydroperoxide pathways generate 9S-HPODE and downstream epoxy-, dihydroxy- and trihydroxy-octadecenoates (Rhea reaction entry); (ii) food-chemistry studies showing that dairy-containing infant milk formula and human/donor milk accumulate LA-derived oxylipins, including 9,10-DiHOME, 12,13-DiHOME, 9,10,13-TriHOME and 9,12,13-TriHOME, during storage and processing - which supports a plausible dietary/oxidative route by which a dairy-rich matrix could deliver or generate such species, but says nothing about a dairy-vs-meat contrast in infant stool or blood; and (iii) the published reports from the U.S. randomized meat-vs-dairy complementary feeding trial (5-12 months) - fecal microbiota, serum metabolomics, and a network-representation-learning metagenomics/metabolomics analysis - which describe group differences in amino acids/BCAAs, butyrate and taxa such as Akkermansia, but none of the search results surfaced this oxylipin (or oxylipins generally) as a dairy-associated feature. Because relevant but only indirect/theoretical material was located, and nothing directly addresses this feature+group combination in either direction, this scores 1 (Weak) rather than 0 (nothing found) or 2 (which would require at least one direct human study or consistent indirect studies pointing the same way).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.mdpi.com/2227-9717/11/10/3045",
+      "doi": "10.3390/pr11103045",
+      "title": "Storage Duration and Added Docosahexaenoic Acid Modify the Rates of Esterified and Free Oxylipin Formation in Infant Milk Formula",
+      "study_population": "Laboratory/food-matrix study of dairy-based infant milk formulas during storage (no human subjects)",
+      "relevance": "Demonstrates that dairy-based infant formula accumulates linoleic-acid-derived oxylipins including 9,10-DiHOME, 12,13-DiHOME, 9,10,13-TriHOME and 9,12,13-TriHOME, i.e. close structural relatives/downstream products of the hypothesized 9-hydroperoxy-12,13-dihydroxy species. Supports only a generic plausibility that a dairy-rich feeding matrix supplies such oxidized linoleate species; it does not compare dairy with meat feeding or measure infant samples."
+    },
+    {
+      "url": "https://www.rhea-db.org/rhea/51253",
+      "doi": null,
+      "title": "Rhea reaction knowledgebase entry: 9S-hydroperoxy-octadecadienoate transformations (9S-LOX / hydroperoxide-derived epoxy and hydroxy octadecenoates)",
+      "study_population": "Enzymology / biochemical database (recombinant enzyme, non-human)",
+      "relevance": "Provides the pathway-level context that 9S-HPODE from linoleate is converted to epoxy-, hydroxy- and dihydroxy-octadecenoic acids, establishing biochemical plausibility for a 9-hydroperoxy-12,13-dihydroxy-octadecenoate. Purely mechanistic background with no diet-group or infant data."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": null,
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Healthy U.S. formula-fed term infants randomized to meat- or dairy-based complementary foods from 5 to 12 months",
+      "relevance": "The most directly relevant human trial for this exposure contrast at 12 months. Reported group differences involved beta-diversity, Chao1 richness, Akkermansia and butyrate; the search result contained no report of this oxylipin or of oxidized linoleic acid metabolites, indicating absence of direct published support (not contradiction)."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": null,
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "Infants in a controlled feeding trial consuming meat- vs. dairy-based complementary diets from 5 to 12 months, followed to 24 months",
+      "relevance": "Targeted and untargeted metabolomics in the same meat-vs-dairy infant exposure; reported findings centered on amino acids/BCAAs rather than oxylipins, so it provides neither support nor contradiction for a dairy-associated increase in this hydroperoxy-dihydroxy-octadecenoate."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized to meat- vs. dairy-based complementary protein; fecal metagenomics and metabolomics",
+      "relevance": "Closest published fecal metabolomics analysis of the dairy-vs-meat complementary feeding contrast; the retrieved text emphasized diet/age effects on microbial gene functions (amino acid, nucleic acid, carbohydrate metabolism) and did not surface this specific lipid feature as dairy-associated."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "9-hydroperoxy-12,13-dihydroxy-10-octadecenoic acid",
+    "LMFA01040012 lipid",
+    "infant 12 months dairy versus meat complementary protein metabolome",
+    "oxylipin infant gut metabolome complementary feeding",
+    "oxidized linoleic acid metabolite hydroperoxy dihydroxy octadecenoic infant stool dairy diet",
+    "9-hydroperoxy-12,13-dihydroxy-10-octadecenoic acid METLIN 7445",
+    "trihydroxy octadecenoic acid dairy milk oxylipin infant feces",
+    "linoleic acid oxidation products infant formula dairy fat hydroperoxide",
+    "fecal metabolome meat vs dairy complementary feeding infants lipid oxylipin 12 months",
+    "hydroperoxy dihydroxy octadecenoic acid feces microbiome",
+    "milk fat globule membrane linoleic acid oxylipin dairy intake plasma humans",
+    "9,12,13-TriHOME dairy intake",
+    "Network-based representation learning infant meat dairy metabolomics lipid features dairy group increased",
+    "infant fecal untargeted metabolomics dairy group lipids fatty acid oxidation products meat group randomized Denver",
+    "dairy-based complementary food infant fecal lipidomics octadecenoic acid"
+  ],
+  "caveats": "Annotation uncertainty is substantial: fatty-acid hydroperoxides are chemically labile and are readily formed ex vivo during sample handling, storage and extraction, so an untargeted feature matched only by mass/METLIN-LIPID MAPS ID to 9-hydroperoxy-12,13-dihydroxy-10-octadecenoic acid could equally represent an isomeric TriHOME/DiHOME-type oxylipin or an artifact. Many isomers of oxidized linoleate are indistinguishable without MS/MS or authentic standards, which also limits literature searchability. In addition, both arms of this type of trial typically receive the same infant formula (a dairy- and vegetable-oil-based source of oxidized linoleate), which would blunt any dairy-versus-meat difference in this class of compound. Finally, plant-food and vegetable-oil intake (a major source of 9-LOX-derived octadecenoate oxylipins such as pinellic acid) is a likely confounder that no located study controlled for in this exposure contrast. Search coverage was also truncated by a tool-usage limit, so additional relevant literature may exist."
+}

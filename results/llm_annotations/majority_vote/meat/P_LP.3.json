@@ -1,0 +1,22 @@
+{
+  "feature_id": "P_LP.3",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The unidentified metabolite feature with molecular formula C16 H32 N5 O7 is increased/characteristic in 12-month-old infants fed a meat-based complementary protein diet relative to dairy-fed infants.",
+  "confidence_score": 0,
+  "rationale": "The feature is provided only as a raw molecular formula (C16 H32 N5 O7, most plausibly a protonated [M+H]+ ion of neutral C16H31N5O7, ~405 Da, consistent with a small peptide-like or nitrogen-rich compound rather than a conventional lipid despite the 'metabolite_lipid' annotation label). Repeated searches on the exact formula string, the neutral formula, and formula-plus-context queries returned no chemical database entry, no compound name, and no publication reporting this exact mass/formula in any biological matrix, let alone in infant stool or serum. Searches combining the infant meat-vs-dairy complementary feeding context with metabolomics did retrieve the relevant trial literature (serum metabolomics of the Colorado meat vs. dairy controlled feeding trial, and a fecal metagenomic/metabolomic network-learning analysis of the same trial), but none of these sources reports a feature matching this formula, and none can be mapped to it because the compound is unannotated. With no identifiable compound, even pathway-level or theoretical reasoning about why it would track meat protein intake is not possible - any such reasoning (e.g., speculating it is a meat-derived histidine dipeptide or peptide catabolite) would be unsupported guesswork on an ambiguous formula with thousands of possible isomers. Under the rubric this constitutes 'no relevant literature located' for this specific feature+group combination, so the score is 0 rather than 1.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C16H32N5O7 metabolite",
+    "infant meat versus dairy protein complementary feeding metabolome 12 months",
+    "meat-based complementary feeding infant plasma metabolome carnosine anserine",
+    "C16H31N5O7 compound formula HMDB",
+    "infant fecal metabolome meat dairy complementary feeding peptides amino acid metabolites 12 months",
+    "\"C16H32N5O7\"",
+    "network representation learning meat dairy infant fecal metabolomics metabolites increased meat group 12 months biorxiv",
+    "unannotated lipid metabolite molecular formula infant stool meat protein intake biomarker"
+  ],
+  "caveats": "A score of 0 reflects the unannotated nature of the feature, not evidence against it; if the formula were resolved to a named compound (e.g., a specific peptide or acylated amino-acid derivative), the literature search could be repeated and might yield informative results. Note also that a preprint analysis of the same style of meat-vs-dairy infant feeding trial reported that conventional differential-abundance testing detected no statistically significant metabolome (or microbiome) differences between the meat and dairy groups at 12 months, which sets a low prior for any single fecal metabolite being robustly discriminative at that timepoint; this is contextual background rather than feature-specific contradicting evidence. Additionally, the 'metabolite_lipid' annotation type is inconsistent with a formula containing 5 nitrogens and 7 oxygens, raising the possibility of an adduct, in-source fragment, or annotation-pipeline artifact that should be verified by MS/MS before further interpretation."
+}

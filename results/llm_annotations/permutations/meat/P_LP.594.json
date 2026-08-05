@@ -1,0 +1,23 @@
+{
+  "feature_id": "P_LP.594",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The lipid-like feature with molecular formula C13H18O4 is increased or characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "This feature carries only a molecular-formula-level annotation (C13H18O4, monoisotopic mass ~238.12, 5 degrees of unsaturation), with no compound name, class assignment, or external database identifier (HMDB/LIPID MAPS/KEGG) supplied. Formula-only annotations are not literature-searchable in any meaningful way: a search of the formula string returns only chemical-catalogue/registry hits (ChemSpider/PubChem/NIST formula browsers listing dozens of unrelated isomers such as triethoxybenzaldehyde and various plant-derived phenolics), not biological studies. Searches combining the formula with infant, gut, lipidomics, meat-intake and dietary-biomarker terms returned no study reporting this formula (or any specific isomer of it) as differing between meat- and dairy-based complementary feeding, or in any infant gut/plasma context. Directly relevant group-level literature does exist for the exposure itself - notably the randomized meat- vs. dairy-based complementary feeding trial in U.S. formula-fed infants with blood metabolomics at 5 and 12 months, and companion gut microbiota/metabolome analyses from the same trial - but the metabolite classes those reports highlight as elevated with meat-based (higher-protein) feeding are branched-chain and other amino acids, acylcarnitines and trimethylamine N-oxide, i.e. nothing matching an unannotated C13H18O4 lipid-like species. Because no literature was located that addresses this feature at all (in either direction), and because a formula-only feature does not even support a defensible pathway-level or mechanistic argument, the appropriate score is 0 (none found) rather than 1 (weak/theoretical) or -1 (contradicting). Note also that several plausible C13H18O4 isomers are exogenous/xenobiotic or plant-derived (e.g. alkyl-phenolic esters, phthalate-monoester-like species), which would if anything argue against a specifically meat-driven origin; but without an MS/MS-confirmed identification this remains speculation and was not used to move the score.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C13H18O4 metabolite infant gut",
+    "meat versus dairy protein complementary feeding infant metabolome",
+    "infant 12 months meat-based complementary food metabolomics urine plasma",
+    "\"C13H18O4\" compound HMDB formula",
+    "\"C13H18O4\" lipidomics untargeted feature identification",
+    "meat-based complementary diet infant lipidomics 12 months plasma lipid features",
+    "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet metabolites higher in meat group",
+    "C13H18O4 238 Da metabolite biomarker meat intake",
+    "unidentified lipid molecular formula only annotation infant plasma meat dairy diet biomarker"
+  ],
+  "caveats": "The zero score reflects unsearchability of a formula-only annotation, not evidence against the hypothesis; the feature could still be genuinely discriminant in the study data. To make this feature literature-evaluable, MS/MS-based identification (or at least a candidate name plus HMDB/LIPID MAPS ID and retention-time/adduct information) is needed - C13H18O4 has many structurally unrelated isomers spanning endogenous phenolic/oxylipin-like compounds, food-derived phytochemicals, and plasticizer/paraben-type xenobiotics, whose expected direction with meat vs. dairy feeding would differ. Also note the feature is labelled 'metabolite_lipid' yet the formula is small and highly unsaturated for a typical lipid, raising the possibility of an in-source fragment, adduct, or contaminant rather than a true lipid species."
+}

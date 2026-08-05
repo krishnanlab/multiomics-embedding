@@ -1,0 +1,78 @@
+{
+  "feature_id": "P_LP.210",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "N-Acetyl-D-quinovosamine (QuiNAc; KEGG C15481) is increased or characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Extensive searching located no study - human, animal, or in vitro - that reports N-acetyl-D-quinovosamine (or its nucleotide-activated form UDP-QuiNAc) as a measured metabolite differing between meat- and dairy-based complementary feeding, nor any report of this compound in infant fecal or serum metabolomes at all. What the literature does establish is only compound-level/pathway-level background: QuiNAc (2-acetamido-2,6-dideoxy-D-glucose) is a rare bacterial amino sugar that occurs almost exclusively in cell-envelope glycans (O-antigen/LPS, lipooligosaccharide, wall glycopolymers) of Gram-negative and some Gram-positive bacteria (Rhizobium etli, Campylobacter jejuni, Pseudomonas, Bacillus cereus), and is derived from UDP-GlcNAc by 4,6-dehydration/4-reduction. Separately, the meat- vs. dairy-based complementary feeding RCT paradigm in 5-12-month-old U.S. formula-fed infants is well documented (Tang/Krebs trial, with 16S, metagenomic, fecal-metabolomic and blood-metabolomic outputs), and one analysis of that trial reports the meat group being enriched for microbial genes in amino-acid/amino-sugar-related metabolic categories - but no publication I could retrieve names quinovosamine or any specific bacterial deoxy-amino-sugar as a meat-associated metabolite. The only conceivable supporting chain is indirect and speculative (meat-associated diets/taxa such as Acinetobacter and other Gram-negatives could raise LPS-type sugar pools; Campylobacter, a poultry/meat-associated organism, synthesizes Qui3N-containing lipooligosaccharide), which is theoretical reasoning rather than evidence for this feature+group combination. Under the rubric this is weak (1), not 0 (relevant background literature was found) and not -1 (nothing reports the opposite direction for this feature and group either).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/24817117/",
+      "doi": null,
+      "title": "In vitro biosynthesis and chemical identification of UDP-N-acetyl-d-quinovosamine (UDP-d-QuiNAc)",
+      "study_population": "In vitro bacterial enzymology (no human or animal subjects)",
+      "relevance": "Establishes the compound's identity and origin: QuiNAc occurs in polysaccharide structures of many Gram-negative bacteria and is made from UDP-GlcNAc, supporting a bacterial-glycan (not dietary/host) source for this feature - but says nothing about infant diet groups."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0133790",
+      "doi": "10.1371/journal.pone.0133790",
+      "title": "The Biosynthesis of UDP-d-QuiNAc in Bacillus cereus ATCC 14579",
+      "study_population": "Bacterial (Bacillus cereus) in vitro study",
+      "relevance": "Describes QuiNAc as a relatively rare amino sugar residue found in glycans of a limited set of (mainly pathogenic) bacteria, indicating that its abundance in a gut sample would track specific bacterial taxa rather than protein source per se; no diet or infant data."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29165235/",
+      "doi": null,
+      "title": "Synthesis of N-acetyl-d-quinovosamine in Rhizobium etli CE3 is completed after its 4-keto-precursor is linked to a carrier lipid",
+      "study_population": "Bacterial genetics/biochemistry (Rhizobium etli), no human subjects",
+      "relevance": "Confirms QuiNAc as the initiating O-antigen sugar of an LPS model system, reinforcing that the metabolite is a microbial cell-envelope building block; provides only pathway-level, non-dietary context."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5441919/",
+      "doi": null,
+      "title": "Characterization of the dTDP-Fuc3N and dTDP-Qui3N biosynthetic pathways in Campylobacter jejuni 81116",
+      "study_population": "Bacterial biochemistry (Campylobacter jejuni), human-pathogen context (poultry-associated)",
+      "relevance": "Links quinovosamine-type sugars to lipooligosaccharide of a meat/poultry-associated enteric organism - the closest, but still highly indirect and speculative, mechanistic bridge to a meat-based diet; not a metabolomic or infant study."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": null,
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term, formula-fed U.S. infants randomized to meat- vs. dairy-based complementary diet, 5-12 months (stool at 5, 10, 12 months)",
+      "relevance": "Directly matches the study group/exposure (12-month meat vs. dairy complementary protein) and reports microbiota and SCFA outcomes, but does not report N-acetyl-D-quinovosamine or related bacterial amino sugars, so it neither supports nor contradicts the hypothesis."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7912106/",
+      "doi": "10.3390/nu13020388",
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "Infants in a controlled feeding trial, meat- vs. dairy-based complementary diet 5-12 months, follow-up at 24 months (serum metabolomics)",
+      "relevance": "The most directly relevant metabolomic comparison of meat vs. dairy complementary feeding; discriminating metabolites reported are amino acids (e.g., isoleucine, valine, phenylalanine, threonine), with no mention of quinovosamine or bacterial deoxy-amino sugars."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2.full.pdf",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized meat vs. dairy complementary feeding; fecal metagenomics + metabolomics",
+      "relevance": "Reports diet- and age-associated enrichment of microbial functions including amino sugar and nucleotide sugar metabolism (the pathway that generates UDP-GlcNAc-derived sugars such as QuiNAc), giving only pathway-level, non-compound-specific plausibility for the hypothesis."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "N-Acetyl-D-quinovosamine",
+    "N-acetylquinovosamine bacterial lipopolysaccharide",
+    "infant gut metabolome meat vs dairy complementary feeding 12 months",
+    "N-acetylquinovosamine fecal metabolome infant",
+    "quinovosamine human gut metabolomics stool",
+    "C15481 KEGG N-Acetyl-D-quinovosamine metabolomics",
+    "meat-based complementary diet infant fecal metabolome amino sugar",
+    "biorxiv network-based representation learning infant meat dairy metabolite quinovosamine",
+    "meat diet group enriched microbial genes amino sugar metabolism infant complementary feeding metabolomics",
+    "N-acetylglucosamine amino sugar infant stool weaning increase",
+    "\"quinovosamine\" infant",
+    "\"quinovosamine\" diet metabolite human",
+    "N-acetylquinovosamine metabolite marker meat consumption",
+    "deoxy amino sugar QuiNAc gut bacteria Bacteroides glycan human"
+  ],
+  "caveats": "No literature exists on this specific metabolite in an infant diet or fecal-metabolome context, so the score reflects absence of feature-specific evidence rather than a refutation. Two practical concerns: (1) annotation reliability - QuiNAc is an isomer of N-acetylglucosamine/N-acetylgalactosamine-family and other C8H15NO5 hexosamine derivatives (e.g., N-acetylfucosamine, N-acetyl-deoxyhexosamines), and untargeted LC-MS annotation at this mass without an authentic standard or MS/MS match is easily confounded; the 'metabolite_lipid'/lipid-platform annotation type for a polar amino sugar further raises the chance of misannotation. (2) Even if correctly annotated, QuiNAc is a bacterial cell-envelope sugar, so any diet difference would most plausibly be a downstream marker of taxa composition (e.g., Gram-negative/Proteobacterial load) rather than of meat protein itself, and direction could reverse with cohort or sequencing/metabolomics platform. A search-tool usage limit was reached, so a small number of additional planned queries (e.g., targeted full-text search of the meat/dairy trial's fecal metabolomics supplementary tables) could not be completed; these could in principle surface the compound in a supplementary feature list.evidence found either way at this time."
+}

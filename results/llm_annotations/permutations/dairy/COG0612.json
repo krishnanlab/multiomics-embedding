@@ -1,0 +1,65 @@
+{
+  "feature_id": "COG0612",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "COG0612 (predicted Zn-dependent peptidases) is increased/characteristic in the gut microbiome of 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches (COG ID, functional-family name, and the dairy-vs-meat complementary feeding exposure) located no study - human or animal - that reports COG0612 or a clearly named homologous Zn-dependent/metallo-peptidase family as differentially abundant between dairy-based and meat-based complementary protein diets. The single most relevant human study, the Denver randomized controlled trial of meat- vs. dairy-based complementary foods from 5 to 12 months (Tang et al., Front Nutr 2023), does report a diet-group difference in overall community composition at 12 months and taxon-level differences (e.g., Akkermansia higher in the dairy group, greater richness gain in the meat group), but it is 16S rRNA-based with SCFA quantification and does not report COG/orthologue-level peptidase abundances in either direction. Indirect support is only pathway-level and non-comparative: a murine metatranscriptome study of dietary milk-protein fermentation shows that milk protein load reshapes microbial peptidase and amino-acid-metabolism gene expression (family-specific increases/decreases), and rat work shows milk versus other protein sources shifts intestinal microbiota composition - but neither contrasts dairy against meat protein, and neither addresses this COG. Since COG0612 is a broad 'general function prediction only' family (insulinase/M16-like predicted Zn-dependent peptidases) present across many commensal genomes, any dairy-specific enrichment is currently theoretical: one could argue casein/whey-rich intake selects proteolytic capacity, but an equally plausible argument favours meat protein driving microbial proteolysis, so the direction is not literature-anchored. This matches the rubric for weak evidence (relevant material found, but only generic/pathway-level reasoning and no feature+group study), not 0 (nothing found) and not -1 (no study directly reports the opposite direction for this feature).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "64 full-term, formula-fed U.S. infants randomized to meat- or dairy-based complementary foods from 5 to 12 months; stool 16S rRNA sequencing and SCFAs at 5, 10, 12 months",
+      "relevance": "Directly matches the exposure and timepoint (dairy vs. meat complementary protein at 12 months) and shows diet-group differences in community composition and specific taxa (e.g., Akkermansia higher with dairy), but reports no COG/gene-family-level data, so it neither supports nor refutes enrichment of Zn-dependent peptidase orthologues in the dairy group."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5903625/",
+      "doi": "10.1371/journal.pone.0194066",
+      "title": "Metatranscriptome analysis of the microbial fermentation of dietary milk proteins in the murine gut",
+      "study_population": "Mice fed normal- or high-milk-protein diets (with low/high fat); caecal/faecal microbiota profiling plus metatranscriptomics",
+      "relevance": "Indirect, pathway-level support that dietary milk (dairy) protein load modulates expression of microbial peptidase and amino-acid metabolism genes; however effects were family-specific and bidirectional, no comparison with meat protein was made, and no Zn-dependent peptidase family such as COG0612 was singled out."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10781060/",
+      "doi": null,
+      "title": "Dietary Milk or Isolated Legume Proteins Modulate Intestinal Microbiota Composition in Rats",
+      "study_population": "Rats fed milk protein versus isolated legume protein diets",
+      "relevance": "Indirect animal evidence that dairy protein source shifts gut microbiota composition (and thus potentially encoded proteolytic capacity), but no meat comparator, no infant context, and no COG-level peptidase quantification."
+    },
+    {
+      "url": "https://www.tandfonline.com/doi/full/10.1080/10408398.2024.2439036",
+      "doi": null,
+      "title": "The effect of complementary foods on the colonic microbiota of weaning infants: a systematic review",
+      "study_population": "Systematic review of complementary feeding intervention studies in weaning infants, including the dairy vs. pureed-meat RCT in 5-12 month-old U.S. formula-fed infants",
+      "relevance": "Corroborates that dairy- vs. meat-based complementary feeding alters infant colonic microbiota composition (e.g., higher Akkermansia in the dairy arm) but reports only taxonomic outcomes, providing no functional/peptidase gene-family evidence in the hypothesized direction."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6574999/",
+      "doi": null,
+      "title": "Protein Intake During Early Complementary Feeding Affects the Gut Microbiota in U.S. Formula-fed Infants (FS04-03-19)",
+      "study_population": "U.S. formula-fed infants during early complementary feeding, stratified by dietary protein intake",
+      "relevance": "Shows dietary protein amount/source during complementary feeding shapes infant gut microbiota, supporting biological plausibility that protein-source differences could alter microbial proteolytic gene content, but does not report COG0612 or any Zn-dependent peptidase family or a dairy-vs-meat contrast."
+    }
+  ],
+  "contradicting_evidence": "No study was found reporting COG0612 (or a named homologous Zn-dependent peptidase family) as higher in meat-fed relative to dairy-fed infants, so there is no direct contradiction. However, the counter-consideration is that meat is the more concentrated and less rapidly digested protein source in this comparison, and the meat arm in the Tang et al. RCT showed greater increases in microbial richness and in taxa associated with amino-acid/protein fermentation; on general grounds microbial proteolytic capacity could plausibly be favoured in the meat group instead, which is why the hypothesized direction cannot be considered literature-supported.",
+  "search_queries_used": [
+    "COG0612 predicted Zn-dependent peptidases infant gut microbiome",
+    "infant gut microbiome dairy versus meat complementary protein metagenome peptidase",
+    "meat-based versus dairy-based complementary feeding infant gut microbiome functional pathways",
+    "\"COG0612\" gut microbiome diet",
+    "meat vs dairy complementary food infant microbiota PICRUSt predicted functions peptidase",
+    "Tanaka Krebs meat dairy protein infant gut microbiome 12 months randomized trial functional",
+    "Different gut microbiota U.S. formula-fed infants meat vs dairy-based complementary foods randomized controlled trial predicted functional genes",
+    "zinc-dependent peptidase gut bacteria milk casein degradation dairy protein",
+    "microbial proteolysis genes increased dairy protein diet gut metagenome peptidase abundance",
+    "infant weaning gut microbiome COG functional categories peptidase enrichment shotgun metagenomics",
+    "Bifidobacterium peptidase milk protein degradation zinc metallopeptidase infant gut",
+    "Metatranscriptome analysis microbial fermentation dietary milk proteins murine gut peptidase genes upregulated",
+    "casein whey diet gut microbiota proteolytic enzyme genes versus meat protein diet mice",
+    "dairy protein complementary food infant gut microbiome Lactobacillus proteolysis 12 months",
+    "PMC9909089 meat vs dairy complementary foods infant microbiota abstract Lactobacillus Bacteroides 12 months results"
+  ],
+  "caveats": "COG0612 is an intentionally vague annotation ('predicted Zn-dependent peptidases', general function prediction only), spanning insulinase/M16-like metallopeptidase-family proteins found broadly across gut taxa; such non-specific COGs are rarely named in publications, so absence of literature partly reflects annotation granularity rather than biological implausibility. Any observed difference could be driven by shifts in a few carrier taxa (e.g., Akkermansia, Bacteroides, Lactococcus/Streptococcus) rather than by selection on peptidase function per se, and predicted (PICRUSt-type) versus shotgun-derived gene abundances are not interchangeable. Two searches at the end of the session could not be completed because the search-tool budget was exhausted, so the COG family's precise membership and any M16-family diet studies were not fully explored; confidence could shift with additional searching of shotgun metagenomic complementary-feeding datasets."
+}

@@ -1,0 +1,22 @@
+{
+  "feature_id": "ENOG4111F8R",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The eggNOG orthologous group ENOG4111F8R (function unknown) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for the identifier ENOG4111F8R returned no hits whatsoever for this orthologous group in any biological context - search engines returned only unrelated human gene pages (GPR115, CYP4F11, etc.) and generic eggNOG database/method papers (eggNOG 4.5/5.0/v7, DeepNOG), with no primary study reporting this OG in any microbiome dataset, let alone in relation to infant complementary feeding or dairy vs. meat protein. Because the OG is annotated only as 'Function unknown', there is also no named pathway, enzyme family, or homolog through which even indirect/theoretical reasoning could be constructed (e.g. one could not argue for a milk-protein or lactose utilization link, as no such function is assigned). Searches did retrieve the relevant exposure literature - the U.S. formula-fed infant meat- vs. dairy-based complementary feeding RCT and its metagenomic/metabolomic follow-up analyses - but none of these publicly visible reports name this ortholog, and the metagenomic follow-up explicitly notes that conventional differential-abundance testing found no features significantly differing by diet group after multiple-comparison adjustment. Per the rubric this is a score of 0 (no relevant literature located for this feature+group combination) rather than 1, since nothing feature-specific, pathway-level, or mechanistically suggestive was found; note also that generic eggNOG identifiers with unknown function are systematically under-reported in the literature, so absence of evidence here largely reflects annotation opacity rather than a tested-and-refuted association.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG4111F8R",
+    "ENOG4111F8R eggNOG",
+    "eggNOG orthologous group infant gut microbiome dairy meat complementary feeding",
+    "\"ENOG4111F8R\" gene family",
+    "eggNOG unknown function orthologous group infant gut metagenome dairy protein 12 months",
+    "meat versus dairy based complementary food infant gut microbiome gene families metagenome function unknown",
+    "\"ENOG4111\" eggNOG gut microbiome infant differentially abundant",
+    "eggNOG ortholog group function unknown infant gut microbiome dairy yogurt cheese whey protein 12 months metagenomics"
+  ],
+  "caveats": "This is an unnamed, functionally uncharacterized eggNOG orthologous group; such identifiers are rarely mentioned by name in published text (they typically appear only in supplementary tables that are not indexed by web search), so a null literature result does not mean the hypothesis is wrong - only that it is unsupported and untestable from the published record. Cross-version instability of ENOG identifiers (the 'ENOG41' prefix denotes eggNOG v4.1/4.5 numbering) further limits literature traceability. Any interpretation would require first resolving the OG to constituent protein sequences/taxa (e.g. via the eggNOG database) and then searching on the resulting functional or taxonomic annotation; prioritizing this feature for biological interpretation is not currently justified by external evidence."
+}

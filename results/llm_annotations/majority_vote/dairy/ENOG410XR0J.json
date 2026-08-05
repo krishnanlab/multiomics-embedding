@@ -1,0 +1,69 @@
+{
+  "feature_id": "ENOG410XR0J",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The eggNOG orthologous group ENOG410XR0J (RagB/SusD domain-containing protein) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches returned no study - primary or otherwise - that reports this specific eggNOG orthologous group (ENOG410XR0J), or any named RagB/SusD-family gene, as differentially abundant between dairy-based and meat-based complementary feeding in infants. The most relevant human trial found is the Colorado meat- vs. dairy-based complementary feeding RCT in 5-12-month-old formula-fed U.S. infants (Tang et al., Front Nutr 2023), which is exactly the exposure of interest but is 16S rRNA-based and therefore reports taxa (e.g., group-by-time increases in Ruminococcus and Roseburia in the MEAT group, altered beta-diversity between groups) rather than eggNOG functional orthologs; it provides no directional information on SusD/RagB gene families. The companion representation-learning analysis of the same trial (biorxiv/PMC) likewise appeared in searches but was not observed to report SusD/RagB orthologs. What is available is only generic, pathway-level reasoning: RagB/SusD proteins are the surface glycan-binding lipoproteins of Bacteroidota SusC/SusD polysaccharide utilization loci (PULs), a family that is highly expanded and diet-responsive, and infant-gut Bacteroides transcriptionally activate PUL/SusCD systems when growing on milk oligosaccharides and host mucin glycans. One could argue a dairy-based diet supplies milk-derived glycans/lactose and sustains Bacteroides glycan-foraging machinery, whereas a meat-based diet supplies protein and little fermentable polysaccharide - but this is speculative, the dairy complementary foods in such trials (yogurt, cheese) are not rich in the complex polysaccharides SusD systems typically target, and both arms in the reference trial received identical infant formula. Because something relevant (family-level function, same-cohort exposure literature) was found but nothing addresses this feature+group combination, and because the annotation itself is 'function unknown' at the ortholog level, this scores 1 (weak/theoretical) rather than 2. No study was found reporting the opposite direction for this feature either, so -1 is not warranted.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "64 full-term formula-fed U.S. infants (Denver, CO) randomized to meat- or dairy-based complementary diet from 5 to 12 months; stool 16S rRNA sequencing and SCFAs at 5, 10, 12 months",
+      "relevance": "Directly matches the exposure and age window of the hypothesis (dairy vs. meat complementary protein, 12-month timepoint) and shows the two diet groups differ in microbiota composition, but reports only taxonomic (16S) outcomes - no eggNOG/RagB-SusD functional gene results - so it cannot support or refute the direction for this feature."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6574999/",
+      "doi": null,
+      "title": "Protein Intake During Early Complementary Feeding Affects the Gut Microbiota in U.S. Formula-fed Infants (FS04-03-19)",
+      "study_population": "59 healthy term formula-fed U.S. infants randomized to meat (n=29) or dairy (n=30) complementary foods, 5-12 months; 16S rRNA sequencing plus fecal metabolomics",
+      "relevance": "Same trial/exposure as the hypothesis; reports that Ruminococcus and Roseburia (Firmicutes) increased only in the meat group and that alpha diversity increased in the meat group, with no reported enrichment of Bacteroidota glycan-utilization functions in the dairy group - i.e., no support for the hypothesized dairy-side increase of a SusD/RagB feature."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/cellular-and-infection-microbiology/articles/10.3389/fcimb.2022.854122/full",
+      "doi": "10.3389/fcimb.2022.854122",
+      "title": "The Infant Gut Commensal Bacteroides dorei Presents a Generalized Transcriptional Response to Various Human Milk Oligosaccharides",
+      "study_population": "In vitro transcriptomics of an infant-gut Bacteroides dorei isolate grown on individual human milk oligosaccharides",
+      "relevance": "Pathway-level/indirect support only: shows infant-gut Bacteroides activate polysaccharide utilization loci (SusC/SusD-type systems) when exposed to milk oligosaccharides, the general rationale for linking milk-derived glycans to SusD/RagB gene abundance - but it concerns human milk, not dairy complementary foods, and does not test dairy vs. meat diets."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/22036470/",
+      "doi": null,
+      "title": "Bacteroides in the infant gut consume milk oligosaccharides via mucus-utilization pathways",
+      "study_population": "Infant-associated Bacteroides species in vitro and gnotobiotic mouse work on milk oligosaccharide and mucin glycan utilization",
+      "relevance": "Indirect mechanistic backdrop: milk-glycan consumption by infant Bacteroides proceeds through mucus/glycan-utilization (PUL) machinery of which SusD/RagB proteins are components; it does not address dairy- vs. meat-based complementary feeding or this specific ortholog."
+    },
+    {
+      "url": "https://journals.asm.org/doi/10.1128/msphere.00244-22",
+      "doi": "10.1128/msphere.00244-22",
+      "title": "Structural and Biochemical Characterization of a Nonbinding SusD-Like Protein Involved in Xylooligosaccharide Utilization by an Uncultured Human Gut Bacteroides Strain",
+      "study_population": "Biochemical/structural study of a SusD-like protein from an uncultured human gut Bacteroides strain (no human subjects)",
+      "relevance": "Establishes the functional identity of the SusD/RagB family as PUL-associated glycan-uptake components in human gut Bacteroides, and also shows family members can be non-binding/functionally heterogeneous - underscoring that abundance of an unannotated RagB/SusD ortholog cannot be confidently tied to a specific dietary substrate such as dairy protein."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants 5-12 months in the meat vs. dairy-based complementary feeding randomized controlled trial (secondary machine-learning analysis of microbiome and metabolome)",
+      "relevance": "Most closely matched cohort analysis of diet-group effects at 12 months; appeared in searches as an integrative microbiome/metabolome analysis of the meat vs. dairy trial, but no report of RagB/SusD (ENOG410XR0J) or other eggNOG ortholog enrichment in the dairy group was observed, so it does not provide direct support."
+    }
+  ],
+  "contradicting_evidence": "No study directly reporting the opposite direction for this feature was found. The only weakly countervailing observation is that in the matching meat-vs-dairy RCT the meat group showed the notable microbial gains (Ruminococcus, Roseburia, increasing alpha diversity), while no Bacteroidota glycan-utilization enrichment was attributed to the dairy group; this is indirect and taxonomic, not a contradiction at the level of this eggNOG ortholog.",
+  "search_queries_used": [
+    "RagB SusD domain-containing protein infant gut microbiome",
+    "SusD polysaccharide utilization loci Bacteroides infant gut",
+    "dairy versus meat protein complementary feeding infant gut microbiome",
+    "Different gut microbiota formula-fed infants meat vs dairy-based complementary foods randomized controlled trial Bacteroides",
+    "meat versus dairy complementary food infant metagenome functional genes Bacteroidetes",
+    "SusD RagB gene abundance diet gut metagenome milk protein",
+    "Bacteroides polysaccharide utilization loci SusC SusD host milk glycans dairy diet",
+    "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods randomized controlled trial results Bacteroidetes Firmicutes 12 months",
+    "ENOG410XR0J eggNOG",
+    "RagB/SusD domain-containing protein weaning gut microbiome metagenome enriched",
+    "SusD RagB orthologous group differential abundance infant diet 12 months",
+    "Bacteroides abundance higher dairy-based complementary food infants 12 months Tang Krebs"
+  ],
+  "caveats": "The feature is an uncharacterized eggNOG orthologous group ('function unknown') within a very large, functionally heterogeneous protein family (thousands of SusD/RagB paralogs across Bacteroidota with different glycan specificities), so literature about the family as a whole is only loosely informative about this particular ortholog, and ortholog-level gene IDs are almost never reported in published infant nutrition trials. Dairy-based complementary foods are protein/fat/lactose-rich rather than complex-polysaccharide-rich, weakening the a priori mechanistic argument; also, both arms of the reference trial consumed identical formula plus ad libitum cereal/fruit/vegetables, so plant polysaccharide intake (the main SusD/RagB substrate class) is not the intervention contrast. Search coverage was truncated by a tool-use limit, so additional metagenomic studies of dairy vs. meat weaning diets may exist; a targeted query of eggNOG/PUL annotations in shotgun metagenomes from complementary-feeding trials (and of the trial's own metagenomic follow-ups) would be the next step."
+}

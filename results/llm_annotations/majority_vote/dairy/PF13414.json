@@ -1,0 +1,56 @@
+{
+  "feature_id": "PF13414",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The Pfam TPR repeat domain family PF13414 is increased/characteristic in the gut metagenome of 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Multiple searches combining the Pfam accession (PF13414), the domain name (TPR / tetratricopeptide repeat), and the exposure keywords (dairy vs. meat complementary feeding, infant gut microbiome/metagenome, 12 months) returned no study reporting the abundance of TPR-repeat-encoding genes (or any TPR Pfam family) as differentially abundant between dairy- and meat-fed infants, or in any diet-comparison gut metagenome. What was found is (a) primary literature establishing that meat- vs. dairy-based complementary protein does reshape the infant gut microbiota through 12 months, but at the taxonomic level only (e.g., Ruminococcus/Roseburia and SCFA differences in the dairy arm; Lactococcus, Granulicatella, Acinetobacter with meat), with no Pfam/domain-level results reported; and (b) generic functional literature describing TPR motifs as ubiquitous protein-protein interaction modules in bacteria involved in multiprotein complex assembly, stress response, secretion and host interaction, which are present across essentially all gut taxa. Thus any expectation that PF13414 tracks with dairy feeding rests on indirect, taxon-proxy reasoning (i.e., that dairy-associated taxa happen to carry more TPR-repeat genes), not on observed evidence. One metagenomic/metabolomic analysis of the relevant Denver meat-vs-dairy RCT did use Pfam annotations and reported ~85 microbial features assigned to the dairy group, but the retrievable text/abstract did not name any TPR family, and that analysis appears to be from the same trial as the present study, so it could not serve as independent confirmation even if it did. Because relevant but only generic/pathway-level material was found (no feature+group study, and nothing contradicting either), this scores 1 rather than 0 or -1.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": null,
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Healthy full-term, formula-fed U.S. infants (Denver, CO) randomized to meat- or dairy-based complementary foods from ~5 to 12 months",
+      "relevance": "Establishes that the exact exposure contrast (dairy vs. meat complementary protein, through 12 months) alters the infant gut microbiota, but results are taxonomic (16S) only; no Pfam/TPR-domain gene-family findings are reported, so it neither supports nor refutes the PF13414 direction."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "64 exclusively formula-fed 5-month-old U.S. infants randomized to pureed meat vs. dairy protein, followed to 12 months (shotgun metagenomics + metabolomics)",
+      "relevance": "The only retrieved analysis of this exposure that used Pfam-level functional annotation; reports dozens of microbial features classified to the dairy group, but no TPR/PF13414 family is named in the retrievable text, and it derives from the same feeding trial, so it cannot count as independent direct support."
+    },
+    {
+      "url": "https://journals.asm.org/doi/full/10.1128/iai.01035-12",
+      "doi": "10.1128/iai.01035-12",
+      "title": "Tetratricopeptide Repeat Motifs in the World of Bacterial Pathogens: Role in Virulence Mechanisms",
+      "study_population": "Review of bacterial genomes/proteins (not infants)",
+      "relevance": "Provides only generic functional context: TPR motifs are widely distributed protein-protein interaction modules in bacteria involved in multiprotein complex assembly and host interaction, i.e., a non-specific domain family with no established diet- or dairy-specific enrichment."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11901692/",
+      "doi": null,
+      "title": "Complementary Feeding and Infant Gut Microbiota: A Narrative Review",
+      "study_population": "Review of human infants 6-24 months during complementary feeding",
+      "relevance": "Corroborates that protein-source-specific complementary foods (meat vs. dairy) shift infant taxa at 12 months, while showing the field's evidence base is taxonomic rather than protein-domain/Pfam level for this exposure."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "PF13414 TPR repeat infant gut microbiome",
+    "TPR repeat Pfam infant gut microbiome complementary feeding",
+    "dairy versus meat based complementary feeding infant gut microbiome 12 months",
+    "tetratricopeptide repeat TPR protein gut bacteria diet metagenome function",
+    "Pfam domain abundance infant gut metagenome protein source dairy meat",
+    "TPR repeat protein Bifidobacterium host interaction gut colonization",
+    "meat versus dairy protein complementary food infant gut microbiome metagenomics functional pathways",
+    "Network-based representation learning infants meat dairy Pfam TPR repeat",
+    "\"TPR\" Pfam gene family increased dairy group infant gut metagenome 12 months",
+    "PF13414 tetratricopeptide repeat",
+    "tetratricopeptide repeat protein dairy lactic acid bacteria milk adaptation genome",
+    "TPR domain protein abundance gut microbiome milk protein diet mice",
+    "tetratricopeptide repeat gene family enriched breastfed infant gut metagenome"
+  ],
+  "caveats": "PF13414 is one of many TPR-repeat Pfam families within clan CL0020 (the canonical TPR_1 is PF00515); domain-level families like this are highly promiscuous, present across most gut bacterial genomes, and their metagenomic abundance largely reflects underlying taxonomic composition and genome-size/annotation biases rather than a discrete diet-responsive function. Literature searches for accession-level Pfam features are also intrinsically insensitive, since most papers report pathways/KOs rather than individual domain accessions - absence of hits should be read as absence of reported evidence, not as evidence of absence. Finally, the only Pfam-level analysis of this exact meat-vs-dairy trial appears to be the parent study itself, which cannot be used as independent validation."
+}

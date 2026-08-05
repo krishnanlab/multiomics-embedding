@@ -1,0 +1,71 @@
+{
+  "feature_id": "N_LP.289",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "Flumequine is increased or characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Flumequine is not an endogenous human metabolite but a veterinary fluoroquinolone antibacterial, so the hypothesis rests entirely on dietary/xenobiotic exposure reasoning. Searches confirmed the general premise that flumequine is widely used in food-producing animals (cattle, pigs, chickens, farmed fish) and leaves residues in edible tissues, with JECFA/FAO evaluations of residues and withdrawal periods for muscle, liver, kidney and fat, and with quinolone-class residues repeatedly documented in chicken and pork surveys. A children's urinary biomonitoring study (Scientific Reports, 2025) did report detection of flumequine among antibiotic residues in children, explicitly noting that flumequine is used primarily in veterinary rather than human medicine, which supports plausibility of dietary exposure in young children. However, no primary study was located that measured flumequine (or fluoroquinolone residues generally) in infant stool, serum or urine as a function of meat- versus dairy-based complementary feeding; the published metabolomics work from meat-vs-dairy complementary feeding trials that surfaced in search (blood metabolomics, and metagenomics/metabolomics network analyses from the same U.S. formula-fed infant trial design) did not report flumequine in the material retrieved. Furthermore, fluoroquinolone residues have also been documented in raw cow's milk, so dairy is not a residue-free comparator, making the hypothesized direction plausible but not empirically demonstrated. This matches the 'weak' rubric level: relevant literature exists but only at the level of generic exposure-pathway reasoning for this feature+group combination, with some ambiguity about direction.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.fao.org/fileadmin/user_upload/vetdrug/docs/41-15-flumequine.pdf",
+      "doi": null,
+      "title": "Flumequine - JECFA residue evaluation monograph (FAO, 41-15)",
+      "study_population": "Regulatory residue evaluation based on animal (cattle, pigs, sheep, chickens, trout) residue depletion studies",
+      "relevance": "Establishes flumequine as a veterinary antibacterial with quantified residues in muscle, liver, kidney and fat of food animals, i.e. meat is a documented dietary source of flumequine exposure - the necessary premise for the hypothesis."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-025-94705-8",
+      "doi": null,
+      "title": "Presence of antibiotics in children's urine: a silent risk beyond drinking water",
+      "study_population": "Children (urinary antibiotic residue biomonitoring)",
+      "relevance": "Directly reports detection of flumequine in children's urine and notes its predominantly veterinary use, supporting that young children can be exposed to flumequine via non-clinical (likely food/water) routes; but it does not compare meat- versus dairy-based diets."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9598053/",
+      "doi": null,
+      "title": "Occurrence and Risk Assessment of Fluoroquinolone Residues in Chicken and Pork in China",
+      "study_population": "Food surveillance: 1754 chicken and 1712 pork samples; exposure modelled for children, adolescents, adults",
+      "relevance": "Primary survey quantifying fluoroquinolone residues in meat and modelling higher relative dietary exposure in children, supporting a meat-linked (class-level) exposure route for a compound like flumequine."
+    },
+    {
+      "url": "https://www.inchem.org/documents/jecfa/jecmono/v39je07.htm",
+      "doi": null,
+      "title": "Flumequine (WHO Food Additives Series 39)",
+      "study_population": "Toxicological/microbiological evaluation, human and animal ADME data",
+      "relevance": "Reports that roughly 10% of an ingested flumequine dose is available to the human gut microflora and that a fraction is excreted in faeces, making fecal/gut detection of ingested flumequine mechanistically plausible."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7912106/",
+      "doi": "10.3390/nu13020388",
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized meat- vs dairy-based complementary feeding trial",
+      "relevance": "The most directly relevant published study of this exact group/exposure contrast; the reported discriminating metabolites (BCAAs, aromatic amino acids, TMAO) do not include flumequine, indicating absence of published direct support for this feature in this comparison."
+    },
+    {
+      "url": "https://doaj.org/article/ded56936181347b18c8e67ca2e917e97",
+      "doi": null,
+      "title": "Fluoroquinolone residues in raw cow's milk",
+      "study_population": "150 bulk raw cow's milk samples from 58 suppliers (Czech Republic)",
+      "relevance": "Shows fluoroquinolone residues also occur in dairy milk, so a dairy-based complementary diet is not necessarily a zero-exposure comparator; weakens confidence in the hypothesized meat-specific direction."
+    }
+  ],
+  "contradicting_evidence": "No study was found reporting flumequine higher in dairy-fed infants (so this is not a -1 situation), but fluoroquinolone residues are documented in raw cow's milk as well as in meat, meaning dairy-based complementary foods could also contribute flumequine-class exposure; direction is therefore not established. Additionally, JECFA withdrew flumequine MRLs (genotoxicity concerns) and its use is restricted in several jurisdictions, so exposure via commercial infant meat products in a U.S./EU trial setting may be low or absent.",
+  "search_queries_used": [
+    "Flumequine infant gut metabolome",
+    "flumequine residues meat consumption human urine",
+    "flumequine veterinary antibiotic residues poultry pork milk residues",
+    "flumequine detected children urine biomonitoring antibiotic exposure",
+    "meat-based complementary feeding infant metabolome dairy protein 12 months",
+    "untargeted metabolomics flumequine annotation stool sample",
+    "antibiotic residues infant food meat exposure fluoroquinolone children",
+    "flumequine maximum residue limit bovine milk residues dairy",
+    "flumequine human dietary exposure source aquaculture cattle JECFA",
+    "\"flumequine\" metabolomics infant serum feature",
+    "meat versus dairy complementary feeding infant fecal metabolome untargeted Tang",
+    "flumequine infant meat complementary feeding",
+    "flumequine fecal metabolite meat consumption biomarker",
+    "quinolone antibiotic residue detected human feces meat eaters vegetarians"
+  ],
+  "caveats": "Flumequine is a xenobiotic drug, not an endogenous metabolite; in untargeted lipid/metabolite platforms such an annotation from a spectral-library match (KEGG D02302 / METLIN 4423) is at high risk of being a misannotation or isobaric interference and should be confirmed with an authentic standard and MS/MS before biological interpretation. Even if genuine, its level would reflect food-supply contamination rather than a reproducible diet-group biology, so it may not replicate across cohorts or countries. Detection could also arise from clinical antibiotic use (unlikely for flumequine in infants), drinking water, or laboratory/plasticizer-type contamination. Finally, plausibility of a meat>dairy direction depends on the actual residue burden of the specific study foods, which no located study characterized."
+}

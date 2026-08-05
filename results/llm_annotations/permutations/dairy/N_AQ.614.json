@@ -1,0 +1,51 @@
+{
+  "feature_id": "N_AQ.614",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The unannotated aqueous-phase feature with molecular formula C33 H62 N11 O5 is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches for the exact molecular formula (C33H62N11O5) returned no chemical-database entry, no named compound, and no publication reporting this formula as a measured metabolite in any biological matrix, let alone in infant stool/serum in a dairy- vs. meat-based complementary feeding contrast. The feature is therefore an unidentified mass-spectrometry feature with no literature footprint of its own. Only generic, pathway-level reasoning is available: the formula is highly nitrogen-rich (11 N, 5 O; non-integer ring-plus-double-bond count for a neutral species, consistent with a protonated ion), which is compatible with a small peptide/polyamine- or arginine-containing nitrogenous compound, and dairy (casein/whey) protein feeding is known to deliver abundant milk-protein-derived peptides and nitrogenous substrates to the infant gut. However, meat protein likewise supplies abundant peptides and nitrogen, so directionality cannot be inferred from this reasoning. The most relevant primary literature found \u2014 the Denver randomized controlled meat- vs. dairy-based complementary feeding trial (5\u201312 months) with serum metabolomics and fecal microbiome/metabolome analyses \u2014 reports group differences in amino acids/BCAAs and microbiota but does not report any feature matching this formula. Because relevant contextual literature exists but nothing addresses this feature+group combination, the rubric score is 1 (weak), not 0.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7912106/",
+      "doi": null,
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "U.S. formula-fed term infants randomized to meat- vs. dairy-based complementary foods from 5 to 12 months, with 24-month follow-up (targeted and untargeted serum metabolomics)",
+      "relevance": "Directly matched study design/population (12-month dairy vs. meat complementary protein) but reports differences in named amino acids (e.g., BCAAs, threonine, phenylalanine) \u2014 no compound or feature corresponding to C33H62N11O5 is described, so it provides context but no support for this specific feature."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3.full.pdf",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the infant gut microbiome and metabolome (preprint)",
+      "study_population": "64 exclusively formula-fed U.S. infants, randomized controlled feeding trial of meat vs. dairy complementary foods, 5\u201312 months; fecal metagenomics and metabolomics",
+      "relevance": "Closest available fecal multi-omics analysis of the exact exposure contrast; establishes that diet-group metabolome differences exist at 12 months, but no reported feature is annotated with this molecular formula, leaving the hypothesis untested in the literature."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12785438/",
+      "doi": null,
+      "title": "Effect of \u03b2-Casein Fortification in Milk Protein on Digestion Properties and Release of Bioactive Peptides in a Suckling Rat Pup Model",
+      "study_population": "Suckling rat pups plus in vitro infant digestion models of bovine milk protein",
+      "relevance": "Pathway-level/indirect support only: dairy protein intake generates abundant nitrogen-rich milk-derived peptides in the immature gut, a plausible chemical class for an unidentified high-nitrogen feature \u2014 but no link to this specific formula or to a dairy-vs-meat direction in infants."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": null,
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "U.S. formula-fed infants, 5\u201312 months, randomized to meat vs. dairy complementary foods",
+      "relevance": "Confirms that the dairy vs. meat exposure produces measurable gut ecosystem differences at 12 months (beta-diversity, Akkermansia, richness), supporting biological plausibility of diet-discriminating fecal metabolite features in general, without addressing this feature."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C33H62N11O5 metabolite",
+    "infant 12 months dairy protein vs meat protein complementary feeding metabolome",
+    "dairy-based complementary feeding infant plasma metabolome peptides",
+    "\"C33H62N11O5\"",
+    "unknown molecular formula peptide infant stool metabolome meat dairy complementary food untargeted",
+    "meat versus dairy complementary feeding infant fecal metabolome 12 months untargeted LC-MS unidentified features",
+    "casein-derived peptides infant feces cow milk protein intake",
+    "dairy protein intake infant gut nitrogen-rich metabolites arginine peptides feces"
+  ],
+  "caveats": "The feature is identified only by an empirical formula, with no name, InChIKey, HMDB/KEGG ID, adduct, or retention-time information, so literature searching cannot be anchored to a chemical identity; the formula as written has a non-integer degree of unsaturation and thus likely represents an ion rather than a neutral molecule, and may also reflect an ambiguous or erroneous formula assignment. Multiple structurally distinct isomers could share this formula. Any confidence assessment would change substantially if the feature were structurally annotated (e.g., via MS/MS matching); until then, no literature-based directional judgement for dairy vs. meat groups is possible, and the score reflects absence of feature-specific evidence rather than evidence against the hypothesis."
+}

@@ -1,0 +1,25 @@
+{
+  "feature_id": "P_AQ.933",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "12-amino-octadecanoic acid (aqueous ESI+ feature, METLIN 3592) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for this compound (12-amino-octadecanoic acid / 12-aminostearic acid, and the METLIN ID) returned only chemical-supplier/structure records and industrial or synthetic-chemistry literature on related omega-amino fatty acids (e.g., 12-aminododecanoic acid as a nylon-12 precursor, bacterial transaminase-mediated degradation of 12-aminododecanoate in Pseudomonas, 18-aminooctadecanoic acid in a lipid-particle patent). No study - human, animal, or in vitro - was found reporting 12-amino-octadecanoic acid as an endogenous, dietary, or microbially derived metabolite in the gut, in milk/dairy or meat matrices, or in infant biospecimens. Searches of the relevant exposure literature did retrieve the U.S. meat- vs. dairy-based complementary feeding randomized trial and its metabolomics analyses (serum metabolomics; fecal microbiome/SCFA; a network-learning fecal metagenomic-metabolomic analysis spanning 5-12 months), but the reported discriminating features in those papers are amino acids (isoleucine, valine, phenylalanine, threonine), TMAO, SCFAs such as butyrate, and taxa such as Akkermansia - not amino fatty acids of this class. Therefore no literature exists either supporting or contradicting the hypothesized dairy-associated increase, and this is an unverified putative annotation (single amino-fatty-acid isomer assignment from an ESI+ aqueous feature, no MS/MS confirmation reported), so score 0 rather than 1 or -1.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "12-amino-octadecanoic acid",
+    "12-aminostearic acid metabolite",
+    "amino fatty acid infant gut metabolome dairy",
+    "meat versus dairy complementary feeding infant gut microbiome metabolome trial",
+    "12-amino-octadecanoic acid metabolomics",
+    "infant complementary feeding protein source fecal metabolome dairy meat 12 months",
+    "\"aminooctadecanoic\" dairy milk metabolite",
+    "12-aminooctadecanoic acid METLIN 3592",
+    "amino fatty acid dairy product consumption metabolomics biomarker",
+    "long chain amino fatty acid human feces microbiota metabolite",
+    "Tang Krebs infant meat dairy fecal metabolome fatty acids differences 12 months"
+  ],
+  "caveats": "The annotation is a putative, isomer-ambiguous match for an ESI+ aqueous-phase feature; omega/mid-chain amino fatty acids of this type are largely known from synthetic-polymer chemistry rather than mammalian or gut-microbial metabolism, so the underlying compound identity should be confirmed by MS/MS and authentic standard before literature-based prioritization. Absence of published evidence here reflects the novelty/uncertainty of the annotation and does not by itself argue against a real group difference in the study data; interpretation would be strengthened by checking whether the feature co-varies with better-characterized lipid or amino-acid features in the same dataset."
+}

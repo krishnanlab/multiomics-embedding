@@ -1,0 +1,21 @@
+{
+  "feature_id": "N_LP.348",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "This unidentified lipid-like feature with molecular formula C26H42N6O4S is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "The feature is given only as a raw molecular formula (C26H42N6O4S) with no compound name, HMDB/KEGG/PubChem identifier, adduct, or MS/MS-based annotation. Searches for the formula itself returned only Wikipedia 'index of chemical compounds' set-index pages for other, different formulas (e.g., C25H40N2O6S, C23H32N6O4S, C26H42N7O17P3S) and unrelated patent/compound-database hits - no compound could be matched to this exact formula, and therefore no literature exists that reports 'this feature' by name in any context. Searches combining the exposure keywords (dairy- vs meat-based complementary feeding, 5-12 months, infant gut/serum metabolome) did retrieve the relevant trial literature (e.g., blood metabolomics of infants on meat- vs dairy-based complementary diets, and metagenomic/metabolomic analyses of the same 5-12 month U.S. formula-fed infant randomized feeding design), but none of these reported an unannotated C26H42N6O4S feature or any named nitrogen-rich, sulfur-containing lipid-like compound consistent with that formula as elevated in the dairy arm. Because there is no literature on this feature+group combination at all - and, absent a compound identity, not even a defensible pathway-level or theoretical argument (the formula is consistent with many chemically unrelated possibilities: sulfur-containing peptides/peptide-like species, thioether or S-adenosyl-type conjugates, sulfur-containing alkaloid- or drug-like molecules) - the correct score is 0 (none found) rather than 1. No contradicting evidence was found either, since no study addresses the feature.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C26H42N6O4S metabolite",
+    "infant complementary feeding dairy versus meat protein metabolome",
+    "\"C26H42N6O4S\"",
+    "dairy-based complementary diet infant serum metabolomics sulfur-containing metabolite increased 12 months",
+    "infant gut metabolome dairy protein 12 months lipid sulfur metabolite untargeted",
+    "HMDB molecular formula C26H42N6O4S compound",
+    "C26H42N6O4S PubChem"
+  ],
+  "caveats": "The evaluation is limited by the feature being an unidentified formula-only annotation from an untargeted lipid/metabolite workflow; a formula alone cannot be matched to literature, and the same nominal formula could correspond to many structurally unrelated isomers (including exogenous/dietary or contaminant species). This score reflects absence of published evidence for the annotation as provided, not evidence against a dairy-associated increase. If the investigators can obtain a confident structural identification (MS/MS spectral match, retention time, or a database ID such as HMDB/PubChem/LIPID MAPS), the literature question should be re-run with the compound name, since a named compound may well have relevant infant-feeding or dairy-intake literature. Note also that most available infant dairy-vs-meat complementary feeding metabolomics work is in serum/plasma rather than stool, so cross-matrix inference would be an additional limitation even for an identified compound."
+}

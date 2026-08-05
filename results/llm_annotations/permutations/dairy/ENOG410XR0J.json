@@ -1,0 +1,72 @@
+{
+  "feature_id": "ENOG410XR0J",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The eggNOG orthologous group ENOG410XR0J (RagB/SusD domain-containing protein) is increased/characteristic in 12-month-old infants fed dairy-based complementary protein relative to meat-fed infants.",
+  "confidence_score": 1,
+  "rationale": "No published study located that reports this specific eggNOG group (ENOG410XR0J) - or any individually named RagB/SusD-family gene - as differentially abundant between dairy-based and meat-based complementary feeding in infants. What the literature supports is only generic, pathway/taxon-level reasoning: RagB/SusD-family proteins are the substrate-binding lipoproteins of Bacteroidota polysaccharide utilization loci (PULs), so their metagenomic abundance largely tracks Bacteroides/Bacteroidota load and PUL repertoire, which in turn are strongly diet-responsive. The one directly relevant RCT (Tang et al., meat vs. dairy complementary foods in U.S. formula-fed infants, 5-12 mo - the same design as the group under study) reports its group-level difference for Akkermansia (increased in dairy, decreased in meat) and greater richness/butyrate increase in the meat arm; a systematic review summarizing that trial notes dairy consumption promoted longitudinal increases in Bacteroides and Clostridiales, which is weakly consistent with a dairy-side increase in Bacteroidota PUL/SusD gene content. However, this is (a) a longitudinal within-arm observation rather than a between-arm test of gene families, and (b) counterbalanced by the general diet-microbiome literature in which Bacteroides is classically associated with animal-protein/fat-rich diets, which would predict the opposite direction. The metagenomic/metabolomic analysis of this same trial (Price et al. 2025) exists in the public domain, but I could not verify from search results that it reports this RagB/SusD orthologous group or its direction. Net: relevant but indirect and partly conflicting evidence, i.e. weak support only.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term, formula-fed U.S. infants randomized to meat- vs. dairy-based complementary diets from ~5 to 12 months",
+      "relevance": "Only RCT directly comparing the two exposures at the 12-month timepoint; reports beta-diversity divergence at 12 months, Akkermansia increasing in the dairy arm and richness/butyrate increases in the meat arm. It does not report RagB/SusD or any eggNOG gene family, so it neither confirms nor refutes the hypothesis at the feature level."
+    },
+    {
+      "url": "https://www.tandfonline.com/doi/full/10.1080/10408398.2024.2439036",
+      "doi": null,
+      "title": "The effect of complementary foods on the colonic microbiota of weaning infants: a systematic review",
+      "study_population": "Systematic review of weaning-infant complementary feeding intervention studies, including the U.S. meat vs. dairy RCT",
+      "relevance": "Summarizes that dairy product consumption promoted longitudinal increases in the genus Bacteroides (and Clostridiales) with decreases in Escherichia/Enterobacteriaceae - taxon-level, indirect support for higher Bacteroidota PUL (SusC/SusD-RagB) gene abundance in dairy-fed infants."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, meat vs. dairy complementary feeding RCT (fecal metagenomics + metabolomics)",
+      "relevance": "Published metagenomic/metabolomic analysis of exactly this exposure and age range; establishes that diet- and age-associated metagenomic gene features are detectable, but I could not confirm from search results that ENOG410XR0J / RagB-SusD proteins are reported as dairy-associated, so it does not provide feature-specific directional support."
+    },
+    {
+      "url": "https://www.cell.com/cell/fulltext/S0092-8674(10)00541-6",
+      "doi": null,
+      "title": "Specificity of Polysaccharide Use in Intestinal Bacteroides Species Determines Diet-Induced Microbiota Alterations",
+      "study_population": "Gnotobiotic mice colonized with human gut Bacteroides species; in vitro/in vivo dietary polysaccharide switches",
+      "relevance": "Establishes that susC/susD (RagB/SusD) gene pairs define PULs and that PUL content/expression determines diet-driven Bacteroides abundance shifts - the mechanistic basis for why such a gene family could differ by complementary food type, but not specific to dairy vs. meat or to infants."
+    },
+    {
+      "url": "https://journals.iucr.org/f/issues/2010/10/00/wd5136/index.html",
+      "doi": null,
+      "title": "Structure of BT_3984, a member of the SusD/RagB family of nutrient-binding molecules",
+      "study_population": "Structural biology of Bacteroides thetaiotaomicron (human gut isolate)",
+      "relevance": "Confirms the annotation context: PF07980 SusD/RagB is a large family of outer-membrane nutrient(glycan)-binding lipoproteins in gut Bacteroidota, many in PULs of unknown specificity - explains the 'function unknown' annotation and why the family is not diet-source specific."
+    },
+    {
+      "url": "https://journals.asm.org/doi/10.1128/aem.00933-24",
+      "doi": null,
+      "title": "Metagenome-derived SusD-homologs affiliated with Bacteroidota bind to synthetic polymers",
+      "study_population": "Environmental/metagenomic SusD-homolog survey with recombinant protein assays",
+      "relevance": "Documents the phylogenetic breadth and Bacteroidota affiliation of SusD/RagB homologs, indicating that abundance of this orthologous group in metagenomes is dominated by Bacteroidota community share rather than by a specific dietary protein source."
+    }
+  ],
+  "contradicting_evidence": "No study reports ENOG410XR0J in the opposite (meat-associated) direction either, so this is not scored -1; however the supporting logic is undercut by two observations found in search: (1) in the meat vs. dairy RCT itself the meat arm showed the increase in community richness and in butyric acid, and the only significant between-group genus effect was Akkermansia (Verrucomicrobiota, which lacks SusD/RagB PUL systems); (2) adult diet-microbiome literature retrieved in search repeatedly links Bacteroides dominance to animal-protein/fat-rich intake (and lower Bacteroides in diets free of meat), which would predict Bacteroidota-encoded SusD/RagB genes to be higher in the meat arm. Evidence is therefore mixed rather than clearly directional.",
+  "search_queries_used": [
+    "RagB SusD domain-containing protein gut microbiome",
+    "SusD starch utilization system Bacteroidetes infant gut microbiome",
+    "meat versus dairy complementary feeding infant gut microbiome metagenome",
+    "ENOG410XR0J eggNOG",
+    "Price Rasolofomanana network representation learning infant meat dairy eggNOG SusD",
+    "Tang 2023 formula-fed infants meat dairy complementary foods gut microbiota Bacteroides results",
+    "dairy protein complementary feeding infant Bacteroides polysaccharide utilization loci",
+    "SusD RagB polysaccharide utilization locus milk oligosaccharide Bacteroides diet",
+    "Price 2025 infant metagenomics dairy group eggNOG orthologous groups Bacteroides increased 12 months",
+    "\"SusD\" infant gut metagenome weaning increase solid food polysaccharide utilization genes",
+    "dairy complementary food Bacteroides increase formula-fed infants 12 months randomized",
+    "yogurt cheese whey protein infant gut microbiome Bacteroides carbohydrate active enzymes",
+    "\"RagB\" OR \"SusD\" infant dairy meat complementary feeding metagenomic gene family",
+    "Tang meat dairy infant randomized gut microbiota results dairy group higher genera Akkermansia Bacteroides Clostridium",
+    "complementary feeding transition increase carbohydrate utilization genes Bacteroides SusC SusD infant metagenome 12 months"
+  ],
+  "caveats": "ENOG410XR0J is an unnamed, function-unknown orthologous group within a very large, taxonomically broad protein family (PF07980 SusD/RagB); literature searches cannot resolve individual eggNOG OG identifiers, so absence of direct evidence partly reflects annotation granularity rather than biological implausibility. Because RagB/SusD gene abundance is expected to scale with Bacteroidota relative abundance, any observed dairy-vs-meat difference in this feature may be a proxy for compositional differences (e.g., Bacteroides/Phocaeicola share) rather than a specific dairy-glycan (lactose, milk oligosaccharide, or dairy-matrix polysaccharide) utilization function; strain-level PUL specificity would need to be shown. Also note that dairy foods contain little complex polysaccharide, so a dairy-driven increase in a PUL substrate-binding protein family is not mechanistically obvious and should be interpreted cautiously. Finally, one key corroborating statement (dairy-associated longitudinal Bacteroides increase) came from a systematic review rather than from the primary report's own between-group test."
+}

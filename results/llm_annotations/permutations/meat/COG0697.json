@@ -1,0 +1,64 @@
+{
+  "feature_id": "COG0697",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "COG0697 (permeases of the drug/metabolite transporter, DMT, superfamily) is increased or characteristic in 12-month-old infants fed meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "No study located reports COG0697 specifically as enriched in meat-fed versus dairy-fed infants. The closest evidence is category/pathway-level: a network-representation-learning analysis of a U.S. randomized controlled complementary-feeding trial (meat vs. dairy, 5-12 months, formula-fed infants) reported COG-category enrichments in the meat diet group that included 'amino acid transport and metabolism' (as well as translation/ribosomal and nucleotide transport and metabolism categories). COG0697 is annotated to that COG category (E) along with carbohydrate transport and metabolism (G) and 'general function prediction only' (R), so the hypothesis is consistent with that category-level signal, but it is inference by annotation membership rather than a report of this feature. This report also appears to derive from the same trial design/cohort as the study under evaluation, so it is not independent corroboration. Supporting indirect literature is only loosely related: dietary protein source and higher protein intake alter gut microbial amino-acid metabolizing and amino-acid transporter gene abundance in animal and adult/in vitro systems, but those studies implicate different transporter systems (e.g., ABC-type general L-amino acid transporter aapJ/aaQ/aaM/aaP), not DMT-superfamily permeases. Additionally, COG0697 is a functionally heterogeneous superfamily (RhaT-like sugar permeases, amino-acid/metabolite exporters, multidrug efflux-like proteins), so its members could plausibly track carbohydrate as well as amino-acid substrate availability, weakening directional specificity. This matches the 'weak' tier: relevant, generic/pathway-level reasoning found, but no study on this specific feature+group combination, and no directly contradicting report either.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3.full.pdf",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized controlled feeding trial of meat- vs. dairy-based complementary foods; fecal shotgun metagenomics and metabolomics",
+      "relevance": "Reports COG-level enrichments in the meat diet group including the 'amino acid transport and metabolism' category (plus translation/ribosomal structure and nucleotide transport and metabolism), the broad functional category to which COG0697 is assigned; supports the hypothesized direction only at category/pathway level, and likely reflects the same trial cohort rather than independent replication."
+    },
+    {
+      "url": "https://academic.oup.com/ismej/article/19/1/wraf048/8089909",
+      "doi": null,
+      "title": "Dietary protein source alters gut microbiota composition and function",
+      "study_population": "Gut microbiota under differing dietary protein sources (non-infant experimental/modelling context)",
+      "relevance": "Indirect support that dietary protein source shifts the abundance of microbial amino-acid metabolizing/transport functions, the general premise behind expecting amino-acid-related transporter genes to differ between meat- and dairy-protein diets; does not address COG0697 or infants."
+    },
+    {
+      "url": "https://link.springer.com/article/10.1186/s42523-026-00542-z",
+      "doi": "10.1186/s42523-026-00542-9",
+      "title": "Dietary regulation on gut resistome linked with microbial amino acid metabolism in pigs",
+      "study_population": "Pigs fed diets differing in protein/amino acid composition; gut metagenomes",
+      "relevance": "Indirect, animal evidence that dietary protein manipulation changes abundance of microbial amino-acid transporter genes (aapJ/aaQ/aaM/aaP); implicates ABC-type rather than DMT-superfamily permeases, so it is only weakly analogous to COG0697."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11432728/",
+      "doi": null,
+      "title": "The drug/metabolite transporter superfamily",
+      "study_population": "Comparative genomics / protein family analysis (not human subjects)",
+      "relevance": "Establishes that the DMT superfamily (COG0697 members) is functionally heterogeneous, spanning rhamnose/sugar permeases, small multidrug resistance proteins and metabolite exporters - i.e., the feature is not a specific amino-acid-catabolism marker, which limits how strongly a meat-protein-specific direction can be inferred."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8931315/",
+      "doi": null,
+      "title": "Impact of Early Feeding: Metagenomics Analysis of the Infant Gut Microbiome",
+      "study_population": "Breastfed vs. formula-fed infants; fecal shotgun metagenomics with COG-level analysis",
+      "relevance": "Demonstrates that infant diet drives COG-level differences including the amino acid transport and metabolism category, showing the analytic plausibility of diet-linked transporter COG shifts in infants; however it compares milk diets, not meat vs. dairy complementary protein, and does not report COG0697."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "COG0697 drug/metabolite transporter superfamily infant gut microbiome",
+    "meat-based versus dairy-based complementary feeding infant gut microbiome metagenome",
+    "drug metabolite transporter DMT superfamily gut microbiome protein diet",
+    "COG0697 permease abundance metagenome diet",
+    "\"COG0697\" gut microbiome",
+    "meat dairy complementary feeding infant metagenome COG functional pathways amino acid transport",
+    "infant gut microbiome protein-rich complementary food amino acid transport and metabolism enriched meat",
+    "Network-based representation learning infant meat dairy COG enriched pathways permease transporter",
+    "COG0697 permease drug metabolite transporter function bacteria amino acid export",
+    "infant weaning gut microbiome enrichment amino acid transporters permeases metagenomic functional shift",
+    "Price Tang infant meat dairy microbiome COG functional gene enrichment amino acid metabolism meat diet group",
+    "\"COG0697\" OR \"drug/metabolite transporter\" infant feces metagenomics complementary feeding",
+    "high protein meat diet gut microbiome amino acid transporter permease gene abundance metagenomics",
+    "RhaT rhamnose permease DMT superfamily gut bacteria dairy lactose milk oligosaccharide transporter abundance"
+  ],
+  "caveats": "COG0697 is a broad, poorly specified ortholog group ('general function prediction only' plus amino acid and carbohydrate transport), so even a genuine group difference would be hard to interpret mechanistically or to match to published named genes. The single meat-vs-dairy metagenomic report found appears to come from the same randomized feeding trial as the study under evaluation, so it cannot serve as independent external validation, and its signal is at the COG functional-category level, not for this specific COG. Remaining supportive literature is in pigs, rats or adults and concerns different transporter families. Absence of contradicting reports here reflects a general absence of feature-specific literature rather than positive evidence of consistency."
+}

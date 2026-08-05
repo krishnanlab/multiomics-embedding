@@ -1,0 +1,47 @@
+{
+  "feature_id": "K15711",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "K15711 (SWI/SNF-related matrix-associated actin-dependent regulator of chromatin subfamily A3 / HLTF-SMARCA3-like SNF2-family ATPase; ubiquitin system and DNA repair/recombination Brite categories) is increased or characteristic in the gut metagenome of 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "No study in the literature located via search reports KEGG ortholog K15711 (HLTF/SMARCA3, a Rad5-family SNF2 ATPase/E3 ubiquitin ligase) as differentially abundant between meat- and dairy-fed infants, or in any infant gut microbiome/complementary feeding context. Searches on the KO identifier itself returned only generic KEGG/metagenome annotation resources and eukaryotic (human/yeast) DNA damage-tolerance literature, not diet-microbiome studies. The only relevant literature found is at the coarse pathway level and comes from the same meat-vs-dairy randomized feeding trial cohort (Krebs/Tang trial, 5-12 months, U.S. formula-fed infants): a network-representation-learning preprint reports that features embedded with the meat diet group were enriched for microbial genes in amino acid metabolism, translation/ribosomal proteins, and DNA metabolism including replication, recombination and repair - the broad Brite category to which K15711 is assigned. That is generic, pathway-level, non-independent support (same trial, no feature-level naming of K15711), and the companion 16S-based RCT publication found no significant taxonomic differences between meat and dairy groups, while conventional differential abundance analysis in the preprint likewise detected no significant diet associations. Additionally, K15711 is a nominally eukaryotic chromatin-remodeler ortholog; its appearance in a stool metagenome most plausibly reflects homology-based assignment to bacterial SNF2/Rad5-like helicases, which further weakens any specific dietary interpretation. This meets the criteria for weak (1): something relevant was found, but only generic/pathway-level reasoning rather than any study of this feature+group combination, and it is not independent of the study cohort.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2.full.pdf",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants (n=64) randomized to meat- vs dairy-based complementary protein, stool metagenomics/metabolomics at 5 and 12 months",
+      "relevance": "Pathway-level (not feature-level) support: microbiome features associated with the meat diet group were enriched for amino acid metabolism, translation, and DNA metabolism functions including replication, recombination and repair - the Brite category containing K15711. K15711 itself is not named, and this analysis is from the same trial cohort, so it is corroborative but not independent."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "U.S. formula-fed infants, meat vs dairy complementary feeding RCT, 5-12 months, 16S rRNA gene sequencing of stool",
+      "relevance": "Primary report of the meat vs dairy complementary feeding trial; establishes the exposure contrast but provides only taxonomic (16S) data with limited/no significant diet-group differences and no metagenomic KEGG ortholog-level results, so it neither supports nor refutes K15711 specifically."
+    },
+    {
+      "url": "https://www.cell.com/trends/genetics/fulltext/S0168-9525(18)30082-9",
+      "doi": null,
+      "title": "Rad5, HLTF, and SHPRH: A Fresh View of an Old Story",
+      "study_population": "Molecular/cell biology review (yeast and human cells)",
+      "relevance": "Confirms the functional identity of the K15711 gene product family (HLTF/SMARCA3, a Rad5 ortholog with SNF2 translocase and PCNA-polyubiquitinating E3 ligase activity in DNA damage tolerance), clarifying that this KO is a eukaryotic-type DNA repair/ubiquitin-system function with no established dietary or infant gut microbiome literature."
+    }
+  ],
+  "contradicting_evidence": "No study reports the opposite direction for this specific feature, so this is not a contradiction in the rubric sense. However, the null results weaken support: the parent RCT publication (Tang et al., Front Nutr 2023) reported no robust meat-vs-dairy differences in infant gut microbiota by 16S, and the companion network-learning preprint explicitly notes that conventional differential abundance analysis found no significant diet associations in either the microbiome or metabolome at 12 months - the meat-group enrichment signal emerged only from an embedding-based classification.",
+  "search_queries_used": [
+    "K15711 KEGG ortholog infant gut microbiome",
+    "SMARCA3 HLTF helicase-like transcription factor KEGG K15711",
+    "meat versus dairy complementary feeding infant gut microbiome metagenome function",
+    "meat-based vs dairy-based complementary food infant gut microbiome KEGG orthologs functional pathways randomized trial",
+    "SMARCA3 K15711 bacterial metagenome KEGG ortholog abundance diet",
+    "\"K15711\" KEGG ortholog",
+    "\"K15711\" metagenomics gut",
+    "SMARCA3 HLTF homolog bacteria archaea DNA repair RAD5 metagenome gut microbiome",
+    "Network-based representation learning infant meat dairy KEGG ortholog enriched genes meat group nucleic acid metabolism results",
+    "high protein meat diet gut microbiome DNA repair recombination genes enriched metagenome",
+    "infant complementary feeding 12 months metagenome KEGG DNA repair genes increased weaning"
+  ],
+  "caveats": "K15711 is annotated to a eukaryotic chromatin remodeler/Rad5-family ubiquitin ligase; in shotgun stool metagenomes such KOs are typically assigned by homology to bacterial SNF2/helicase-family proteins or may reflect host/dietary DNA, so the biological interpretation of a diet-associated shift is ambiguous. The only directionally supportive source is a preprint (not peer-reviewed) derived from the same randomized feeding trial as the study group under evaluation, so it cannot be treated as independent replication. Broad Brite categories such as 'DNA repair and recombination proteins' and 'Ubiquitin system' contain hundreds of KOs; enrichment of the category does not establish enrichment of this specific ortholog."
+}

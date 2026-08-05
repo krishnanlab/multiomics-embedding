@@ -1,0 +1,78 @@
+{
+  "feature_id": "COG2039",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "COG2039 (pyrrolidone-carboxylate peptidase / N-terminal pyroglutamyl peptidase) is increased or characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches (COG ID, enzyme synonyms, and the meat-vs-dairy complementary feeding context) returned no study - human or animal - that reports pyrrolidone-carboxylate peptidase / pyroglutamyl peptidase I (Pcp, COG2039) gene abundance as differentially enriched in meat-fed versus dairy-fed infants. The randomized meat- vs. dairy-based complementary feeding trial in U.S. formula-fed infants (5-12 mo) that matches this group definition reported 16S-based compositional differences, SCFA and growth outcomes, and a companion machine-learning metagenomics/metabolomics analysis, but the retrievable text of these reports does not name this COG or pyroglutamyl peptidase, and the companion analysis explicitly notes that conventional differential abundance testing found no significant single features by diet group. What is available is only generic, pathway-level reasoning: meat provides a higher load of intact animal protein and peptides reaching the distal gut, which could plausibly favor bacterial exopeptidase gene carriage/expression, including omega-peptidases that unblock N-terminal pyroglutamyl residues so that downstream aminopeptidases can act. Because relevant material was found but none of it addresses this feature+group combination, this scores 1 (weak) rather than 0. It is not scored -1 because no study directly tests this feature in this comparison in the opposite direction; the mildly opposite-leaning signals (adult metagenome/metaproteome work showing several peptidase families higher in vegans/vegetarians than omnivores, and the fact that dairy matrices - especially ripened cheese and fermented milk - are themselves a documented source of N-pyroglutamyl peptides/pyroglutamic acid, i.e. more substrate on the dairy side) are indirect and taxon/enzyme-family nonspecific. Additional uncertainty comes from the strong phylogenetic patterning of pyroglutamate handling (a Bacteroidetes-specific 'Q-rule' for signal-peptidase substrates), meaning COG2039 abundance in infant metagenomes may track Bacteroidetes/Bacteroides expansion during weaning more than protein source per se - and reported meat-associated Bacteroidales changes in infants are not consistently in the direction that would raise this COG.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "64 full-term, formula-fed U.S. infants randomized to meat- or dairy-based complementary foods from 5 to 12 months (Denver, CO)",
+      "relevance": "Directly matches the exposure group (12-mo meat vs dairy complementary protein) and reports beta-diversity/taxonomic and SCFA differences, but is 16S-based and provides no gene-family/COG-level result for pyroglutamyl peptidase, so it neither supports nor refutes the hypothesis at the functional level."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized controlled meat vs. dairy complementary feeding trial; fecal shotgun metagenomics plus metabolomics",
+      "relevance": "Closest available functional-metagenomic analysis of the exact meat-vs-dairy infant comparison; retrievable text describes diet- and age-associated embedding-level features and notes that standard differential abundance analysis found no significant individual features, with no mention of COG2039/pyroglutamyl peptidase."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-020-61192-y",
+      "doi": null,
+      "title": "Diet influences the functions of the human intestinal microbiome",
+      "study_population": "Adult humans grouped by habitual diet (omnivores, vegetarians, vegans); fecal metagenomics and metaproteomics",
+      "relevance": "Indirect and opposite-leaning: several microbial peptidase families (amidohydrolases, protease 4, M16/M23 peptidases, peptidase E and T, methionine aminopeptidase) were higher in vegans/vegetarians than omnivores, arguing against a simple 'more animal protein = more bacterial peptidase genes' expectation; pyroglutamyl peptidase specifically was not reported."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5837995/",
+      "doi": null,
+      "title": "The Bacteroidetes Q-Rule: Pyroglutamate in Signal Peptidase I Substrates",
+      "study_population": "Comparative genomic/biochemical analysis of Bacteroidetes (major human gut colonizers) and related phyla",
+      "relevance": "Mechanistic/taxonomic background showing pyroglutamate formation and handling is a phylum-patterned trait concentrated in Bacteroidetes, implying COG2039 metagenomic abundance in infants may primarily reflect Bacteroidetes expansion during weaning rather than meat vs dairy protein source."
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0958694613001532",
+      "doi": null,
+      "title": "Occurrence, origin and fate of pyroglutamyl-\u03b33-casein in cheese",
+      "study_population": "Dairy food chemistry (ripened cheeses, e.g. Cheddar, Parmigiano-Reggiano)",
+      "relevance": "Shows dairy matrices accumulate N-pyroglutamyl casein peptides that resist ordinary proteolysis, i.e. substrate for pyroglutamyl peptidase may actually be enriched on the dairy side of the comparison - an argument against the hypothesized meat-associated direction."
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/pii/S0261561424004758",
+      "doi": null,
+      "title": "Meat intake in relation to composition and function of gut microbiota",
+      "study_population": "Adult human cohort with deep shotgun metagenomic profiling and dietary meat intake assessment",
+      "relevance": "Generic support that meat intake associates with measurable gut microbiome compositional and functional features in adults, but the retrieved content does not report pyroglutamyl peptidase / COG2039 and is not in infants."
+    },
+    {
+      "url": "https://doi.org/10.3390/nu17050743",
+      "doi": "10.3390/nu17050743",
+      "title": "Complementary Feeding and Infant Gut Microbiota: A Narrative Review",
+      "study_population": "Review of human infant complementary feeding studies (including meat vs. cereal and dairy exposures)",
+      "relevance": "Corroborates that infant complementary protein source shifts taxa (e.g. lower Bacteroidales abundance reported in meat-fed versus iron-fortified cereal infants), which is directionally unhelpful for a Bacteroidetes-weighted COG such as pyroglutamyl peptidase; no functional gene data."
+    }
+  ],
+  "contradicting_evidence": "No study directly tests COG2039 in meat- vs dairy-fed infants, so there is no head-on contradiction. However, two indirect lines lean opposite to the hypothesis: (1) adult diet-metagenome work found multiple microbial peptidase families higher in vegans/vegetarians than in omnivores, undermining the assumption that animal-protein feeding raises bacterial peptidase gene abundance; (2) dairy products (ripened cheese, fermented milk) are documented sources of N-pyroglutamyl peptides/pyroglutamic acid, so pyroglutamyl substrate pressure could be greater in the dairy arm. Additionally, pyroglutamate handling is enriched in Bacteroidetes, and infant meat feeding has been reported to associate with lower Bacteroidales in at least one comparison, which would predict the opposite direction for this COG.",
+  "search_queries_used": [
+    "pyroglutamyl peptidase infant gut microbiome",
+    "COG2039 pyrrolidone-carboxylate peptidase gut microbiome",
+    "meat versus dairy protein complementary feeding infant gut microbiome metagenome",
+    "Network-based representation learning infant gut meat dairy COG functional metagenomics",
+    "pyroglutamyl peptidase Pcp bacterial protein degradation high protein diet gut",
+    "pyroglutamate infant gut metabolome meat protein",
+    "\"COG2039\"",
+    "COG2039 pyrrolidone-carboxylate peptidase infant meat complementary feeding",
+    "gut microbiome proteolytic peptidase genes increased meat consumption metagenomic functional pathway",
+    "Diet influences the functions of the human intestinal microbiome peptidases high protein",
+    "5-oxoproline pyroglutamate gut microbiome protein diet fecal",
+    "infant weaning solid food gut microbiome proteolysis amino acid degradation genes increase 12 months",
+    "pyroglutamyl peptides milk casein whey hydrolysate occurrence",
+    "Different gut microbiota U.S. formula-fed infants meat vs dairy complementary foods results Bacteroides Lactobacillus abundance"
+  ],
+  "caveats": "COG-level gene families are rarely reported individually in infant nutrition papers, so absence of literature may partly reflect reporting practice (features are usually collapsed into broad categories such as 'posttranslational modification, protein turnover, chaperones') rather than true absence of a diet effect. Full texts and supplementary tables of the matching meat-vs-dairy trial papers could not be exhaustively searched for this COG ID via web search alone; a supplementary-table check of the companion metagenomics analysis would be the highest-yield next step. Also note that metagenomic gene abundance is a capacity measure, not activity, and COG2039 abundance is strongly confounded by taxonomic composition (notably Bacteroidetes) and by normal age-related maturation between 5 and 12 months, which can dominate any protein-source effect."
+}

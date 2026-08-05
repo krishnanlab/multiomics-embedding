@@ -1,0 +1,23 @@
+{
+  "feature_id": "N_AQ.921",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The aqueous-phase metabolite feature annotated only by molecular formula C37H58N2O4 (monoisotopic mass ~594.44 Da) is increased/characteristic in 12-month-old infants fed meat-based complementary protein versus dairy-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "This feature carries no compound-level annotation - only an empirical formula (C37H58N2O4). Searches on the formula itself returned no biological or nutritional literature: the only structural matches surfaced were PubChem/PubChemLite and ECHA records for a synthetic hindered-phenol polymer antioxidant (an N,N'-bis[3-(3,5-di-tert-butyl-4-hydroxyphenyl)propanamide]-type compound, CAS 69851-61-2, monoisotopic mass 594.4396), i.e. an industrial additive rather than a characterized dietary or microbial metabolite, and no study links it to infant diet, infant stool, or gut microbial metabolism in either direction. Searches combining the formula with infant/complementary-feeding/weaning/metabolome terms returned nothing feature-specific. Literature does exist on meat- vs dairy-based complementary feeding and infant metabolomes in general (e.g. serum metabolomics and fecal microbiome/metabolite work from the U.S. 5-to-12-month randomized meat-vs-dairy feeding trial), but none of the retrieved records report a metabolite with this formula or any clearly named homolog, so no direct, indirect, or even pathway-level reasoning could be attached to this specific feature+group combination. Because nothing relevant to the feature was located (rather than weak or conflicting evidence), the score is 0 rather than 1 or -1.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C37H58N2O4 metabolite",
+    "infant complementary feeding meat versus dairy protein metabolome",
+    "meat-based complementary feeding infant gut microbiome 12 months metabolomics",
+    "\"C37H58N2O4\"",
+    "molecular formula C37H58N2O4 compound identification",
+    "unannotated metabolite molecular formula infant stool aqueous metabolome meat dairy",
+    "Irganox 1098 antioxidant migration food packaging human samples",
+    "meat-based complementary diet infant stool metabolome 12 months randomized trial metabolites increased",
+    "3-(3,5-di-tert-butyl-4-hydroxyphenyl)propanamide infant feces contaminant"
+  ],
+  "caveats": "A formula-only annotation cannot be evaluated against the literature: C37H58N2O4 (10 degrees of unsaturation) has many possible isomers, and the only readily searchable candidate structure is a plastics/food-contact antioxidant, which would make the feature an exogenous contaminant rather than a diet-responsive metabolite. Structural confirmation (MS/MS fragmentation, retention-time matching to standards, or at least a putative class assignment) is required before any meat-vs-dairy directional hypothesis can be assessed; if the feature does turn out to be a packaging-derived antioxidant amide, group differences could reflect differential packaging/handling of the meat vs dairy test foods rather than infant physiology. A score of 0 here reflects absence of retrievable literature on this feature, not evidence against the hypothesis."
+}

@@ -1,0 +1,57 @@
+{
+  "feature_id": "N_AQ.275",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The unidentified aqueous-phase metabolite with molecular formula C5H6O7S is increased/characteristic in 12-month-old infants fed meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches returned no literature on any compound reported with the exact formula C5H6O7S in an infant gut/stool metabolome context, and no study linking such a feature to meat- versus dairy-based complementary feeding. The feature is annotated only by molecular formula (a plausible sulfonated/sulfate-conjugated C5 di-/tricarboxylic acid, e.g. a sulfo-glutaconate/sulfo-itaconate- or sulfate-ester-type species), so no named homolog could be matched to published findings. What is available is generic pathway-level reasoning plus indirect adult data: controlled feeding studies in adults show that increasing meat intake dose-dependently raises colonic sulfide generation and urinary inorganic sulfate, i.e. animal-protein sulfur load expands the host/microbial sulfur metabolite pool, which could plausibly increase sulfur-containing organic acids in stool. However, this is a class-level inference, not evidence for this feature, and it is undercut because dairy protein (especially whey) is itself rich in cysteine and methionine, so a meat > dairy direction for sulfur metabolites is not predicted a priori. Moreover, the primary metabolomics analyses of the meat- vs dairy-based complementary feeding RCT (Denver, 5-12 months) reported that conventional differential-abundance testing of fecal metabolite features found no significant diet-group associations, and the serum metabolomics paper from the same trial highlighted amino acid/BCAA-type differences rather than sulfur-conjugate features. Evidence is therefore generic/theoretical and partly mixed in direction, which maps to a score of 1 rather than 2 (no direct or convergent indirect study on this feature+group) and not 0 (relevant contextual literature was located).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/11101476/",
+      "doi": null,
+      "title": "Contribution of dietary protein to sulfide production in the large intestine: an in vitro and a controlled feeding study in humans",
+      "study_population": "5 healthy adult men in a metabolic suite fed 5 sequential diets with meat intake 0-600 g/d",
+      "relevance": "Indirect, class-level support that higher meat (animal protein) intake increases colonic sulfide and urinary sulfate, i.e. raises the dietary sulfur load feeding sulfur-containing metabolites; does not address C5H6O7S or infants."
+    },
+    {
+      "url": "http://ajcn.nutrition.org/content/80/1/137.full",
+      "doi": null,
+      "title": "Contribution of dietary protein and inorganic sulfur to urinary sulfate: toward a biomarker of inorganic sulfur intake",
+      "study_population": "Healthy adult men (n=7) fed controlled diets low vs high in meat (60-600 g/d) and sulfur additives",
+      "relevance": "Further indirect adult evidence that meat-rich diets increase excreted sulfate, supporting a general (not feature-specific) rationale for higher sulfur-containing metabolites with meat-based protein."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized to meat- vs dairy-based complementary foods; fecal metagenomics and metabolomics",
+      "relevance": "Most directly matched study population/exposure; reports that standard feature-wise differential abundance found no significant diet associations among metabolite features (meat-group signal was at the level of microbial amino acid/nucleic acid/carbohydrate metabolism genes), providing no specific support for a meat-enriched C5H6O7S feature."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7912106/",
+      "doi": null,
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "Infants in a controlled feeding trial consuming meat- vs dairy-based complementary diets from 5 to 12 months, follow-up at 24 months (serum metabolomics)",
+      "relevance": "Same exposure paradigm and age window; reports protein-source-related metabolite differences dominated by amino acids/BCAAs, with no reported sulfur-conjugate or C5H6O7S-type discriminant, so it neither supports nor confirms the hypothesized feature."
+    }
+  ],
+  "contradicting_evidence": "No study reported this feature in the opposite direction, but two points weaken the hypothesized direction: (1) the RCT's own fecal metabolomics analysis reported no significant diet-group differences by conventional differential abundance testing, and (2) dairy proteins (whey/casein) are themselves rich in cysteine and methionine, so a sulfur-containing metabolite would not be expected to be selectively higher in the meat group on sulfur-amino-acid grounds alone (secondary/commercial nutrition sources noting whey's high cysteine content were seen in search results but are not cited as primary evidence).",
+  "search_queries_used": [
+    "C5H6O7S metabolite",
+    "\"C5H6O7S\"",
+    "infant meat versus dairy protein complementary feeding metabolome",
+    "meat-based complementary feeding infant gut microbiome 12 months",
+    "meat intake sulfur amino acid sulfate metabolites urinary metabolomics",
+    "dietary meat protein sulfate gut microbiota hydrogen sulfide infant stool",
+    "sulfated metabolites infant stool metabolome complementary feeding",
+    "meat vs dairy complementary food infant fecal metabolome untargeted sulfur-containing metabolites randomized",
+    "network representation learning infant gut microbiome metabolome meat dairy 5-12 months aqueous metabolites",
+    "sulfate ester metabolite increased meat consumption fecal metabolomics randomized controlled trial",
+    "Network-based representation learning infant meat dairy metabolites enriched meat diet group metabolite formula annotation",
+    "sulfosuccinic acid sulfoitaconic acid molecular formula",
+    "whey protein cysteine content higher than beef sulfur amino acid content dairy vs meat",
+    "Magee dietary protein sulfide production large intestine meat intake urinary sulfate 1-600 g"
+  ],
+  "caveats": "The feature is annotated only by molecular formula (C5H6O7S), with no confirmed structure; several isomeric identities are possible (sulfonated or sulfate-conjugated C5 dicarboxylic acids), so literature matching is inherently limited and any biological interpretation is speculative. Supporting evidence is from adult controlled-feeding studies measuring sulfide/sulfate rather than this compound, and infant complementary-feeding studies of this exact exposure did not report a comparable sulfur-containing discriminant. Structural confirmation (MS/MS, standards) would be needed before literature-based interpretation is meaningful."
+}

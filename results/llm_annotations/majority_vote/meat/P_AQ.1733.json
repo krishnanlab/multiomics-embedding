@@ -1,0 +1,44 @@
+{
+  "feature_id": "P_AQ.1733",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The aqueous-phase metabolite feature with molecular formula C13H26N5O12S is increased or characteristic in 12-month-old infants fed meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches for the molecular formula itself (\"C13H26N5O12S\", formula + HMDB/compound database queries) returned no chemical database entry, no named compound, and no publication reporting this exact elemental composition in any biological matrix, let alone in infant stool/plasma metabolomics. The feature is an unannotated formula-only mass-spectrometry feature (no structure, no external ID), so no direct literature on this feature can exist. What the searches did locate is relevant contextual literature on the exact exposure contrast: the Denver/Colorado randomized controlled feeding trial of formula-fed U.S. infants given meat- vs. dairy-based complementary foods from 5 to 12 months, which reported diet-group differences in serum metabolomics (higher essential and branched-chain amino acids and related nitrogenous derivatives with the higher-protein meat diet) and in fecal microbiome/metabolome features, plus a companion network-learning preprint on the same trial's fecal metabolomics. These establish that meat- vs. dairy-based complementary protein does shift the infant nitrogen- and sulfur-amino-acid-derived metabolite pool, which makes an increase in some nitrogen-rich, sulfur-containing feature at 12 months biologically plausible (meat supplies high loads of purines/nucleotides, methionine, cysteine and taurine, potential precursors of N-rich and sulfated/sulfonated products). However, this is purely generic, pathway-level reasoning: nothing ties the specific composition C13H26N5O12S to the meat group in any direction, and with N5 + O12 + S the formula is compatible with multiple unrelated chemical classes (e.g., a nucleotide/nucleoside-sugar-sulfate conjugate, an aminoglycoside-like or sulfamated amino-sugar, or a peptide-adduct artifact), some of which would be dietary or exogenous rather than microbially derived. Per the rubric this is Weak (1): relevant exposure-level literature but no study of this feature+group combination and no directional evidence.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": "10.3390/nu13020388",
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "U.S. formula-fed term infants in a controlled feeding trial, meat- vs. dairy-based complementary diet from 5 to 12 months, follow-up at 24 months (serum targeted + untargeted metabolomics)",
+      "relevance": "Directly addresses the meat vs. dairy complementary-protein contrast at the 12-month timepoint and shows the diet groups differ in circulating amino-acid and nitrogen-containing metabolite profiles (higher essential amino acids with the higher-protein meat diet). Provides exposure-level/pathway plausibility that nitrogen- and sulfur-amino-acid-derived species could be elevated in the meat group, but does not report any compound with formula C13H26N5O12S."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2022.1063518/full",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term formula-fed U.S. infants (Denver metro area) randomized to meat- or dairy-based complementary foods, 5-12 months; fecal microbiota and fecal SCFA",
+      "relevance": "Confirms that the specified group contrast produces measurable gut microbial and fecal metabolite (SCFA) differences by 12 months, supporting that diet-driven fecal metabolite features are expected in this design; however it reports no untargeted formula-level features and nothing corresponding to C13H26N5O12S."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "64 exclusively formula-fed 5-month-old U.S. infants randomized to pureed meat (n=32) or dairy foods (n=32) for 7 months; fecal metagenomics and metabolomics",
+      "relevance": "Preprint on the same meat-vs-dairy trial analyzing fecal untargeted metabolomics alongside metagenomics; establishes that diet-associated fecal metabolite features are detectable in this exact group comparison, but no evidence was found in the retrieved text that the formula C13H26N5O12S is among the meat-associated features."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C13H26N5O12S metabolite",
+    "infant meat versus dairy complementary feeding metabolome",
+    "meat-based complementary food infant urine metabolomics 12 months",
+    "\"C13H26N5O12S\"",
+    "HMDB formula C13H26N5O12S compound",
+    "sulfur-containing metabolite increased meat-based complementary diet infant plasma",
+    "infant stool metabolome meat-based complementary food sulfate taurine 12 months randomized",
+    "unannotated molecular formula fecal metabolite meat complementary feeding infant aqueous metabolomics"
+  ],
+  "caveats": "The feature is identified only by an elemental composition (C13H26N5O12S) from aqueous-phase untargeted metabolomics, with no structure, name, HMDB/KEGG/PubChem ID, adduct or retention-time information; searches on a bare molecular formula are intrinsically low-yield and cannot rule out that the underlying compound is well studied under a name we could not infer. Formula-only features are also vulnerable to misassignment (adduct/in-source fragment/isotope artifacts, or in-silico formula ambiguity), and an N5/O12/S composition spans several unrelated chemical classes. Structural annotation (MS/MS spectral matching, or at minimum candidate-formula database lookup) is required before this hypothesis can be meaningfully scored; the score of 1 reflects absence of feature-specific literature, not evidence against the hypothesis."
+}

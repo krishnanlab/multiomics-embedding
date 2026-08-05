@@ -1,0 +1,71 @@
+{
+  "feature_id": "COG0413",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "COG0413 (ketopantoate hydroxymethyltransferase, panB; first committed step of pantothenate/CoA biosynthesis) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Multiple searches combining the enzyme name, its gene/orthologue identifiers (panB, COG0413, EC 2.1.2.11) and the exposure keywords (infant gut microbiome, complementary feeding, weaning, meat vs. dairy protein) returned no study - primary or otherwise - reporting this specific orthologous group, or even pantothenate/CoA biosynthesis gene abundance, as differentially abundant between dairy-fed and meat-fed infants. The directly relevant exposure literature exists: the U.S. Colorado randomized controlled feeding trial of formula-fed infants assigned to meat- vs. dairy-based complementary foods from 5-12 months reported gut microbiota (16S) and SCFA differences and, in a follow-up metagenomic/metabolomic analysis using network representation learning, noted that conventional differential-abundance testing found no significant diet associations for individual features; neither source, as observed in search results, singles out pantothenate biosynthesis or ketopantoate hydroxymethyltransferase in the dairy direction. What is available is only generic/pathway-level context: (i) reviews of complementary feeding state that microbial genes for pantothenate (B5) biosynthesis change (generally increase) across the weaning months, without contrasting protein source; (ii) a large survey of the vitamin-biosynthesis landscape of the human gut microbiota reports that microbe-derived pantothenate biosynthetic pathway abundance in infants differs by country/population (higher in Chinese and Italian than U.S. infants), which is attributed to diet/milk composition but is not a dairy-vs-meat contrast; (iii) a Coenzyme A metabolism review similarly frames pantothenate gene abundance as diet/geography dependent. Biochemical characterization of panB/KPHMT in E. coli and Corynebacterium confirms the annotation and pathway role but says nothing about infant diet. This pattern - relevant background found, but no study addressing this feature+group combination and no directional data - fits the 'Weak' tier. A plausible but untested rationale is that a lactose/milk-protein-rich complementary diet favours lactic acid bacteria and Bifidobacterium-type taxa whose CoA/pantothenate biosynthetic capacity is under strong selection when free pantothenate supply is limited; however, dairy foods are themselves a pantothenate source, which could equally suppress (rather than enrich) microbial de novo panB, so even the theoretical direction is ambiguous. No study reporting the opposite direction for this feature+group was found either, so -1 is not warranted.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": null,
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term, formula-fed U.S. infants (Denver, Colorado) randomized to meat- or dairy-based complementary diet from 5 to 12 months; stool at 5, 10, 12 months (16S rRNA, SCFA)",
+      "relevance": "The single most directly matching exposure study (dairy vs. meat complementary protein at 12 months). It reports taxonomic and SCFA differences (e.g., alpha diversity increasing over time in the meat but not dairy group) but, as observed, does not report ketopantoate hydroxymethyltransferase / pantothenate-CoA biosynthesis gene abundance in either direction - i.e., no direct support for the hypothesis."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2.full",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized controlled feeding trial of meat- vs. dairy-based complementary foods; fecal metagenomics and metabolomics",
+      "relevance": "Closest available functional (metagenomic) analysis of the exact exposure and age window. It explicitly notes that traditional differential abundance analysis of individual features found no significant diet associations, with diet signals only emerging from network embedding; no dairy-associated enrichment of pantothenate biosynthesis/panB was observed in the retrieved text, so it neither supports nor contradicts the specific hypothesis."
+    },
+    {
+      "url": "https://journals.asm.org/doi/10.1128/msystems.00929-24",
+      "doi": "10.1128/msystems.00929-24",
+      "title": "Exploring the vitamin biosynthesis landscape of the human gut microbiota",
+      "study_population": "Large cross-population metagenomic survey including infant cohorts (Chinese, Italian, U.S.)",
+      "relevance": "Pathway-level, indirect: shows microbe-derived pantothenate (vitamin B5) biosynthetic pathway abundance in infant gut metagenomes varies systematically between populations and is discussed in relation to milk composition and dietary vitamin availability - establishing that this pathway (which COG0413 initiates) is diet-modulated in infants, but not comparing dairy- vs. meat-based complementary protein."
+    },
+    {
+      "url": "https://doi.org/10.3390/nu11020364",
+      "doi": "10.3390/nu11020364",
+      "title": "Infant Complementary Feeding of Prebiotics for the Microbiome and Immunity",
+      "study_population": "Review of human infant gut microbiome development across the weaning transition",
+      "relevance": "Generic/pathway-level corroboration that genes for pantothenate (B5) biosynthesis are among the vitamin-biosynthesis functions changing across the complementary-feeding months; provides age-appropriate context but no protein-source contrast and no feature-level (COG0413) data."
+    },
+    {
+      "url": "https://academic.oup.com/femsre/article/doi/10.1093/femsre/fuaf051/8281971",
+      "doi": null,
+      "title": "Coenzyme A metabolism: a key driver of gut microbiota dynamics and metabolic profiles",
+      "study_population": "Review of human/microbial CoA and pantothenate metabolism, citing fecal metagenomic cohorts",
+      "relevance": "Supports the general premise that abundance of pantothenate biosynthesis genes in gut metagenomes differs with diet and geography (e.g., Chinese vs. U.S. cohorts), i.e., that this pathway is a plausible diet-responsive functional readout - but offers no dairy-vs-meat directionality in infants."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/776976/",
+      "doi": null,
+      "title": "Ketopantoate hydroxymethyltransferase. I. Purification and role in pantothenate biosynthesis",
+      "study_population": "In vitro biochemistry, Escherichia coli K12",
+      "relevance": "Confirms the functional annotation used for COG0413: the enzyme catalyses the first committed, feedback-regulated step of bacterial pantothenate (and hence CoA) biosynthesis. Establishes the mechanistic identity of the feature only; no host, infant, or dietary relevance."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ketopantoate hydroxymethyltransferase infant gut microbiome",
+    "pantothenate biosynthesis infant gut microbiome dairy protein complementary feeding",
+    "meat versus dairy protein complementary feeding infant gut microbiome metagenome",
+    "COG0413 ketopantoate hydroxymethyltransferase dairy infant metagenome",
+    "network representation learning infant meat dairy metagenomics COG pantothenate ketopantoate",
+    "pantothenate biosynthesis gut microbiome milk dairy consumption enriched",
+    "ketopantoate hydroxymethyltransferase panB Lactobacillus dairy fermentation",
+    "\"COG0413\" gut microbiome",
+    "infant gut microbiome pantothenate CoA biosynthesis pathway weaning increased metagenomics 12 months",
+    "dairy-based complementary food infant gut microbiome Lactobacillus Bifidobacterium vitamin biosynthesis pathway enriched",
+    "vitamin B5 pantothenate microbial biosynthesis milk protein diet gut microbiota randomized",
+    "Tang Krebs infant meat dairy complementary feeding PICRUSt predicted functional pathways gut microbiota Colorado",
+    "biorxiv 621627 infant meat dairy COG functional features metagenome results pantothenate coenzyme metabolism",
+    "infant formula-fed dairy complementary diet metagenome COG cofactor vitamin biosynthesis increased 12 months"
+  ],
+  "caveats": "Evidence retrieval was limited to search-result snippets (~2,000 characters per result); full texts of the meat-vs-dairy RCT and its metagenomic follow-up could not be read in full, so a supplementary table listing COG0413 could exist without being visible here - a targeted full-text/supplement check of PMC9909089 and the bioRxiv/PMC12140001 companion paper is recommended before finalizing. Also note the interpretive ambiguity of gene-family abundance: COG0413 is a broadly distributed housekeeping orthologue present in most Firmicutes/Proteobacteria genomes, so shifts in its relative abundance may simply track taxonomic composition (e.g., loss of Bifidobacterium and expansion of Lachnospiraceae/Clostridia with dairy vs. meat) rather than a diet-specific functional adaptation. Finally, dairy foods supply preformed pantothenate, which could plausibly repress rather than enrich microbial de novo panB, so the hypothesized direction should be treated as unresolved. The external search tool quota was exhausted before three additional planned queries (blood metabolomics of the meat/dairy trial for pantothenic acid; pantothenate content of dairy vs. meat; Bifidobacterium panB) could be run."
+}

@@ -1,0 +1,45 @@
+{
+  "feature_id": "N_LP.659",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The unidentified feature with molecular formula C22H35N12O10 is increased or characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "This feature is reported only as a raw molecular formula (C22H35N12O10) with no compound-level annotation (no name, HMDB/KEGG/LIPID MAPS ID, or MS/MS-confirmed identity). Repeated searches on the formula string itself returned nothing relevant - only unrelated Wikipedia formula index pages and generic ChEBI entries - so there is no literature at all on this specific chemical entity, in infants or otherwise, and the formula (12 nitrogens, 10 oxygens, likely a small peptide, nucleotide/purine conjugate, or an unresolved multimer/adduct rather than a true lipid despite the 'metabolite_lipid' annotation class) cannot be mapped to a single defined compound. What the search did locate is directly relevant contextual literature on the exact exposure contrast: in the U.S. formula-fed infant meat-vs-dairy complementary feeding RCT (5-12 months), the meat arm had higher total protein intake and showed higher concentrations of several essential amino acids and increased trimethylamine N-oxide from 5 to 12 months, and companion papers report diet- and age-dependent shifts in the fecal microbiome/metabolome. This supports only a generic, pathway-level argument that a nitrogen-rich, protein/purine-derived metabolite could plausibly be elevated in the meat group - it says nothing about this particular unannotated feature and equally permits many nitrogenous metabolites to be unchanged or lower. Per the rubric this is theoretical/pathway-level reasoning with no study on the feature+group combination, i.e. weak (1), not absent (0) and not contradicting (-1).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": null,
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "U.S. formula-fed infants in a controlled complementary feeding trial, serum sampled at 5 and 12 months (meat vs. dairy protein arms)",
+      "relevance": "Establishes that the meat-based complementary diet raises total protein intake and is accompanied by higher concentrations of certain essential amino acids and an increase in trimethylamine N-oxide from 5 to 12 months. This is exposure-level/pathway-level support for enrichment of nitrogen-containing, protein-derived metabolites in the meat group, but the paper does not report any feature matching C22H35N12O10, so it is indirect for this specific feature."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2022.1063518/full",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "U.S. formula-fed infants randomized to meat- or dairy-based complementary foods from ~5 to 12 months of age",
+      "relevance": "Confirms that this meat-vs-dairy complementary protein contrast produces measurable, direction-specific gut microbiome differences in the same age window and study design as the group under study, providing biological plausibility that diet-driven microbial nitrogen/protein metabolism differs between arms. No metabolite matching this formula is reported."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2.full",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized meat vs. dairy complementary feeding trial; fecal metagenomics and metabolomics",
+      "relevance": "Shows that both age and meat-vs-dairy diet shape the infant fecal metabolome across 5-12 months, i.e. that group-characteristic metabolite features at 12 months are expected in principle. Preprint, and it does not name a metabolite with formula C22H35N12O10, so it supports only the general framework, not this feature."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C22H35N12O10 metabolite",
+    "infant meat versus dairy complementary feeding metabolome",
+    "meat-based complementary food infant plasma metabolomics 12 months",
+    "\"C22H35N12O10\"",
+    "unidentified lipid feature molecular formula infant gut metabolome meat dairy protein",
+    "Different Blood Metabolomics Profiles Infants Meat Dairy Complementary Diet metabolites increased meat group",
+    "nitrogen-rich metabolite purine infant meat protein intake urinary",
+    "infant fecal metabolome 12 months meat protein complementary feeding amino acid derived metabolites",
+    "untargeted metabolomics unannotated feature molecular formula meat intake biomarker peptide"
+  ],
+  "caveats": "The feature has no compound-level identification, so literature-based validation is fundamentally limited: a molecular formula alone can correspond to many isomers (small Arg/His-rich peptides, nucleotide or purine conjugates) or to an artifact such as an in-source adduct, dimer, or misassigned isotope pattern - and the high N:O ratio is inconsistent with the 'metabolite_lipid' annotation class, suggesting possible mis-binning. No published study reports this formula in any context, let alone in infant meat-vs-dairy complementary feeding. Any apparent enrichment in the 12-month meat group would therefore be a data-driven observation requiring MS/MS-based structural elucidation (and ideally authentic-standard confirmation) before it can be interpreted mechanistically or compared with literature; the cited papers speak to the exposure contrast, not to this feature."
+}

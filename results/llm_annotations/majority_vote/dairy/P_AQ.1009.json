@@ -1,0 +1,20 @@
+{
+  "feature_id": "P_AQ.1009",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The aqueous-phase metabolite feature with assigned molecular formula C22H51N18O7 is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "This feature is an unidentified mass-spectrometry/NMR feature carried only as a raw molecular formula (C22H51N18O7) with no compound name, HMDB/KEGG/PubChem identifier, or class annotation. Targeted searches on the exact formula string returned only generic Wikipedia 'same molecular formula' index pages for unrelated formulas and no chemical-database entry, publication, or spectral library hit. Because no candidate compound identity could be established, there is no literature that connects this feature - or any clearly named homolog, pathway, or compound class it belongs to - with dairy- versus meat-based complementary feeding in infants, or indeed with any biological context. Searches aimed at the exposure side of the hypothesis did retrieve the relevant randomized meat-vs-dairy complementary feeding trial literature in 5-12 month old US formula-fed infants (serum metabolomics and gut microbiota papers), but none of that work reports an unannotated high-nitrogen feature of this composition, and the serum metabolomics report explicitly emphasized limited differential effects of protein source on measured metabolites. I also note that the formula as written is chemically questionable: with 22 C, 51 H, 18 N and 7 O the ring-plus-double-bond equivalent is non-integral for a neutral species, which is consistent with an adduct/ion form or an erroneous formula assignment rather than a well-defined neutral metabolite - a further reason no matching literature exists. Per the rubric this is a 0 (no relevant literature located for this feature+group combination), not a 1, because nothing feature-specific or even class-specific could be found to reason from, and not a -1, because no study addresses this feature in the opposite direction either.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C22H51N18O7 metabolite",
+    "infant complementary feeding dairy versus meat protein metabolomics",
+    "meat versus dairy protein infant 12 months plasma metabolome",
+    "\"C22H51N18O7\"",
+    "unannotated molecular formula arginine-rich peptide infant stool metabolome dairy",
+    "aqueous metabolite NMR infant stool 12 months dairy protein guanidino compounds"
+  ],
+  "caveats": "The score reflects absence of literature on an unidentified feature, not evidence against the hypothesis - the internal data may still show a real group difference. Two important limitations: (1) the formula may be mis-assigned (non-integer RDBE for a neutral molecule; very high N:C ratio suggests a multiply-charged ion, adduct artifact, or in-source cluster), so annotation should be revisited (isotope pattern, MS/MS, adduct rules) before any literature interpretation; (2) if a plausible identity is later assigned (e.g. a polyamine/guanidino- or arginine-rich peptide, which the high nitrogen content hints at), the literature search should be repeated against that name, since dairy protein (casein/whey) versus meat protein differ in arginine, creatine/creatinine and polyamine content and could plausibly drive such features. Contextually, published serum metabolomics from the meat-vs-dairy complementary feeding trial in this age range reported few protein-source-specific metabolite differences, which tempers prior expectation of a strong dairy-specific signal, but this is group-level background rather than evidence about this feature."
+}

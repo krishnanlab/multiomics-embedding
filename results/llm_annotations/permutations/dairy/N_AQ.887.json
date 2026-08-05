@@ -1,0 +1,21 @@
+{
+  "feature_id": "N_AQ.887",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The unannotated aqueous-phase metabolite feature with assigned molecular formula C14H3NS3 is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "No literature was located for this feature in any context, let alone in relation to dairy- vs. meat-based complementary feeding in infants. Searches on the raw formula (both 'C14H3NS3' and the spaced form 'C14 H3 N S3') returned only generic Wikipedia molecular-formula set-index pages for unrelated formulas and one unrelated Zenodo supplementary list of sulfur-containing formulas; no compound database entry, primary study, or review linked this formula to a named metabolite. The formula itself is chemically implausible for an endogenous or dietary metabolite: with 14 carbons, 1 nitrogen, 3 sulfurs and only 3 hydrogens, the ring-plus-double-bond equivalent is ~14, i.e. an extremely hydrogen-poor, highly unsaturated polysulfur species with no plausible biological or food-derived counterpart. Because the feature cannot be mapped to a known compound or pathway, even generic/pathway-level reasoning about dairy vs. meat protein feeding (e.g. sulfur amino acid catabolism, methionine/cysteine-derived volatile sulfur compounds, taurine from dairy) cannot be responsibly attached to it. Searches did retrieve the relevant infant meat- vs. dairy-based complementary feeding trial literature (serum metabolomics, fecal microbiota, and integrated microbiome-metabolome analyses at 5 and 12 months), confirming the exposure context is well studied, but none of these reported a feature corresponding to this formula or an analogous highly unsaturated trisulfur nitrogenous compound. Per the rubric this is a 'none found' case (0) rather than 'weak' (1), since nothing relevant to this specific feature - not even a defensible compound identity on which theoretical reasoning could be built - was located.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C14H3NS3 metabolite",
+    "\"C14 H3 N S3\" metabolite formula",
+    "infant 12 months dairy versus meat complementary protein metabolome",
+    "sulfur-containing metabolite fecal infant dairy complementary food trial",
+    "trithiane trisulfide metabolite infant gut",
+    "\"C14H3NS3\"",
+    "untargeted metabolomics unannotated molecular formula sulfur infant feces meat dairy 12 months"
+  ],
+  "caveats": "This is a formula-only, unnamed annotation from an untargeted aqueous-phase run; the formula assignment is very likely erroneous (implausible hydrogen deficiency for a biological molecule) and may reflect noise, an adduct/isotope artifact, an in-source fragment, or a contaminant rather than a real metabolite. Literature evaluation of the hypothesis is not meaningful until the feature is re-annotated with MS/MS spectral matching or a corrected formula; if a plausible named compound emerges (e.g. a sulfur amino acid derivative or a volatile organosulfur compound), the dairy-vs-meat hypothesis should be re-searched under that name. Absence of literature here reflects the annotation problem and does not by itself argue against a real group difference in the underlying signal."
+}

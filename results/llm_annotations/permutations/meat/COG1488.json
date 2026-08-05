@@ -1,0 +1,72 @@
+{
+  "feature_id": "COG1488",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "Microbial nicotinic acid phosphoribosyltransferase (COG1488; NaPRTase/pncB-type, NAD salvage via the Preiss-Handler route) is increased or characteristic in 12-month-old infants fed meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "No study was located that reports COG1488 (or a clearly named homolog such as pncB/nadV nicotin(ic)amide phosphoribosyltransferase, K00763) as enriched in meat-fed versus dairy-fed infants. The only literature directly addressing this exposure contrast in infants is the Colorado randomized meat- vs. dairy-based complementary feeding trial (5-12 months, formula-fed U.S. infants). Its metagenomic/metabolomic analysis reports the meat group enriched for microbial genes in amino acid, nucleotide and carbohydrate transport/metabolism, translation/ribosomal structure and DNA replication-recombination-repair COG categories, and enrichment at nominal significance for Pfam DNA-repair/translation families; coenzyme transport and metabolism (COG category H), the category containing COG1488, is not among the reported enriched categories, and conventional per-feature differential abundance testing in that trial found no significant diet associations. Supporting evidence is therefore only indirect and pathway-level: (i) in a large adult population study, 'other dairy products' consumption was inversely associated with a KO gene assigned to nicotinate/nicotinamide metabolism (K01950/NAD synthetase), which is directionally consistent with relatively higher NAD-pathway gene abundance under a meat-heavier diet, but the gene and population differ; (ii) generic nutritional reasoning that meat is a concentrated source of preformed niacin/NAD(P) and tryptophan, plus the fact that NaPRTase (PncB) is the canonical bacterial salvage entry point for nicotinic acid, makes a substrate-driven increase plausible. Because nothing addresses this specific feature+group combination and the available signals are pathway-level/theoretical (with one mechanistic finding arguing the other way), this meets the rubric for weak (1) rather than moderate support; it is not 0 because relevant pathway- and exposure-level literature was found, and not -1 because no study directly reports the opposite direction for this feature in this group.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3.full",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized to meat- vs. dairy-based complementary protein; fecal shotgun metagenomics and metabolomics",
+      "relevance": "Most direct available study of the exposure contrast: reports the meat group enriched for COG categories of amino acid, nucleotide and carbohydrate transport/metabolism, translation and DNA replication/repair; coenzyme transport and metabolism (the category containing COG1488) is not reported as meat-enriched, and standard differential abundance analysis found no significant diet associations."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial (peer-reviewed version)",
+      "study_population": "Same randomized controlled complementary feeding trial, U.S. formula-fed infants 5-12 months",
+      "relevance": "Confirms the published finding that meat-diet enrichment was in amino acid, nucleic acid and carbohydrate metabolism gene families, without a reported coenzyme/NAD-metabolism signal."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11377619/",
+      "doi": null,
+      "title": "Associations of plant-based foods, red and processed meat, and dairy with gut microbiome in Finnish adults",
+      "study_population": "1273 Finnish adults aged 25-64 (FINRISK/FINDIET 2002), shallow shotgun metagenomics with 48-h dietary recalls",
+      "relevance": "Indirect, adult, pathway-level support: dairy consumption showed its most prominent inverse association with metabolism of cofactors and vitamins, specifically nicotinate and nicotinamide metabolism (other dairy products inversely associated with KO K01950), consistent in direction with relatively higher NAD-pathway gene abundance in meat-weighted diets, though the specific gene is not COG1488/pncB."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "U.S. formula-fed infants during complementary feeding, meat vs. dairy randomized arms, 16S rRNA profiling",
+      "relevance": "Establishes that meat vs. dairy complementary protein does shift infant gut community composition (e.g., dairy-associated Akkermansia), but is taxonomic/16S only and reports no gene-level NAD/niacin salvage findings, so it cannot support the COG1488 direction."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2019.01316/full",
+      "doi": "10.3389/fmicb.2019.01316",
+      "title": "Micronutrient Requirements and Sharing Capabilities of the Human Gut Microbiome",
+      "study_population": "Comparative genomic analysis of human gut bacterial genomes (not infant-specific)",
+      "relevance": "Pathway-level background: identifies PncB (nicotinic acid phosphoribosyltransferase) as the canonical bacterial salvage route from dietary/luminal nicotinic acid into NAD(P), the theoretical basis for a niacin-rich (meat) diet increasing this function; no diet-group comparison."
+    },
+    {
+      "url": "https://www.cell.com/cell-metabolism/fulltext/S1550-4131(22)00495-8",
+      "doi": null,
+      "title": "NAD precursors cycle between host tissues and the gut microbiome",
+      "study_population": "Mouse isotope-tracing and germ-free/antibiotic experiments on NAD precursor flux",
+      "relevance": "Mechanistically relevant but tempering: dietary NAD precursors are absorbed proximally and largely unavailable to distal gut microbes, with microbial NAD synthesis instead supported by host-derived circulating nicotinamide (microbes deamidate it to nicotinic acid) - arguing that dietary niacin content of meat may not straightforwardly raise distal microbial nicotinic acid salvage gene abundance."
+    }
+  ],
+  "contradicting_evidence": "Two findings weigh against the hypothesis rather than supporting it: (1) the randomized meat vs. dairy infant trial's own metagenomic analysis reported meat-group enrichment in amino acid, nucleotide, carbohydrate, translation and DNA repair functions, with no reported enrichment of coenzyme transport/metabolism (COG category H) or nicotinate/nicotinamide genes, and no significant per-feature diet associations by conventional differential abundance testing; (2) mouse isotope-tracing work indicates dietary NAD precursors (abundant in meat) are absorbed in the proximal gut and do not reach distal-gut microbes, whose NAD precursor supply comes from host circulating nicotinamide - undermining the simplest substrate-driven rationale. Neither reports COG1488 as higher in the dairy group, so this is inconclusive/absent support rather than a directional contradiction.",
+  "search_queries_used": [
+    "nicotinic acid phosphoribosyltransferase infant gut microbiome",
+    "meat versus dairy complementary feeding infant gut microbiome metagenome",
+    "niacin NAD salvage pathway gut microbiome meat diet",
+    "Tang Krebs meat dairy complementary feeding infant microbiome functional pathways enriched COG",
+    "COG1488 pncB nicotinate phosphoribosyltransferase diet gut microbiome enriched",
+    "infant complementary feeding metagenome coenzyme metabolism vitamin B3 niacin biosynthesis 12 months",
+    "meat consumption infant niacin intake gut microbiome nicotinamide",
+    "network representation learning infant meat diet enriched microbial genes amino acid nucleotide coenzyme metabolism COG",
+    "\"COG1488\" nicotinic acid phosphoribosyltransferase",
+    "biorxiv 2024.11.01.621627 coenzyme transport and metabolism meat diet enriched COG categories infant",
+    "meat diet infant gut microbiome KO genes enriched nicotinate nicotinamide metabolism",
+    "Finnish adults plant-based foods red and processed meat dairy gut microbiome nicotinate and nicotinamide metabolism inverse association",
+    "red meat intake gut microbiota nicotinate and nicotinamide metabolism pathway abundance",
+    "PMC11377619 red and processed meat KEGG pathways two-component system beta-lactam resistance inverse nicotinate",
+    "Valsta Finnish adults gut microbiome red processed meat functional pathways results cofactors vitamins nicotinate nicotinamide"
+  ],
+  "caveats": "COG1488 is an orthology group covering both nicotinic acid (PncB/NaPRT) and nicotinamide (NadV) phosphoribosyltransferase-type enzymes, so gene-level annotation is ambiguous and pathway-level literature (KEGG 'nicotinate and nicotinamide metabolism', KO K00763 or K01950) is only a partial proxy. The single most relevant infant study is the same meat-vs-dairy trial design as the group under study, so it should not be treated as independent external replication; its reported functional enrichments do not include coenzyme metabolism. Adult population evidence is confounded by whole-diet patterns and used shallow shotgun sequencing. Search tool quota was exhausted before some planned follow-up queries (e.g., weaning-associated cofactor biosynthesis gene shifts, high-animal-protein feeding trials in children) could be run, so additional relevant primary studies may exist."
+}

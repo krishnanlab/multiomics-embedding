@@ -1,0 +1,22 @@
+{
+  "feature_id": "ENOG4111SU2",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "ENOG4111SU2 (an eggNOG orthologous group of unknown function) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches on the identifier 'ENOG4111SU2' (alone, in quotes, and combined with eggNOG/infant gut microbiome/complementary feeding terms) returned no hits for this orthologous group at all - search engines returned only unrelated string matches (e.g. unrelated gene/patent/route names) and generic eggNOG database/tool papers (eggNOG 5.0, eggNOG-mapper v2, eggNOG v7). No primary study, database annotation page, or review that mentions this specific OG was retrieved, so there is no literature-based information on its taxonomic distribution, biochemical role, or diet responsiveness. Because eggNOG annotates it as 'Function unknown', it is also not possible to build a pathway-level or mechanistic argument that would justify a weak (score 1) rating: there is no function to reason from. Searches did retrieve relevant literature on the broader exposure (meat- vs dairy-based complementary feeding in U.S. formula-fed infants, e.g. the Tang et al. randomized controlled trial and the associated network-based multi-omic analysis), but those reports discuss taxa and general functional categories and none of the retrieved records associate this particular eggNOG gene family with dairy-based complementary protein in either direction. With no feature-specific evidence located - supporting or contradicting - the correct rubric assignment is 0 (none found) rather than 1 (weak/theoretical) or -1 (contradicting).",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG4111SU2",
+    "ENOG4111SU2 eggNOG infant gut microbiome",
+    "eggNOG ortholog group infant gut microbiome dairy meat complementary feeding",
+    "\"ENOG4111SU2\" gene family",
+    "ENOG4111SU2 eggNOG unknown function ortholog",
+    "eggNOG orthologous group unknown function infant gut meat vs dairy complementary food randomized trial metagenome",
+    "biorxiv 621627 eggNOG features infant meat dairy ENOG differentially abundant",
+    "\"ENOG\" gene family 12-month infants dairy protein gut microbiome function unknown"
+  ],
+  "caveats": "Uncharacterized eggNOG identifiers of the 'ENOG41...' form are essentially invisible to web search engines and are rarely named in article text (they usually appear only in supplementary tables or supplementary data files, which are poorly indexed); absence of search hits therefore does not prove absence of evidence. Literature on the exposure itself (meat- vs dairy-based complementary feeding in ~5-12 month old formula-fed U.S. infants) does exist, but retrieved reports emphasized taxonomic and broad metabolic-category differences and reported limited or no significant diet effects in conventional per-feature differential abundance testing, so any directional claim for this specific gene family currently rests on the investigators' internal data rather than published work. Validating this feature would require mapping ENOG4111SU2 to its member sequences/taxa in a current eggNOG release and re-searching under the resulting protein-family or organism names, and confirming the OG ID against the eggNOG version used (IDs changed between eggNOG 4.5/5.0 and v6/v7)."
+}

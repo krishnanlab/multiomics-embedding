@@ -1,0 +1,63 @@
+{
+  "feature_id": "COG2039",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "COG2039 (pyrrolidone-carboxylate peptidase / N-terminal pyroglutamyl peptidase) is increased or characteristic of the fecal metagenome of 12-month-old infants receiving meat-based complementary protein, relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches located no study - human or animal - that reports pyrrolidone-carboxylate peptidase (pcp, EC 3.4.19.3 / EC 3.4.11.8, COG2039) as differentially abundant between meat- and dairy-based complementary feeding, or in any infant weaning/complementary-feeding microbiome context. The literature on this enzyme that surfaced is purely biochemical/structural (Bacillus subtilis pcp gene characterization, archaeal Thermococcus/Pyrococcus pyrrolidone carboxyl peptidase structures, human/mouse pyroglutamyl-peptidase I cloning) with no dietary or infant-cohort component. The only literature directly addressing the exact exposure contrast is the U.S. formula-fed meat vs. dairy complementary feeding RCT (Tang/Krebs group). Its taxonomic paper reports 12-month beta-diversity and genus-level differences (e.g., Akkermansia, richness increasing only in the meat group) but no gene-family/COG results. Its metagenomic-functional companion preprint reports COG functional-category enrichment in the meat group for translation/ribosomal structure and biogenesis, nucleotide transport and metabolism, amino acid transport and metabolism, carbohydrate transport and metabolism, and DNA replication/recombination/repair - i.e. broad anabolic and amino-acid categories - but does not report the COG category to which COG2039 belongs ('posttranslational modification, protein turnover, chaperones', category O), and reports no individual COG identifiers that I could verify. So the only support for the hypothesis is generic reasoning: a higher animal-protein (meat) load plausibly delivers more undigested peptide substrate to the colon and selects for microbial peptidase/proteolytic capacity, consistent with the meat-group enrichment of amino acid transport and metabolism genes in that trial and with controlled human data showing that increased dietary protein stimulates microbial amino acid catabolism. That is pathway-level/theoretical only for this specific exopeptidase, and it is confounded by the fact that pcp abundance in gut metagenomes is likely driven mainly by taxonomic composition (e.g. Bacteroidetes, whose signal-peptidase-I substrates characteristically expose N-terminal pyroglutamate) rather than by dietary protein source. This matches the 'weak' rubric tier: something relevant was found, but nothing on this feature+group combination.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized to meat- vs. dairy-based complementary protein; fecal metagenomics (COG, KO, Pfam) and untargeted metabolomics",
+      "relevance": "Closest available study of the exact exposure and feature type (COG-annotated infant fecal metagenomes). Reports meat-group COG enrichment in translation/ribosomal biogenesis, nucleotide, amino acid and carbohydrate transport/metabolism, and DNA replication/repair - broadly consistent with greater microbial protein/amino-acid handling capacity under a meat diet - but does not report COG2039 specifically, nor the 'posttranslational modification, protein turnover, chaperones' category that contains it."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "U.S. formula-fed infants followed from 5 to 12 months in an RCT of meat- vs. dairy-based complementary foods",
+      "relevance": "Establishes that the meat vs. dairy complementary protein contrast does produce distinct gut microbiota at 12 months (beta-diversity difference, richness increase only in the meat group, genus-level shifts), but is 16S/taxonomy-based and provides no gene-family (COG) level data, so it neither supports nor refutes the COG2039 direction."
+    },
+    {
+      "url": "https://www.tandfonline.com/doi/full/10.1080/19490976.2025.2465896",
+      "doi": "10.1080/19490976.2025.2465896",
+      "title": "Increased dietary protein stimulates amino acid catabolism via the gut microbiota and secondary bile acid production",
+      "study_population": "Dietary protein intervention with gut microbiota/metabolite profiling (non-infant)",
+      "relevance": "Indirect, pathway-level support for the general premise that a higher dietary protein load increases microbial protein/amino-acid catabolic activity, which is the only mechanistic basis for expecting peptidase gene families to rise on a meat-based diet; it does not examine pyroglutamyl peptidase or infants."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5837995/",
+      "doi": "10.3389/fmicb.2018.00230",
+      "title": "The Bacteroidetes Q-Rule: Pyroglutamate in Signal Peptidase I Substrates",
+      "study_population": "Comparative genomics/bioinformatics of Bacteroidetes, major human gut colonizers",
+      "relevance": "Provides the main non-dietary explanation for variation in N-terminal pyroglutamyl peptidase-related gene content in gut metagenomes: pyroglutamate formation at exported-protein N-termini is a phylum-level (Bacteroidetes) trait, so COG2039 abundance is expected to track taxonomic composition rather than meat vs. dairy protein per se."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/1353026/",
+      "doi": null,
+      "title": "Characterization of the pcp gene encoding the pyrrolidone carboxyl peptidase of Bacillus subtilis",
+      "study_population": "Bacterial molecular genetics (Bacillus subtilis); no host or dietary context",
+      "relevance": "Confirms the identity/function of the feature (bacterial pcp removes N-terminal pyroglutamyl residues) and illustrates that the retrievable literature on this enzyme is biochemical rather than diet- or microbiome-association based."
+    }
+  ],
+  "contradicting_evidence": "No study reporting the opposite direction for COG2039 in this contrast was found. The only mildly non-supportive observation is that the meat vs. dairy trial's functional metagenomics preprint lists meat-group COG enrichments for translation, nucleotide, amino acid, carbohydrate and DNA replication categories, while the COG category containing COG2039 ('posttranslational modification, protein turnover, chaperones') is not among the reported enriched categories - absence of category-level enrichment, not evidence of a reversed direction. Additionally, pyroglutamyl peptides are well documented in dairy/casein-derived hydrolysates, so a dairy diet could equally plausibly supply pGlu-peptide substrate; this makes the hypothesized direction non-obvious but is not a direct contradiction.",
+  "search_queries_used": [
+    "pyrrolidone-carboxylate peptidase gut microbiome infant",
+    "COG2039 pyroglutamyl peptidase microbiome",
+    "meat versus dairy complementary feeding infant gut microbiome metagenome",
+    "infant complementary feeding meat protein gut microbiome proteolytic functions",
+    "COG2039 infant gut metagenome meat dairy",
+    "pyroglutamyl peptidase COG infant meat diet metagenomics feeding trial",
+    "Tang Krebs meat dairy infant gut microbiome functional pathways amino acid metabolism 12 months",
+    "pyroglutamate gut microbiota meat protein diet",
+    "pyrrolidone carboxylate peptidase pcp bacterial gene abundance high protein diet",
+    "Price Rasolofomanana-Rajery network representation learning infant COG features meat diet 12 months significant COGs",
+    "infant gut metagenome COG posttranslational modification protein turnover chaperones weaning increase",
+    "high protein diet gut microbiome peptidase gene enrichment metagenome adults",
+    "pyroglutamic acid pyroglutamate infant feces metabolome meat dairy complementary feeding"
+  ],
+  "caveats": "COG2039 is a narrow, housekeeping-type exopeptidase family; such single-COG features are rarely reported individually in diet-intervention metagenomics, so absence of literature reflects reporting granularity as much as biology. A further limitation is that the one publication addressing this exact exposure with COG-level metagenomics appears to derive from the same trial design (U.S. formula-fed infants, 5 and 12 months, meat vs. dairy) as the study under evaluation, so it may not constitute independent external validation; its category-level results were used only as context, and no internal study data were assumed. Search-tool quota was reached before I could complete queries on pyroglutamyl-peptide content of milk vs. meat proteins and on pcp gene distribution across Bifidobacterium/Bacteroides, so those angles remain unresolved. If the investigators wish to strengthen or refute this, targeted checks of whether COG2039 abundance simply co-varies with Bacteroides/Bacteroidetes relative abundance would be the highest-yield next step."
+}

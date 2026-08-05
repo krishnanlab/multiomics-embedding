@@ -1,0 +1,60 @@
+{
+  "feature_id": "PF01743",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The Pfam domain PF01743 (poly A polymerase head domain, bacterial PAP I/PcnB-type RNA polyadenylation machinery) is increased or characteristic of the gut metagenome of 12-month-old infants receiving meat-based complementary protein relative to those receiving dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches located no study - human or animal - that reports the abundance of PF01743 (or pcnB / bacterial poly(A) polymerase genes generally) as differing between meat- and dairy-based complementary feeding, or between any dietary protein sources, in the infant gut. What was found is only generic, pathway-level support: the published analysis of a U.S. randomized controlled meat- vs. dairy-based complementary feeding trial (5-12 months, formula-fed infants) reported that the meat diet group was enriched for microbial genes encoding amino acid, nucleic acid, and carbohydrate metabolism, and that among Pfam features the meat group showed nominally significant enrichment in families involved in DNA repair, translation, and ribosomal proteins. A bacterial poly(A) polymerase head domain falls broadly under 'nucleic acid metabolism / RNA processing', so the hypothesized direction is compatible with that coarse enrichment signal, but the specific domain is never named in any search result, the enrichment was only nominal (FDR ~0.07) and derived from the same trial that this feature list appears to come from (so it is not independent corroboration). The companion 16S RCT report describes taxonomic differences at 12 months (e.g., Ruminococcus enrichment in the meat group) but no gene-family/functional data on polyadenylation. Mechanistically, PF01743 is a housekeeping post-transcriptional RNA-turnover domain (PAP I/PcnB, closely related to tRNA CCA-adding enzymes) present broadly across bacteria; its metagenomic abundance is expected to track overall taxonomic composition (particularly Proteobacteria/Enterobacteriaceae and other pcnB-carrying lineages, which generally decline from 5 to 12 months) rather than dietary protein source per se. This is theoretical reasoning, not evidence, so the feature+group combination remains essentially untested in the literature: weak (1), not contradicted and not absent of all relevant material.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized to meat- vs. dairy-based complementary foods; fecal metagenomics + metabolomics",
+      "relevance": "Closest available evidence: reports the meat diet group enriched for microbial genes of amino acid, nucleic acid and carbohydrate metabolism, and (in the preprint version) nominal Pfam-level enrichment in DNA repair, translation and ribosomal protein families. Directionally compatible with a nucleic-acid/RNA-processing domain such as PF01743 being meat-associated, but PF01743 is not named and this is the same trial, so it provides only pathway-level, non-independent support."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3.full.pdf",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial (preprint v3)",
+      "study_population": "Same U.S. meat vs. dairy complementary feeding RCT, infants 5-12 months",
+      "relevance": "Preprint text observed in search results states that among Pfam features the meat group was enriched at nominal significance in protein families performing DNA repair (FDR=0.07), translation (FDR=0.07) and ribosomal proteins; it also notes conventional differential abundance analysis found no significant diet associations - i.e. any individual Pfam-level meat association, including PF01743, is at best weakly supported."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term formula-fed U.S. infants (Denver metro) randomized to meat- or dairy-based complementary foods, 5-12 months, 16S rRNA gut microbiota",
+      "relevance": "Primary RCT demonstrating that meat vs. dairy complementary protein does alter the 12-month gut microbiota (e.g., Ruminococcus enriched in the meat group), establishing biological plausibility for diet-driven gene-family shifts, but it reports no functional/Pfam data and therefore says nothing about poly(A) polymerase domains."
+    },
+    {
+      "url": "https://www.ebi.ac.uk/interpro/entry/interpro/IPR002646",
+      "doi": null,
+      "title": "Poly A polymerase, head domain (IPR002646) - InterPro",
+      "study_population": "Not a study - protein family/domain database entry",
+      "relevance": "Confirms feature identity: PF01743/IPR002646 is the head domain of bacterial poly(A) polymerase, a broadly distributed post-transcriptional RNA-turnover enzyme family, supporting the interpretation that it is a housekeeping domain with no known diet-specific function."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8208693/",
+      "doi": "10.1099/mgen.0.000508",
+      "title": "Acquisition of pcnB [poly(A) polymerase I] genes via horizontal transfer from the beta, gamma-Proteobacteria",
+      "study_population": "Comparative bacterial genomics (no host/dietary context)",
+      "relevance": "Indicates that pcnB / poly(A) polymerase I genes have a patchy, lineage-restricted distribution concentrated in Proteobacteria and acquired horizontally, implying metagenomic PF01743 abundance is driven mainly by taxonomic composition rather than by dietary protein source - an argument against a specific meat-diet mechanism."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "PF01743 poly A polymerase head domain",
+    "infant gut microbiome meat versus dairy protein complementary feeding metagenome",
+    "meat-based complementary food infant gut microbiome 12 months",
+    "PF01743 gut microbiome",
+    "poly(A) polymerase PcnB bacterial gut microbiome diet Pfam",
+    "Pfam domain enriched 12-month-old infant meat group metagenome network embedding",
+    "\"poly A polymerase\" infant gut microbiome meat diet Pfam enriched",
+    "poly(A) polymerase pcnB abundance dietary protein gut bacteria RNA degradation infant",
+    "\"PF01743\" infant OR diet OR meat OR feeding metagenomics",
+    "Pfam nucleic acid metabolism enrichment meat diet infants 621627 poly A polymerase head domain"
+  ],
+  "caveats": "No literature addresses PF01743 (or bacterial poly(A) polymerase gene abundance) in relation to complementary feeding, dietary protein source, or infant age at all; the only supporting signal is a coarse 'nucleic acid metabolism / translation / DNA repair' Pfam enrichment reported from what appears to be the same meat-vs-dairy trial, which risks circularity and was only nominally significant (FDR~0.07) with no significant per-feature differential abundance. PF01743 is a housekeeping RNA-turnover domain whose metagenomic abundance is expected to co-vary with taxonomy (notably Proteobacteria/Enterobacteriaceae, which decline over 5-12 months) and with sequencing depth/annotation pipeline, so any apparent diet effect should be checked for confounding by taxonomic composition and by total gene-count normalization. Full texts could not be retrieved in the sandbox (no internet), so conclusions rest on search-result snippets."
+}

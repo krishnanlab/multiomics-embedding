@@ -1,0 +1,20 @@
+{
+  "feature_id": "N_AQ.887",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The unannotated aqueous-phase feature with putative formula C14H3NS3 is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein, relative to those receiving meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "No literature could be located for this feature in any form. Searches on the exact formula string (\"C14H3NS3\", \"C14 H3 N S3\") returned only Wikipedia molecular-formula set-index pages for unrelated formulas and one unrelated deposited metabolite-formula list (Zenodo sulfur-metabolite heatmap file), with no compound identity, database ID (HMDB/KEGG/ChEBI/PubChem), or biological report attached to this formula. The feature also has no interpretable chemical identity: C14H3NS3 has an extremely low hydrogen-to-carbon ratio (H/C = 0.21) and a very high ring-plus-double-bond equivalent, which is not consistent with any plausible endogenous, dietary, or microbially derived aqueous-phase metabolite; it is most consistent with a formula-assignment artifact, an isotope/adduct mis-assignment, or an in-source fragment rather than a real trisulfur-nitrogen compound. Consequently there is no named homolog, class, or pathway to which indirect evidence could be anchored, so even generic pathway-level reasoning about dairy- vs meat-based complementary protein is not possible for this feature. Literature on the dairy- versus meat-based complementary feeding contrast at 12 months does exist (e.g., serum metabolomics from a controlled infant feeding trial appeared in searches, reporting amino-acid/BCAA-centred differences), but none of it reports any feature corresponding to this formula, and none of it addresses sulfur-rich unknowns of this type. Because nothing relevant to this specific feature was found in either direction, the correct score is 0 (no evidence located) rather than 1 (weak/theoretical support) or -1 (contradicting).",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C14H3NS3 metabolite",
+    "\"C14 H3 N S3\" compound",
+    "dairy versus meat based complementary feeding infant metabolome 12 months",
+    "sulfur-containing metabolite dairy-based complementary diet infant stool metabolome",
+    "trisulfide metabolite infant gut metabolome dairy",
+    "unannotated molecular formula metabolomics infant complementary feeding sulfur trithiane"
+  ],
+  "caveats": "The feature is identified only by a putative molecular formula with no compound name or database identifier, and that formula is chemically implausible for a biological aqueous-phase metabolite, so it may represent a mis-assigned formula, adduct/isotope artifact, or in-source fragment. A literature search therefore cannot meaningfully test the hypothesis; the score of 0 reflects absence of locatable evidence about this feature, not evidence against the directional hypothesis. Structural confirmation (accurate mass, isotope pattern including sulfur isotopes, MS/MS spectrum, or NMR assignment) and re-annotation against spectral libraries are prerequisites before any literature-based evaluation of this feature can be attempted. If the feature is later resolved to a named sulfur- or nitrogen-containing compound (e.g., a thiazole/thiophene-type volatile, a methanethiol-derived species, or a taurine/cysteine-pathway product), the dairy-versus-meat protein comparison should be re-searched under that identity, since dairy and meat proteins differ substantially in sulfur amino acid content and in microbial sulfur metabolism potential."
+}

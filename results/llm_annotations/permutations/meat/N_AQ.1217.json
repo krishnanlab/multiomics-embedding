@@ -1,0 +1,66 @@
+{
+  "feature_id": "N_AQ.1217",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "8Z-heptadecenoic acid (cis-8 C17:1, C17:1n-9) is increased/characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein",
+  "confidence_score": 1,
+  "rationale": "Multiple searches located no study - in infants, children, or adults - reporting 8Z-heptadecenoic acid (or the broader C17:1 heptadecenoic acid pool) as elevated by meat-based versus dairy-based feeding. The only published metabolomics work from a meat- vs. dairy-based complementary feeding RCT in 5-12-month-old formula-fed U.S. infants (Tang et al., Nutrients 2021) emphasizes amino acids (BCAAs, threonine, phenylalanine) and does not report heptadecenoic acid or C17:1 as a discriminating feature in the abstract/summary material retrieved. What is available is only generic, compound-class-level reasoning: odd-chain fatty acids (OCFAs) are enriched in ruminant lipids, and heptadecenoic acid (17:1) is a recognized minor constituent of both ruminant intramuscular fat and ruminant milk fat, with 17:1 cis-9 the dominant isomer and cis-8/cis-10 isomers minor or virtually absent. Because ruminant meat fat and dairy fat both supply 17:1, and because C17 OCFAs are more classically validated as dairy-fat biomarkers (and are also partly endogenously synthesized from propionyl-CoA/2-hydroxyacyl-CoA lyase activity), the class-level literature does not consistently favor the hypothesized meat > dairy direction. Additionally, the specific isomer here (cis-8, C17:1n-9) is not a described dietary-intake biomarker in any retrieved source, so annotation-level ambiguity further weakens directional inference. This is therefore weak/pathway-level, partly mixed evidence rather than either direct support or a direct contradiction of the feature+group combination.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.sciencedirect.com/science/article/pii/S0022030206720811",
+      "doi": null,
+      "title": "Short Communication: The Nature of Heptadecenoic Acid in Ruminant Fats",
+      "study_population": "Bovine, ovine and caprine milk fat and intramuscular fat samples (food/analytical chemistry, not human)",
+      "relevance": "Establishes that heptadecenoic acid (17:1) occurs in BOTH ruminant intramuscular (meat) fat and ruminant milk fat, and that the predominant isomer is 17:1 cis-9 while cis-10 is virtually absent and cis-8 is separable but not highlighted as a major dietary isomer. This is the closest compositional basis for a meat-versus-dairy contrast, and it does not clearly favor meat over dairy for this compound class; it also flags isomer-identification ambiguity for the specific cis-8 species."
+    },
+    {
+      "url": "https://advances.nutrition.org/article/S2161-8313(22)00757-8/fulltext",
+      "doi": null,
+      "title": "Pentadecanoic and Heptadecanoic Acids: Multifaceted Odd-Chain Fatty Acids (review)",
+      "study_population": "Review of human and animal studies of odd-chain fatty acids",
+      "relevance": "Provides the pathway/class-level context: C15:0 and C17:0 odd-chain fatty acids are minor components of milk fat and ruminant meat and are conventionally treated as dairy-fat intake biomarkers, and they can also be endogenously synthesized. Indicates that odd-chain C17 lipids are not specific to meat intake, so class-level reasoning does not support a meat-specific increase."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": "10.3390/nu13020388",
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "Formula-fed U.S. infants in a controlled feeding trial, meat- vs. dairy-based complementary diet from 5 to 12 months, follow-up at 24 months",
+      "relevance": "The single most directly relevant human-infant study of this exact exposure contrast and age window; its reported discriminating metabolites are amino acids/BCAAs rather than C17:1 fatty acids, i.e. no support was found here for a meat-associated increase in heptadecenoic acid."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/26678873/",
+      "doi": null,
+      "title": "Exploring the association of dairy product intake with the fatty acids C15:0 and C17:0 measured from dried blood spots in a multipopulation cohort: Findings from the Food4Me study",
+      "study_population": "European adults, multi-country cohort (Food4Me)",
+      "relevance": "Indirect, opposite-leaning context: circulating odd-chain C15:0/C17:0 track dairy (especially high-fat dairy) intake in humans, showing that C17 odd-chain lipid biomarkers are generally associated with dairy rather than meat consumption."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6151664/",
+      "doi": null,
+      "title": "Peroxisomal 2-Hydroxyacyl-CoA Lyase Is Involved in Endogenous Biosynthesis of Heptadecanoic Acid",
+      "study_population": "Experimental (cell/animal) biochemistry of C17 fatty acid synthesis",
+      "relevance": "Shows that circulating C17 odd-chain fatty acids are substantially endogenously generated, meaning host lipid metabolism rather than dietary protein source could drive C17:1 levels - an alternative explanation that limits interpretation of this feature as a meat-intake marker."
+    }
+  ],
+  "contradicting_evidence": "No study directly tested 8Z-heptadecenoic acid in meat- vs dairy-fed infants, but the adjacent literature leans the other way: odd-chain C17 fatty acids (C17:0, and by extension the C17:1 pool) are widely validated as biomarkers of DAIRY fat intake in adults, adolescents and children (Food4Me dried-blood-spot cohort; adolescent plasma/erythrocyte biomarker evaluation; pediatric dairy-fat/liver-fat studies), and 17:1 cis-9 is abundant in ruminant milk fat as well as meat fat. This class-level evidence would, if anything, predict higher C17 odd-chain lipids in a dairy-based group. Because it concerns different (mostly saturated C17:0/C15:0) species and no study addresses this feature+group combination directly, the overall picture is mixed rather than a clear contradiction, hence a score of 1 rather than -1.",
+  "search_queries_used": [
+    "8Z-heptadecenoic acid",
+    "heptadecenoic acid C17:1 meat intake biomarker",
+    "heptadecanoic acid dairy intake biomarker infant",
+    "meat-based versus dairy-based complementary feeding infants metabolomics",
+    "infant complementary feeding meat protein plasma fatty acids randomized trial",
+    "heptadecenoic acid C17:1 dairy fat biomarker plasma",
+    "cis-10-heptadecenoic acid ruminant fat biomarker meat intake",
+    "\"heptadecenoic\" infant serum metabolomics meat dairy complementary diet",
+    "Different Blood Metabolomics Profiles Infants Meat Dairy Complementary Diet fatty acids results",
+    "heptadecenoic acid 17:1 plasma red meat consumption association",
+    "odd chain monounsaturated fatty acid 17:1n-9 beef pork content",
+    "Hill Reisdorph Krebs Tang infant meat dairy multi-omics metabolomics gut microbiome",
+    "infant meat dairy complementary feeding untargeted metabolomics fatty acids higher meat group 12 months",
+    "heptadecenoic acid increased meat intervention plasma metabolomics",
+    "17:1 heptadecenoic acid infant plasma fatty acid weaning",
+    "Network-based representation learning gut microbial metabolomic infants diet meat dairy metabolites identified (search quota exceeded, no results returned)"
+  ],
+  "caveats": "Key limitations: (1) untargeted aqueous-phase LC-MS annotation of a specific C17:1 positional isomer (cis-8) is uncertain - most reported dietary literature concerns 17:1 cis-9 (ruminant) or cis-10 (commercial standard), so the feature may represent a mixed/misassigned C17:1 species; (2) heptadecenoic acid is also produced endogenously and is influenced by total dietary fat, desaturase activity and adiposity, so group differences may not be diet-source-specific; (3) both the meat and the dairy arms of such trials contain ruminant-derived fat, blunting expected contrast; (4) additional searches on the same trial's multi-omics/network papers could not be completed because the web-search quota was exhausted, so a direct report of this feature in that trial cannot be fully excluded."
+}

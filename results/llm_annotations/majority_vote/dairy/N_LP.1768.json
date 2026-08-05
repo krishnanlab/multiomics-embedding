@@ -1,0 +1,20 @@
+{
+  "feature_id": "N_LP.1768",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The unannotated lipid-mode LC-MS feature 'C14 H30 N14 O5 Esi-8.310019' is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "This feature is not a named chemical entity: it is an unidentified LC-MS feature reported only as a putative molecular formula (C14H30N14O5) plus an ESI retention time (8.31 min) from a lipid-mode run. Repeated searches on the formula string, on formula-plus-metabolomics terms, and on the formula combined with infant/complementary-feeding/dairy terms returned no database record (HMDB/ChEBI/LIPID MAPS/PubChem), no compound name, and no primary study reporting this feature in any biological context, let alone in infants fed dairy- versus meat-based complementary foods. The formula itself is chemically unusual for a lipid (14 nitrogens, high N:C ratio, no phosphorus or long even-chain fatty-acyl signature), which is more consistent with a poorly resolved/ambiguous formula assignment, an adduct/in-source artifact, or a highly nitrogenous oligopeptide- or guanidino/polyamine-like species than with a canonical lipid class; without an MS/MS-based identification no pathway-level or mechanistic reasoning about a dairy-versus-meat protein source effect can be responsibly constructed. Searches did retrieve literature relevant to the study context in general (randomized trials of meat- versus dairy-based complementary feeding in U.S. formula-fed infants with blood metabolomics and gut microbiome/metabolome outputs), but none of these report anything attributable to this specific unknown feature, so no evidence exists either for or against the hypothesized direction. Per the rubric this is 'none found' rather than 'weak', because there is no feature-specific or even feature-analogous literature to reason from - the identity gap, not merely evidence strength, is the limiting factor.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C14H30N14O5 metabolite",
+    "dairy versus meat complementary protein infant metabolome 12 months",
+    "infant metabolomics dairy protein vs meat protein urine plasma",
+    "\"C14H30N14O5\"",
+    "unknown metabolite formula C14H30N14O5 mass spectrometry annotation",
+    "infant gut metabolome dairy complementary feeding unidentified lipid feature ESI"
+  ],
+  "caveats": "The hypothesis cannot be evaluated on its merits until the feature is annotated. Recommended next steps before literature scoring is meaningful: (1) confirm the monoisotopic mass, adduct form and isotope pattern - the N14 formula may be a misassignment or an adduct/dimer/in-source fragment; (2) acquire MS/MS and match against spectral libraries (GNPS, mzCloud, MassBank) or run in-silico annotation (SIRIUS/CSI:FingerID); (3) re-run this literature assessment against the resulting candidate identity and its chemical class. Also note that retention-time-tagged feature IDs such as 'Esi-8.310019' are platform- and run-specific and are not searchable identifiers in the published literature, so absence of hits is expected for any such feature and should not itself be read as biological novelty."
+}

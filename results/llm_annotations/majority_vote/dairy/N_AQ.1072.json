@@ -1,0 +1,28 @@
+{
+  "feature_id": "N_AQ.1072",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "2-Butanone, 4-[6-(sulfooxy)-2-naphthalenyl]- (CAS 91488-18-5; METLIN 137) is increased or characteristic in the aqueous fecal metabolome of 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for this compound (systematic name, the CAS number 91488-18-5, the METLIN ID, and structural synonyms such as 4-(6-sulfooxy-2-naphthalenyl)-2-butanone / sulfate conjugate of 6-hydroxy-nabumetone-type naphthylalkanone) returned no primary research, review, or database record linking it to infant gut metabolomics, complementary feeding, weaning, dairy intake, meat intake, or dairy-versus-meat protein comparisons. The only hits for the chemical scaffold were unrelated: PubChem/vendor records for structurally similar naphthalenyl butanones (e.g., 4-hydroxy-4-(6-methoxy-2-naphthalenyl)-2-butanone, 4-(6-hydroxy-2-naphthalenyl)-2-butanone), crystallography papers on aroylated naphthalenes, synthesis patents, and drug labels for nabumetone (4-(6-methoxy-2-naphthalenyl)-2-butanone), whose phase-II metabolism yields sulfate/glucuronide conjugates of hydroxylated naphthylalkanones. Searches did retrieve the relevant infant meat-vs-dairy complementary-feeding literature (randomized controlled feeding trial reports on gut microbiota, serum metabolomics, and a network-based fecal metagenome/metabolome preprint), but none of the retrieved material mentioned this metabolite, this compound class, or a sulfated naphthalene derivative as a dairy- or meat-associated feature. Because no literature relevant to this feature+group combination was located in either direction - and not even a plausible published dietary or microbial route by which dairy protein would raise a sulfooxy-naphthalenyl butanone - the appropriate score is 0 (none found) rather than weak support or contradiction. Biologically this annotation looks like an exogenous/xenobiotic sulfate conjugate (host SULT-mediated sulfation of a hydroxylated naphthalenyl ketone, consistent with a nabumetone-like or environmental naphthalene-derived parent) rather than a diet-derived or microbially generated metabolite, and its detection in infant stool is more plausibly explained by annotation ambiguity in an untargeted aqueous-phase LC-MS library match than by dairy protein intake.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "2-Butanone, 4-[6-(sulfooxy)-2-naphthalenyl]-",
+    "91488-18-5 metabolite",
+    "naphthalenyl butanone sulfooxy infant gut metabolome",
+    "nabumetone metabolite sulfate 4-(6-hydroxy-2-naphthalenyl)-2-butanone sulfate",
+    "METLIN 137 metabolite",
+    "dairy versus meat complementary feeding infant fecal metabolome 12 months",
+    "meat-based versus dairy-based complementary protein infant gut microbiome trial",
+    "\"sulfooxy\" naphthalenyl butanone infant serum metabolomics meat dairy",
+    "Tang infant meat dairy complementary feeding untargeted metabolomics sulfate xenobiotic naphthalene",
+    "naphthalene sulfate metabolite infant stool dairy milk",
+    "4-(6-sulfooxy-2-naphthalenyl)-2-butanone PubChem",
+    "nabumetone sulfate conjugate infant feces metabolomics",
+    "\"2-Butanone, 4-[6-(sulfooxy)-2-naphthalenyl]\"",
+    "sulfooxy naphthalenyl butanone gut microbiome metabolomics dairy"
+  ],
+  "caveats": "Absence of literature is not evidence against the internal finding: this is an obscure, likely xenobiotic-derived compound with essentially no metabolomics literature, so a true dairy-related signal could simply be unpublished. However, the annotation itself should be treated as low-confidence - the name/CAS corresponds to a sulfate conjugate of a naphthylalkanone (nabumetone-like or environmental naphthalene metabolite), a class prone to spurious library matches in untargeted aqueous-phase LC-MS; MS/MS-level confirmation and checking for co-eluting isobaric sulfates (and for medication/environmental exposure as a confounder) would be needed before pursuing this feature as a dairy marker. Web search coverage of chemical-specific metabolomics supplementary tables is also incomplete, so a mention buried in supplementary data of a diet study cannot be fully excluded."
+}

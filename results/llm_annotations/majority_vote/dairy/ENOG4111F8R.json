@@ -1,0 +1,23 @@
+{
+  "feature_id": "ENOG4111F8R",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The eggNOG orthologous group ENOG4111F8R (function unknown) is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for the exact identifier 'ENOG4111F8R' returned no biological hits at all - only irrelevant pages (unrelated human genes, electronics part numbers) - indicating this specific eggNOG orthologous group has no published characterization or phenotype association in the indexed literature. Because the feature is annotated only as 'Function unknown' with no gene name, enzyme, pathway, or taxon attached, there is also no substrate for pathway-level or theoretical reasoning that would link it to dairy versus meat complementary protein. Searches combining the identifier and generic eggNOG/functional-gene terms with the exposure keywords ('meat vs dairy complementary food', 'infant gut microbiome', '12 months', 'metagenomic gene ortholog') surfaced the relevant randomized controlled feeding trial literature on meat- versus dairy-based complementary feeding in U.S. formula-fed infants, but none of those records mention this orthologous group or any specific ENOG-level feature enriched in the dairy arm. Since no literature addresses this feature - in either direction - the correct rubric score is 0 (none found) rather than 1 (generic/theoretical support) or -1 (contradicting).",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG4111F8R",
+    "ENOG4111F8R eggNOG ortholog group",
+    "eggNOG orthologous group infant gut microbiome dairy meat complementary feeding",
+    "\"ENOG4111F8R\" gut",
+    "ENOG4111F8R function unknown ortholog bacteria",
+    "meat versus dairy based complementary food infant gut microbiome gene functional profile eggNOG",
+    "dairy-based complementary food 12 month infant microbiome functional gene ortholog increased",
+    "Network-based representation learning infant gut microbiome meat dairy ENOG features dairy group",
+    "biorxiv 2024.11.01.621627 dairy group eggNOG orthologous groups features"
+  ],
+  "caveats": "Unnamed, uncharacterized eggNOG orthologous groups are essentially never discussed individually in the published literature, so a score of 0 reflects the annotation gap rather than a demonstrated absence of biological signal; if the internal data show a robust dairy-associated shift, the feature would need to be resolved to a gene family, contributing taxon, or co-abundance module (e.g., via eggNOG v6/v7 lookup of member sequences or MAG-level contig context) before literature validation is possible. Note also that the published meat- vs. dairy-based complementary feeding RCT reports in U.S. formula-fed infants (5-12 months) emphasize age as the dominant driver, with individual microbiome/metabolite features generally not differing significantly by diet arm after multiple-testing correction - so any single feature claimed as 'characteristic' of the 12-month dairy group should be treated as exploratory and requires replication in an independent cohort."
+}

@@ -1,0 +1,23 @@
+{
+  "feature_id": "N_AQ.1361",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "The unannotated aqueous-phase metabolite feature with assigned molecular formula C6H2O9S2 is increased or characteristic in 12-month-old infants receiving dairy-based complementary protein relative to those receiving meat-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "This feature is not a named compound - it is only a molecular-formula assignment (C6H2O9S2) from an untargeted aqueous-phase metabolomics run. Repeated searches on the exact formula returned no compound record (no PubChem/HMDB/ChEBI/Wikipedia formula-index hit), no synonym, and therefore no literature linking it to any biological or dietary context, let alone to dairy- versus meat-based complementary feeding in infants. Searches combining infant complementary feeding, dairy vs. meat protein, and sulfated/sulfur-containing metabolites retrieved only feature-agnostic work (e.g., serum and fecal metabolomics from meat- vs. dairy-fed U.S. formula-fed infants, sulfated bile acid and polyphenol-sulfate dietary biomarker studies), none of which reports this formula or a clearly identifiable homolog. The formula itself is also chemically implausible as a common dietary or microbial metabolite: with only 2 hydrogens for 6 carbons plus two sulfur/oxygen-rich groups it is extremely hydrogen-deficient, unlike typical phenolic sulfates (e.g., phenyl sulfate C6H6O4S) or amino-acid-derived sulfonates, which suggests an in-source fragment, adduct, multiply-charged species, or a mis-assigned formula rather than an established metabolite. Because no evidence at all bearing on this specific feature+group combination was located, and no legitimate pathway-level reasoning can be anchored to an unidentifiable formula, the score is 0 rather than 1.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": "No study reports this feature in either direction. Contextually, the serum metabolomics analysis of the U.S. meat- vs. dairy-based complementary feeding trial reported that age (5 to 12 months) drove most metabolite change while protein source did not appear to differentially impact serum metabolites, which tempers any prior expectation that a given unknown feature will separate dairy from meat groups - but this is background context, not direct contradiction of this specific feature.",
+  "search_queries_used": [
+    "C6H2O9S2 metabolite",
+    "infant dairy versus meat complementary feeding metabolome",
+    "disulfated metabolite infant urine dairy protein",
+    "Different Blood Metabolomics Profiles Infants Meat Dairy Complementary Diet sulfate metabolites",
+    "sulfated metabolites gut microbiome infants dairy protein 12 months",
+    "\"C6H2O9S2\"",
+    "unknown sulfur-containing metabolite infant gut dairy-based complementary food untargeted metabolomics",
+    "Network-based representation learning age diet gut microbial metabolomic U.S. infants dairy group metabolites",
+    "sulfated compound biomarker milk intake children metabolomics"
+  ],
+  "caveats": "Literature searchability is fundamentally limited for formula-only features: even if the underlying ion is a real dairy-responsive metabolite, it cannot be matched to publications without a structural annotation. Recommended next steps before any interpretation: verify the formula assignment and charge state, check for in-source fragmentation/adduct relationships with co-eluting features, run MS/MS spectral matching (GNPS/mzCloud) and consider that two sulfate/sulfonate groups may indicate a conjugated xenobiotic or an artifact of the aqueous extraction/ionization. Any group difference observed internally for this feature should be treated as hypothesis-generating only."
+}

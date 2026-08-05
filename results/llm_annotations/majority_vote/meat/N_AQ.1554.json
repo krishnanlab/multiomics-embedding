@@ -1,0 +1,22 @@
+{
+  "feature_id": "N_AQ.1554",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The aqueous-phase metabolite feature with molecular formula C37H47N3O2S is increased/characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 0,
+  "rationale": "This feature is not an annotated compound - it is reported only as a raw molecular formula (C37 H47 N3 O2 S, monoisotopic mass ~597.3) from an untargeted aqueous-phase metabolomics run, with no compound name, HMDB/KEGG/PubChem identifier, or class assignment supplied. Multiple searches on the formula string (alone, and combined with PubChem/HMDB/exact-mass terms) returned no compound record and no metabolite literature; hits were only generic Wikipedia 'same molecular formula' index pages for unrelated formulas. Searches combining the infant complementary-feeding context (meat- vs dairy-based protein, 12 months, gut microbiome/metabolome) did retrieve relevant trial literature on the meat-vs-dairy complementary feeding paradigm (e.g., blood metabolomics and growth-outcome reports from the randomized meat/dairy complementary feeding trial, and a network-learning analysis of infant fecal microbiome/metabolome), but none of these report this formula or any identifiable homolog, and none provide a directional claim that could be attributed to this feature. Because no compound identity can be established, even pathway-level or theoretical reasoning about why a C37H47N3O2S species would rise with meat protein intake is not possible (a large sulfur- and nitrogen-containing species of this mass is compatible with many chemistries - peptide/thioether conjugates, alkaloid- or dye-like xenobiotics, lipid-conjugates - and could equally be a contaminant or adduct/in-source artifact). No literature specific to this feature+group combination was located, so the score is 0 (none found) rather than 1; there is also nothing contradicting, so -1 does not apply.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C37H47N3O2S metabolite",
+    "infant complementary feeding meat versus dairy protein metabolomics",
+    "meat-based complementary food 12-month infant gut metabolome",
+    "\"C37H47N3O2S\" chemical formula compound",
+    "unannotated metabolite molecular formula infant meat dairy complementary feeding sulfur nitrogen",
+    "aqueous metabolite untargeted LC-MS infant stool meat protein complementary feeding sulfur-containing",
+    "HMDB metabolite formula C37H47N3O2S exact mass 597",
+    "C37H47N3O2S PubChem"
+  ],
+  "caveats": "The score reflects the un-annotated status of the feature, not evidence against it. Literature evaluation is effectively impossible until the feature is structurally annotated (MS/MS spectral matching, isotope/adduct checking to confirm the neutral formula, and ideally authentic-standard confirmation). Note that the published meat- vs dairy-based complementary feeding metabolomics work that does exist is largely plasma/serum-based, so even a confirmed annotation would need matching to the correct biospecimen. Investigators should also rule out that this high-mass N/S-containing feature is an in-source fragment, multimer, adduct, or process/plastic contaminant before pursuing it biologically."
+}

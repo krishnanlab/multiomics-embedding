@@ -1,0 +1,57 @@
+{
+  "feature_id": "ENOG4111IRS",
+  "omics_type": "microbiome",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The eggNOG orthologous group ENOG4111IRS ('VTC domain protein', function unknown) is increased or characteristic in 12-month-old infants receiving meat-based complementary protein relative to dairy-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches (eggNOG ID, protein/domain name, and combinations with infant gut microbiome, complementary feeding, and meat vs. dairy protein keywords) returned no study that reports this orthologous group - or a named VTC-domain/polyphosphate-polymerase homolog - as differentially abundant between meat- and dairy-fed infants, or in any infant complementary-feeding context. What the literature does provide is (a) primary randomized-trial evidence that meat- vs. dairy-based complementary foods do shape the infant gut microbiota composition and (b) a metagenomic/metabolomic analysis of the same U.S. formula-fed RCT (5-12 months) reporting, via network representation learning, that the meat group was enriched for microbial genes in amino acid, nucleic acid and carbohydrate metabolism, while conventional independent differential-abundance testing found no significant diet associations at the feature level. Neither report names a VTC domain protein, and the functional categories highlighted for the meat group (amino acid/nucleotide/carbohydrate metabolism) do not map onto this uncharacterized domain; VTC domains are characterized mainly as eukaryotic vacuolar transporter chaperone/polyphosphate-polymerase modules (yeast, trypanosomatids), with no diet-linked gut evidence located. This therefore amounts to generic, exposure-level plausibility only (diet shifts functional gene content in this age window), with no direct or indirect study of this specific feature+group combination - a Weak (1) rather than 0, since relevant group-level literature exists, and not -1, since nothing reports the opposite direction for this feature either.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": "10.3389/fnut.2022.1063518",
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term, formula-fed U.S. infants randomized to meat- or dairy-based complementary foods, followed from ~5 to 12 months of age",
+      "relevance": "Primary RCT establishing that the meat vs. dairy complementary protein contrast alters infant gut microbiota (e.g., diverging alpha-diversity trajectories and taxonomic differences), i.e., the exposure is real - but the report is taxonomy-focused and does not mention VTC domain proteins or eggNOG ENOG4111IRS, so it provides no directional support for this feature."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3.full.pdf",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial (preprint)",
+      "study_population": "U.S. formula-fed infants, 5-12 months, meat vs. dairy complementary feeding RCT; fecal shotgun metagenomics (eggNOG/KEGG functional annotation) and metabolomics",
+      "relevance": "Closest available functional-level analysis of this exact exposure: reports the meat group enriched for microbial genes in amino acid, nucleic acid and carbohydrate metabolism, and explicitly notes that standard independent differential-abundance testing found no significant diet associations. No VTC domain protein is named, so this yields only generic support that diet shifts eggNOG-level gene content."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12140001/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial (peer-reviewed version)",
+      "study_population": "Same U.S. formula-fed infant meat vs. dairy RCT cohort, 5 and 12 month fecal samples",
+      "relevance": "Confirms that feature-level (independent) differential abundance analysis of microbiome features between meat and dairy diets yielded no significant hits in this cohort, which argues against any well-established meat-specific enrichment of an individual uncharacterized ortholog such as ENOG4111IRS."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41467-023-36466-4",
+      "doi": null,
+      "title": "The cytoplasmic synthesis and coupled membrane translocation of eukaryotic polyphosphate by signal-activated VTC complex",
+      "study_population": "Yeast/in vitro structural and biochemical study (non-host, non-infant)",
+      "relevance": "Provides the only mechanistic context found for VTC domains (polyphosphate polymerase/vacuolar transporter chaperone activity, phosphate homeostasis). This is eukaryote-centric and unrelated to infant diet, so it supports neither the direction nor a dietary link, and cannot elevate confidence."
+    }
+  ],
+  "contradicting_evidence": "No study reporting this feature enriched in the dairy group was found; however, the peer-reviewed analysis of the matching meat-vs-dairy infant RCT states that conventional per-feature differential abundance analysis detected no significant diet-associated microbiome features, which weakens (but does not directly contradict) the hypothesis.",
+  "search_queries_used": [
+    "ENOG4111IRS eggNOG VTC domain protein",
+    "VTC domain protein infant gut microbiome",
+    "meat versus dairy protein complementary feeding infant gut microbiome metagenome",
+    "vacuolar transporter chaperone VTC domain polyphosphate bacteria",
+    "\"VTC domain\" eggNOG orthologous group gut metagenome meat dairy infants",
+    "network representation learning infant gut microbiome metabolome meat dairy eggNOG orthologous groups 12 months",
+    "infant gut microbiome functional gene meat-based complementary food metagenomic eggNOG annotation 5 to 12 months",
+    "polyphosphate kinase gut microbiota diet protein infant",
+    "ENOG4111IRS",
+    "\"VTC domain protein\" gut microbiome",
+    "biorxiv 2024.11.01.621627 meat diet enriched microbial genes amino acid nucleic acid carbohydrate metabolism eggNOG features",
+    "\"VTC domain\" protein bacteria function unknown ortholog group metagenomics diet",
+    "\"VTC domain\" meat dairy infant metagenomics differential abundance",
+    "Tang Krebs meat dairy complementary feeding infant metagenome functional gene ortholog enriched meat group"
+  ],
+  "caveats": "eggNOG 'ENOG' accessions for uncharacterized orthologous groups are essentially absent from the indexed literature, so a search-based approach cannot readily detect prior reports even if they exist in supplementary tables; absence of evidence here is partly a searchability artifact. The 'VTC domain' annotation itself is ambiguous (best characterized in eukaryotic polyphosphate/phosphate-homeostasis complexes) and eggNOG labels it function-unknown, so no pathway-level directional prediction for meat vs. dairy protein can be made. Any apparent enrichment should be treated as an internal-data-driven, hypothesis-generating finding requiring taxonomic assignment of the contigs carrying this ortholog and replication in an independent complementary-feeding cohort."
+}

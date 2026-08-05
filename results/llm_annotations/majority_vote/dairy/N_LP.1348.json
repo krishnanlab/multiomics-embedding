@@ -1,0 +1,70 @@
+{
+  "feature_id": "N_LP.1348",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_dairy",
+  "hypothesis": "Glycyl-L-leucine (Gly-Leu, KEGG C02155) is increased/characteristic in 12-month-old infants receiving dairy-based complementary protein relative to meat-based complementary protein.",
+  "confidence_score": 1,
+  "rationale": "Searches located no primary study reporting glycyl-L-leucine (glycylleucine, HMDB0000759 / KEGG C02155) as differentially abundant between dairy-based and meat-based complementary feeding in infants, in either biofluid or stool. The one directly on-point human infant study design I found (Nutrients 2021 serum metabolomics of the 5-12 mo meat- vs dairy-based controlled-feeding trial, and the companion growth/microbiome RCT) matches the exposure and age window exactly, but nothing in the retrieved abstracts/records indicated glycylleucine or dipeptides among the discriminating metabolites, so it cannot be counted as direct support. What I did find is only generic, pathway-level plausibility: (i) Glycyl-L-leucine is catalogued as a bovine milk constituent in the Milk Composition Database (BMDB0000759), consistent with dairy foods delivering this dipeptide directly; (ii) reviews of milk protein-derived peptides document that dipeptides from casein/whey digestion appear in plasma after dairy protein ingestion, with dipeptides more bioavailable than longer peptides. Countervailing generic evidence: a controlled crossover meal trial in healthy adults comparing fermented dairy with red meat found dipeptides on BOTH sides of the comparison - hydroxyproline-containing dipeptides (plus carnosine, taurine, creatine) as meat biomarkers and proline-based dipeptides as novel putative dairy biomarkers - i.e., 'dipeptide' abundance per se does not cleanly favour dairy, and Gly-Leu specifically was not named as a dairy marker. Because relevant literature exists but never addresses this feature+group combination and the class-level signal is mixed, this is weak (score 1) rather than 0 (nothing found) or -1 (direct opposite-direction finding).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": null,
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "Formula-fed US infants in a controlled feeding trial consuming meat- vs dairy-based complementary foods from 5 to 12 months, followed to 24 months; targeted and untargeted serum metabolomics",
+      "relevance": "Exactly the exposure/age context of the hypothesis, showing that meat vs dairy complementary protein produces distinguishable metabolomic profiles; however the retrieved record gives no indication that glycyl-L-leucine (or dipeptides generally) was among the dairy-associated discriminants, so it supports plausibility of a diet-driven signal but not this specific feature or direction."
+    },
+    {
+      "url": "https://www.mcdb.ca/metabolites/BMDB0000759",
+      "doi": null,
+      "title": "Milk Composition Database: metabocard for Glycyl-L-leucine (BMDB0000759)",
+      "study_population": "Bovine milk composition reference database (not a human study)",
+      "relevance": "Documents Glycyl-L-leucine as a compound catalogued in milk, providing a direct dietary-exposure route by which dairy-based complementary foods could raise this dipeptide; database-level (not primary-study) evidence only."
+    },
+    {
+      "url": "https://www.cambridge.org/core/journals/nutrition-research-reviews/article/bioavailability-of-milk-proteinderived-bioactive-peptides-a-glycaemic-management-perspective/7469E4B2396D0F309DEA1EED561648BB",
+      "doi": null,
+      "title": "Bioavailability of milk protein-derived bioactive peptides: a glycaemic management perspective (Nutrition Research Reviews)",
+      "study_population": "Review of human and in vitro studies of whey/casein protein ingestion in adults",
+      "relevance": "Notes that plasma dipeptide levels exceed tripeptide levels after whey ingestion and lists specific branched-chain dipeptides released from whey hydrolysates, supporting the general mechanism that dairy protein intake elevates small dipeptides - but no data on Gly-Leu or on infants."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11459089/",
+      "doi": null,
+      "title": "Metabolomics-based biomarkers of fermented dairy and red meat intake: a randomized controlled trial in healthy adults",
+      "study_population": "Healthy adults, randomized controlled postprandial meal trial (fermented dairy vs red meat)",
+      "relevance": "Class-level evidence that dipeptides discriminate dairy from meat intake in both directions: hydroxyproline-based dipeptides/carnosine mark meat while proline-based dipeptides are putative dairy markers; glycylleucine is not identified as a dairy marker, so this tempers rather than supports the specific hypothesis."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6128676/",
+      "doi": null,
+      "title": "A meat- or dairy-based complementary diet leads to distinct growth patterns in formula-fed infants: a randomized controlled trial",
+      "study_population": "Formula-fed infants randomized to meat- vs dairy-based complementary diets from ~5 to 12 months",
+      "relevance": "Establishes that the meat vs dairy complementary-protein contrast at 12 months is a real, well-characterized exposure with differing protein/amino-acid intakes, but reports growth outcomes rather than dipeptide metabolites."
+    },
+    {
+      "url": "https://www.wikidata.org/wiki/Q27140595",
+      "doi": null,
+      "title": "glycylleucine (Wikidata Q27140595)",
+      "study_population": "Chemical identifier record (not a study)",
+      "relevance": "Confirms identifier mapping for the queried feature (CAS 869-19-2, KEGG C02155, HMDB0000759, ChEBI 73514), validating that searches targeted the correct compound; no biological association data."
+    }
+  ],
+  "contradicting_evidence": "No study reported glycyl-L-leucine higher in meat-fed infants, so there is no direct contradiction. However, the adult dairy-vs-red-meat biomarker RCT indicates that meat intake also generates characteristic dipeptides (hydroxyproline-containing dipeptides, carnosine/anserine-type compounds), so dipeptide elevation is not specific to dairy; this makes the class-level rationale ambiguous rather than opposing.",
+  "search_queries_used": [
+    "glycyl-leucine dipeptide infant gut metabolome dairy",
+    "Gly-Leu dipeptide plasma infant milk protein formula",
+    "dairy protein vs meat protein complementary feeding infant metabolome dipeptides",
+    "\"Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet\" dipeptide glycylleucine",
+    "glycylleucine dairy consumption metabolite biomarker",
+    "glycylleucine C02155 serum metabolomics dairy intake",
+    "Different Blood Metabolomics Profiles Infants Meat Dairy Complementary Diet results amino acids leucine",
+    "fecal metabolome infants meat versus dairy protein complementary feeding gut microbiome Tang Krebs",
+    "dipeptides biomarkers dairy protein intake casein whey plasma dipeptide profile",
+    "glycylleucine metabolomics",
+    "\"glycyl-leucine\" gut microbiome",
+    "glycylleucine infant stool metabolomics weaning",
+    "Gly-Leu dipeptide fecal metabolite protein fermentation infant"
+  ],
+  "caveats": "The feature label 'Glycyl-L-leucine Esi-3.5' is an untargeted LC-MS annotation (ESI mode, retention-time tag) and dipeptide isomers/isobars (e.g. Leu-Gly, other Gly-X/X-Gly pairs, or leucine+glycine adducts) are notoriously hard to resolve, so annotation confidence itself is a limitation. Dipeptides in stool/serum also arise from host and microbial proteolysis of any dietary protein, from mucin and endogenous protein turnover, and are sensitive to peptidase (e.g. DPP-4, aminopeptidase) activity and to sample handling, meaning any dairy-vs-meat difference could reflect total protein load or fermentation intensity rather than dairy protein per se. Additional caveats: search coverage was truncated (server tool-use limit reached before the final planned queries on Gly-Leu content in milk vs beef), full texts and supplementary metabolite tables of the meat-vs-dairy infant trial were not retrievable within this session, and that trial measured serum rather than fecal metabolites, so a null there would not exclude a fecal effect."
+}

@@ -1,0 +1,44 @@
+{
+  "feature_id": "P_AQ.1733",
+  "omics_type": "metabolite",
+  "group": "infant_12mo_meat",
+  "hypothesis": "The unidentified aqueous-phase metabolite feature with molecular formula C13H26N5O12S is increased/characteristic in 12-month-old infants fed a meat-based complementary diet relative to a dairy-based complementary diet.",
+  "confidence_score": 1,
+  "rationale": "Searches for the exact molecular formula (\"C13H26N5O12S\") returned no compound record, no database entry, and no publication reporting this formula in any biological matrix - only unrelated set-index pages for other molecular formulas. Because the feature has no chemical name/identity (annotation is a bare formula from untargeted MS), no literature can directly address it, and there is therefore no study on this feature + meat-vs-dairy complementary feeding combination. What searches did retrieve is contextual literature on the same type of exposure: the Colorado randomized meat- vs. dairy-based complementary feeding trial in formula-fed U.S. infants (5-12 months), which reports diet-group differences in serum metabolomics (notably amino acid/BCAA-related shifts) and, in the accompanying network-representation-learning analysis of paired fecal metagenomes and metabolomes, enrichment of microbial genes for amino acid, nucleic acid and carbohydrate metabolism in the meat group. That makes it plausible in a purely generic sense that a nitrogen- and sulfur-containing (i.e. amino-acid/nucleotide-derived) polar metabolite could track with higher meat protein intake, since meat is richer in sulfur amino acids (methionine, cysteine, taurine) and in purine/nucleotide substrates than dairy. This is pathway-level, theoretical reasoning only, with no feature-specific data, which maps to a confidence score of 1 rather than 2. An additional technical caution: for a neutral, even-electron molecule the formula C13H26N5O12S gives a half-integer ring-plus-double-bond equivalent (13 - 26/2 + 5/2 + 1 = 3.5), violating the nitrogen rule, so the formula as given is most consistent with an adduct/ion form or an ambiguous formula assignment - reinforcing that no confident literature match is possible.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7912106/",
+      "doi": "10.3390/nu13020388",
+      "title": "Different Blood Metabolomics Profiles in Infants Consuming a Meat- or Dairy-Based Complementary Diet",
+      "study_population": "Formula-fed U.S. infants in a randomized controlled complementary-feeding trial, meat vs. dairy protein from 5 to 12 months of age (serum targeted and untargeted metabolomics; ~151 annotated metabolites)",
+      "relevance": "Indirect/contextual only: establishes that a meat- vs. dairy-based complementary diet produces measurable metabolomic differences (largely amino-acid related) in infants at the 5-12 month window, but this study reports named metabolites and does not report any feature with formula C13H26N5O12S, so it does not support the hypothesis for this specific feature."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants, 5-12 months, randomized meat- vs. dairy-based complementary feeding; paired fecal metagenomics and metabolomics",
+      "relevance": "Indirect/pathway-level: reports that the meat diet group was enriched for microbial genes in amino acid, nucleic acid and carbohydrate metabolism, giving generic plausibility that N/S-containing amino-acid- or nucleotide-derived polar metabolites could be characteristic of the meat group; no specific unannotated feature with this formula is named as meat-associated in the abstract/text retrieved."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9909089/",
+      "doi": null,
+      "title": "Different gut microbiota in U.S. formula-fed infants consuming a meat vs. dairy-based complementary foods: A randomized controlled trial",
+      "study_population": "Full-term, formula-fed U.S. infants randomized to meat- vs. dairy-based complementary foods, 5-12 months",
+      "relevance": "Contextual background on the exposure of interest (meat vs. dairy complementary protein at the 12-month timepoint) and its gut microbiota effects; contains no metabolite-level information on this feature."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C13H26N5O12S metabolite",
+    "infant meat versus dairy complementary feeding metabolome",
+    "meat-based complementary feeding infant urine metabolome sulfur",
+    "\"C13H26N5O12S\"",
+    "PubChem molecular formula C13H26N5O12S compound",
+    "infant fecal metabolome meat dairy complementary food untargeted aqueous metabolites 12 months",
+    "biorxiv network-based representation learning infant meat dairy metabolite features increased meat group",
+    "sulfur-containing metabolite fecal infant meat consumption increased taurine cysteine complementary feeding"
+  ],
+  "caveats": "The feature is an unannotated untargeted-MS formula with no name, InChIKey, HMDB/KEGG/PubChem ID, or retention-time/MS2 identity, so literature searching cannot be specific; any formula-only match would also be ambiguous across many isomers. The formula additionally yields a half-integer RDBE (3.5), i.e. it violates the nitrogen rule for a neutral even-electron molecule, suggesting it may represent an adduct/ion species or an uncertain formula assignment. Structural confirmation (MS2 spectra, library or in-silico matching) is required before any literature-based directional claim about meat vs. dairy complementary feeding can be evaluated; the score of 1 reflects generic pathway plausibility only, not feature-specific support."
+}
