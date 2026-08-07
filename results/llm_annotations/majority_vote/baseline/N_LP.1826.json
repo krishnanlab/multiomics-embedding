@@ -1,0 +1,72 @@
+{
+  "feature_id": "N_LP.1826",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "Leukotriene F4 (KEGG C06462; LMFA03020009) is increased or characteristic in 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches for leukotriene F4 (LTF4) in the context of infant gut metabolome, stool/fecal metabolomics, feeding stage, weaning, or age-related change returned no study - human or animal - reporting this compound in relation to infant age or milk-versus-complementary feeding. All directly relevant hits for LTF4 itself were chemical/vendor catalogue and database entries (Santa Cruz, Cayman, MedChemExpress, GlpBio, HMDB0006465, FooDB), several of which explicitly note that LTF4 is a cysteinyl-leukotriene generated in vitro from LTE4 by gamma-glutamyl transferase and has not been reported in vivo - which itself argues against a robust, well-characterized in vivo signal in infant stool. What exists is only generic, pathway-level reasoning in the hypothesized direction: (i) human milk delivers arachidonic acid at relatively fixed, substantial levels plus preformed lipid mediators, including pro-inflammatory leukotriene B4, so a milk-dominant 5-month diet could plausibly supply more 5-LOX/cysteinyl-leukotriene pathway substrate and mediators to the gut lumen than a more solid-food, milk-diluted 12-month diet; (ii) fecal ARA-derived oxylipins are measurable in vivo and change with postnatal age in suckling piglets. Neither of these addresses LTF4 specifically, nor a 5- versus 12-month contrast in human infants. Broader infant fecal metabolome studies located (e.g. longitudinal profiling across 1, 6, 12, 18, 24 months; feeding-pattern metabolome studies at 1 and 6 months; preterm sepsis microbiome/metabolome work that reported a dihydro-hydroxy-leukotriene E4 species) demonstrate that leukotriene-pathway species can be detected in infant stool, but none reported LTF4 as higher at ~5-6 months than at 12 months. This is therefore weak/theoretical support only (score 1), not absent evidence (0) and not contradicting evidence (-1), since nothing reported the opposite direction for this feature+group combination either.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7146261/",
+      "doi": "10.3390/nu12030626",
+      "title": "Arachidonic Acid in Human Milk",
+      "study_population": "Review of human milk composition (lactating women / breastfed infants)",
+      "relevance": "Indirect/background: documents that human milk supplies arachidonic acid, the precursor of leukotrienes, supporting a general rationale that eicosanoid-pathway substrate delivery is greater during milk-dominant early infancy than after transition to family foods; does not address LTF4 or a 5- vs 12-month comparison."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3698171/",
+      "doi": "10.1186/1476-511X-12-89",
+      "title": "High levels of anti-inflammatory and pro-resolving lipid mediators lipoxins and resolvins and declining docosahexaenoic acid levels in human milk during the first month of lactation",
+      "study_population": "Human milk samples from lactating mothers (first month of lactation)",
+      "relevance": "Indirect: shows preformed lipoxygenase-pathway lipid mediators, including leukotriene B4, are present in human milk, supporting the theoretical possibility that milk-fed infants receive/excrete more leukotriene-pathway species; no data on LTF4 or infant age contrasts."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9415436/",
+      "doi": "10.3390/metabo12080702",
+      "title": "The Quantitative Profiling of Oxylipins from Arachidonic Acid by LC-MS/MS in Feces at Birth 3 Days and 21 Days of Piglets",
+      "study_population": "Suckling piglets, fecal oxylipin profiling at postnatal days 3 and 21",
+      "relevance": "Indirect animal evidence that arachidonic-acid-derived oxylipins are quantifiable in feces and vary with postnatal age; it is a neonatal suckling window (not 5 vs 12 months of human age) and does not report leukotriene F4."
+    },
+    {
+      "url": "https://link.springer.com/article/10.1186/s40168-017-0295-1",
+      "doi": "10.1186/s40168-017-0295-1",
+      "title": "Longitudinal development of the gut microbiome and metabolome in preterm neonates with late onset sepsis and healthy controls",
+      "study_population": "Preterm human neonates (sepsis cases and healthy controls), longitudinal stool microbiome/metabolome",
+      "relevance": "Establishes that cysteinyl-leukotriene-related species (a dihydro-hydroxy-leukotriene E4 metabolite) are detectable in infant stool and can vary with host/microbial state, but the reported variation relates to sepsis, not to infant age or complementary feeding, and LTF4 itself is not reported."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-023-28862-z",
+      "doi": null,
+      "title": "Longitudinal profiles of the fecal metabolome during the first 2 years of life",
+      "study_population": "101 Latino infants, fecal metabolome at 1, 6, 12, 18 and 24 months",
+      "relevance": "Most directly age-matched design found (includes 6- and 12-month timepoints), but the searchable content describes highly personalized, largely conserved profiles and does not report leukotriene F4 as an age-discriminating metabolite; treated as absence of specific support rather than contradiction."
+    },
+    {
+      "url": "https://www.glpbio.com/leukotriene-f4.html",
+      "doi": null,
+      "title": "Leukotriene F4 | CAS NO.:83851-42-7",
+      "study_population": "Not applicable (chemical vendor/reference entry)",
+      "relevance": "States that LTF4 is a cysteinyl-leukotriene produced in vitro from LTE4 and not reported to date in vivo - an important caveat about whether an untargeted LC-MS feature annotated as LTF4 reflects a genuine endogenous compound in infant stool."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "Leukotriene F4 infant",
+    "leukotriene F4 metabolite KEGG C06462",
+    "leukotriene infant gut metabolome age",
+    "leukotriene E4 infant urine age breastfed",
+    "fecal metabolome infant 6 months 12 months leukotriene",
+    "cysteinyl leukotriene breast milk infant age decline",
+    "infant stool eicosanoid arachidonic acid metabolites age weaning",
+    "leukotriene F4 gut microbiome",
+    "infant fecal lipidome breastfeeding versus complementary feeding arachidonic acid oxylipin",
+    "fecal metabolome infant age eicosanoid leukotriene decrease 12 months",
+    "\"leukotriene\" infant stool metabolomics breastfed 6 months",
+    "human milk leukotriene content lipid mediators",
+    "arachidonic acid derived lipid mediators infant feces breastfeeding higher",
+    "piglet feces oxylipins arachidonic acid 3 days 21 days leukotriene levels age",
+    "leukotriene F4 detected in vivo human sample"
+  ],
+  "caveats": "Two major caveats. (1) Annotation confidence: the feature is an ESI m/z-based lipidomics annotation, and multiple authoritative chemical sources state LTF4 has been produced in vitro (LTE4 + gamma-glutamyl transferase) but not demonstrated in vivo; isobaric/isomeric cysteinyl-leukotrienes and other glutathione-conjugated lipids could produce the same feature, so orthogonal confirmation (MS/MS, authentic standard) is advisable before interpreting biologically. (2) Direction ambiguity: plausible mechanisms exist in both directions - greater milk-derived ARA/eicosanoid input at 5 months versus greater microbial and dietary-lipid diversity plus more mature mucosal immune activity at 12 months - so the pathway-level reasoning alone should not be treated as supporting the hypothesis. Any signal in your data would essentially be a novel, unreplicated observation."
+}

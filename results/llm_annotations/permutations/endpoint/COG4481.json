@@ -1,0 +1,54 @@
+{
+  "feature_id": "COG4481",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "COG4481 (uncharacterized protein conserved in bacteria) gene family abundance is increased/characteristic in the 12-month infant gut metagenome relative to 5 months of age",
+  "confidence_score": 1,
+  "rationale": "Targeted searches for the identifier \"COG4481\" returned only database/genome-annotation records (NCBI CDD region annotations in GenBank records, e.g. a Streptococcus pyogenes CDS annotated as 'Uncharacterized protein conserved in bacteria [Function unknown]; Region: COG4481', and automated genome annotations of gut/food Firmicutes such as Coprococcus comes ATCC 27758 and a Pediococcus sp.). No primary study - human, animal, or in vitro - was found that reports COG4481 abundance in relation to infant age, weaning, complementary feeding, or any gut microbiome phenotype in either direction. What is well documented in the literature retrieved is only the generic backdrop: the 5/6-to-12-month window is the period of the largest compositional and functional remodelling of the infant gut metagenome, with a shift away from Bifidobacterium/HMO-oriented functions toward Lachnospiraceae/Ruminococcaceae-dominated, plant-polysaccharide-oriented functions. Because COG4481 is annotated in genomes of Firmicutes lineages (Lachnospiraceae/Coprococcus, streptococci/lactobacillales) that broadly expand or shift over the complementary feeding transition, a purely taxonomic, guilt-by-association argument for an increase at 12 months can be constructed - but this is theoretical reasoning about the COG's host taxa, not evidence about the feature itself, and the COG has no known function that could be tied to a dietary substrate. This matches the 'weak' tier: something relevant was found, but nothing on this feature+group combination.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "http://www.softberry.com/data/annotation/microbiome/Coprococcus_comes_ATCC_27758_uid20525.ann",
+      "doi": null,
+      "title": "Genome annotation of Coprococcus comes ATCC 27758 (automated CDS/COG assignment listing)",
+      "study_population": "Bacterial genome annotation (not a human study); Coprococcus comes, a Lachnospiraceae human gut commensal",
+      "relevance": "Indirect/background only: shows COG4481 is present as an annotated CDS in a Lachnospiraceae gut commensal of the kind that typically expands after introduction of solid foods, which is the only substantive link between this uncharacterized COG and the 12-month group. Provides no abundance or age comparison."
+    },
+    {
+      "url": "http://www.bioinformatics.org/sachbinfo/upload/47d111698d22326d2fbefdb91ccb0469/2466.gbk",
+      "doi": null,
+      "title": "GenBank record (NC_008024, Streptococcus pyogenes MGAS10750) with CDS annotated 'Uncharacterized protein conserved in bacteria [Function unknown]; Region: COG4481' (CDD:226886)",
+      "study_population": "Bacterial genome sequence record (Streptococcus pyogenes); no human subjects",
+      "relevance": "Confirms the identity and 'function unknown' status of COG4481 and its occurrence in Firmicutes/Lactobacillales, but contains no information on infant age, diet, or gut abundance - underscoring that no functional hypothesis can be anchored for this feature."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Human infants sampled across the complementary feeding transition, including samples collected at 12 months of age",
+      "relevance": "Generic/pathway-level support that the infant gut metagenome's functional gene content changes substantially between early complementary feeding and 12 months, establishing that many gene families (potentially including uncharacterized COGs) shift with age; it does not mention COG4481."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12604632/",
+      "doi": null,
+      "title": "Infant gut microbiome reprogramming following introduction of solid foods (weaning)",
+      "study_population": "Review of human infant cohorts spanning the 6-12 month weaning window",
+      "relevance": "Corroborates that the 6-12 month period carries the most extensive changes in composition, diversity and functional potential (Firmicutes/Lachnospiraceae expansion), which is the only basis for a theoretical expectation that a Firmicutes-borne gene family such as COG4481 would rise by 12 months."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "COG4481",
+    "COG4481 infant gut microbiome",
+    "COG4481 uncharacterized protein conserved in bacteria function",
+    "COG4481 metagenome abundance age",
+    "COG4481 weaning complementary feeding",
+    "infant gut metagenome COG orthologous groups 12 months versus 6 months functional shift",
+    "COG4481 CDD conserved domain database YjbK",
+    "uncharacterized COG infant gut microbiome maturation weaning functional metagenomics",
+    "\"COG4481\" gut microbiome differential abundance",
+    "COG4481 Pfam domain family DUF small protein",
+    "COG4481 infant 12 months 5 months stool metagenome"
+  ],
+  "caveats": "COG4481 is a genuine 'function unknown' orthologous group, so no substrate- or pathway-based mechanism can be proposed and no literature is expected to name it; absence of evidence here largely reflects the fact that uncharacterized COGs are almost never discussed individually in infant microbiome papers. One search hit (a bioRxiv preprint describing metagenomic and metabolomic profiling of infant stool at 5 and 12 months with COG-level features) appears to describe the same design as the study requesting this evaluation; it was deliberately not used as external evidence to avoid circularity. Directional interpretation is further complicated because COG-level abundance in shotgun data is strongly driven by which taxa carry the gene and by gene-copy/coverage normalisation, so any observed 12-month increase would need taxonomic-contribution follow-up (e.g. checking whether Lachnospiraceae or Streptococcaceae carriers drive it) rather than literature support."
+}

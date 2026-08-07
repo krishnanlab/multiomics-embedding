@@ -1,0 +1,23 @@
+{
+  "feature_id": "P_LP.1668",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "4-Amino-6,7-dimethoxy-2-(1-piperazinyl)quinazoline is increased or characteristic in 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "Searches identified this compound only as a synthetic pharmaceutical entity: CAS 60547-97-9 (6,7-dimethoxy-2-(1-piperazinyl)quinazolin-4-amine) is the common quinazoline core/synthetic intermediate for the alpha-1 adrenoceptor antagonists prazosin, terazosin and doxazosin, is catalogued as Terazosin EP Impurity C / Doxazosin EP Impurity G, and is described by chemical vendors as a prazosin metabolite. It also appears extensively in synthesis patents. No primary research article, review, or database record located in this search links this compound (or its named synonyms/CAS/METLIN ID) to the infant gut metabolome, to infant age or developmental stage, to breastfeeding/complementary feeding, or to microbial metabolism at all. Searches specifically pairing the compound with infant gut microbiome/fecal metabolome terms returned only unrelated infant metabolomics papers (e.g., longitudinal fecal metabolome studies, complementary feeding transition studies) that do not report this feature. There is therefore no literature \u2014 supporting, indirect, or contradicting \u2014 on the 5-month vs 12-month direction for this feature. Note also that this compound is not a plausible endogenous or diet-derived infant metabolite and it is not a lipid despite the 'metabolite_lipid' annotation class, so the most likely explanation for such a feature in an untargeted LC-MS dataset is a spectral-library/mass-match misannotation (or, rarely, genuine drug-related exposure), which cannot be adjudicated from the literature.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "4-Amino-6,7-dimethoxy-2-(1-piperazinyl)quinazoline",
+    "60547-97-9 quinazoline metabolite",
+    "4-amino-6,7-dimethoxy-2-piperazinylquinazoline infant gut microbiome",
+    "prazosin metabolite infant plasma breast milk",
+    "quinazoline alkaloid infant fecal metabolome age 5 months 12 months",
+    "infant fecal metabolome breastfeeding weaning untargeted LC-MS xenobiotic drug annotation false positive",
+    "infant stool metabolome 6 months vs 12 months differential metabolites",
+    "doxazosin impurity quinazoline detected human stool metabolomics",
+    "piperazinyl quinazoline gut bacteria microbial metabolism infant"
+  ],
+  "caveats": "Confidence 0 reflects a complete absence of literature on this feature in any infant gut microbiome/metabolome or age-related context, not weak evidence. The compound identity itself is well documented (drug intermediate/impurity/prazosin metabolite), but that information is chemical/pharmacological and says nothing about the hypothesized age direction; no evidence entries are listed because none of the retrieved sources are studies of this feature in the study population. Before further interpretation, the investigators should verify the annotation with MS/MS spectral matching and retention time against an authentic standard, check for reagent/plasticware or library-matching artifacts and blanks, and confirm no maternal/infant alpha-blocker exposure; if the annotation is spurious, the directional hypothesis is not literature-testable.}"
+}

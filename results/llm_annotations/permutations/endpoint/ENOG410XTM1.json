@@ -1,0 +1,23 @@
+{
+  "feature_id": "ENOG410XTM1",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "The eggNOG orthologous group ENOG410XTM1 is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for the exact identifier 'ENOG410XTM1' (alone, with 'eggNOG', with 'infant gut microbiome', with 'stool abundance', and with age/weaning keywords) returned no publications, database records, or preprints that mention this orthologous group at all. Search hits were either unrelated (human gene wiki pages, RC cars) or generic eggNOG database/method papers (eggNOG 5.0/6.0/v7, eggNOG-mapper) and general infant-microbiome functional-profiling papers that never name this OG. Because the OG is annotated 'Function unknown', there is also no pathway, enzyme family, or homolog label that could anchor even indirect/theoretical reasoning about why it would rise between 5 and 12 months of age; any such argument would be pure speculation not tied to this feature. I therefore found zero relevant literature for this feature+group combination in either direction and score 0 (none found) rather than 1, since not even generic feature-specific pathway reasoning is available. Note that general literature on functional maturation of the infant gut metagenome across weaning does exist, but it cannot be mapped onto this unannotated ortholog group and so does not constitute evidence for or against the hypothesis.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG410XTM1",
+    "ENOG410XTM1 eggNOG infant gut microbiome",
+    "eggNOG orthologous group infant gut metagenome 12 months age",
+    "\"ENOG410XTM1\" eggNOG",
+    "ENOG410XTM1 ortholog group function",
+    "eggNOG unknown function orthologous group increased weaning 12 month infant gut metagenome",
+    "ENOG410XTM1 abundance stool",
+    "\"ENOG410\" ortholog group infant stool 12 months function unknown",
+    "unknown function eggNOG orthologous groups differentially abundant infant age 5 vs 12 months metagenome"
+  ],
+  "caveats": "Unannotated eggNOG orthologous groups are essentially invisible to keyword-based literature search: they are rarely named in article text, and when they do appear it is usually only in supplementary tables that web search does not index. A score of 0 here reflects absence of retrievable literature, not evidence against the hypothesis. Resolving this feature would require querying the eggNOG database directly (no internet access to it in this environment) to obtain member protein sequences/taxonomic distribution, then searching on the resulting protein family names or on the source taxa (e.g., whether the OG is restricted to taxa known to expand after introduction of solid foods, such as Bacteroides, Faecalibacterium, Blautia, or Lachnospiraceae). Age-related increases in such taxa-linked, function-unknown gene families are plausible but untested for this specific OG."
+}

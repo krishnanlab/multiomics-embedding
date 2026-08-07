@@ -1,0 +1,57 @@
+{
+  "feature_id": "COG3161",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "Metagenomic abundance of COG3161 (UbiC, 4-hydroxybenzoate synthetase / chorismate pyruvate lyase; first committed step of ubiquinone biosynthesis) is higher in the gut microbiome of 5-month-old infants than in 12-month-old infants.",
+  "confidence_score": 2,
+  "rationale": "No study located reports COG3161/ubiC gene abundance itself as a function of infant age, so there is no direct evidence for this exact feature+group pair. However, several indirect lines of evidence point in the hypothesized direction. (1) A cross-sectional 16S + PICRUSt study of Chinese children spanning early childhood found that the KEGG pathway 'ubiquinone and other terpenoid-quinone biosynthesis' - the pathway that UbiC initiates - was among the functions progressively downregulated with increasing age, while pathways such as one-carbon/folate and oxidative phosphorylation increased; this is consistent with higher ubiquinone-pathway gene content at 5 months than at 12 months. (2) UbiC/chorismate pyruvate lyase is characteristically a proteobacterial (E. coli-type) enzyme catalysing formation of 4-hydroxybenzoate for ubiquinone, as confirmed by enzymology/review sources and by COG assignment in Gram-negative genome annotations (e.g. Salmonella Gallinarum ubiC annotated as COG3161 'UbiC, 4-hydroxybenzoate synthetase (chorismate lyase)'). Since Enterobacteriaceae (Escherichia/Shigella-type) loads are quantitatively higher in early infancy and decline across the 6-to-12-month weaning window (Pham et al., qPCR of Enterobacteriaceae/Escherichia-Shigella declining from 6 to 12 months and further to 18-24 months), the aggregated abundance of a proteobacterial ubiquinone-pathway marker gene would be expected to be relatively enriched at 5 months and diluted at 12 months as Firmicutes (Lachnospiraceae/Ruminococcaceae, which use menaquinone rather than ubiquinone) and Bacteroides expand. Because all supporting evidence is pathway- or taxon-level rather than gene-specific, and one age-comparison study reported terpenoid/polyketide metabolism increasing with age, this meets the 'multiple indirect studies pointing the same direction' bar (score 2) rather than strong direct evidence.",
+  "mechanism": "UbiC (chorismate pyruvate lyase) removes pyruvate from chorismate to yield 4-hydroxybenzoate, the aromatic-ring precursor for ubiquinone (coenzyme Q) biosynthesis - a pathway essentially restricted to Proteobacteria among gut bacteria (obligate anaerobes such as Bifidobacterium, Bacteroides and Clostridia rely on menaquinone/futalosine routes or lack quinone respiration). The pre-weaning infant gut (around 5 months, milk-dominated, lower alpha diversity, residual oxygen tolerance) carries a proportionally larger facultative-anaerobe/Enterobacteriaceae fraction that requires ubiquinone for aerobic and nitrate respiration. With complementary feeding by 12 months, obligately anaerobic fibre-fermenting Firmicutes and Bacteroides expand and Enterobacteriaceae contract, diluting proteobacterial coenzyme-Q genes such as ubiC in the metagenome - the mechanistic basis for a relative decrease in COG3161 from 5 to 12 months.",
+  "evidence": [
+    {
+      "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2020.00439/full",
+      "doi": "10.3389/fmicb.2020.00439",
+      "title": "Evolution of the Gut Microbiome in Early Childhood: A Cross-Sectional Study of Chinese Children",
+      "study_population": "Healthy Chinese children spanning the first years of life (cross-sectional, 16S rRNA with predicted KEGG functions)",
+      "relevance": "Reports that 'ubiquinone and other terpenoid quinone' biosynthesis was among the predicted pathways downregulated with increasing age, supporting relative enrichment of this ubiquinone pathway (initiated by UbiC/COG3161) at younger infant ages such as 5 months versus 12 months."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2022.948131/full",
+      "doi": "10.3389/fnut.2022.948131",
+      "title": "Stepwise establishment of functional microbial groups in the infant gut between 6 months and 2 years: A prospective cohort study",
+      "study_population": "Prospective cohort of healthy infants sampled from 6 to 24 months (Switzerland), qPCR + sequencing",
+      "relevance": "Documents that Enterobacteriaceae/Escherichia-Shigella loads decline from 6 to 12 months while butyrate-producing obligate anaerobes expand; since ubiC/ubiquinone biosynthesis is a proteobacterial trait, this taxonomic shift predicts a relative decrease in COG3161 between the earlier and later timepoints."
+    },
+    {
+      "url": "https://journals.asm.org/doi/10.1128/ecosalplus.3.6.3.3",
+      "doi": "10.1128/ecosalplus.3.6.3.3",
+      "title": "Biosynthesis of Menaquinone (Vitamin K2) and Ubiquinone (Coenzyme Q)",
+      "study_population": "Not applicable (bacterial biochemistry/genetics review, E. coli)",
+      "relevance": "Establishes that the elimination of pyruvate from chorismate to give 4-hydroxybenzoate is the first committed step of ubiquinone biosynthesis and is catalysed by ubiC, and that ubiquinone (versus menaquinone) use is characteristic of Gram-negative/facultative respiratory bacteria - the mechanistic link used to tie COG3161 abundance to early-infancy Proteobacteria."
+    },
+    {
+      "url": "http://www.pathogenomics.sfu.ca/pathogen-associated/genomes/NC_007712.tab",
+      "doi": null,
+      "title": "Genome functional annotation table (Salmonella Gallinarum, NC_007712) listing ubiC as COG3161",
+      "study_population": "Not applicable (bacterial genome annotation)",
+      "relevance": "Confirms the identity of the queried feature: COG3161 is annotated as 'UbiC, 4-hydroxybenzoate synthetase (chorismate lyase)', coenzyme metabolism, in an enterobacterial genome - supporting that this COG tracks proteobacterial ubiquinone biosynthesis capacity."
+    }
+  ],
+  "contradicting_evidence": "No study reported ubiC/COG3161 as higher at 12 months than at 5 months, but the supporting evidence is not unanimous at pathway level: a comparison of Chinese 1-year-old infants versus 4-year-old children found microbiota functions related to metabolism of terpenoids and polyketides increased with age (https://www.nature.com/articles/s41598-020-76591-4), and a feeding-method study in Chinese infants (https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2020.00714/full) found 'ubiquinone and other terpenoid-quinone biosynthesis' to be one of the pathways significantly differing between breastfed and mixed/formula/complementary-fed groups without a direction that could be verified from the retrieved text - so diet-related variation in this pathway exists and its sign is not firmly established. Also relevant: KEGG map00130 aggregates ubiquinone with menaquinone/phylloquinone biosynthesis, and menaquinone-producing anaerobes (Bacteroides, Firmicutes) increase after weaning, so pathway-level results may not track ubiC specifically.",
+  "search_queries_used": [
+    "chorismate lyase ubiC infant gut microbiome",
+    "COG3161 4-hydroxybenzoate synthetase infant gut",
+    "ubiquinone biosynthesis infant gut microbiome age 6 months vs 12 months",
+    "infant gut microbiome functional pathways breastfed vs weaning ubiquinone biosynthesis",
+    "ubiquinone biosynthesis pathway enriched early infancy metagenome Enterobacteriaceae infant stool",
+    "infant gut metagenome ubiquinone and other terpenoid-quinone biosynthesis decreases with age",
+    "4-hydroxybenzoate infant stool metabolome age breastfeeding",
+    "chorismate lyase ubiC Bifidobacterium ubiquinone absent menaquinone",
+    "infant gut microbiome COG functional shift 6 months 12 months coenzyme metabolism",
+    "Evolution of the Gut Microbiome in Early Childhood Chinese Children ubiquinone terpenoid quinone downregulated over time",
+    "Backhed dynamics stabilization human gut microbiome first year of life 4 months 12 months functional pathways ubiquinone",
+    "newborn infant gut metagenome enriched ubiquinone biosynthesis genes decreased 12 months",
+    "Escherichia Enterobacteriaceae decline after 6 months infant gut microbiome relative abundance 12 months",
+    "PICRUSt ubiquinone and other terpenoid-quinone biosynthesis higher breastfed infants younger age stool"
+  ],
+  "caveats": "No primary study directly quantifies COG3161/ubiC abundance in 5- versus 12-month-old infant stool metagenomes; support rests on (a) predicted (PICRUSt-type) pathway-level age trends in children rather than measured gene abundance, and (b) inference from the well-documented decline of Enterobacteriaceae across the weaning window. Pathway-level KEGG categories conflate ubiquinone with menaquinone biosynthesis, and COG-level abundance is compositional, so an apparent 5-month enrichment could reflect dilution by expanding anaerobes rather than absolute increase. Direction should be treated as plausible but unconfirmed for this specific COG; validating with published age-stratified shotgun metagenome COG/UniRef tables (e.g. large infant cohorts) would be worthwhile."
+}

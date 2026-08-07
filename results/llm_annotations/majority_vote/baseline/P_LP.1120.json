@@ -1,0 +1,60 @@
+{
+  "feature_id": "P_LP.1120",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "15(R)-17-phenyl trinor PGF2\u03b1 isopropyl ester is increased or characteristic in 5-month-old infants relative to 12-month-old infants",
+  "confidence_score": 1,
+  "rationale": "Searches confirm that this feature is not an endogenous human metabolite: CAS 130273-87-9 is a synthetic phenyl-substituted prostaglandin analog, described by chemical vendors and reference sources as the 15(R)-epimer of the latanoprost/bimatoprost isopropyl ester and specifically as a known process impurity of the latanoprost bulk drug product (an ophthalmic FP-receptor agonist). No primary study - human, animal, infant, or adult - was found reporting this compound in stool, gut, or any developmental/dietary metabolomics context, let alone comparing 5- vs 12-month-old infants. The only relevant literature retrieved is at the class/pathway level: endogenous prostaglandins (PGE2, PGF2\u03b1 and its 13,14-dihydro-15-keto metabolite) are consistently detectable in human milk across lactation stages, which gives a purely theoretical rationale for higher F-series prostaglandin-like signal in more milk-dominant 5-month-old infants than in 12-month-olds who have transitioned to a more solid, complementary-feeding diet. That reasoning concerns native PGF2\u03b1, not this 17-phenyl-trinor isopropyl ester, and no study links milk prostaglandin intake to infant fecal prostaglandin levels by age. Because something class-relevant but nothing feature- and group-specific was found, this scores 1 (weak) rather than 0. The most likely interpretation of such a spectral match in an untargeted lipidomics run is a library-driven misannotation (METLIN/lipid database hit at m/z of C26H38O5) of an isobaric endogenous oxylipin/prostanoid or other lipid species, so the directional hypothesis cannot be evaluated against literature on the named compound.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.caymanchem.com/product/16825/15-r-17-phenyl-trinor-prostaglandin-f2alpha-isopropyl-ester",
+      "doi": null,
+      "title": "15(R)-17-phenyl trinor Prostaglandin F2\u03b1 isopropyl ester (CAS 130273-87-9) - Cayman Chemical",
+      "study_population": "Not a study population; chemical reference/product record",
+      "relevance": "Establishes compound identity: a synthetic latanoprost-related isomer (15-epi bimatoprost isopropyl ester) described as a potential impurity of latanoprost, i.e., a xenobiotic drug-related molecule rather than an endogenous infant gut metabolite."
+    },
+    {
+      "url": "https://www.bocsci.com/product/15-r-17-phenyl-trinor-prostaglandin-f2-isopropyl-cas-130273-87-9-163384.html",
+      "doi": null,
+      "title": "CAS 130273-87-9 15(R)-17-phenyl trinor Prostaglandin F2\u03b1 isopropyl ester - BOC Sciences",
+      "study_population": "Chemical catalog record citing in vitro/ocular pharmacology literature (porcine/rabbit ocular tissue)",
+      "relevance": "Corroborates that documented literature on this exact compound concerns ocular prostaglandin-analog pharmacology and latanoprost manufacturing impurities, with no gut, fecal, dietary, or pediatric context."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7454478/",
+      "doi": null,
+      "title": "Prostaglandins in human milk",
+      "study_population": "Six healthy term nursing mothers (colostrum, transitional, mature milk); human",
+      "relevance": "Indirect, class-level support only: shows PGE2 and PGF2\u03b1 are present in all fresh human milk samples, providing a theoretical basis for greater F-series prostanoid exposure in milk-dominant younger infants; does not address this synthetic analog or infant fecal levels by age."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/1610950/",
+      "doi": null,
+      "title": "Prostaglandin E1, E2, and F2 alpha in human milk and plasma",
+      "study_population": "Lactating women (human milk and maternal plasma)",
+      "relevance": "Further class-level corroboration that PGF2\u03b1 is present in human milk at concentrations exceeding plasma; still indirect, as it neither measures infant gut/stool prostanoids nor the named 17-phenyl trinor isopropyl ester."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9282554/",
+      "doi": null,
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy infants across the complementary feeding period, first year of life",
+      "relevance": "Confirms that infant gut microbiome and associated metabolites shift substantially between early milk-based feeding and later complementary feeding, the biological contrast underlying the hypothesis - but this study reports no prostaglandin-analog features, so it cannot support the specific direction for this feature."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "15(R)-17-phenyl trinor PGF2alpha isopropyl ester",
+    "17-phenyl trinor PGF2alpha infant gut microbiome",
+    "CAS 130273-87-9 prostaglandin analog",
+    "infant stool metabolome prostaglandin age 5 months 12 months",
+    "prostaglandin F2alpha infant feces breastfeeding weaning metabolomics",
+    "latanoprost free acid untargeted metabolomics annotation artifact stool",
+    "infant gut metabolome eicosanoid oxylipin complementary feeding age",
+    "prostaglandin F2alpha human breast milk infant intestine concentration",
+    "\"17-phenyl trinor\" prostaglandin metabolomics feces annotation",
+    "prostaglandin E2 F2alpha infant fecal levels decline with age breastfed"
+  ],
+  "caveats": "The named compound is a synthetic pharmaceutical analog/impurity, so a genuine biological presence in infant stool is implausible unless the infant or mother was exposed to latanoprost/bimatoprost; treat the feature as a probable Level-2/3 (putative) annotation of an isobaric endogenous prostanoid or oxylipin (C26H38O5, MW ~430.6) rather than a confirmed identification. MS/MS confirmation against an authentic standard, or re-annotation against endogenous prostaglandin libraries, is needed before interpreting any 5- vs 12-month difference. Evidence cited for the prostaglandin class comes from human milk composition studies, not from infant fecal metabolomics, so the directional link (milk-derived prostanoids -> higher fecal signal at 5 months) is untested. Vendor/catalog pages were used only for chemical identity, not as biological evidence."
+}

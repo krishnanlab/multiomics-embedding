@@ -1,0 +1,72 @@
+{
+  "feature_id": "K07811",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "Trimethylamine-N-oxide reductase (cytochrome c; K07811, torZ/torY-type, EC 1.7.2.3) gene abundance is increased or characteristic in the fecal metagenome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "I found no study that directly measured K07811 (torZ/torY-type TMAO reductase, EC 1.7.2.3) abundance in infant fecal metagenomes comparing an early complementary-feeding timepoint (~4-6 months) with ~12 months, so there is no direct feature+group evidence. What exists is indirect and partly conflicting. Supporting the hypothesis: (i) respiratory TMAO reductase systems (torCAD, torYZ) are essentially restricted to facultatively anaerobic Gammaproteobacteria, and human-gut TMAO-to-TMA reduction has been attributed experimentally to Enterobacteriaceae (Escherichia, Klebsiella); (ii) genome-resolved metagenomics of an early infant gut community showed TMAO/DMSO/nitrate reductase genes carried by the E. coli-dominated population, i.e. these alternative-electron-acceptor respiration genes are a hallmark of the immature, Proteobacteria-rich gut; (iii) multiple longitudinal/cross-sectional infant cohorts (including one sampling exactly 4, 9 and 12 months during complementary feeding) report that Proteobacteria/Enterobacteriaceae relative abundance falls markedly across the second half of the first year as obligate anaerobes (Firmicutes/Bacteroidetes) expand, which would mechanically lower the community-level abundance of Enterobacteriaceae-encoded TMAO reductase by 12 months. Counterweighting this: KEGG places K07811 in the 'methane metabolism' map, and several infant studies report that methane-metabolism/methanogenesis and nitrogen-metabolism gene categories are *higher* after introduction of solids and in non-human-milk-fed infants, and a first-year longitudinal metagenome/archaeome study described methane-related pathways becoming more prominent at 12 months; additionally, serum TMAO (the substrate for this enzyme) increased from 5 to 12 months in meat-fed infants, so substrate-driven induction at 12 months is plausible. Because nothing addresses this specific gene in this specific age contrast and the pathway-level signals point in opposite directions, this is weak, mixed evidence (score 1) rather than moderate support or contradiction.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5909246/",
+      "doi": "10.1186/s40168-018-0461-0",
+      "title": "Metabolic retroconversion of trimethylamine N-oxide and the gut microbiota",
+      "study_population": "C57BL/6J mice fed deuterated TMAO plus in vitro human/animal gut bacterial isolates and communities",
+      "relevance": "Primary experimental evidence that gut microbial reduction of TMAO to TMA is carried out predominantly by Gammaproteobacteria/Enterobacteriaceae (TMAO reductase activity), establishing which taxa carry the K07811-type function in the gut; indirect support because these taxa are enriched in early infancy."
+    },
+    {
+      "url": "https://link.springer.com/article/10.1186/2049-2618-1-30",
+      "doi": "10.1186/2049-2618-1-30",
+      "title": "Genome resolved analysis of a premature infant gut microbial community reveals a Varibaculum cambriense genome and a shift towards fermentation-based metabolism during the third week of life",
+      "study_population": "Premature human infant, longitudinal genome-resolved fecal metagenomics in the first weeks of life",
+      "relevance": "Directly documents TMAO reductase (along with fumarate, DMSO, nitrate/nitrite reductase) genes in the early infant gut community, largely attributable to E. coli, i.e. this respiratory capacity is a feature of the young, Proteobacteria-dominated infant microbiome; also reports a shift away from respiration toward fermentation as the community matures."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy US infants sampled at ~4, 9 and 12 months (shotgun metagenomics + LC-MS metabolomics), 'Nourish to Flourish' pilot",
+      "relevance": "Age-matched to this contrast: reports that most Proteobacteria (which carry torCAD/torYZ TMAO reductases) decrease in relative abundance between 4 and 9 months, being replaced by Firmicutes - indirect support for higher TMAO-reductase gene abundance at ~5 months than 12 months. Notes overall functional gene profiles change less than taxonomy, a caveat for KO-level predictions."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2020.00439/full",
+      "doi": null,
+      "title": "Evolution of the Gut Microbiome in Early Childhood: A Cross-Sectional Study of Chinese Children",
+      "study_population": "Cross-sectional cohort of Chinese children from birth to 36 months",
+      "relevance": "Shows a significant, progressive decline in Proteobacteria relative abundance from birth through 24 months, supporting the expectation that Enterobacteriaceae-encoded functions such as TMAO reductase decline between 5 and 12 months of age."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2026.1862116/full",
+      "doi": null,
+      "title": "Age-associated gut microbiome succession, colonization resistance, and relative resistome patterns in an antibiotic-restricted infant cohort",
+      "study_population": "Antibiotic-restricted infant cohort, stool sampled at ~1 and 6 months",
+      "relevance": "Quantifies the age-related decline of Enterobacteriaceae (median 16.6% at 1 month to 1.9% at 6 months) with concurrent expansion of obligate anaerobes; indirect, taxon-level support for a downward trajectory of Enterobacteriaceae-borne respiratory reductase genes with infant age (though the timepoints are earlier than 5 vs 12 months)."
+    },
+    {
+      "url": "https://www.sciencedirect.com/topics/biochemistry-genetics-and-molecular-biology/trimethylamine-n-oxide",
+      "doi": null,
+      "title": "Trimethylamine N-Oxide - an overview (ScienceDirect Topics)",
+      "study_population": "Review/encyclopedic synthesis of human and animal gut microbiota studies",
+      "relevance": "Corroborates that Proteobacteria, especially Escherichia and Klebsiella spp., are the main contributors to TMAO-to-TMA conversion via the TMAO reductase pathway in the human gut - the taxonomic anchor for the hypothesis, but review-level rather than primary."
+    }
+  ],
+  "contradicting_evidence": "Pathway-level infant evidence points the other way for the KEGG category this KO is filed under: a longitudinal infant study using 16S+PICRUSt reported that energy-metabolism genes, specifically nitrogen and methane metabolism, were overrepresented in infants after introduction of solid foods compared with exclusively breastfed infants (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4318912/; summarized also in https://pmc.ncbi.nlm.nih.gov/articles/PMC9633281/), and a first-year oral/gut anaerobic microbiome-archaeome study described the 12-month (M12) metagenome shifting toward more complex metabolism 'down to methane' relative to 6 months (https://journals.asm.org/doi/10.1128/msystems.01071-24). In addition, quantitative TMAO - the substrate that induces tor operon expression - increased from 5 to 12 months in infants on a meat-based complementary diet (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7912106/), which could favor higher TMAO-reductase capacity at 12 months. None of these measured K07811 itself, so they are suggestive rather than a direct refutation, which is why the score is 1 (mixed/indirect) rather than -1.",
+  "search_queries_used": [
+    "trimethylamine-N-oxide reductase infant gut microbiome",
+    "K07811 torZ trimethylamine N-oxide reductase infant metagenome",
+    "TMAO reductase gene abundance breastfed infants weaning metagenomics",
+    "infant gut microbiome anaerobic respiration nitrate TMAO reductase Enterobacteriaceae age",
+    "infant fecal metagenome KEGG orthologs age 6 months 12 months functional shift methane metabolism",
+    "Escherichia coli Klebsiella abundance decline 6 to 12 months infant gut microbiome maturation",
+    "trimethylamine N-oxide reductase torA torZ gene infant stool metagenomics abundance decreases with age",
+    "infant gut microbiome nitrate reductase TMAO reductase anaerobic respiration genes higher early infancy weaning shotgun",
+    "trimethylamine N-oxide infant feces urine breastfed formula-fed complementary feeding age",
+    "complementary feeding infant metagenome functional genes methane metabolism increase 12 months",
+    "Proteobacteria Enterobacteriaceae relative abundance 5 months higher than 12 months infant gut microbiome longitudinal",
+    "TMAO reductase gene carriers gut bacteria taxa Enterobacteriaceae Klebsiella Escherichia distribution",
+    "Network-based representation learning age diet fecal metagenomics metabolomics 5-12 months formula-fed infants",
+    "methane metabolism genes infant gut microbiome breastfed higher than solid food PICRUSt",
+    "torYZ torCAD abundance human gut metagenome age children adults comparison"
+  ],
+  "caveats": "No primary study located reports K07811/torZ/torY (or EC 1.7.2.3) gene abundance for 5-month vs 12-month infant stool, so all support is inferential from (a) the taxonomic ownership of TMAO reductase by Enterobacteriaceae and (b) the well-documented decline of Enterobacteriaceae/Proteobacteria across the first year. KO-level abundance need not track phylum-level abundance, and the complementary-feeding metagenomic study explicitly found functional gene profiles change far less than taxonomy over 4-12 months. K07811's KEGG assignment to 'methane metabolism' means pathway-level results for methane/methanogenesis in infants (which trend upward with solid foods) are not a valid proxy for this specific enzyme in either direction. Formula- vs breast-fed status, delivery mode, and antibiotic exposure are strong confounders of Enterobacteriaceae abundance and hence of this gene, and none of the cited cohorts were designed around the 5- vs 12-month contrast in formula-fed infants specifically."
+}

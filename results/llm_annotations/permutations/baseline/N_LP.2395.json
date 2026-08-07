@@ -1,0 +1,20 @@
+{
+  "feature_id": "N_LP.2395",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "The lipid-like LC-MS feature N_LP.2395 (elemental composition given as C30H44NS, ESI feature at RT/mass label 11.995988) is increased or characteristic in 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "N_LP.2395 is an unidentified, formula-only untargeted lipidomics feature: its 'name' is a putative elemental composition (C30 H44 N S) plus an ionization mode/retention-time-style tag, with no structural annotation, no compound name, and no external database identifier (no HMDB/LIPID MAPS/KEGG/PubChem ID, no InChIKey, no confirmed adduct or precise m/z). Searches on the formula string, on sulfur- and nitrogen-containing lipid species in infant stool, and on age-related (5 vs 12 month) infant fecal lipidome/metabolome differences returned no source that reports this feature, or any specifically named compound corresponding to this composition, in an infant gut context or in relation to infant age/complementary-feeding stage. Notably, the stated composition (30 carbons, one nitrogen, one sulfur, zero oxygen) does not correspond to any common lipid class found in infant stool (e.g. it is inconsistent with sphingolipids, sulfatides, glycerophospholipids, acylcarnitines or bile acid conjugates, all of which contain oxygen), which suggests the formula assignment may itself be uncertain or an artifact; this makes it impossible to map the feature onto any literature-supported compound or pathway. Because no literature addressing this feature (or a clearly named homolog) in any population was located, the correct score under the rubric is 0 (no relevant evidence found) rather than 1 \u2014 there is not even a defensible compound-level or pathway-level chain of reasoning to evaluate, since the identity of the feature is unknown. General literature does exist showing that the infant fecal lipidome/metabolome shifts substantially between exclusive milk feeding (~5 months) and post-weaning (~12 months), but that generic age trajectory cannot be assigned a direction for an unidentified feature and does not constitute evidence for or against this specific hypothesis.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C30H44NS lipid metabolite infant",
+    "untargeted lipidomics unannotated feature infant gut 5 months vs 12 months",
+    "infant fecal lipidome age 5 months 12 months metabolomics",
+    "\"C30H44NS\" formula compound",
+    "sulfur-containing lipid infant stool metabolome breastfeeding weaning decline",
+    "infant gut metabolome 5 months breastfeeding higher lipids than 12 months complementary feeding"
+  ],
+  "caveats": "The score reflects annotation ambiguity, not biological implausibility: many unannotated features do vary strongly with infant age, and this feature could be a genuine milk- or microbe-derived lipid that is higher during exclusive/partial breastfeeding at 5 months. To make this hypothesis testable against literature, MS2 spectra, accurate m/z with adduct assignment, retention-time behaviour, and a candidate identification (with database ID and confidence level per MSI/Schymanski criteria) are needed; the given C30H44NS composition should also be re-checked, since an oxygen-free N,S-containing C30 species is unusual for a fecal/plasma lipid feature. Until then, the feature should be treated as an internal discovery-only signal with no external literature support in either direction."
+}

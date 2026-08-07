@@ -1,0 +1,21 @@
+{
+  "feature_id": "P_LP.250",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "The lipid-class untargeted feature with molecular formula C22H45NO17 is increased/characteristic in stool of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "This feature carries no chemical name, no database identifier (no HMDB/KEGG/LIPID MAPS/ChEBI/PubChem ID), and no structural annotation - only a raw molecular formula, C22H45NO17. Repeated searches on the formula itself (and formula + HMDB/metabolite) returned only unrelated molecular-formula index pages (Wikipedia set-index pages for other formulas, commercial isomer catalogues), i.e. no compound record, no MS/MS library match, and no publication reporting a metabolite of this formula in any biological context, let alone in infant stool. I also could not resolve the formula to a plausible single identity that would license pathway-level reasoning: the ring-plus-double-bond equivalent is only 1 (22 - 45/2 + 1/2 + 1 = 1), which is inconsistent with the multi-ring glycan/aminosugar-containing structures (e.g. GlcNAc-bearing human milk oligosaccharide fragments, which would have >=2-3 RDBE) that the high oxygen count and single nitrogen would otherwise suggest, and equally inconsistent with a conventional glycosphingolipid or acyl-amide lipid despite the 'metabolite_lipid' annotation class. Because the identity is ambiguous, any directional claim (higher at 5 vs 12 months) cannot be attached to a named compound in the literature. Searches for the broader context did retrieve relevant infant work - e.g. fecal metabolome maturation across the first year, milk-diet metabolite signatures becoming indistinguishable by 12 months once complementary foods are introduced, and infant feeding-trial metabolomics spanning 5-12 months - and these make it biologically plausible that a milk-derived, oxygen-rich, nitrogen-containing compound would be higher at 5 months than at 12 months. However, that is background about the metabolome as a whole rather than evidence about this feature, and per the rubric it does not constitute pathway-level evidence for a feature whose chemical identity is unknown. I therefore score 0 (no relevant literature located for this feature+group combination) rather than 1, and cite no evidence entries, since no retrieved source addresses this feature.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C22H45NO17",
+    "C22 H45 N O17 metabolite formula",
+    "C22H45NO17 HMDB compound",
+    "infant fecal metabolome 5 months versus 12 months lipid features",
+    "human milk oligosaccharide infant stool decline weaning 12 months metabolomics",
+    "breast milk derived glycolipid infant feces breastfed versus weaned metabolomics",
+    "infant stool metabolome age 5 months higher breast milk derived metabolites decrease by 12 months complementary feeding"
+  ],
+  "caveats": "The score reflects unannotatability, not biological implausibility. If the study team can narrow the identity of C22H45NO17 (accurate mass/adduct check, isotope pattern, MS/MS fragmentation, retention-time behaviour, or matching against milk-glycan/aminosugar and polyol libraries), a targeted literature search on the resolved candidate could plausibly move this to 1-3, particularly if it maps to a milk-derived glycan or N-acetylhexosamine-containing species that would be expected to fall after weaning. Note also the internal inconsistency to check: the 'metabolite_lipid' feature class versus an elemental composition (17 oxygens, RDBE = 1) that looks more like a highly hydroxylated/polyol-type or sugar-derived species than a typical lipid, which raises the possibility of an adduct/neutral-mass mis-assignment. No contradicting literature was found either - the search simply returned nothing feature-specific in either direction."
+}

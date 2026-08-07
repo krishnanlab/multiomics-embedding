@@ -1,0 +1,22 @@
+{
+  "feature_id": "ENOG41100UY",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "The eggNOG orthologous group ENOG41100UY (function unknown) is increased or characteristic in the gut metagenome of 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for the exact eggNOG identifier ENOG41100UY (alone, in quotes, combined with 'eggNOG', 'gut', and with infant/weaning/complementary-feeding keywords) returned no hits describing this orthologous group at all - the search engine only returned unrelated pages (e.g., disambiguation pages, minor-planet lists) plus generic eggNOG database description papers (eggNOG 5.0/6.0/v7). Because the feature is annotated only as 'Function unknown' and has no gene name, protein family, or pathway assignment given, there is also no surrogate name, homolog, or pathway label that could be searched to support even indirect or theoretical reasoning about an age- or weaning-related increase. General literature does exist showing that the infant gut metagenome shifts substantially in functional gene content between ~4-6 and ~12 months of age (e.g., complementary-feeding studies reporting increased genetic-information-processing and carbohydrate/amino-acid metabolism gene fractions), but none of these reports touch this specific unknown-function orthologous group, so they cannot be counted as evidence for or against the stated direction for this feature. No study - human, animal, adult, or infant - reporting ENOG41100UY in any direction was located, so per the rubric this is 'None found' (0) rather than weak (1), and there is no contradicting report that would justify -1.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG41100UY",
+    "ENOG41100UY eggNOG",
+    "eggNOG ortholog group infant gut microbiome 12 months function unknown",
+    "\"ENOG41100UY\" gut",
+    "ENOG411 ortholog group infant gut metagenome age weaning increased",
+    "eggNOG unknown function ortholog groups differentially abundant 12 month infant metagenome complementary feeding",
+    "ENOG41100UY eggnog5 ortholog group description",
+    "infant gut microbiome 12 months uncharacterized gene families increase age metagenome eggNOG orthologous groups"
+  ],
+  "caveats": "Unnamed, unannotated eggNOG orthologous groups are essentially unsearchable in the published literature: identifiers of this form appear almost exclusively inside supplementary tables of metagenomic papers, which are typically not indexed by web search, so a score of 0 here reflects search-visibility limits as much as true absence of biological relevance. One search hit (a bioRxiv preprint on network-based representation learning of fecal metagenomics/metabolomics from 5-12 months in U.S. formula-fed infants) matches the design/timepoints of the present study and therefore was deliberately not counted as independent external evidence. To evaluate this feature properly, the investigators should first resolve ENOG41100UY to its member sequences/taxa (e.g., via the eggNOG 5.0/6.0 database and representative protein domains) and then re-run the literature assessment on the resulting named protein family or on the taxa carrying it."
+}

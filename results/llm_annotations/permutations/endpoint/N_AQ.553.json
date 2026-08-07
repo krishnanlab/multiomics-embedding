@@ -1,0 +1,20 @@
+{
+  "feature_id": "N_AQ.553",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "The aqueous-phase metabolite feature 'N_AQ.553' (labelled '> limit Esi-5.5') is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "This feature is not a chemically identified metabolite. The label '> limit Esi-5.5' appears to be an internal quantification/annotation flag (a value above the assay's upper limit of quantification and/or an unassigned spectral/electrospray-region bucket at ~5.5 ppm or m/z-region descriptor) rather than a named compound, and no external database identifier (HMDB, KEGG, ChEBI, PubChem, InChIKey) was supplied. Multiple targeted searches on the literal feature label, on the identifier format, and on unannotated aqueous-phase metabolite features in the infant fecal/urine metabolome returned no publication reporting this feature at all, let alone its behaviour between ~5 and ~12 months of age. Because the feature has no resolvable chemical identity, it is impossible to map it onto any published compound-level finding (e.g., the well-documented weaning-associated rises in branched-chain amino acids, phenolic/aromatic acids, or short-chain fatty acids), and any attempt to do so would be speculation rather than literature evidence. Searches did surface general infant metabolome maturation studies (longitudinal fecal metabolome across the first two years, breastfed vs. formula-fed and complementary-feeding comparisons), but none of these can be attributed to this feature, so they do not constitute evidence for or against the directional hypothesis. Per the rubric this is a 'none found' situation (0) rather than 'weak' (1), because there is no relevant literature on this feature+group combination and not even a defensible compound-specific pathway argument available given the missing annotation.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "\"Esi-5.5\" metabolite NMR aqueous",
+    "\"> limit\" unannotated metabolite feature infant stool metabolome",
+    "infant stool aqueous metabolite NMR 12 months vs 5 months",
+    "\"Esi\" NMR bucket annotation \"above limit\" metabolomics naming convention",
+    "unidentified NMR spectral feature infant fecal metabolome 12 month old increased",
+    "\"N_AQ\" aqueous metabolite feature identifier metabolomics infant"
+  ],
+  "caveats": "The zero score reflects an annotation problem, not a biological verdict: the hypothesis is untestable against the literature until the feature is chemically identified. If the study team can resolve '> limit Esi-5.5' to a named compound (or provide the m/z / chemical-shift and an HMDB/KEGG ID), the same literature search should be repeated, since age-related (5 vs 12 month) shifts are well described for many identified aqueous fecal metabolites. Note also that a '> limit' flag implies signal saturation/above upper limit of quantification, so the feature's quantitative values may be censored and any apparent group difference could be an artefact of the detection ceiling rather than a true concentration difference."
+}

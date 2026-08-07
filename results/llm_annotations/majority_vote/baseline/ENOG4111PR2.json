@@ -1,0 +1,65 @@
+{
+  "feature_id": "ENOG4111PR2",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "The eggNOG orthologous group ENOG4111PR2 (annotated only as 'zinc ion binding', function unknown) is increased or characteristic of the gut metagenome/metaproteome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches returned no study - primary or otherwise - that reports ENOG4111PR2 (or a clearly named homolog) as differentially abundant between younger (~5-6 month, predominantly milk-fed) and older (~12 month, complementary-fed) infants, or in any infant gut context. The identifier itself only appears in generic eggNOG database/method documentation (eggNOG 4.5/6.0, eggNOG-mapper), which explains the ENOG numbering but carries no biological association. The annotation is a very broad Gene Ontology molecular-function term ('zinc ion binding') applied to an orthologous group of unknown function, so it maps to thousands of unrelated bacterial metalloproteins (zinc-ribbon transcription factors, metallopeptidases, alcohol dehydrogenases, ZnuABC-like components) rather than a single interpretable pathway; no literature evaluates such an aggregate feature against infant age. What was found is only generic/indirect reasoning that could plausibly point either way: (i) host nutritional immunity in early life sequesters zinc (calprotectin), and faecal calprotectin is highest in the first months and declines by ~6 months, which could plausibly favour microbial zinc-acquisition/zinc-binding proteins in younger infants; (ii) metaproteomic work in preterm infants highlights host metal-based bactericidal control as a factor in early gut colonisation; and (iii) functional maturation studies of the complementary-feeding transition (4-9 vs 9-12 months) report age-associated shifts dominated by carbohydrate-, xenobiotic- and vitamin-related gene categories, with no mention of zinc-binding or metal-transport enrichment in either direction. Because relevant but purely generic/theoretical material was located and nothing directly addresses this feature+group combination, this scores 1 (Weak) rather than 0 (nothing found) or -1 (no study reported the opposite direction for this feature either).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.biostars.org/p/240409/",
+      "doi": null,
+      "title": "What are those \"ENOG\" numbers in eggNOG 4.5? (Biostars discussion)",
+      "study_population": "Not applicable - bioinformatics database documentation",
+      "relevance": "Confirms that identifiers of the ENOG41xxxxx form (as in ENOG4111PR2) are eggNOG 4.1/4.5-generated non-supervised orthologous groups, i.e. de novo clusters that frequently lack characterised function - consistent with the 'Function unknown' annotation and explaining why no biological literature on this specific ID exists."
+    },
+    {
+      "url": "https://academic.oup.com/nar/article/51D1/D389/6833261",
+      "doi": "10.1093/nar/gkac1022",
+      "title": "eggNOG 6.0: enabling comparative genomics across 12 535 organisms",
+      "study_population": "Not applicable - reference database (all domains of life)",
+      "relevance": "Documents that eggNOG contains ~17 million orthologous groups, most of them unsupervised NOGs annotated only by broad transferred GO terms such as 'zinc ion binding'; supports the caveat that this feature is a coarse, non-specific functional label rather than a defined pathway that could be matched to published infant-age findings."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11109039/",
+      "doi": "10.1002/ctm2.1695",
+      "title": "Faecal zonulin, calprotectin and the infant microbiome in early life",
+      "study_population": "53 generally healthy human infants, stool at birth, 2, 6, 12 and 24 months; shotgun metagenomics + biomarker ELISA",
+      "relevance": "Primary human infant study relating age-dependent faecal calprotectin (a zinc/manganese-sequestering host protein) to metagenomic function; provides only indirect, non-specific support for the idea that host zinc restriction differs across the first year, but reports no zinc-binding orthologous group (and no ENOG4111PR2) enriched at earlier versus later timepoints."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9720133/",
+      "doi": null,
+      "title": "Antibiotic resistance and host immune system-induced metal bactericidal control are key factors for microbial persistence in the developing human preterm infant gut microbiome",
+      "study_population": "91 faecal samples from preterm human infants over the first 90 days of life; metaproteomics",
+      "relevance": "Indirect mechanistic backdrop: shows host metal-mediated antimicrobial pressure shapes the very early infant gut community, which is the only literature thread that would rationalise higher microbial metal/zinc-binding protein capacity in younger infants; it does not test 5- versus 12-month infants nor this orthologous group."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Human infants sampled at ~4, 9 and 12 months of age; shotwith shotgun metagenomics and LC-MS metabolomics",
+      "relevance": "Directly relevant age contrast (early complementary feeding vs 12 months) using functional metagenomic annotation, but the reported age-associated functional shifts concern carbohydrate/xenobiotic and related KEGG pathways; no zinc-ion-binding or metal-handling feature is reported as characteristic of the younger timepoint, i.e. the hypothesis is neither supported nor refuted by this direct comparison."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9366138/",
+      "doi": "10.3389/fnut.2022.948131",
+      "title": "Stepwise establishment of functional microbial groups in the infant gut between 6 months and 2 years: A prospective cohort study",
+      "study_population": "Prospective cohort of healthy human infants, 6 months to 2 years",
+      "relevance": "Longitudinal characterisation of infant gut functional group succession across the weaning window; functional maturation is described in terms of carbohydrate degradation, lactate utilisation and butyrate production, with no evidence for zinc-binding functions being characteristic of the younger (pre-/early-weaning) stage."
+    }
+  ],
+  "contradicting_evidence": "No study was found reporting this feature (or a specific zinc-ion-binding orthologous group) as higher in 12-month-old than in 5-month-old infants either, so there is no direct contradiction. The only tension is conceptual: broad functional-maturation studies of weaning emphasise expansion of gene content and metabolic capacity with age (more diverse, Bacteroidota/Firmicutes-rich communities carrying many metalloenzymes), which could equally predict a higher aggregate abundance of generic zinc-binding orthologs at 12 months; this ambiguity is why the evidence is judged weak/mixed rather than supportive.",
+  "search_queries_used": [
+    "ENOG4111PR2 eggNOG",
+    "eggNOG orthologous group zinc ion binding infant gut microbiome",
+    "infant gut microbiome metagenome functional zinc transport 5 months vs 12 months",
+    "breastfed infant gut microbiome enriched metal ion transport zinc binding proteins metagenomics age",
+    "gut microbiome functional maturation early infancy metal ion transport enriched younger infants weaning",
+    "eggNOG functional annotation infant gut microbiome age 6 months 12 months unknown function orthologous groups enriched",
+    "calprotectin zinc sequestration infant gut microbiome zinc binding proteins early life abundance decreases with age",
+    "Bifidobacterium zinc ion binding protein breast milk infant gut zinc metalloprotein abundance"
+  ],
+  "caveats": "(1) ENOG4111PR2 is an unsupervised eggNOG group with 'Function unknown'; its only annotation is the highly generic GO term 'zinc ion binding', which is shared by structurally and functionally unrelated bacterial proteins. Literature-based validation of such a feature is intrinsically limited, and absence of published evidence should not be read as evidence of absence. (2) Any real signal is likely taxon-driven (e.g. milk-adapted Bifidobacterium/Enterobacteriaceae at 5 months versus Bacteroides/Lachnospiraceae expansion by 12 months), so the direction depends on which clades carry this ortholog - checking the taxonomic origin of reads assigned to ENOG4111PR2 in the study data, and whether the group maps to a recognisable family (e.g. ZnuA/ZupT/Zur, zinc-ribbon domain, M-family metallopeptidase) via eggNOG 5/6 or Pfam, would be the most informative next step. (3) Feeding mode, iron/zinc-fortified formula or supplement exposure, and host inflammation (faecal calprotectin) are plausible confounders of any zinc-related functional signal at 5 months and should be adjusted for or reported. (4) Evidence entries here are cited for context/indirectness; none of them tests the stated feature+group combination, and DOIs were recorded only where visible in the search result."
+}

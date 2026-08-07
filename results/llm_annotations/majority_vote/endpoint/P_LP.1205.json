@@ -1,0 +1,20 @@
+{
+  "feature_id": "P_LP.1205",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "This lipid-class feature (annotated only by the putative molecular formula C16 H41 N14 O7) is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "Multiple web searches for the exact formula string (\"C16 H41 N14 O7\", C16H41N14O7) and for the formula in combination with infant gut metabolome/lipidome and complementary-feeding/weaning terms returned no records for this compound in any chemical database entry, primary study, or review. Search hits were only generic Wikipedia molecular-formula index pages for unrelated formulas (e.g., C16H14O7, C16H28N4O8) plus infant metabolome papers that do not mention this feature. The feature is an unannotated, formula-only mass-spectrometry feature with no named compound identity, so there is no literature-linkable entity (no compound name, HMDB/KEGG/LIPID MAPS ID, or pathway) on which to base a directional claim about 12- vs 5-month-old infants. Additionally, the stated formula is chemically implausible as a neutral molecule: its ring-plus-double-bond equivalent is non-integer (16 - 41/2 + 14/2 + 1 = 3.5), indicating it is either an ion/adduct formula or a mis-assigned formula, and a 14-nitrogen, 16-carbon composition is not consistent with the assigned 'lipid' class. Because absolutely no relevant literature on this feature was located - not even indirect or pathway-level evidence tied to a defined compound - the rubric requires a score of 0 rather than 1 (which would apply if generic pathway-level reasoning about an identified compound had been found) and rather than -1 (which would require a study reporting the opposite direction).",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C16H41N14O7 metabolite",
+    "\"C16 H41 N14 O7\"",
+    "infant gut metabolome 12 months vs 5 months lipid",
+    "C16H41N14O7 PubChem compound",
+    "infant stool lipidomics complementary feeding 12 months increased lipid",
+    "unannotated metabolite feature molecular formula infant fecal metabolome weaning"
+  ],
+  "caveats": "The feature has no chemical name, database identifier, or validated structure - only a putative (and internally inconsistent, non-integer RDBE) molecular formula - so literature search cannot in principle confirm or refute the hypothesis. A score of 0 here reflects unresolvable annotation rather than a demonstrated absence of an age effect: the underlying ion may well differ between 5 and 12 months in the study data. Recommended next steps before any biological interpretation: re-derive the neutral formula from the observed m/z and adduct, check isotope pattern and MS/MS spectra against spectral libraries (e.g., GNPS/MassBank/HMDB) or perform in-silico annotation (SIRIUS/CSI:FingerID), and re-run the literature search once a credible compound identity (or lipid subclass) is assigned. Note also that adduct/formula errors of this kind frequently arise from multiply charged or clustered ions in untargeted lipidomics."
+}

@@ -1,0 +1,69 @@
+{
+  "feature_id": "ENOG4111PR2",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "The eggNOG orthologous group ENOG4111PR2 (annotated only as 'zinc ion binding', function unknown) is increased or characteristic of the gut microbiome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Searches for the exact orthologous group identifier (ENOG4111PR2) returned nothing biological - only generic documentation of the eggNOG ENOG identifier scheme - so there is no published study that names this specific ortholog group at all, let alone in an infant age comparison. Searches combining the functional annotation ('zinc ion binding', zinc-binding/zinc acquisition genes) with infant gut metagenomics likewise found no primary study reporting that zinc-ion-binding gene families are enriched in pre-/early-complementary-feeding infants (~5 months) versus post-weaning infants (~12 months). What was found is only generic or tangential: (i) reviews and primary cohort work establishing that the 6-12 month weaning window is when infant gut microbiome composition and functional potential shift most, but these do not report zinc-ion-binding orthologs directionally; (ii) a preterm-infant metagenomic study framing metal-related (host metal bactericidal control / metal resistance) functions as relevant to persistence in the early developing infant gut, which is neither the same feature nor an age contrast at 5 vs 12 months; (iii) mechanistic microbiology on bacterial high-affinity zinc acquisition (ZnuABC, zincophores) under host zinc sequestration, which supports only a theoretical rationale that zinc-limited, calprotectin-rich early infancy could favour zinc-binding proteins; and (iv) zinc-deficiency microbiome studies in school-age children and animal models that address host zinc status rather than infant age. Because the annotation is a very broad, function-unknown 'zinc ion binding' label that spans metalloproteases, metallochaperones, transporters, transcriptional regulators and many zinc-finger-like domains, even pathway-level literature cannot be mapped confidently onto it. This is therefore theoretical/pathway-level reasoning only, with nothing directly contradicting the hypothesis either, i.e. a weak (1) score rather than 0 or -1.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9282554/",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy infants sampled longitudinally across the complementary feeding period (approximately 4-9 months and 9-12 months of age); shotgun metagenomics plus metabolomics",
+      "relevance": "Directly relevant age window (early complementary feeding vs ~12 months) and reports compositional and metagenomic functional change with age, providing the general framework for expecting age-differential gene functions; however it reports carbohydrate/amino-acid and transporter-level pathway shifts and does not report any zinc-ion-binding ortholog group as enriched at the earlier timepoint, so it supports only generic, not feature-specific, reasoning."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12604632/",
+      "doi": null,
+      "title": "Infant gut microbiome reprogramming following introduction of solid foods (weaning)",
+      "study_population": "Review of human infant cohorts spanning breastfeeding through weaning (~4-6 months onward to 2 years)",
+      "relevance": "Corroborates that the 6-12 month period carries the most extensive changes in infant gut microbial composition, diversity and functional potential - i.e. an age contrast at 5 vs 12 months is biologically plausible - but no statement about zinc-ion-binding gene families in either direction."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9720133/",
+      "doi": null,
+      "title": "Antibiotic resistance and host immune system-induced metal bactericidal control are key factors for microbial persistence in the developing human preterm infant gut microbiome",
+      "study_population": "Preterm human infants, longitudinal gut metagenomes during early neonatal development",
+      "relevance": "Indirect support that metal-handling functions are selectively important for microbes colonizing the very early infant gut (where host metal-restriction pressure is high), which is the closest published rationale for enrichment of metal/zinc-binding functions early in life; it is preterm/neonatal, concerns metal resistance and efflux rather than the annotated 'zinc ion binding' ortholog, and provides no 5- vs 12-month comparison."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8636617/",
+      "doi": null,
+      "title": "Siderophore-mediated zinc acquisition enhances enterobacterial colonization of the inflamed gut",
+      "study_population": "Mouse models and in vitro Enterobacteriaceae (E. coli Nissle 1917, Salmonella); not infants",
+      "relevance": "Provides the mechanistic/pathway-level basis for why high-affinity zinc-binding and zinc-acquisition proteins are advantageous when host calprotectin sequesters zinc - a condition characteristic of early infancy with high faecal calprotectin - but is an adult/animal infection model and says nothing about infant age groups or this ortholog."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2025.07.02.662895v1.full.pdf",
+      "doi": null,
+      "title": "Multiomics approach to regionally profile zinc-driven host-microbiome interactions (preprint)",
+      "study_population": "Preclinical multiomics study of gut regions (small intestine vs colon), not human infants",
+      "relevance": "The only source located that explicitly uses a 'zinc ion binding' functional-enrichment term in a microbiome context, showing it varies by gut region and zinc availability; this demonstrates the term is measurable in metagenomic functional enrichment analyses but gives no infant age direction and is an unreviewed preprint."
+    },
+    {
+      "url": "https://www.biostars.org/p/240409/",
+      "doi": null,
+      "title": "What are those 'ENOG' numbers in eggNOG 4.5?",
+      "study_population": "Not applicable (bioinformatics database documentation)",
+      "relevance": "Confirms ENOG4111PR2 is an eggNOG-generated non-supervised orthologous group identifier (release 4.1) rather than a curated, literature-annotated gene family; this explains why no primary literature names the feature and underpins the low confidence score."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG4111PR2 eggNOG",
+    "eggNOG orthologous group zinc ion binding infant gut microbiome",
+    "infant gut metagenome zinc ion binding function 5 months 12 months",
+    "breastfed infant gut microbiome metagenome enriched zinc transport genes",
+    "infant gut microbiome functional gene age metal ion transport breastfeeding weaning metagenomics",
+    "zinc binding protein Bifidobacterium infant gut early life metagenome enriched",
+    "infant gut microbiome 6 months vs 12 months metagenome functional shift metal transporters",
+    "\"zinc ion binding\" gene ontology enriched breastfed infant gut microbiome metagenome",
+    "zinc acquisition ZnuABC gut bacteria early life colonization breast milk zinc calprotectin",
+    "ENOG4111PR2",
+    "infant gut microbiome maturation functional genes decline with age metal ion binding cation transport metagenomics",
+    "human milk zinc microbiome zinc-binding proteins early infancy vs solid food metagenomic functional profile"
+  ],
+  "caveats": "The feature is an uncurated eggNOG non-supervised orthologous group with 'function unknown' and only a broad molecular-function label ('zinc ion binding'), which is shared by hundreds of unrelated protein families (metalloproteases, metallochaperones, ABC transporter components, zinc-ribbon regulators). Literature searching cannot resolve which taxa or genes this OG represents, so even taxon-level or pathway-level inference is unreliable; the annotation should be resolved to constituent genes/taxa (e.g. via eggNOG/EMapper member sequences or the contributing genomes in your own assemblies) before literature-based confidence can be meaningfully raised. Additionally, if the OG derives mainly from Bifidobacterium or other milk-adapted taxa that decline after weaning, any apparent 5-month enrichment could simply be a taxonomic abundance artefact rather than a functional signal, and the reverse if it derives from Bacteroides/Firmicutes taxa that expand at 12 months."
+}

@@ -1,0 +1,72 @@
+{
+  "feature_id": "N_LP.63",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "Bis-D-fructose 2',1:2,1'-dianhydride (difructose anhydride I, DFA I; KEGG C04333) is increased or characteristic in 5-month-old infants relative to 12-month-old infants",
+  "confidence_score": 1,
+  "rationale": "Multiple searches located substantial literature on this exact compound (DFA I) as a chemical entity - its enzymatic formation from inulin/levan, its occurrence in thermally processed/caramelized foods, its non-digestibility and microbial fermentation - but no study, primary or otherwise, was found that measured DFA I (or any difructose dianhydride) in infant stool, urine or plasma, and none that compared any infant age group (e.g. ~5 months vs ~12 months) or feeding stage for this metabolite. Infant fecal metabolome papers retrieved (longitudinal profiles over the first 1-2 years, breastfed vs formula-fed comparisons, complementary-feeding transition studies) discuss HMOs, Maillard products, bile acids, SCFAs and amino acid derivatives, but no difructose anhydride annotation appeared in any of them. The only reasoning available is generic/pathway-level: DFA I is either (i) a dietary caramelization product of fructose-containing foods (caramel, roasted coffee/chicory, honey, heat-processed sugar-rich foods) or (ii) a microbially generated product of fructan (inulin/levan) transformation, e.g. by the alpha-D-fructofuranosidase/DFA I synthase-hydrolase of Bifidobacterium dentium. A theoretical argument for the hypothesized direction exists (young milk-fed infants are strongly Bifidobacterium-dominated, and heat-processed infant formula is a plausible source of caramelization-derived disaccharides), but the substrate logic (dietary fructans and caramelized foods arrive with complementary feeding) points the other way, so the reasoning is at best mixed and entirely indirect. Under the rubric this is 'weak' - relevant material found, but nothing on this feature+group combination.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.sciencedirect.com/science/article/pii/S0924224426000798",
+      "doi": null,
+      "title": "Difructose anhydrides as emerging functional food ingredients: Production methods, therapeutic potentials, and analytical perspectives",
+      "study_population": "Not a human study - food-science/nutrition review of difructose anhydrides (DFA I, III, IV)",
+      "relevance": "Establishes that DFAs, including DFA I, occur naturally in caramelized sucrose/fructose-containing foods and are non-digestible in the small intestine, reaching the colon where they are partially fermented. Provides the pathway-level framework for why DFA I could appear in infant stool, but contains no infant age-group comparison, and the dietary-exposure logic (thermally processed solid foods) would argue for higher levels after complementary feeding rather than at 5 months."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8605356/",
+      "doi": "10.1016/j.jbc.2021.101324",
+      "title": "Identification of difructose dianhydride I synthase/hydrolase from an oral bacterium establishes a novel glycoside hydrolase family",
+      "study_population": "In vitro enzymology/structural biology; Bifidobacterium dentium (human oral/gut commensal)",
+      "relevance": "Directly concerns DFA I (the queried compound) and shows a bifidobacterial enzyme (alphaFFase1) that both synthesizes and hydrolyzes DFA I from fructofuranosyl substrates. This is the only mechanistic link found between DFA I and a taxon relevant to infants, but the study involves no infants and no age comparison, so it supports only theoretical plausibility, not the 5-month direction."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11538131/",
+      "doi": "10.1007/s00253-024-13346-5",
+      "title": "Degradation mechanism of difructose dianhydride III in Blautia species",
+      "study_population": "In vitro bacterial genetics/biochemistry (human gut Blautia isolates)",
+      "relevance": "Shows that human gut commensals possess dedicated machinery to degrade difructose dianhydrides (DFA III, a close structural analog of DFA I). Implies that fecal DFA levels reflect a balance between input and microbial consumption; Blautia/Lachnospiraceae expand during weaning, which is an indirect argument for lower rather than higher DFA at 12 months, but no infant measurements were made."
+    },
+    {
+      "url": "https://academic.oup.com/bbb/article-abstract/64/7/1321/5945756",
+      "doi": null,
+      "title": "Difructose Anhydrides: Their Mass-Production and Physiological Functions",
+      "study_population": "Rat/in vitro physiological studies of DFA III and DFA IV",
+      "relevance": "Primary/experimental corroboration that difructose anhydrides resist host digestion and are utilized by intestinal microorganisms in vivo. Pathway-level support only - animal work on analogs, no infant or age-stratified data on DFA I."
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0963996906000494",
+      "doi": null,
+      "title": "Difructose anhydrides as quality markers of honey and coffee",
+      "study_population": "Food analytical chemistry (honey and coffee samples)",
+      "relevance": "Documents the principal dietary matrices in which DFAs accumulate (heated honey, roasted coffee). Because such foods are not part of a 5-month-old's diet (honey is contraindicated before 12 months), this evidence does not support a dietary route for higher DFA I at 5 months and is the basis for regarding the exposure logic as mixed/opposing."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-023-28862-z",
+      "doi": null,
+      "title": "Longitudinal profiles of the fecal metabolome during the first 2 years of life",
+      "study_population": "Human infants, repeated stool sampling across the first 2 years (birth cohort)",
+      "relevance": "The most directly relevant study design available (age-resolved infant fecal metabolome across the 5-12 month window), but no difructose anhydride/DFA I annotation surfaced in the retrieved content - i.e. searching the best-matched study type yielded no measurement of this feature, supporting a score of 1 rather than 2."
+    }
+  ],
+  "contradicting_evidence": "No study directly contradicts the hypothesis, but the balance of indirect reasoning leans the opposite way: DFA I's documented sources are caramelized/thermally processed fructose-containing foods (caramel, roasted coffee and chicory, honey) and bacterial transformation of plant fructans (inulin/levan). Both exposures typically begin with complementary feeding and would be higher at 12 months than at 5 months, when the diet is predominantly human milk and/or lactose-based formula. Additionally, DFA-degrading gut taxa (e.g. Blautia and other Lachnospiraceae) expand after weaning, which complicates any simple directional prediction. Because no study addressed this feature in either infant group, this is scored as weak/mixed (1) rather than contradicting (-1).",
+  "search_queries_used": [
+    "Bis-D-fructose 2',1:2,1'-dianhydride",
+    "difructose anhydride infant gut microbiome",
+    "KEGG C04333 difructose dianhydride",
+    "difructose dianhydride infant formula breast milk metabolite",
+    "difructose anhydride I fecal metabolomics infants breastfed weaning",
+    "difructose dianhydride I synthase Bifidobacterium dentium levan",
+    "infant fecal metabolome 6 months 12 months complementary feeding sugars fructose oligosaccharides age",
+    "difructose anhydride caramelization heated foods dietary source occurrence",
+    "difructose anhydride heat-treated milk infant formula marker lactulose furosine",
+    "Bifidobacterium dentium infant gut colonization age breastfed abundance",
+    "difructose dianhydride fecal excretion human absorption not digested",
+    "untargeted metabolomics infant stool fructose disaccharide decreased with age 12 months breast milk",
+    "\"difructose\" infant stool metabolomics annotation identified feces",
+    "difructose anhydride honey coffee content infant diet exposure children",
+    "inulin levan fructan degradation infant gut microbiota complementary feeding solid foods"
+  ],
+  "caveats": "Annotation confidence is a major concern: DFA I is an isobaric cyclic difructose (C12H20O10, monoisotopic 324.1057) that is indistinguishable by mass alone from sucrose, lactose, maltose, trehalose, other difructose dianhydrides (DFA III/IV) and inulobiose-type disaccharides; the feature is also labelled 'metabolite_lipid', which further suggests a putative library match rather than an MS/MS- or standard-confirmed identification. In a milk-fed infant, a hit at this mass is at least as plausibly lactose/sucrose or a related disaccharide. Any interpretation should therefore be treated as provisional pending MS/MS or retention-time confirmation against an authentic DFA I standard. Also note that difructose anhydrides can form during sample heating/processing, and that fecal metabolite intensities are strongly influenced by stool water content and by feeding mode (breast milk vs formula vs solids), which is typically confounded with age between 5 and 12 months."
+}

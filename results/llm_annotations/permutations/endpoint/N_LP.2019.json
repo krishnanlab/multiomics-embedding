@@ -1,0 +1,19 @@
+{
+  "feature_id": "N_LP.2019",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "The lipid feature N_LP.2019 (\"<none> Esi-0.80700034\") is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "This feature carries no chemical annotation: the name field is literally \"<none>\" followed by an internal instrument/peak identifier (\"Esi-0.80700034\", apparently an electrospray-ionization feature label, likely an m/z or retention-index derived key), and the feature_id (N_LP.2019) is a study-internal lipidomics index rather than an external database identifier (no HMDB, LIPID MAPS, KEGG, ChEBI, InChIKey or formula given). Searches on the identifier strings returned only generic ESI-MS/metabolite-identification methodology pages (CFM-ID, competitive fragmentation modeling, single-cell ESI-MS) with no compound matching this label, and searches combining the feature label with infant metabolome/lipidome and age/weaning keywords returned only unrelated infant lipidomics studies that describe named lipid classes, not this unnamed feature. Because the analyte identity is unknown, no published study can report an association between *this specific feature* and 12-month-old versus 5-month-old infants, and there is no defined compound class or pathway on which even generic/theoretical reasoning could be anchored (which is why this is scored 0 rather than 1). It is true in general that the infant plasma/fecal lipidome shifts substantially across the first year with the complementary feeding transition (e.g. longitudinal ontogeny-of-lipid-metabolism and complementary-feeding-transition studies surfaced in the searches), but that background cannot be assigned a direction for an unidentified peak, and it would be equally consistent with the feature decreasing. Any apparent 12-month enrichment must therefore be treated as an internal, data-driven observation awaiting structural annotation.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "Esi-0.80700034 metabolite",
+    "N_LP.2019 unannotated lipid feature infant metabolome",
+    "unannotated lipid feature infant plasma metabolome 12 months vs 5 months",
+    "unannotated LC-MS lipid feature infant stool weaning 12 months",
+    "infant fecal lipidome age 5 months to 12 months complementary feeding untargeted"
+  ],
+  "caveats": "The feature is an unannotated ('<none>') lipidomics peak with only an internal ESI feature label, so it is fundamentally unsearchable in the literature; a score of 0 reflects unidentifiability rather than a judgement that the underlying molecule is uninteresting. Recommended next steps: recover the exact m/z, retention time, adduct and MS/MS spectrum, attempt annotation against LIPID MAPS/HMDB or in-silico tools (e.g. CFM-ID), and then re-run this literature assessment on the putative identity. Note also that lipid features can be misassigned across ionization modes, and the same unnamed feature may map to several isobaric lipid species, so partial annotation should be interpreted cautiously."
+}

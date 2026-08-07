@@ -1,0 +1,71 @@
+{
+  "feature_id": "PF03885",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "PF03885 (DUF327, protein of unknown function) is increased or characteristic of the 12-month-old infant gut metagenome relative to 5-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches for the Pfam accession (PF03885), the domain name (DUF327), and the corresponding InterPro family (IPR005585) in combination with infant gut microbiome, weaning/complementary-feeding, and age-related metagenome keywords returned no primary study - human or animal - that reports this domain family as differentially abundant between younger, milk-fed infants and ~12-month-old/post-weaning infants, or in any age-stratified gut metagenome comparison. The only concrete information retrieved about the family is annotation-level: DUF327/IPR005585 is an uncharacterized bacterial domain family, represented in Firmicutes/Bacillota genomes (e.g. Bacillus subtilis BSU_00300 / UniProt P37539, Staphylococcus aureus SACOL1786 and orthologues in the AureoWiki pan-genome), with no assigned biochemical function. The only hit combining a 5-month and 12-month infant stool metagenomics/metabolomics design (a bioRxiv preprint on network-based representation learning) appears to describe a cohort of the same design as the study under evaluation rather than independent confirmation, and nothing in the retrieved content attributed PF03885 to the 12-month timepoint. Consequently the hypothesis can only be supported by generic reasoning: the gut microbiome at ~12 months is enriched in Firmicutes/Clostridia (Lachnospiraceae, Ruminococcaceae, Blautia, Roseburia) relative to the Bifidobacterium/Proteobacteria-dominated milk-fed community, so any uncharacterized Firmicute-associated protein domain would be expected to increase with age by taxonomic carry-over. That is pathway/taxon-level theoretical reasoning about a feature-group combination with no published study, which the rubric scores as 1 (Weak). No contradicting report was found either, so 0 and -1 do not apply.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.wikidata.org/wiki/Q24722194",
+      "doi": null,
+      "title": "Protein of unknown function DUF327 (Pfam PF03885 / InterPro IPR005585) - database record",
+      "study_population": "Not a study - protein family database annotation record",
+      "relevance": "Confirms the identity of the feature: DUF327 corresponds to InterPro family IPR005585 and is an uncharacterized (function-unknown) bacterial protein family. Establishes that no functional annotation exists that could be mapped to a diet- or age-related pathway, i.e. only indirect/taxonomic reasoning is available."
+    },
+    {
+      "url": "https://www.wikidata.org/wiki/Q23517737",
+      "doi": null,
+      "title": "Hypothetical protein BSU_00300 (UniProt P37539) annotated as Protein of unknown function DUF327 / TM1646-like domain superfamily",
+      "study_population": "Bacterial genome annotation (Bacillus subtilis; not human)",
+      "relevance": "Indirect support for the taxonomic premise of the hypothesis: DUF327 occurs in Firmicutes/Bacillota genomes. Since Firmicutes/Clostridia expand in the infant gut after introduction of solid foods, a Firmicute-carried domain would be expected to rise by 12 months - but this is inference, not observation of the feature in infants."
+    },
+    {
+      "url": "https://aureowiki.med.uni-greifswald.de/SACOL1786",
+      "doi": null,
+      "title": "SACOL1786 (DUF327-containing protein) - AureoWiki Staphylococcus aureus pan-genome entry",
+      "study_population": "Bacterial pan-genome database (Staphylococcus aureus; not human)",
+      "relevance": "Second annotation-level source showing DUF327 is distributed across Bacillota/Firmicutes genera. Supports only the generic taxonomic rationale; provides no infant, age, or weaning association."
+    },
+    {
+      "url": "https://www.cell.com/fulltext/S1931-3128(15)00162-6",
+      "doi": "10.1016/j.chom.2015.05.012",
+      "title": "Dynamics and Stabilization of the Human Gut Microbiome during the First Year of Life",
+      "study_population": "Swedish mother-infant cohort; infant stool shotgun metagenomes at newborn, 4 months and 12 months",
+      "relevance": "Primary human infant metagenomic study establishing that cessation of breastfeeding drives functional maturation and that the 12-month community differs markedly from the 4-month community (Bifidobacterium/Lactobacillus/Veillonella signatures of 4 months giving way to a more adult-like, Firmicutes/Clostridia-rich profile). Provides the age-trajectory backdrop for the hypothesis but does not report PF03885/DUF327 specifically, so it is contextual rather than direct evidence."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Human infants across the complementary feeding transition (stool microbiome)",
+      "relevance": "Primary study of the same developmental window (milk-fed to complementary-fed) showing compositional/functional restructuring toward solid-food-associated taxa; used only as generic contextual support, since the retrieved content contains no mention of DUF327/PF03885."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9366138/",
+      "doi": null,
+      "title": "Stepwise establishment of functional microbial groups in the infant gut between 6 months and 2 years: a prospective cohort study",
+      "study_population": "Prospective human infant cohort, 6 months to 2 years, stool microbiome",
+      "relevance": "Documents stepwise, age-dependent establishment of functional microbial groups after 6 months of age, consistent with the general expectation that uncharacterized Firmicute-associated gene families increase toward 12 months; no feature-specific (PF03885) data reported."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "PF03885 DUF327",
+    "DUF327 protein of unknown function",
+    "DUF327 infant gut microbiome",
+    "DUF327 Pfam Firmicutes Clostridia distribution",
+    "Pfam domain abundance infant gut metagenome weaning 12 months functional maturation",
+    "PF03885 metagenome",
+    "infant gut microbiome functional gene families 6 vs 12 months age Pfam",
+    "DUF327 InterPro entry family",
+    "\"DUF327\" Bacillus subtilis gene",
+    "\"DUF327\" Clostridium",
+    "DUF327 domain function cell wall",
+    "Backhed 2015 dynamics stabilization human gut microbiome first year of life functional 4 months 12 months",
+    "DUF327 Pfam abundance gut microbiome age",
+    "protein of unknown function Pfam infant stool metagenome 12 months increased Clostridiales"
+  ],
+  "caveats": "DUF327 is a domain of unknown function, so no mechanistic or dietary interpretation can be attached to it; any age association would most likely be a proxy for the underlying taxa carrying the domain (predominantly Firmicutes/Bacillota) rather than a functional signal. Uncharacterized Pfam families are also rarely reported by name in published infant metagenome papers - they are usually buried in supplementary tables that web search cannot index - so absence of literature here reflects reporting practice as much as biology, and the true evidence base may be undetectable by search. One retrieved preprint describing metagenomics plus metabolomics in infants at 5 and 12 months appears to be from a cohort with the same design as this study and was therefore not counted as independent evidence. Search-tool call budget was exhausted before I could query UniProt/InterPro for the full taxonomic distribution of IPR005585 (e.g. whether it is enriched in Lachnospiraceae/Ruminococcaceae versus Bifidobacterium), which would sharpen the taxonomic-proxy argument; confirming that distribution could justify raising the score to 2."
+}

@@ -1,0 +1,45 @@
+{
+  "feature_id": "N_LP.307",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "The tripeptide His-Lys-Met (METLIN 1675) is increased or characteristic in 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Multiple searches combining the compound name, its tripeptide constituents, the METLIN identifier, and infant gut metabolome/weaning keywords returned no primary study reporting His-Lys-Met (or a clearly named homolog) in infant stool, serum, or milk, and none comparing its abundance between ~5-month-old and ~12-month-old infants. The only relevant literature located is general infant gut-metabolome maturation work: a longitudinal human study of the first year of life reported that amino-acid and peptide diversity in the infant gut metabolome increases markedly with age, with acetylated amino acids and dipeptides enriched in both the 4-month and 12-month metabolomes relative to the neonatal metabolome, and a separate longitudinal study describes strong age-dependent restructuring of the fecal metabolome over the first two years. This is pathway-level/class-level information only: it neither establishes the specific tripeptide nor resolves the 5-month vs 12-month direction (the peptide-class enrichment was reported for 4- and 12-month samples alike, so it is not a direct contradiction, merely non-supportive). Plausible directional arguments exist in both directions - a milk-protein-derived peptide would be expected to fall as breast milk/formula intake is displaced by solids, whereas increased dietary protein load and proteolytic fermentation after complementary feeding would be expected to raise gut peptide levels at 12 months - and no located study adjudicates between them for this feature. That corresponds to weak, generic-only evidence (score 1) rather than 0 (nothing found) or -1 (direct opposite-direction finding).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10334852/",
+      "doi": "10.1080/19490976.2023.2231596",
+      "title": "Maturation of the gut metabolome during the first year of life in humans",
+      "study_population": "Human infants sampled longitudinally across the first year of life (neonatal, 4-month and 12-month stool metabolomes) plus mothers",
+      "relevance": "Closest located evidence on peptide-class behaviour with infant age: reports that amino acid and peptide diversity increases with age over the first year, with dipeptides enriched in both 4-month and 12-month metabolomes relative to neonates. Class-level only - no His-Lys-Met and no explicit 5- vs 12-month contrast, so it does not support (and mildly argues against) a 5-month-high pattern."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-023-28862-z",
+      "doi": null,
+      "title": "Longitudinal profiles of the fecal metabolome during the first 2 years of life",
+      "study_population": "Human infants, longitudinal fecal metabolome sampling over the first two years of life",
+      "relevance": "Documents strong age-structured trajectories of the infant fecal metabolome spanning the 5- and 12-month windows, establishing that age is a major driver of metabolite abundance, but no reported measurement of the tripeptide His-Lys-Met; provides only background plausibility, not feature-specific support."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/molecular-biosciences/articles/10.3389/fmolb.2021.660456/full",
+      "doi": null,
+      "title": "Longitudinal Profiles of Dietary and Microbial Metabolites in Formula- and Breastfed Infants",
+      "study_population": "Breastfed and formula-fed human infants followed longitudinally through early infancy",
+      "relevance": "Examines diet- and age-driven dietary/microbial metabolites (including protein-derived metabolites) in infant stool; no report of His-Lys-Met, so it neither supports nor refutes the hypothesis but bounds the available literature on milk-protein-derived metabolite trajectories."
+    }
+  ],
+  "contradicting_evidence": "The gut-metabolome maturation study reports that peptide/dipeptide diversity and abundance in infant stool generally increase with age across the first year (enriched at 4 and 12 months versus neonates), which is directionally unfavourable to a 5-month-high pattern for a peptide feature. However, it does not test His-Lys-Met specifically nor directly contrast ~5 vs 12 months, so it falls short of a direct opposite-direction finding.",
+  "search_queries_used": [
+    "His Lys Met tripeptide infant gut metabolome",
+    "tripeptides infant fecal metabolome breastfed weaning age",
+    "peptides infant gut metabolome 5 months 12 months",
+    "dipeptides decline with age infant stool metabolome first year",
+    "histidyl-lysyl-methionine tripeptide",
+    "infant fecal metabolome peptides higher in younger breastfed infants than after weaning",
+    "gut metabolome maturation first year of life amino acids peptides decrease 12 months",
+    "Maturation of the gut metabolome first year of life dipeptides decreased with age",
+    "Longitudinal profiles fecal metabolome first 2 years of life dipeptide age trajectory"
+  ],
+  "caveats": "Annotation reliability is a major concern: this feature is labelled 'metabolite_lipid' yet named as a tripeptide, and untargeted LC-MS annotation of short peptides (isobaric/isomeric permutations such as His-Lys-Met vs Lys-His-Met vs other Leu/Ile-containing combinations) is notoriously ambiguous without authentic-standard MS/MS confirmation; the METLIN entry alone is a spectral-library match, not biological evidence. Small tripeptides in stool can also arise from incomplete proteolysis of dietary or host protein and from post-collection proteolysis, making abundance sensitive to sample handling. Literature on individual tripeptides in infant stool is essentially absent, so absence of evidence here largely reflects the field's focus on amino acids, SCFAs/BCFAs and bile acids rather than a true null. A search-tool call limit was reached, so a few planned queries (e.g. METLIN 1675 specifically, branched-chain fatty acid/proteolytic fermentation after weaning) could not be completed; additional targeted searching could shift this score."
+}

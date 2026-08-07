@@ -1,0 +1,19 @@
+{
+  "feature_id": "P_LP.1981",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "The unannotated lipidomics feature 'C21 H51 N16 O9 Esi+6.1870084' is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "This feature is an unidentified untargeted-MS feature label, not a named chemical entity. The label consists of a putative molecular formula (C21H51N16O9), an ionization mode tag (ESI+), and a numeric identifier (6.1870084, which is not a plausible m/z for such a formula and is more likely a retention-time or internal index). Searches on the formula string, the full feature label, and the formula combined with infant gut metabolome/lipidome and weaning/complementary-feeding keywords returned no records in metabolite databases (HMDB/LIPID MAPS/PubChem-type resources) or in any primary literature. Moreover, the formula itself is chemically implausible for a lipid class compound (16 nitrogens with 9 oxygens and only 21 carbons; degree of unsaturation implies a highly saturated, extremely nitrogen-rich species), suggesting it is a software-generated formula guess for an unassigned peak rather than a real annotated metabolite. Because no chemical identity can be established, there is no compound-, class-, or pathway-level literature that can be tied to this feature, and therefore no published evidence either supporting or contradicting an increase at 12 months versus 5 months of age. I located general literature showing that the infant fecal/plasma metabolome shifts substantially between roughly 5 and 12 months with complementary feeding, but this cannot be attributed to this specific unassignable feature and does not constitute evidence for it; per the rubric this is a case of no relevant literature located for the feature+group combination. Resolving this feature would require MS/MS-based structural annotation (or matching against an in-house spectral library) before any literature-based confidence assessment is possible.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C21H51N16O9 metabolite",
+    "\"C21 H51 N16 O9\" lipidomics feature",
+    "untargeted metabolomics unannotated feature infant 12 months vs 5 months gut",
+    "nitrogen-rich guanidino metabolite infant gut metabolome weaning 12 months",
+    "infant fecal lipidome age 5 to 12 months untargeted LC-MS features"
+  ],
+  "caveats": "Scored 0 because the feature has no resolvable chemical identity, not because a known compound lacks literature. The searches could only test the formula string and generic infant-age context; if the investigators can provide an MS/MS-confirmed annotation, HMDB/LIPID MAPS ID, or accurate m/z and adduct, the literature assessment should be repeated, as a correctly identified compound (e.g., a specific lipid or nitrogen-containing metabolite) may well have relevant weaning-transition evidence. The stated formula should also be sanity-checked, since C21H51N16O9 is not consistent with typical lipid annotations and the appended numeric value does not look like a valid m/z."
+}

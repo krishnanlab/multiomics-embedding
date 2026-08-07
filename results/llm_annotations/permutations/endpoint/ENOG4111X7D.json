@@ -1,0 +1,21 @@
+{
+  "feature_id": "ENOG4111X7D",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "The eggNOG orthologous group ENOG4111X7D (function unknown) is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for the exact identifier 'ENOG4111X7D' (alone, with 'eggNOG'/'orthologous group', and combined with infant gut microbiome / complementary feeding / metagenomics keywords) returned no publication, database record, or preprint mentioning this ortholog group in any biological context, let alone in relation to infant age or the transition from 5 to 12 months. Search results were entirely off-target (unrelated Wikipedia entries, generic eggNOG/orthology methodology papers such as eggNOG v7, eggNOG-mapper, DeepNOG) or general infant gut microbiome development papers that do not report this specific ortholog. Because the feature is annotated as 'Function unknown' with no gene name, protein family, or pathway assignment, there is also no functional handle on which to build even indirect pathway-level or theoretical reasoning (which would have justified a score of 1) - e.g. no way to link it to carbohydrate/plant-polysaccharide utilization, amino-acid or bile-acid metabolism, or other functions known to expand at weaning. No study directly addressing this feature-group combination was found in either direction, so a contradicting score (-1) is also not warranted. This is therefore a case of complete absence of locatable literature: confidence 0.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG4111X7D",
+    "ENOG4111X7D eggNOG infant gut microbiome",
+    "\"ENOG4111X7D\" orthologous group function",
+    "eggNOG orthologous group unknown function increased 12 month infant gut metagenome weaning",
+    "infant gut metagenome eggNOG functional gene families 5 months vs 12 months complementary feeding",
+    "ENOG4111X7D eggNOG database ortholog group annotation",
+    "\"ENOG411\" ortholog group infant gut microbiome age association shotgun metagenomics"
+  ],
+  "caveats": "Unnamed eggNOG ortholog groups of unknown function are essentially never discussed individually in the published literature - identifier-level searches via a general web search engine are unlikely to surface them even if they appear in supplementary tables of metagenomic studies. A score of 0 here reflects the absence of retrievable, citable evidence rather than positive evidence against the hypothesis. Note also that ENOG41xxxxx-style IDs are legacy eggNOG v4.5 identifiers and may have been renamed/merged in eggNOG v5-v7, which further limits searchability; querying the eggNOG database directly (unavailable offline here) for member proteins and taxonomic distribution, then testing whether those member taxa/functions are known to expand after weaning, would be the appropriate next step. Directionality (12mo > 5mo) therefore remains untested by external literature."
+}

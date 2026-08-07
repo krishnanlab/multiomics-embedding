@@ -1,0 +1,62 @@
+{
+  "feature_id": "K03825",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "The KEGG ortholog K03825 (putative acetyltransferase, EC:2.3.1.-) is increased or characteristic of the gut metagenome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Multiple searches combining the KEGG identifier (K03825), its generic name ('putative acetyltransferase', GNAT-family acetyltransferase), and the group keywords (infant gut microbiome, breastfed vs. weaned, complementary feeding, 5/6 vs. 12 months) returned no primary study - human or animal - that reports this specific ortholog as differentially abundant between early-infancy (pre-/early complementary feeding) and ~12-month gut metagenomes, or between breastfed and weaned infants. K03825 hits I retrieved were only database/annotation listings (KEGG entry page, annotation tables, gene-catalog supplements) with no phenotype or age association. What literature I did find is generic and pathway/community-level: primary metagenomic and metatranscriptomic studies show that overall KEGG functional capacity of the infant gut shifts substantially across the complementary feeding transition (larger change between ~4 and ~9 months than between 9 and 12 months), that the pre-weaning/milk-oriented microbiome is enriched in milk-adapted carbohydrate, amino-acid and biosynthetic functions, and that breastfed infants show relative enrichment of sugar-transport and carbohydrate/amino-acid metabolism genes - and mechanistically plausible substrate links exist (HMO-derived N-acetylated amino sugars such as GlcNAc and sialic acid are abundant in the milk-fed gut, and GNAT-family acetyltransferases act on amine/amino-sugar substrates). However, none of this addresses K03825 itself, and K03825 is an unclassified, functionally ambiguous 'putative' acetyltransferase not assigned to any KEGG pathway, so no direction can be inferred from the pathway-level literature. This is therefore theoretical/generic reasoning only (score 1), not absence of any relevant literature (0) and not contradicting evidence (-1).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.kegg.jp/entry/K03825+2.3.1.53+R00693",
+      "doi": null,
+      "title": "KEGG ORTHOLOGY: K03825 (putative acetyltransferase, EC 2.3.1.-)",
+      "study_population": "Database entry (reference genomes; no study population)",
+      "relevance": "Confirms feature identity and that K03825 is an unclassified 'putative' acetyltransferase with no assigned KEGG pathway/module, which is why no age- or feeding-specific literature exists for it; establishes only the annotation, not any association."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9282554/",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy human infants sampled longitudinally at ~4, ~9 and ~12 months (metagenomics + metabolomics)",
+      "relevance": "Primary study showing that KEGG-annotated functional capacity and taxonomy of the infant gut change markedly between early (~4 mo) and later (~9-12 mo) timepoints, i.e. age-dependent functional differences of the kind hypothesized are plausible - but this paper reports pathway-level (not KO K03825) results, so it supports only generic reasoning."
+    },
+    {
+      "url": "https://www.tandfonline.com/doi/full/10.1080/19490976.2024.2387875",
+      "doi": null,
+      "title": "Comparison of gnotobiotic communities reveals milk-adapted metabolic functions and unexpected amino acid metabolism by the pre-weaning microbiome",
+      "study_population": "Gnotobiotic mice colonized with pre-weaning (PedsCom) vs. adult-type consortia",
+      "relevance": "Indirect, animal-model evidence that the pre-weaning (milk-fed) microbiome is functionally distinct and enriched for milk-adapted metabolic modules including amino acid/amino-sugar handling; provides a general rationale for early-infancy enrichment of some transferase functions but says nothing about K03825 specifically."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/cellular-and-infection-microbiology/articles/10.3389/fcimb.2015.00003/full",
+      "doi": null,
+      "title": "Milk- and solid-feeding practices and daycare attendance are associated with differences in bacterial diversity, predominant communities, and metabolic and immune function of the infant gut microbiome",
+      "study_population": "Human infants stratified by exclusive breastfeeding vs. solid-food feeding (16S with PICRUSt-predicted gene content)",
+      "relevance": "Reports that exclusively milk-fed infants show enrichment of genes for sugar/amino-sugar (e.g. N-acetylglucosamine) transport and metabolism, i.e. an amino-sugar-rich functional milieu in early infancy; only predicted, gene-family-level and not specific to the K03825 ortholog."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10448974/",
+      "doi": "10.1080/19490976.2023.2244721",
+      "title": "Bifidobacterium infantis utilizes N-acetylglucosamine-containing human milk oligosaccharides as a nitrogen source",
+      "study_population": "In vitro / bacterial genomics of Bifidobacterium longum subsp. infantis (infant-gut symbiont)",
+      "relevance": "Mechanistic background that N-acetylated amino sugars from HMOs are a key substrate class for the milk-fed infant gut microbiome, making acetyl-group transfer chemistry relevant in early infancy; purely theoretical support, no measurement of K03825 abundance by infant age."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "K03825 KEGG ortholog putative acetyltransferase",
+    "K03825 infant gut microbiome metagenome",
+    "infant gut microbiome KEGG ortholog acetyltransferase 5 months 12 months",
+    "putative acetyltransferase gene infant gut microbiome breastfed weaning",
+    "GNAT family acetyltransferase Bifidobacterium infant gut breast milk",
+    "K03825 acetyltransferase differentially abundant gut metagenome age",
+    "infant gut metagenome functional shift breastfeeding 6 months 12 months KEGG orthologs acetyltransferase",
+    "\"K03825\" gut microbiome",
+    "acetyltransferase KEGG orthologs enriched early infancy stool metagenome milk-oriented microbiome",
+    "infant fecal metagenome KEGG ortholog enriched 6 months compared 12 months acetyltransferase GNAT",
+    "human milk oligosaccharide N-acetylglucosamine acetyltransferase Bifidobacterium infantis genes breastfed infant gut",
+    "acetyltransferase genes higher breastfed infants than weaned metagenomics functional annotation"
+  ],
+  "caveats": "K03825 is an unclassified 'putative acetyltransferase' with no assigned KEGG pathway and broad GNAT-family membership, so it aggregates heterogeneous genes across many taxa; its abundance in shotgun data is largely a function of which genomes dominate (e.g. Bifidobacterium/Enterobacteriaceae in early infancy vs. Bacteroides/Clostridiales after weaning) rather than of a specific metabolic program. Such generic, unpathwayed KOs are rarely reported individually in published infant metagenome papers (which typically report pathway/module-level results), so absence of literature here reflects reporting practice as much as biology, and a genuine age effect could exist without being documented. No study directly testing this KO between ~5 and ~12 months was located, and the general infant-age functional-shift literature could equally support enrichment at 12 months for some acetyltransferase genes; direction should be treated as unsupported. One search result (a bioRxiv preprint on network-based representation learning at infant ages 5 and 12 months) appears to describe a cohort design similar to this study, but the snippet did not report K03825, and I did not treat it as evidence for this feature."
+}

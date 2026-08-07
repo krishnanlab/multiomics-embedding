@@ -1,0 +1,57 @@
+{
+  "feature_id": "K00390",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "K00390 (phosphoadenosine phosphosulfate reductase, cysH; assimilatory sulfate reduction / sulfur metabolism) is increased or characteristic of the gut metagenome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Multiple searches failed to locate any primary study (human infant or otherwise) that reports the KEGG ortholog K00390 / cysH (phosphoadenosine phosphosulfate reductase, EC 1.8.4.8/1.8.4.10), or the assimilatory sulfate-reduction step it catalyses, as being enriched in younger (~4-6 month, predominantly milk-fed) infants relative to ~12-month-old infants who have transitioned to complementary/family foods. What I did find was (i) general biochemical/pathway literature placing cysH in the assimilatory sulfate-reduction route (sulfate -> APS -> PAPS -> sulfite -> sulfide -> cysteine) in enteric bacteria such as E. coli, Salmonella and Bacillus subtilis, and (ii) a mechanistic study of sulfur metabolism in Bifidobacterium longum stating that bifidobacteria lack a sulfate-reducing pathway and are cysteine auxotrophs. Because Bifidobacterium typically dominates the 5-month-old milk-fed infant gut and declines after weaning, while cysH-carrying Bacteroidetes/Firmicutes/Enterobacteriaceae-rich adult-like consortia expand toward 12 months, this pathway-level reasoning arguably points the opposite way from the hypothesis rather than supporting it. However, no study directly measured this ortholog across the 5-vs-12-month contrast in either direction, so the evidence is generic/indirect and partly conflicting with the hypothesis - meeting the 'weak' tier (score 1) rather than 'contradicting' (-1), which the rubric reserves for a study directly addressing this feature+group combination. Note also that server-side search quota was exhausted before I could exhaust all planned query variants (e.g. DIABIMMUNE/Backhed-style functional-maturation comparisons), so absence of direct evidence here is partly a limit of search depth.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11540073/",
+      "doi": "10.1080/19490976.2024.2419565",
+      "title": "Regulatory mechanism of cysteine-dependent methionine biosynthesis in Bifidobacterium longum: insights into sulfur metabolism in gut microbiota",
+      "study_population": "In vitro bacterial genetics/genomics of Bifidobacterium longum (a dominant infant-gut taxon), not an infant cohort",
+      "relevance": "Explicitly maps the sulfur utilization pathway including cysH (phosphoadenosine phosphosulfate reductase) and reports that bifidobacteria lack a sulfate-reducing pathway and are cysteine auxotrophs. Since Bifidobacterium dominates the milk-fed ~5-month infant gut and declines with weaning, this indirect evidence argues that cysH/K00390 gene content would more plausibly rise, not fall, with the post-weaning (12-month) community - i.e. it does not support the hypothesized direction."
+    },
+    {
+      "url": "https://www.mdpi.com/2073-4409/9/3/698",
+      "doi": "10.3390/cells9030698",
+      "title": "Recent Advances in Metabolic Pathways of Sulfate Reduction in Intestinal Bacteria",
+      "study_population": "Review of intestinal bacteria (human gut, mixed ages)",
+      "relevance": "Provides the pathway context for K00390: distinguishes assimilatory sulfate reduction (sulfate -> cysteine, the route containing PAPS reductase) from dissimilatory sulfate reduction by sulfate-reducing bacteria, and notes that luminal sulfate largely derives from foods, beverages and drinking water - a generic/theoretical basis only, with no infant age-stratified data on this ortholog."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2021.03.24.436781.full.pdf",
+      "doi": null,
+      "title": "The capacity to produce hydrogen sulfide (H2S) via cysteine degradation is ubiquitous in the human gut microbiome",
+      "study_population": "Human gut microbiome genomes/metagenomes (adult-dominated reference data)",
+      "relevance": "Pathway-level context on microbial sulfur metabolism routes (sulfate reduction vs. sulfur-amino-acid degradation) in the human gut; shows sulfur-metabolism gene capacity is widespread across gut taxa, but provides no 5- vs 12-month infant comparison for cysH/K00390."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9654974/",
+      "doi": "10.3390/ijms232113481",
+      "title": "Shotgun Metagenomics Study Suggests Alteration in Sulfur Metabolism and Oxidative Stress in Children with Autism and Improvement after Microbiota Transfer Therapy",
+      "study_population": "Children (autism spectrum disorder vs. controls), shotgun metagenomics",
+      "relevance": "Demonstrates that microbial sulfur-metabolism gene functions are measurable and variable in paediatric gut metagenomes, but the contrast studied is clinical (ASD vs. control) rather than infant age/feeding stage, so it offers no directional support for the 5-month hypothesis."
+    }
+  ],
+  "contradicting_evidence": "Indirect but relevant counter-evidence: bifidobacteria, which dominate the 5-month milk-fed infant gut and typically decline as complementary feeding advances toward 12 months, reportedly lack the (assimilatory) sulfate-reduction pathway and are cysteine auxotrophs (Kim et al., Gut Microbes 2024), whereas cysH-encoding Bacteroides/Clostridia/Enterobacteriaceae expand with weaning. Dietary sulfate and sulfur-amino-acid intake also increase with solid foods. Both considerations suggest K00390 could be higher at 12 months than at 5 months, i.e. opposite to the hypothesis - though no study directly quantified this ortholog across these timepoints.",
+  "search_queries_used": [
+    "K00390 phosphoadenosine phosphosulfate reductase infant gut microbiome",
+    "sulfur metabolism assimilatory sulfate reduction infant gut microbiome age",
+    "cysB cysH sulfate assimilation infant gut metagenome breastfed weaning",
+    "infant gut metagenome sulfur metabolism enriched early infancy versus 12 months KEGG",
+    "Backhed 2015 dynamics and stabilization infant gut microbiome first year functional sulfur metabolism",
+    "cysteine methionine sulfate assimilation pathway enriched breastfed infants metagenome 4 months",
+    "KEGG orthologs enriched infant gut microbiome 6 months versus 12 months energy metabolism sulfur",
+    "Adaptation of the infant gut microbiome during the complementary feeding transition KEGG sulfur metabolism",
+    "infant gut microbiome sulfur metabolism pathway abundance decreased with age breastfeeding metagenomics",
+    "Ho meta-analysis exclusive breastfeeding infant gut microbiota functional pathways enriched sulfur",
+    "Impact of Early Feeding Metagenomics Analysis of the Infant Gut Microbiome sulfur metabolism",
+    "Bifidobacterium longum assimilatory sulfate reduction cysH sulfite reductase cysteine biosynthesis infant gut",
+    "sulfur metabolism KEGG pathway enriched in breast-fed infants compared to weaned infants shotgun metagenomics",
+    "\"sulfur metabolism\" infant gut microbiome age 6 months 12 months metagenome enriched (quota exceeded, no results returned)"
+  ],
+  "caveats": "No primary literature was located that measures K00390/cysH abundance specifically across infant age or feeding-transition groups, so the score reflects pathway-level reasoning only. Gene-level KEGG ortholog abundance in infant metagenomes is strongly driven by taxonomic composition (Bifidobacterium vs. Bacteroides/Clostridia/Enterobacteriaceae), so any observed 5- vs 12-month difference in this study should be interpreted as a compositional signal and checked against which taxa contribute the K00390 reads. Also note EC 1.8.4.8/1.8.4.10 covers both PAPS and APS reductase activities, and assimilatory (cysteine-biosynthetic) sulfur metabolism must not be conflated with dissimilatory sulfate reduction (dsrAB, Desulfovibrio) when interpreting hydrogen-sulfide-related literature. Search quota was exhausted mid-review, so a further targeted search (e.g. within Backhed 2015, Vatanen 2018/DIABIMMUNE, or Stewart 2018 TEDDY functional tables) is recommended before finalizing."
+}

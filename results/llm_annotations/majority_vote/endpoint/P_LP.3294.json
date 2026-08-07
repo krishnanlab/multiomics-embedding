@@ -1,0 +1,19 @@
+{
+  "feature_id": "P_LP.3294",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "Feature P_LP.3294 ('> limit Esi+0.8240001') is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "The feature label '> limit Esi+0.8240001' is not a chemical identity. It is an untargeted lipidomics processing placeholder: 'Esi+' denotes the positive-mode electrospray ionization run, the trailing number is almost certainly a retention-time/index or feature coordinate, and '> limit' indicates the feature fell outside the annotation/identification limit (i.e., it is an unannotated/unknown LC-MS feature, or one flagged as beyond a quantification or detection boundary). Because no molecular species, lipid class, formula, or external database identifier (HMDB/LIPID MAPS/KEGG) is provided, there is no searchable chemical entity for which literature could report an association with infant age, weaning stage, or any exposure. My searches on the literal feature string, the internal ID 'P_LP.3294', and combinations of unannotated-lipid-feature terminology with infant/complementary-feeding metabolomics returned only (a) general methodological papers about ESI source settings, in-source fragmentation, and handling of unknown features in untargeted metabolomics, and (b) infant lipidomics/metabolomics studies of named, annotated lipids (e.g., breast- vs. formula-feeding lipid profiles, meat- vs. dairy-based complementary diets) - none of which can be mapped to this specific unknown feature. Per the rubric this is a genuine 'no relevant literature located' case for the specific feature+group combination, so the score is 0 rather than 1: there is not even generic feature-specific pathway reasoning available, since the feature's biochemical identity is undefined. Note this is a statement about literature evidence only and says nothing about whether the feature is genuinely higher at 12 months in the investigators' own data - an internal age/weaning effect for an unknown lipid feature is entirely plausible but cannot be corroborated externally until the feature is annotated.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "\"> limit Esi+\" lipidomics unannotated feature",
+    "P_LP.3294 metabolite lipid infant",
+    "infant plasma lipidomics 5 months 12 months unannotated features",
+    "\"limit Esi+\" metabolomics feature naming convention placeholder",
+    "unidentified lipid feature increased 12 month old infants weaning metabolomics"
+  ],
+  "caveats": "This feature cannot be evaluated against the literature until it is chemically annotated. Recommended next steps before any biological interpretation: (1) recover the exact m/z, retention time, adduct and MS2 spectrum for P_LP.3294 and attempt annotation against LIPID MAPS / HMDB / MS-DIAL or an in-house library; (2) check whether '> limit' means the feature exceeded a linear-dynamic-range/saturation threshold, in which case any apparent 5- vs 12-month difference may be a quantification artifact rather than a true biological shift; (3) verify it is not an in-source fragment, isotope, or adduct duplicate of an already-annotated lipid, which is a well-documented source of redundant features in positive-mode ESI lipidomics. If it resolves to a named lipid species (e.g., a specific TG, PC, or sphingolipid), re-run this literature assessment on that identity, where a substantial infant complementary-feeding lipidomics literature does exist."
+}

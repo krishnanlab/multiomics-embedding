@@ -1,0 +1,57 @@
+{
+  "feature_id": "N_LP.1806",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "PG(22:4(7Z,10Z,13Z,16Z)/18:3(9Z,12Z,15Z)) is increased or characteristic in the gut of 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "No published study located that reports this specific phosphatidylglycerol species (PG 40:7; adrenic acid/alpha-linolenic acid; METLIN 7962, LIPID MAPS LMGP04010802) as increased at ~12 months versus ~5-6 months of age in infants, in stool or any other matrix. Searches returned only class- or pathway-level context: the PLOS One complementary-feeding cohort applied untargeted fecal LC-MS lipidomics at 4, 9 and 12 months and included phosphatidylglycerol (PG) among the fecal lipid classes whose changes correlated with shifts in taxa (notably Firmicutes/Proteobacteria) across the solid-food transition, and general infant fecal metabolome maturation papers show strong age-driven remodelling of the fecal metabolome/lipidome across the first year, consistent with diet-derived plant-oil fatty acids (e.g. 18:3 alpha-linolenic acid) entering the gut lumen with complementary foods and with increased bacterial biomass (PG is a major bacterial membrane phospholipid). However, none of these sources reports a direction for an individual PG species, and none tests a 22:4/18:3 PG specifically. The one source I found that examined PG at both ~4 and ~12 months (serum lipidomics in at-risk infants) reported no significant change in the PG class with age, which further argues that the hypothesized directionality is not established. This is therefore generic/theoretical reasoning rather than feature-specific evidence: score 1 (weak), not 0 (something relevant was found) and not -1 (no study directly reports this feature decreasing at 12 months).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy human infants sampled at 4, 9 and 12 months of age (fecal 16S/metagenomics plus untargeted aqueous and lipid LC-MS metabolomics)",
+      "relevance": "Most directly relevant source found: phosphatidylglycerol (PG) is one of the fecal lipid classes profiled and correlated with taxonomic change across the 4-to-12-month complementary feeding transition, establishing that fecal PG species vary with infant age/diet - but the specific PG 22:4/18:3 species and the direction of change at 12 vs ~5 months are not reported."
+    },
+    {
+      "url": "https://www.tandfonline.com/doi/full/10.1080/19490976.2023.2231596",
+      "doi": "10.1080/19490976.2023.2231596",
+      "title": "Maturation of the gut metabolome during the first year of life in humans",
+      "study_population": "Human infant cohort followed with fecal untargeted LC-MS metabolomics through 12 months, with maternal fecal samples as a maturity reference",
+      "relevance": "Supports the general premise that the infant fecal metabolome separates strongly by age and continues maturing toward an adult-like (more diet- and microbiota-driven) profile at 12 months, providing background plausibility for age-associated lipid features - but no PG species-level data."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-023-28862-z",
+      "doi": "10.1038/s41598-023-28862-z",
+      "title": "Longitudinal profiles of the fecal metabolome during the first 2 years of life",
+      "study_population": "101 Latino infants, fecal untargeted metabolomics at 1, 6, 12, 18 and 24 months",
+      "relevance": "Demonstrates that a subset of fecal metabolites/pathways change significantly with age between 6 and 12 months, but the highlighted age-associated features reported are not glycerophospholipids and this specific PG species is not among the reported findings."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12076826/",
+      "doi": "10.1186/s40168-025-02106-w",
+      "title": "Milk phospholipid-coated lipid droplets modulate the infant gut microbiota and metabolome influencing weight gain",
+      "study_population": "Randomized controlled trial in term infants (formula groups plus breastfed reference), fecal and plasma semi-targeted UPLC-MS lipidomics/metabolomics at 3 and 12 months",
+      "relevance": "Shows that dietary phospholipid intake shapes fecal lipid excretion in infants up to 12 months (indirect mechanistic context for luminal phospholipid species), but reported differences concern acylcarnitines, bile acids and fatty acids rather than a 22:4/18:3 phosphatidylglycerol, and comparisons are between feeding groups rather than 5 vs 12 months."
+    }
+  ],
+  "contradicting_evidence": "The only source found that quantified the phosphatidylglycerol class at two infant timepoints (serum phospholipid profiling at 4 and 12 months in infants at risk of celiac disease, https://www.nature.com/articles/s41598-019-50735-7, doi 10.1038/s41598-019-50735-7) reported no significant change in PG (or other phospholipid classes) between 4 and 12 months of age, i.e. no age-related increase. This is serum rather than gut and class-level rather than species-level, so it is best treated as absence of support rather than a direct contradiction of the hypothesis.",
+  "search_queries_used": [
+    "phosphatidylglycerol infant gut metabolome 12 months",
+    "PG(22:4/18:3) lipid LMGP04010802",
+    "infant fecal lipidome phosphatidylglycerol age weaning",
+    "Adaptation of the infant gut microbiome during the complementary feeding transition phosphatidylglycerol fecal lipid",
+    "infant stool phospholipids increase 12 months versus 6 months lipidomics",
+    "phosphatidylglycerol bacterial membrane lipid gut microbiota fecal abundance increase",
+    "fecal lipidomics infants 6 12 months age phosphatidylglycerol docosatetraenoic acid",
+    "PMC9282554 lipid classes phosphatidylglycerol 9 and 12 months infant feces increased",
+    "alpha-linolenic acid 18:3 infant stool complementary feeding plant lipids increase",
+    "adrenic acid 22:4 infant gut metabolome age",
+    "glycerophospholipid metabolism increased 12 month infant fecal metabolome maturation",
+    "Longitudinal profiles of the fecal metabolome during the first 2 years of life phosphatidylglycerol glycerophospholipid 6 12 months",
+    "Dynamics of gut metabolome and microbiota maturation during early life glycerophospholipids increase age infant",
+    "fecal glycerophospholipids increase with age infants 12 months lipid species higher than 6 months stool"
+  ],
+  "caveats": "Untargeted lipidomic annotations of individual PG species with defined double-bond positions (here 22:4 n-6 adrenic acid paired with 18:3 n-3 alpha-linolenic acid) are typically MS1/library-level and isomer-ambiguous; the true feature could be a different PG 40:7 isomer or an isobaric lipid, so literature searches keyed to the exact name/IDs are inherently under-powered. Published infant fecal lipidomics studies report at class level (PG, PE, PC) rather than species level, and matrix differences (stool vs serum) plus the mixed host/bacterial/dietary origin of luminal PG limit inference. Search budget was exhausted before I could confirm the direction of PG change reported in the complementary-feeding cohort's supplementary lipid tables; a targeted review of that paper's supplementary data (and of MFGM/milk-phospholipid trial lipid tables) could raise or lower this score."
+}

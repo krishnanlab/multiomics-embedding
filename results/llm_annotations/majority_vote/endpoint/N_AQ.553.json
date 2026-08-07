@@ -1,0 +1,18 @@
+{
+  "feature_id": "N_AQ.553",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "The aqueous-phase metabolomics feature '> limit Esi-5.5' is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "The feature name '> limit Esi-5.5' is not a chemical identity: it appears to be an internal instrument/annotation placeholder (an over-the-calibration-limit or out-of-range designation for an unassigned aqueous-phase peak/bucket, possibly an NMR/ESI spectral region label at ~5.5 ppm or an ESI feature index). No external database identifier (HMDB, KEGG, ChEBI, InChIKey, m/z + RT) was supplied, so there is no chemical entity that can be matched to published compounds. Targeted searches on the literal label, on the label plus infant gut metabolome/12-month context, and on unassigned aqueous fecal metabolome features across the 5- to 12-month weaning window returned only generic metabolomics methodology papers and general infant fecal-metabolome maturation studies, none of which report this feature or any clearly named homolog. Because no source addressing this feature (in any direction) could be located, the age-related direction cannot be supported, refuted, or even indirectly reasoned about at the compound level; per the rubric this is 0 (no relevant literature located) rather than 1, since nothing feature-specific or pathway-specific was found - the only retrievable literature concerns the general phenomenon that the infant fecal metabolome shifts substantially between ~5 and ~12 months, which says nothing about this particular unannotated peak.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "\"Esi-5.5\" metabolite NMR aqueous",
+    "\"> limit\" Esi metabolite annotation infant metabolome",
+    "\"Esi-5.5\" infant gut metabolome 12 months",
+    "unidentified aqueous metabolite feature infant faecal metabolome 5 months 12 months weaning"
+  ],
+  "caveats": "This feature is effectively unannotated ('> limit' suggests a value/peak flagged as outside the quantifiable range), so literature-based validation is impossible as specified. To make this feature assessable, the investigators should supply a resolved chemical identity (HMDB/KEGG ID, InChIKey, or NMR chemical shift assignment plus platform details) and clarify whether '> limit' denotes signal saturation, above-standard-curve concentration, or an unassigned spectral bucket; note also that features flagged above the quantification limit can produce spurious group differences because the true concentrations are censored. Absence of evidence here reflects the missing annotation, not evidence that the feature is unchanged between 5 and 12 months."
+}

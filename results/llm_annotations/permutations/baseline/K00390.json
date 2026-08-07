@@ -1,0 +1,73 @@
+{
+  "feature_id": "K00390",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "Microbial phosphoadenosine phosphosulfate (PAPS) reductase (K00390 / cysH; assimilatory sulfate reduction, sulfur metabolism) gene abundance is increased or characteristic in 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Repeated searches combining the KEGG ortholog ID, the enzyme/gene names (PAPS reductase, cysH, assimilatory sulfate reduction) and infant/weaning/complementary-feeding terms returned no primary study that reports this ortholog (or the assimilatory sulfate reduction step specifically) as differentially abundant between ~4-6 month and ~12 month infant gut metagenomes, in either direction. What was found is only pathway-level and indirect: (i) sulfur-metabolism gene surveys establish that cysH/assimilatory sulfate reduction is widespread and abundant in the human gut microbiome, but these analyses are in adults and in disease contexts (colorectal cancer, Crohn's disease) with no age stratification across infancy; (ii) an infant gut metabolome maturation study (newborn to 12 months) notes age-related changes in sulfur-containing amino acid metabolites (cystine) and states that breastfeeding promotes microbial cysteine synthesis - cysteine biosynthesis is the endpoint of the cysH-dependent assimilatory sulfate reduction route, which offers a plausible but purely inferential argument for higher capacity in the still largely milk-fed 5-month microbiome; (iii) the well-characterised functional shift between ~4 and 12 months in infant metagenomes described in longitudinal cohorts (Backhed et al.; complementary-feeding cohort with 4/9/12-month metagenomes) is framed around HMO/lactate utilisation early versus complex-carbohydrate, starch and vitamin/xenobiotic metabolism later, without sulfur-metabolism/sulfate-assimilation genes being highlighted as an early-infancy signature. Because nothing directly tests this feature+group combination and the only supportive reasoning is generic pathway logic, this fits the 'weak' tier rather than moderate. No study directly reporting the opposite direction for cysH in infants was found either, so -1 is not warranted; some literature on dissimilatory sulfate reducers (a distinct pathway) suggests sulfidogenic capacity rises after weaning, which further argues against a confident directional call.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.tandfonline.com/doi/full/10.1080/19490976.2023.2231596",
+      "doi": "10.1080/19490976.2023.2231596",
+      "title": "Maturation of the gut metabolome during the first year of life in humans",
+      "study_population": "Human infants followed from birth through 4 and 12 months of age (fecal metabolome, multi-cohort/geographic comparison)",
+      "relevance": "Indirect, pathway-level support: documents age-dependent maturation of the infant fecal metabolome including sulfur amino acid (cystine) signals, and links breastfeeding to increased microbial cysteine synthesis - the downstream product of the cysH/PAPS-reductase assimilatory sulfate reduction route - consistent with, but not demonstrating, higher K00390 capacity in the milk-dominated 5-month gut."
+    },
+    {
+      "url": "https://microbiomejournal.biomedcentral.com/articles/10.1186/s40168-024-01873-2",
+      "doi": "10.1186/s40168-024-01873-2",
+      "title": "Microbial assimilatory sulfate reduction-mediated H2S: an overlooked role in Crohn's disease development",
+      "study_population": "Adult human cohorts (Crohn's disease vs. controls) plus E. coli mutant experiments; metagenomic survey of assimilatory sulfate reduction genes (cysDN, cysC, cysH, cysJI, cysM, cysK)",
+      "relevance": "Establishes that cysH (K00390) is part of a highly prevalent and abundant assimilatory sulfate reduction pathway in the human gut and is quantifiable from metagenomes, but provides no infant age-related direction, so it supports biological plausibility only."
+    },
+    {
+      "url": "https://link.springer.com/article/10.1186/s40168-022-01242-x",
+      "doi": "10.1186/s40168-022-01242-x",
+      "title": "Diversity and distribution of sulfur metabolic genes in the human gut microbiome and their association with colorectal cancer",
+      "study_population": "Adults; ~17,000 bacterial genomes/MAGs and stool metagenomes (including Human Microbiome Project fecal genomes)",
+      "relevance": "Comprehensive catalogue of gut microbial sulfur metabolism genes (sulfate/sulfite reduction plus cysteine biosynthesis/degradation) showing broad taxonomic distribution; contextualises the pathway but contains no infant or age-stratified comparison relevant to 5 vs 12 months."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9282554/",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy human infants sampled at ~4, ~9 and ~12 months of age with shotgun metagenomics (KEGG functional capacity) and fecal metabolomics",
+      "relevance": "The most directly comparable design (pre-solids ~4 months vs. ~12 months, KEGG functional profiling), yet searches surfaced no reported enrichment of sulfur metabolism / sulfate assimilation genes at the early timepoint - i.e. the closest available primary study does not corroborate the hypothesis."
+    },
+    {
+      "url": "https://www.cell.com/fulltext/S1931-3128(15)00162-6",
+      "doi": null,
+      "title": "Dynamics and Stabilization of the Human Gut Microbiome during the First Year of Life",
+      "study_population": "Swedish mother-infant cohort; infant fecal metagenomes at newborn, 4 months and 12 months",
+      "relevance": "Benchmark longitudinal metagenomic study of the 4- vs 12-month functional shift; the reported age-discriminating functions centre on complex sugar/starch degradation increasing by 12 months rather than on sulfur metabolism genes, so it neither supports nor contradicts a 5-month enrichment of K00390."
+    },
+    {
+      "url": "https://jasbsci.biomedcentral.com/articles/10.1186/s40104-019-0346-5",
+      "doi": "10.1186/s40104-019-0346-5",
+      "title": "Diversity and community pattern of sulfate-reducing bacteria in piglet gut",
+      "study_population": "Piglets at postnatal days 14, 28 and 49 (pre- and post-weaning), qPCR and dsrA amplicon sequencing",
+      "relevance": "Animal-model evidence that sulfate-reducing bacterial load and richness increase with age around weaning; this concerns the dissimilatory (dsr) rather than assimilatory (cysH) pathway, but it cautions that overall gut sulfur-reduction capacity may rise, not fall, after the milk-only period."
+    }
+  ],
+  "contradicting_evidence": "No primary study was found reporting K00390/cysH itself as higher at 12 months than at ~5 months. However, the only age-resolved sulfur-cycle data located (piglets across weaning) show sulfate-reducing bacterial abundance/diversity increasing with age after weaning, and broader infant metagenome studies describe the 12-month microbiome as functionally more diverse and adult-like (more Bacteroidota/Firmicutes, more amino-acid- and complex-substrate-directed metabolism), both of which could plausibly translate into equal or higher assimilatory sulfate reduction gene abundance at 12 months. The overall picture is therefore inconclusive rather than clearly contradicting.",
+  "search_queries_used": [
+    "K00390 phosphoadenosine phosphosulfate reductase infant gut microbiome",
+    "sulfate assimilation pathway infant gut microbiome age metagenome",
+    "sulfur metabolism KEGG infant gut microbiome breastfed weaning",
+    "cysH assimilatory sulfate reduction gut microbiome infant development",
+    "infant gut metagenome functional maturation 4 months 12 months KEGG sulfur metabolism enriched",
+    "Backhed 2015 dynamics extensive impact of delivery mode gut microbiome newborn 4 months 12 months functional pathways cysteine methionine metabolism",
+    "\"sulfur metabolism\" enriched breastfed infants metagenome relative abundance decrease with age",
+    "sulfate reducing bacteria Desulfovibrio infant gut abundance increase with age weaning",
+    "\"Adaptation of the infant gut microbiome during the complementary feeding transition\" sulfur metabolism 4 months KEGG",
+    "Ho meta-analysis exclusive breastfeeding infant gut microbiota predicted pathways sulfur metabolism enriched",
+    "infant gut microbiome cysteine biosynthesis sulfate assimilation genes higher early infancy breast milk sulfate",
+    "gut microbiome sulfur metabolism gene abundance age children adults comparison metagenomic cysH cysteine synthase",
+    "\"sulfur metabolism\" pathway enriched early infancy gut microbiome Proteobacteria Escherichia first months of life metagenomics (attempted; search quota exhausted)",
+    "infant gut microbiome 6 months versus 12 months KEGG module sulfate reduction cysteine biosynthesis decreased (attempted; search quota exhausted)",
+    "Bifidobacterium longum infantis sulfate assimilation cysH sulfur metabolism genome (attempted; search quota exhausted)",
+    "breast milk sulfate amino acid sulfur infant gut microbial cysteine biosynthesis genes formula fed metagenome (attempted; search quota exhausted)"
+  ],
+  "caveats": "K00390 is a single KEGG ortholog within assimilatory sulfate reduction; most infant literature reports functions at pathway/module level or via 16S-based prediction (PICRUSt), so ortholog-level directionality is essentially untested in infants. Its abundance is also strongly driven by which taxa carry cysH (e.g. Enterobacteriaceae, Bacteroides, many Firmicutes) rather than by sulfur availability per se, so any 5- vs 12-month difference may be a compositional readout rather than a functional adaptation. The final four planned searches could not be executed because the web-search quota was exhausted, so a targeted primary study (e.g. an age-stratified KO-level infant metagenome table) may exist but was not retrieved; this score reflects only what was actually observed. Study feeding context also matters: at 5 months many cohorts are still exclusively/partially breastfed, and breastfeeding status rather than chronological age could dominate any observed effect."
+}

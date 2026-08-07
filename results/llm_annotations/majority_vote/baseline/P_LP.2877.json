@@ -1,0 +1,53 @@
+{
+  "feature_id": "P_LP.2877",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "The unannotated lipid-fraction feature with molecular formula C30H30N4O3 is increased/characteristic in stool of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "This feature is identified only by a molecular formula (C30H30N4O3) from an untargeted lipidomics platform, with no compound name, database identifier (HMDB/LIPID MAPS/KEGG), or structural class assignment. Searches on the formula itself returned only chemical-catalog and patent-compound entries (e.g., a PubChem entry for a patent example compound, an Oakwood catalog bis-hydrazone, KNApSAcK plant-metabolite records) with no biological, fecal, gut-microbiome, or infant context whatsoever. No primary study - human or animal - was found reporting this formula, or any named compound plausibly assigned to it, as differing between younger (~5 month, pre-/early complementary feeding) and older (~12 month, established complementary feeding) infants. The only relevant literature located is generic and feature-agnostic: untargeted infant fecal metabolomics/lipidomics studies show that many lipid-fraction features shift substantially across the complementary feeding transition between ~5-6 and 12 months, with milk-derived/breastmilk- or formula-associated features generally higher earlier and diet-diversification-associated features higher later (PLOS One complementary feeding cohort; npj Metab Health Dis 1- and 6-month feeding-pattern metabolome study; a bioRxiv network-learning analysis of 5-12 month formula-fed infant fecal metabolomics). Note also that the formula has 18 double-bond equivalents and 4 nitrogens, which is atypical for a conventional acyl lipid and is more consistent with a highly conjugated/polycyclic nitrogenous compound (e.g., a tetrapyrrole-like or exogenous/xenobiotic species); however, it does not match bilirubin (C33H36N4O6), biliverdin, or urobilinoids, so even the plausible-analogy argument (fecal bilirubinoids being high in young infants before bilirubin-reductase-carrying microbes colonize, as described in the BilR Nature Microbiology work) is speculative and cannot be attached to this feature. This is therefore theoretical/pathway-level plausibility only - no feature-specific evidence in either direction, and no contradicting evidence - which maps to a score of 1 rather than 0 (something relevant to the age contrast was found) and clearly not 2 or 3 (no study addresses this feature).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Human infants followed longitudinally across the complementary feeding transition (approximately 5-12 months of age), fecal microbiome and metabolome",
+      "relevance": "Generic, non-feature-specific support that fecal lipid-class metabolite features change systematically with age between early complementary feeding and 12 months, establishing that an age-discriminating lipid feature is plausible; it does not report C30H30N4O3 or any specific compound matching it."
+    },
+    {
+      "url": "https://www.nature.com/articles/s44324-023-00001-2",
+      "doi": null,
+      "title": "The potential role of early life feeding patterns in shaping the infant fecal metabolome: implications for neurodevelopmental outcomes",
+      "study_population": "Human infants, fecal samples at 1 and 6 months, untargeted LC/HRMS metabolomics",
+      "relevance": "Shows that many untargeted fecal metabolite features track milk-based feeding at younger ages (1-6 months), consistent with the general expectation that milk-associated features are higher at ~5 months than after diet diversification - but the feature C30H30N4O3 is not among any reported annotations."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3.full.pdf",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age (and diet) on fecal metagenomics and metabolomics during early complementary feeding (5-12 months) in U.S. formula-fed infants",
+      "study_population": "U.S. formula-fed human infants, randomized controlled feeding trial, fecal metagenomics and metabolomics from 5 to 12 months",
+      "relevance": "Closest available study design (same 5- vs 12-month contrast, fecal multi-omics) and confirms age is a dominant driver of fecal metabolite features in this window; however, it reports no compound with formula C30H30N4O3, so it provides only contextual, not feature-level, support."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41564-023-01549-x",
+      "doi": "10.1038/s41564-023-01549-x",
+      "title": "BilR is a gut microbial enzyme that reduces bilirubin to urobilinogen",
+      "study_population": "Human gut metagenomes including 4,296 infant metagenomes from the first year of life",
+      "relevance": "Cited only as the basis for the speculative tetrapyrrole analogy: gut bilirubin-reducing capacity is low in early infancy and increases over the first year, which would predict higher unreduced tetrapyrrole-like species earlier. The formula C30H30N4O3 does not match bilirubin, biliverdin or urobilinoids, so this is background reasoning, not evidence for this feature."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C30H30N4O3 metabolite",
+    "C30H30N4O3 lipidomics feature",
+    "infant gut metabolome 5 months vs 12 months lipid",
+    "bilirubin infant gut microbiome age decline",
+    "C30H30N4O3 fecal metabolome",
+    "\"C30H30N4O3\" mass spectrometry stool",
+    "infant fecal metabolome age 6 months 12 months untargeted lipidomics unannotated features",
+    "fecal bilirubin infant breastfed urobilinogen conversion age months",
+    "tetrapyrrole bilirubin analog molecular formula C30H30N4O3",
+    "unannotated lipid features infant stool age-associated complementary feeding 12 months metabolomics"
+  ],
+  "caveats": "The feature has no structural annotation - only an elemental formula from an untargeted lipidomics run - so literature-based evaluation is fundamentally limited: dozens of unrelated structures share C30H30N4O3, and any of them (including chromatographic artifacts, plasticizers/xenobiotics from formula packaging, or diet-derived compounds) could underlie the peak. Formula-only features cannot be validated against published metabolomics because most studies report named compounds, not raw formulas. MS/MS-based structural elucidation (or matching to an in-house/public spectral library, e.g. GNPS molecular networking) is required before any literature-based confidence assessment is meaningful. Also note that formula-level searching is intrinsically low-recall: a study could have reported the same molecule under a name without listing the formula in indexed text."
+}

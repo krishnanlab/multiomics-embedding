@@ -1,0 +1,65 @@
+{
+  "feature_id": "COG2944",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "COG2944 (predicted transcriptional regulator, Transcription category) is increased or characteristic of the gut microbiome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches for the exact COG identifier ('COG2944') in combination with gut microbiome, infant, Bifidobacterium, breastfeeding/weaning and PICRUSt terms returned no primary study (or any study) reporting differential abundance of this orthologous group between younger and older infants, or in any human gut context. The only hits for the identifier itself were genome annotation tables and comparative-genomics supplements (e.g., Ehrlichia/Anaplasma genome comparisons, generic COG annotation files), which say nothing about infant age or feeding stage. What was found is generic, category-level literature: several human infant studies document that the functional potential of the gut metagenome shifts substantially between ~4-6 months and ~9-12 months as complementary feeding proceeds (e.g., the PLOS One complementary-feeding cohort at 4, 9 and 12 months; metatranscriptomic work showing Actinobacteria activity declining and Firmicutes activity rising around 6 months). These support the general premise that broad functional gene families, including regulatory genes, differ between 5- and 12-month timepoints, but none of them resolves COG2944 specifically, and none states a direction for 'predicted transcriptional regulator' orthologs. Note also that COG2944-type XRE/HTH-family regulators are extremely widely distributed and are frequently phage/prophage- or mobile-element-associated, so their abundance is largely a function of which taxa and prophages dominate rather than a diet-linked function; broad reasoning could as easily favour the 12-month, Bacteroidetes/Clostridia-rich (larger genomes, richer regulatory repertoires) community. Because relevant but purely generic/pathway-level material was found, and no study directly addresses this feature-group combination in either direction, this scores 1 (Weak) rather than 0 (nothing found) or -1 (direct contradiction).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy human infants sampled at ~4, 9 and 12 months of age (shotgun metagenomics plus metabolites)",
+      "relevance": "Indirect/background only: documents that metagenomic functional capacity and beta-diversity differ between the early (~4-month, milk-dominant) and later (9-12 month, solid-food) timepoints that bracket this hypothesis, but reports KEGG-level pathways and does not report COG2944 or any 'predicted transcriptional regulator' ortholog direction."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5587937/",
+      "doi": "10.1155/2017/9547063",
+      "title": "Feasibility of Metatranscriptome Analysis from Infant Gut Microbiota: Adaptation to Solid Foods Results in Increased Activity of Firmicutes at Six Months",
+      "study_population": "Breastfed human infants during the weaning transition (metatranscriptomics around 6 months)",
+      "relevance": "Indirect: shows large-scale functional/activity turnover (Actinobacteria down, Firmicutes up) across the milk-to-solids transition, i.e. the taxonomic driver that would determine regulatory gene content; does not examine COG2944 or transcriptional-regulator gene abundance by age."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/cellular-and-infection-microbiology/articles/10.3389/fcimb.2022.816601/full",
+      "doi": "10.3389/fcimb.2022.816601",
+      "title": "Impact of Early Feeding: Metagenomics Analysis of the Infant Gut Microbiome",
+      "study_population": "Breast-fed (n=24) vs formula-fed (n=10) human infants, shotgun metagenomics with COG-level gene annotation",
+      "relevance": "Closest methodological match found (explicitly reports COGs differentially abundant in early-life infant metagenomes), but the differentially abundant COGs reported do not include COG2944 and the contrast is feeding mode, not 5 vs 12 months of age; therefore it provides no direct support for the hypothesis."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12604632/",
+      "doi": null,
+      "title": "Infant gut microbiome reprogramming following introduction of solid foods (weaning)",
+      "study_population": "Review of human infant cohorts spanning the 6-12 month weaning window",
+      "relevance": "Corroborates that the 6-12 month window is when compositional and functional potential change most, supporting the plausibility of any age-discriminating functional feature, but is category-level and does not address COG2944."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12565409/",
+      "doi": null,
+      "title": "Computational-Experimental Identification of Palindromic Motifs Bound by Bacterial XRE Family Transcriptional Regulators",
+      "study_population": "Bacterial genomes / in silico and in vitro (no human or infant subjects)",
+      "relevance": "Functional background on the XRE/HTH-type 'predicted transcriptional regulator' class to which COG2944 belongs: these are ubiquitous, often autoregulatory and prophage-associated regulators, implying their metagenomic abundance tracks taxon and prophage content rather than a specific infant dietary stage."
+    }
+  ],
+  "contradicting_evidence": "No study reporting the opposite direction for COG2944 specifically was found. The only counter-consideration is theoretical: 12-month, post-weaning communities are enriched in Bacteroidota and Clostridia with larger genomes and proportionally richer transcriptional-regulator repertoires than the Bifidobacterium-dominated 5-month community, which would argue against enrichment of a generic regulator COG at 5 months. This is reasoning, not observed data, so it does not warrant a -1.",
+  "search_queries_used": [
+    "COG2944 predicted transcriptional regulator",
+    "COG2944 infant gut microbiome",
+    "COG functional gene family infant gut microbiome 5 months vs 12 months",
+    "COG2944 transcriptional regulator XRE HTH domain function",
+    "transcriptional regulators COG category enriched breastfed infant gut metagenome early infancy",
+    "COG abundance infant gut metagenome age transcription factors decrease weaning",
+    "PICRUSt COG2944 infant",
+    "\"COG2944\" gut microbiome",
+    "\"COG2944\" Bifidobacterium",
+    "Impact of Early Feeding Metagenomics COG transcriptional regulator breastfed formula fed COGs table",
+    "infant gut metagenome functional maturation transcription factors signal transduction increase with age 12 months",
+    "gut microbiome maturation COG category transcription enriched early life shotgun metagenomics infants age comparison",
+    "predicted transcriptional regulator gene family enriched breastfed infants metagenome 6 months",
+    "\"transcriptional regulator\" COGs overrepresented breastfed infants metagenome Frontiers early feeding",
+    "COG category transcription relative abundance decreases infant age gut metagenome one year"
+  ],
+  "caveats": "COG2944 is an uncharacterized, poorly annotated orthologous group ('predicted transcriptional regulator'), so literature is unlikely to name it even if such genes drive age differences; absence of evidence here largely reflects annotation opacity rather than a tested null. Findings for this feature would also be highly sensitive to the annotation pipeline (PICRUSt-predicted vs assembled shotgun genes) and could be driven by prophage/mobile-element content or by a single dominant taxon (e.g., Bifidobacterium or Bacteroides), so any internal signal should be checked by decomposing the COG's abundance into contributing taxa before interpreting it as a biological maturation marker."
+}

@@ -1,0 +1,69 @@
+{
+  "feature_id": "P_AQ.701",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "Sphingofungin F is increased or characteristic in the aqueous fecal metabolome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Multiple searches combining the compound name, its LIPID MAPS/METLIN identifiers, and infant/gut/age keywords returned no study - primary or otherwise - that measured sphingofungin F (or any sphingofungin) in human infant stool, plasma, or breast milk, and none that reported any age-, feeding-, or weaning-related trajectory for this compound. What the literature does establish is only the compound's identity and provenance: sphingofungins A-H are fungal polyketide-derived natural products (originally from Aspergillus fumigatus, later Paecilomyces variotii for E/F and Aspergillus penicillioides for G/H) that act as potent inhibitors of serine palmitoyltransferase, the first committed step of sphingolipid biosynthesis. Any argument for enrichment at 5 vs 12 months therefore has to be built indirectly from the infant gut mycobiome: reviews and cohort studies show the early-infancy mycobiome is dominated by Saccharomycetales/Malasseziales with taxa such as Penicillium, Aspergillus and Candida detectable in the first years, so a mould-derived metabolite is at least biologically conceivable in a milk-fed infant gut. However, that indirect evidence is not consistently in the hypothesized direction: a Canadian birth-cohort mBio study reported that fungi were more often undetectable and alpha diversity lower in 3-month samples than in 1-year samples, which would argue for fungal metabolites being lower, not higher, in younger infants, whereas another review notes Malasseziales declining to undetectable by ~5 months. Because only generic, pathway/kingdom-level reasoning exists for this specific feature+group combination and the indirect signals conflict, this scores Weak (1) rather than 2, and not 0 (relevant contextual literature was found) or -1 (no study directly addresses sphingofungin F vs infant age).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/1474000/",
+      "doi": null,
+      "title": "Sphingofungins E and F: novel serinepalmitoyl transferase inhibitors from Paecilomyces variotii",
+      "study_population": "In vitro / fungal fermentation (no human subjects)",
+      "relevance": "Establishes the identity and origin of sphingofungin F as a fungal (Paecilomyces variotii) secondary metabolite and serine palmitoyltransferase inhibitor; confirms the compound is a mould natural product rather than a known host or bacterial metabolite, so no infant-age expectation follows from the source literature."
+    },
+    {
+      "url": "https://journals.asm.org/doi/10.1128/mbio.00195-24",
+      "doi": "10.1128/mbio.00195-24",
+      "title": "The spatial organization of sphingofungin biosynthesis in Aspergillus fumigatus and its cross-interaction with sphingolipid metabolism",
+      "study_population": "Aspergillus fumigatus (fungal molecular biology)",
+      "relevance": "Primary study showing sphingofungins are produced by filamentous fungi (A. fumigatus, P. variotii, A. penicillioides) and inhibit serine palmitoyltransferase; supports that detection of this feature in stool would most plausibly reflect fungal (mycobiome or dietary/environmental mould) input, but provides no infant or age-related data."
+    },
+    {
+      "url": "https://pubs.acs.org/doi/10.1021/acschembio.1c00839",
+      "doi": "10.1021/acschembio.1c00839",
+      "title": "Biosynthesis of the Sphingolipid Inhibitors Sphingofungins in Filamentous Fungi Requires Aminomalonate as a Metabolic Precursor",
+      "study_population": "Filamentous fungi (in vitro biosynthesis)",
+      "relevance": "Characterizes the sphingofungin biosynthetic gene cluster, including sphingofungins E and F from Paecilomyces variotii; reinforces that sphingofungin F production is restricted to specific fungal producers, which are not documented as dominant members of the 5-month-old infant gut."
+    },
+    {
+      "url": "https://journals.asm.org/doi/10.1128/mbio.03396-20",
+      "doi": null,
+      "title": "Composition and Associations of the Infant Gut Fungal Microbiota with Environmental Factors and Childhood Allergic Outcomes",
+      "study_population": "Human infant birth cohort, stool at 3 months and 1 year (CHILD-type cohort)",
+      "relevance": "Directly relevant to the age contrast: reports that fungi were more frequently undetectable and fungal alpha diversity lower at 3 months than at 1 year, i.e. indirect evidence pointing against greater fungal-metabolite (including sphingofungin) load in younger infants."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11278438/",
+      "doi": null,
+      "title": "Neonatal Gut Mycobiome: Immunity, Diversity of Fungal Strains, and Individual and Non-Individual Factors",
+      "study_population": "Review of human neonatal/infant cohorts",
+      "relevance": "Corroborates that Penicillium, Aspergillus and Candida are detectable in infant gut up to 2 years and that mycobiome composition shifts with breastfeeding and weaning - the only pathway-level basis for a fungal SPT-inhibitor being present at 5 months, without any data on sphingofungin F itself."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-023-28862-z",
+      "doi": null,
+      "title": "Longitudinal profiles of the fecal metabolome during the first 2 years of life",
+      "study_population": "Human infants, longitudinal fecal metabolome over first 2 years",
+      "relevance": "Representative primary infant fecal-metabolome study covering exactly the 5- to 12-month window; searched as the most likely place to find an age-associated sphingofungin signal, but no sphingofungin/fungal SPT-inhibitor feature was surfaced, illustrating the absence of direct evidence for this feature+group pairing."
+    }
+  ],
+  "contradicting_evidence": "No study reports sphingofungin F specifically in the opposite direction, so this is not scored -1. However, the closest indirect human evidence leans against the hypothesis: an infant birth-cohort study (mBio 2021, CHILD-type cohort) found fungal DNA more often undetectable and fungal alpha diversity lower in 3-month stool than in 1-year stool, and a gut-mycobiome review notes Malasseziales declining toward undetectable by ~5 months - both implying fungal-derived metabolites might be lower, not higher, in younger infants. This mixed indirect picture is why the score is 1 rather than 2.",
+  "search_queries_used": [
+    "Sphingofungin F infant gut metabolome",
+    "Sphingofungin F metabolite",
+    "Sphingofungin F serine palmitoyltransferase inhibitor",
+    "sphingofungin human feces metabolomics",
+    "sphingofungin infant",
+    "LMSP01080066 sphingofungin",
+    "fungal metabolites infant gut mycobiome breastfeeding weaning Paecilomyces",
+    "sphingolipid metabolites infant stool age 5 months 12 months metabolome breastfed weaned",
+    "sphingofungin gut microbiome untargeted metabolomics annotation",
+    "METLIN 5396 sphingofungin F",
+    "infant gut mycobiome fungal abundance decreases with age first year Aspergillus",
+    "sphingofungin breast milk"
+  ],
+  "caveats": "Sphingofungin F is a fungal natural product with no established endogenous human or bacterial source, so an untargeted aqueous-phase LC-MS annotation at this m/z is at high risk of being a misannotation of an isobaric/isomeric endogenous sphingoid-type or hydroxylated amino-fatty-acid species (the LIPID MAPS/METLIN library match alone does not confirm identity). Level-1 confirmation by MS/MS against an authentic standard would be needed before any biological interpretation. Additionally, if the compound is genuinely present, it could reflect dietary/environmental mould exposure (e.g. complementary foods, storage moulds) rather than gut-resident fungal metabolism, which would confound the 5- vs 12-month contrast; and 5-vs-12-month differences in infant studies are typically driven by the milk-to-solid-food transition, for which no sphingofungin data exist."
+}

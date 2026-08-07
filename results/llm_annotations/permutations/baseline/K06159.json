@@ -1,0 +1,77 @@
+{
+  "feature_id": "K06159",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "The KEGG ortholog K06159 (multidrug/microcin transport system ATP-binding/permease protein, an ABC-transporter component) is increased/characteristic in the gut metagenome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 2,
+  "rationale": "No primary study was found that reports K06159 by ID (or its named homolog YbhF/YbhFSR-type multidrug/microcin ABC exporter) as differentially abundant between 5- and 12-month-old infants. However, several independent lines of indirect evidence point in the hypothesized direction: (i) a prospective metagenomic infant cohort (mSystems 2025) reported a significant decreasing trend with age in the abundance of 'ABC transporter' functional capacity in early infancy; (ii) PICRUSt-based analysis of milk- vs solid-fed infants found environmental information processing / membrane transport pathways over-represented in exclusively breastfed (i.e. developmentally earlier, pre-weaning) infants, whereas introduction of solids shifted hundreds of gene categories; (iii) the dominant taxonomic carriers of multidrug/microcin ABC exporter orthologs - Enterobacteriaceae/Escherichia - fall sharply in relative abundance between ~6 and 12 months in multiple independent infant cohorts, and infant-gut efflux/ABC-transporter resistome content declines over the first year in parallel with Proteobacteria dynamics. A bioRxiv preprint of a US infant randomized feeding trial comparing 5- vs 12-month timepoints also reported enrichment of 'transporter proteins' and E. coli biofilm genes in the 5-month group, but this source may describe the same cohort/data as the present study and is therefore treated as non-independent corroboration only. Because all support is pathway-, taxon- or preprint-level rather than a direct primary report of this specific KO in this specific contrast, this meets the 'multiple indirect studies pointing the same direction' criterion (score 2) rather than 3.",
+  "mechanism": "K06159 corresponds to the ATP-binding/permease components of multidrug/microcin ABC export systems (e.g. the E. coli YbhFSR-type exporter, experimentally shown to efflux tetracyclines and cations, and related microcin secretion transporters), which are largely encoded by Proteobacteria/Enterobacteriaceae and other facultative anaerobes. At ~5 months the milk-dominated, low-diversity infant gut is comparatively rich in Enterobacteriaceae (E. coli, Klebsiella) and other early colonizers with high per-genome densities of ABC transport/efflux genes, and bacteriocin/microcin-mediated interbacterial antagonism is an important competitive strategy in this sparsely occupied niche. With complementary feeding by 12 months, obligate anaerobe Firmicutes/Bacteroidetes expand and Enterobacteriaceae contract, so the relative gene-level contribution of multidrug/microcin exporter orthologs is diluted while carbohydrate-degradation and fermentation functions rise - yielding higher relative abundance of K06159-type transporter genes at the earlier timepoint.",
+  "evidence": [
+    {
+      "url": "https://journals.asm.org/doi/10.1128/msystems.00502-25",
+      "doi": "10.1128/msystems.00502-25",
+      "title": "Gut microbiota development, antibiotic resistome, and related perinatal factors in early infancy",
+      "study_population": "Prospective cohort of human infants, longitudinal fecal metagenomes in early infancy (first 6 months)",
+      "relevance": "Reports a statistically significant decreasing trend with infant age in the abundance of ABC transporter functional capacity - the functional category to which K06159 belongs - supporting higher relative abundance at earlier ages."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/cellular-and-infection-microbiology/articles/10.3389/fcimb.2015.00003/full",
+      "doi": "10.3389/fcimb.2015.00003",
+      "title": "Milk- and solid-feeding practices and daycare attendance are associated with differences in bacterial diversity, predominant communities, and metabolic and immune function of the infant gut microbiome",
+      "study_population": "Human infants stratified by exclusive breastfeeding vs. non-exclusive breastfeeding with/without solid foods (pre- vs post-complementary feeding)",
+      "relevance": "Exclusively breastfed (pre-weaning, developmentally analogous to the 5-month group) infants showed over-representation of environmental information processing / membrane transport pathways, the KEGG category containing ABC transporters such as K06159."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2022.948131/full",
+      "doi": "10.3389/fnut.2022.948131",
+      "title": "Stepwise establishment of functional microbial groups in the infant gut between 6 months and 2 years: A prospective cohort study",
+      "study_population": "Prospective cohort of human infants sampled from 6 to 24 months",
+      "relevance": "Shows Escherichia coli/Klebsiella/Shigella declining from 6 to 12 months; these Enterobacteriaceae are the principal carriers of multidrug/microcin ABC exporter genes, indirectly predicting higher K06159 relative abundance at the earlier timepoint."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2026.1862116/full",
+      "doi": "10.3389/fmicb.2026.1862116",
+      "title": "Age-associated gut microbiome succession, colonization resistance, and relative resistome patterns in an antibiotic-restricted infant cohort",
+      "study_population": "Antibiotic-restricted human infant cohort, age-stratified fecal microbiome/resistome",
+      "relevance": "Documents a large decrease in Enterobacteriaceae relative abundance with age across the first year, the taxonomic substrate for enterobacterial multidrug/microcin ABC transport systems."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-024-69275-w",
+      "doi": null,
+      "title": "Antibiotic resistance gene dynamics in the commensal infant gut microbiome over the first year of life",
+      "study_population": "Longitudinal human infant cohort, metagenomes over the first year of life",
+      "relevance": "Finds a core infant resistome dominated by efflux/transport systems typical of Enterobacteriaceae, with overall gene carriage declining over the first year in step with Proteobacteria - consistent with higher multidrug-transporter gene abundance at 5 vs 12 months."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7190983/",
+      "doi": null,
+      "title": "A Putative Efflux Transporter of the ABC Family, YbhFSR, in Escherichia coli Functions in Tetracycline Efflux and Na+(Li+)/H+ Transport",
+      "study_population": "Escherichia coli laboratory strains (in vitro genetic/biochemical characterization)",
+      "relevance": "Establishes the identity and function of the enterobacterial multidrug ABC exporter corresponding to this KO family, supporting the mechanistic link between K06159 abundance and Enterobacteriaceae/E. coli load in the infant gut."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2.full",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "US infants in a randomized controlled complementary feeding trial (meat vs dairy protein), paired samples at 5 and 12 months",
+      "relevance": "Directly compares 5- vs 12-month infant metagenomes and reports enrichment of transporter-protein genes, inorganic ion transport and E. coli biofilm genes in the 5-month group; however this likely describes the same cohort as the present study, so it is corroborative rather than independent."
+    }
+  ],
+  "contradicting_evidence": "Evidence is not uniform: a metagenomic study of the complementary feeding transition (PLOS One, 4/9/12-month sampling) concluded that microbiome composition changed markedly while overall functional (KEGG) capacity remained comparatively stable, which argues against a strong age effect on generic transporter orthologs. Cross-sectional pediatric work also shows increasing gene richness and generally higher predicted transporter/ABC-transporter content in older/perturbed states, and the mSystems age trend was demonstrated within the first 6 months rather than across a 5- vs 12-month contrast. No study, however, reported K06159 (or a named homolog) as specifically higher at 12 months than at 5 months.",
+  "search_queries_used": [
+    "K06159 multidrug microcin transport system ATP-binding permease infant gut",
+    "infant gut microbiome ABC transporter genes decrease with age 6 to 12 months metagenome",
+    "microcin transport system KEGG ortholog infant gut microbiome breastfed",
+    "\"K06159\" KEGG ortholog abundance microbiome",
+    "ABC transporters KEGG pathway enriched breastfed infants compared weaning 12 months metagenomics",
+    "infant gut metagenome 6 months vs 12 months functional pathways ABC transporters membrane transport enriched younger",
+    "microcin YbhF YbhS ABC transporter Escherichia coli infant gut colonization",
+    "Network-based representation learning age infant gut microbiome 5-month-old 12-month-old transporter enrichment biorxiv",
+    "Gut microbiota development antibiotic resistome perinatal factors early infancy mSystems ABC transporter decreasing trend age",
+    "Enterobacteriaceae Escherichia relative abundance declines from 6 to 12 months infant gut microbiome",
+    "multidrug efflux transporter genes infant gut microbiome higher early infancy decline after weaning metagenomic",
+    "PICRUSt ABC transporter membrane transport higher in breastfed infants than weaned older infants gut",
+    "microcin colicin production Escherichia coli infant gut first year age"
+  ],
+  "caveats": "K06159 is a broadly distributed, functionally ambiguous ABC-transporter KO (annotated as 'multidrug/microcin' export) present across many bacterial genera, so its metagenomic abundance is a composite signal strongly influenced by taxonomic turnover rather than a specific biological process; no published study quantifies this exact KO in a 5- vs 12-month infant comparison. Pathway-level ('ABC transporters', 'membrane transport') findings can behave differently from individual KOs, and PICRUSt-predicted functions add inference error. The one source that directly matches the 5- vs 12-month contrast is a preprint that plausibly reports the same cohort as this study, so it cannot be counted as independent external validation; relative-abundance (compositional) effects also mean an apparent 5-month enrichment may reflect dilution by expanding fiber-degrading taxa at 12 months rather than absolute gene increase."
+}

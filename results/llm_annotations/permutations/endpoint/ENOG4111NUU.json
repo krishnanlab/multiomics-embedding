@@ -1,0 +1,52 @@
+{
+  "feature_id": "ENOG4111NUU",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "The eggNOG orthologous group ENOG4111NUU (function unknown) is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches for the exact eggNOG identifier ENOG4111NUU (alone, with 'eggNOG', with 'infant gut microbiome', and as a prefix string 'ENOG4111') returned no primary research article, database record, or supplementary table describing this orthologous group, let alone its behavior across infant age. The feature carries no functional annotation ('Function unknown'), so not even pathway-level or homolog-level reasoning can be anchored to published biology. What the literature does support, generically, is that the infant gut metagenome undergoes substantial taxonomic and functional-gene-content remodeling between roughly 4-6 months and 12 months as complementary foods are introduced (loss of HMO-utilizing Bifidobacterium-dominated gene repertoires, gain of Firmicutes/Bacteroides plant-polysaccharide and amino-acid metabolism genes), and that a large fraction of gene families in infant gut metagenomes remain uncharacterized. Under that general expectation, roughly half of age-discriminative gene families would be expected to rise with age by chance alone, so this constitutes only generic/theoretical support, not directional evidence for this specific ortholog. No contradicting report was found either. This maps to confidence 1 (weak: only generic reasoning, no study on this feature+group combination), not 0, because relevant contextual literature on 5-to-12-month functional maturation exists, and not 2, because no study addresses this feature.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": null,
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy human infants sampled longitudinally across the first year of life (approximately 4, 9 and 12 months), 16S plus shotgun metagenomic functional profiling",
+      "relevance": "Establishes, at the generic level, that infant gut microbiome gene/pathway content shifts measurably between ~4-5 months and 9-12 months, with alpha diversity of functional profiles rising most between 4 and 9 months. Supports the plausibility that many gene families (including unannotated ones) become more abundant by 12 months, but says nothing about ENOG4111NUU specifically."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v2.full.pdf",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age (preprint; longitudinal metagenomics and metabolomics from 5 to 12 months in formula-fed infants)",
+      "study_population": "U.S. formula-fed infants in a randomized controlled feeding trial, stool metagenomics and untargeted metabolomics at 5 and 12 months",
+      "relevance": "Directly matches the 5- vs 12-month design and reports microbiome features at both species level and orthologous-group/COG level, confirming that age is a dominant driver of functional gene-family abundance across this window. It provides the analytical context for age-associated orthologous groups but does not name or validate ENOG4111NUU in the hypothesized direction."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41467-022-32805-z",
+      "doi": null,
+      "title": "A compendium of 32,277 metagenome-assembled genomes and over 80 million genes from the early-life human gut microbiome",
+      "study_population": "Aggregated early-life (infant/child) human gut metagenomes, functionally annotated with eggNOG-mapper v2 and eggNOG database v5.0",
+      "relevance": "Shows that eggNOG-based annotation is the standard framework for early-life gut gene catalogues and that a large share of early-life gut genes remain functionally uncharacterized, which is why an ortholog such as ENOG4111NUU has no retrievable functional or age-association literature."
+    },
+    {
+      "url": "https://academic.oup.com/dnaresearch/article/14/4/169/466883",
+      "doi": null,
+      "title": "Comparative Metagenomics Revealed Commonly Enriched Gene Sets in Human Gut Microbiomes",
+      "study_population": "Human gut metagenomes including unweaned infants, weaned children and adults",
+      "relevance": "Primary comparative metagenomic evidence that gene-set composition differs systematically between unweaned infants and weaned/older individuals, and explicitly notes that the majority of gut microbial gene content is still uncharacterized - generic background consistent with, but not specific to, the hypothesis."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG4111NUU",
+    "ENOG4111NUU eggNOG infant gut microbiome",
+    "eggNOG orthologous group infant gut metagenome 12 months age",
+    "\"ENOG4111NUU\" gene family",
+    "ENOG41 unknown function orthologous group gut microbiome age",
+    "eggNOG ENOG4111NUU function",
+    "infant gut metagenome functional gene families 5 months vs 12 months complementary feeding eggNOG",
+    "uncharacterized protein family increased weaning infant gut microbiome metagenomics",
+    "\"ENOG4111\" microbiome"
+  ],
+  "caveats": "The feature is an unannotated eggNOG orthologous group ('Function unknown') with no name, EC number, or pathway assignment, so no homolog-based literature search was possible and no mechanistic hypothesis can be offered. Web search does not index eggNOG database entries or supplementary tables well, so absence of hits may partly reflect search-engine coverage rather than true absence of any mention; a direct lookup in eggNOG v4.5/v5 (the ENOG41* prefix is the eggNOG 4.5/5.0 naming scheme) and in unified gene catalogues would be needed to at least recover its taxonomic distribution and any domain-level hints. Any directional call for this feature must therefore rest on the study's own internal data, which was not provided and was not assumed here. Note also that ENOG41* identifiers were renamed in eggNOG 6.0, so cross-version mapping may be required before literature matching."
+}

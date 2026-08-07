@@ -1,0 +1,22 @@
+{
+  "feature_id": "ENOG4112DBJ",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "The eggNOG orthologous group ENOG4112DBJ (function unknown) is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for the exact identifier ENOG4112DBJ (alone, with 'eggNOG', and combined with infant gut microbiome / weaning / age-related metagenomics terms) returned no hits referencing this orthologous group in any publication, database record, or supplementary-style resource visible in search results. Search engines returned only unrelated gene/protein pages (e.g. DnaJ, RNF41) and generic eggNOG database description papers (eggNOG 4.5/5.0), plus general infant gut functional-maturation literature that never mentions this OG. Because the OG carries no functional annotation ('Function unknown'), there is also no named enzyme, pathway, or compound that could be used to build even indirect or theoretical directional reasoning (e.g. no link to plant-polysaccharide degradation, starch utilization, or HMO catabolism that would be expected to rise with complementary feeding between 5 and 12 months). Thus no evidence - direct or indirect - supporting (or opposing) an increase of this specific feature at 12 months versus 5 months was located, which corresponds to a score of 0 rather than 1 (no pathway-level reasoning is even possible for an uncharacterized OG) and clearly not -1 (no contradicting study exists either).",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG4112DBJ",
+    "ENOG4112DBJ eggNOG infant gut microbiome",
+    "eggNOG orthologous group infant gut metagenome 12 months function unknown",
+    "\"ENOG4112DBJ\" gene family",
+    "ENOG4112DBJ eggNOG 4.5 unknown function",
+    "eggNOG ortholog group increased 12 month infant gut microbiome weaning function unknown ENOG411",
+    "ENOG4112DBJ metagenome differentially abundant",
+    "eggNOG unknown function orthologous groups increase after weaning infant metagenomics 12 months age"
+  ],
+  "caveats": "ENOG4112DBJ is an eggNOG (v4.5-style) non-supervised orthologous group identifier with no functional annotation; such identifiers are almost never named in article text and typically appear only inside large supplementary tables or annotation flat files, which are poorly indexed by web search. Absence of search hits therefore reflects low literature/indexing coverage of uncharacterized OG IDs rather than a demonstrated absence of biological signal. General literature does establish that infant gut metagenome functional gene content shifts substantially between ~5-6 months (milk-dominant) and ~12 months (post-weaning, solid-food-adapted), so an age-associated shift in some uncharacterized OG is a priori plausible - but nothing in the retrieved literature can assign a direction to this particular OG. A more informative assessment would require resolving ENOG4112DBJ to its member proteins/taxa (e.g. via the eggNOG database or eggNOG-mapper annotations) and then searching literature on those homologs; that resolution step could not be completed with web search alone in this turn."
+}

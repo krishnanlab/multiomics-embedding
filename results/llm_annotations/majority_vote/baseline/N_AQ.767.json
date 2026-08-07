@@ -1,0 +1,20 @@
+{
+  "feature_id": "N_AQ.767",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "The aqueous-phase metabolite feature annotated only as the molecular formula 'C20 H32 N25' is increased/characteristic in 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "No literature could be located for this feature. The only identifier provided is a raw molecular formula string ('C20 H32 N25') with no compound name, no database accession (HMDB/KEGG/ChEBI/PubChem), and no retention-time or spectral information, so there is nothing searchable that maps to a specific chemical entity. Direct formula searches ('C20H32N25', '\"C20 H32 N25\"') returned only unrelated Wikipedia formula-index pages for other formulas (e.g. C20H25NO3, C20H32N2O) and NIST formula-browser hits, i.e. no chemical database entry, named compound, or study reporting this formula. Searches combining infant gut/fecal metabolome with 5- vs 12-month or breastfeeding/complementary-feeding age contrasts returned relevant general infant metabolomics papers, but none that report this formula or any compound identifiable as it, so they cannot serve as evidence for or against the stated direction. Notably, the formula as written is also chemically implausible for a neutral small molecule: with 20 C, 32 H, 25 N and no O, the ring-plus-double-bond equivalent value is non-integer (20 - 32/2 + 25/2 + 1 = 17.5), which violates the standard RDBE/nitrogen-rule heuristics used to filter formulas from accurate-mass MS (Kind & Fiehn's 'Seven Golden Rules'); an N:C ratio of 1.25 with zero oxygen is likewise far outside the ranges observed in biological metabolite databases. This strongly suggests the label is a mis-assigned or placeholder formula rather than a real biological metabolite, which is consistent with the complete absence of literature. Per the rubric this is 0 (no relevant literature located for this feature+group combination), not -1, since nothing contradicting the direction was found either.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C20H32N25 metabolite",
+    "\"C20 H32 N25\" compound formula",
+    "unannotated metabolite molecular formula infant gut metabolome 5 months vs 12 months",
+    "infant fecal aqueous metabolome breastfeeding 5 month vs 12 month untargeted NMR nitrogen-rich compound",
+    "\"C20H32N25\"",
+    "molecular formula validity nitrogen rule rings double bond equivalents non-integer misannotation untargeted metabolomics"
+  ],
+  "caveats": "The feature is unannotated beyond a molecular formula, and that formula appears internally inconsistent (non-integer RDBE, implausible N:C ratio, no oxygen), so it likely reflects an incorrect formula assignment, an adduct/multiply-charged artifact, or a formatting error (e.g. an intended C20H32N2O5-type formula). A confident literature judgement is impossible until the feature is re-annotated with a putative compound identity, database ID, or at least an accurate m/z and adduct. If the underlying compound can be named, this hypothesis should be re-evaluated; age-related shifts between 5 and 12 months (pre- vs post-complementary-feeding) are well documented for many named fecal metabolites, so a re-annotated feature could plausibly score much higher. No evidence entries are listed because no search result addressed this feature; the formula-heuristic reasoning above is offered only as a data-quality flag, not as literature support for or against the hypothesis."
+}

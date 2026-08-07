@@ -1,0 +1,23 @@
+{
+  "feature_id": "ENOG410XQTH",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "The eggNOG orthologous group ENOG410XQTH (function unknown) is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for the exact identifier 'ENOG410XQTH' (alone, with 'eggNOG', with 'orthologous group', and combined with infant gut microbiome / weaning / 12-month terms) returned no hits describing this orthologous group at all - no database record page, no functional characterization, and no primary or secondary study reporting its abundance in any host or age context. Searches instead returned unrelated matches (human gene pages, stock tickers, generic eggNOG database papers) or general infant-microbiome functional-maturation papers that make no mention of this OG. The feature is annotated 'Function unknown', so there is also no named homolog, enzyme, or pathway that could be used as a literature proxy: unlike, e.g., a glycoside hydrolase family or an amino-acid catabolism module, an uncharacterized ENOG41-series group provides no biological handle on which to build even indirect, direction-specific reasoning about the 5- vs 12-month transition. While it is well documented in general that the infant gut metagenome's functional gene repertoire shifts substantially across the complementary-feeding window between ~5 and ~12 months (e.g. work on adaptation of the infant gut microbiome during complementary feeding and stepwise establishment of functional microbial groups from 6 months to 2 years), those studies do not report this specific orthologous group in either direction, and the generic fact that 'many gene families change with age' does not confer directional support for this particular one. Under the rubric, this is an absence of any locatable feature-specific evidence rather than weak or conflicting evidence, so the score is 0. Note that eggNOG 'ENOG41xxxxx' identifiers are release-4.1-specific and are frequently not stable/searchable across eggNOG 5/6/7 releases, which further reduces the chance that any published study would report this exact string even if the underlying gene family were age-associated. If the investigators can map ENOG410XQTH to a member protein sequence, taxon distribution, or a COG/Pfam domain, a re-evaluation with that information could plausibly move the score.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG410XQTH",
+    "ENOG410XQTH eggNOG infant gut microbiome",
+    "eggNOG orthologous group infant gut metagenome 12 months age",
+    "\"ENOG410XQTH\" eggNOG",
+    "ENOG410XQTH function unknown ortholog group",
+    "eggNOG unknown function gene family increased 12 months infant gut weaning metagenome",
+    "ENOG410XQTH ortholog group bacteria gene",
+    "\"ENOG410\" orthologous group infant gut microbiome age 12 months increased abundance",
+    "uncharacterized orthologous groups infant gut microbiome maturation 5 to 12 months metagenomics functional"
+  ],
+  "caveats": "Score of 0 reflects absence of retrievable literature, not evidence against the hypothesis; an unannotated, release-specific eggNOG ID is essentially unsearchable in the published literature, so a genuine age association could exist and remain undetectable by literature search. Any internal statistical signal for this feature should be interpreted as hypothesis-generating and would need functional characterization (sequence-level annotation, taxonomic origin of the contigs carrying it, or mapping to a stable eggNOG v5/v6/v7 group) before literature-based validation is feasible. No evidence entries are listed because no source observed in the searches reported this feature."
+}

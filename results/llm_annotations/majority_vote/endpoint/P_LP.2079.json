@@ -1,0 +1,61 @@
+{
+  "feature_id": "P_LP.2079",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "The unannotated lipid-class feature with molecular formula C22H42N2O3 is increased/characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "This feature is only defined by a molecular formula (C22H42N2O3; RDBE = 3, two nitrogens, three oxygens) with no compound-level annotation, no database ID (HMDB/ChEBI/LIPID MAPS) and no name. Targeted searches on the formula itself returned nothing but generic 'isomers of a molecular formula' index pages and unrelated lipid papers - no primary study reports a metabolite of this formula, let alone in infant stool at 5 vs 12 months. The formula is consistent with several plausible N-acyl amide/lipoamino-acid structures (e.g. a mono-unsaturated C16:1-lysine or C17:1-ornithine/diaminobutyrate conjugate, i.e. a microbially produced N-acyl amino acid), and there IS relevant class/pathway-level literature pointing in the hypothesized direction: microbially derived N-acyl lipids and bile amidates increase with infant age as the gut microbiome matures (Bangladeshi mother-infant dyads, first 6 months), gut commensals are established producers of N-acyl amino acids/amides (including lysine- and ornithine-type lipoamino acids), and fecal lipid metabolites shift substantially across the complementary-feeding transition, notably between 9 and 12 months. However, all of this is class-level/theoretical reasoning about a family of compounds rather than evidence on this specific feature+group combination, and the formula could equally correspond to a dipeptide, a xenobiotic, or a dietary amide, so the inference is fragile. Per the rubric this is 'only generic/pathway-level reasoning found' = 1 (Weak), not 0, since relevant supporting class-level literature was located and it is directionally consistent.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12330730/",
+      "doi": null,
+      "title": "Environmental and Maternal Imprints on Infant Gut Metabolic Programming (also published as 'Environmental and maternal imprints on infant gut metabolic development')",
+      "study_population": "55 Bangladeshi mother-infant dyads, longitudinal stool metagenomics + untargeted metabolomics across the first 6 months of life",
+      "relevance": "Reports that microbially derived N-acyl lipids and bile amidates increase with infant age alongside bsh gene reads. Provides class-level, same-direction support for an N-acyl-amide-type lipid (a plausible identity for C22H42N2O3) rising with age in infant stool, but the cohort ends at 6 months and no compound matching this formula is named."
+    },
+    {
+      "url": "https://www.cell.com/cell/fulltext/S0092-8674(25)00565-3",
+      "doi": null,
+      "title": "The microbiome diversifies long- to short-chain fatty acid-derived N-acyl lipids",
+      "study_population": "Mass spectrometry reference library building plus germ-free vs. colonized/monocolonized mouse gut samples and human cohort re-analyses (not infants)",
+      "relevance": "Establishes that the gut microbiota generates a large, structurally diverse family of N-acyl lipids (fatty-acyl amino acid/amine conjugates) in the intestine. Supports the pathway plausibility that an unannotated C22H42N2O3 N-acyl amide would track with microbiome maturation, but is indirect (mouse/adult human, no age-contrast in infants)."
+    },
+    {
+      "url": "https://lipidmaps.org/resources/lipidweb/lipidweb_html/lipids/simple/lipamino/index.htm",
+      "doi": null,
+      "title": "Simple N-acyl amides and lipoamino acids, ethanolamides, acylglycines, acylserotonins, ornithine lipids, homoserine lactones: structure, occurrence, biology and analysis (LipidWeb/LIPID MAPS)",
+      "study_population": "Reference/review resource; bacterial and mammalian lipid biochemistry",
+      "relevance": "Documents bacterial lysine, ornithine, serine and glutamine lipoamino acids - the structural class most consistent with formula C22H42N2O3 (e.g. a mono-unsaturated C16:1-lysine amide). Used only to establish chemical/biosynthetic plausibility, not to support the age direction."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy infants ('Nourish to Flourish' pilot), fecal samples at three timepoints spanning before solids introduction through ~12 months, with paired metagenomics and aqueous/lipid metabolomics",
+      "relevance": "Shows that fecal LIPID-phase metabolites change markedly across the complementary feeding period and correlate with taxonomic shifts particularly between 9 and 12 months, i.e. the lipid metabolome is strongly remodeled by 12 months. Supports the general expectation that novel lipid features become characteristic of the 12-month timepoint, but does not identify this formula."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-023-28862-z",
+      "doi": null,
+      "title": "Longitudinal profiles of the fecal metabolome during the first 2 years of life",
+      "study_population": "101 Latino infants, fecal metabolomics at 1, 6, 12, 18 and 24 months",
+      "relevance": "Directly brackets the 5-12 month window and reports numerous age-associated fecal metabolites including amino acid metabolites and fatty acids/PUFAs, plus novel age-associated metabolites. Establishes that age is a dominant driver of the infant fecal metabolome, but no metabolite with formula C22H42N2O3 is reported, so this is contextual rather than feature-specific."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C22H42N2O3 lipid metabolite",
+    "C22 H42 N2 O3 metabolite formula identification",
+    "infant gut metabolome 12 months vs 5 months lipid amide",
+    "N-acyl amino acids infant stool metabolome age increase weaning",
+    "N-acyl lysine gut bacteria commensal lipid",
+    "HMDB C22H42N2O3",
+    "fecal lipidome infant complementary feeding 12 months lipid metabolites increase",
+    "longitudinal fecal metabolome first 2 years of life fatty acid amides acyl amino acids increased with age",
+    "N-acyl amides infant fecal metabolome increase over first year of life",
+    "palmitoleoyl lysine lipoamino acid gut microbiota",
+    "infant stool untargeted metabolomics unannotated lipid formula C22H42N2O3"
+  ],
+  "caveats": "The feature is unannotated - only a molecular formula is given, with no MS/MS-confirmed identity, adduct, retention time or database ID. Formula C22H42N2O3 (RDBE 3) has many possible isomers spanning very different biology: microbial/host N-acyl amino acids (e.g. C16:1-lysine, C17:1-ornithine or diaminobutyrate amides), fatty acid diamides, dipeptide-like species, or dietary/xenobiotic amides. Any literature judgement is therefore about a candidate chemical class, not the feature itself; if the true identity is a non-lipid or exogenous compound the class-level support evaporates. The most directionally relevant infant study (N-acyl lipids increasing with age) covers 0-6 months rather than a 5- vs 12-month contrast, so extrapolation to 12 months is an assumption. Also, the 'lipid' designation here comes from the platform/annotation pipeline (metabolite_lipid, organic-phase extraction), which does not guarantee a lipid-class identity. Confirming identity by MS/MS matching against N-acyl lipid spectral libraries would be needed before treating this feature as biologically interpretable."
+}

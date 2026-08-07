@@ -1,0 +1,20 @@
+{
+  "feature_id": "P_LP.1981",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "The unannotated positive-mode lipidomics feature 'C21 H51 N16 O9 Esi+6.1870084' is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "This feature is not a named, database-matched compound: it is an untargeted LC-MS feature label consisting of a putative elemental composition (C21 H51 N16 O9), an ionization mode tag (ESI+) and what appears to be a retention-time/index value (6.1870084). Multiple targeted searches on the formula string (exact-phrase and spaced variants) returned no chemical database entry, no compound name, and no publication reporting this composition as a metabolite; the returned hits were unrelated patents, Wikipedia formula-disambiguation pages, and generic non-target screening documents. The formula itself is chemically implausible for a real small molecule as written (16 nitrogens with 51 hydrogens and no sulfur/phosphorus gives a degree-of-unsaturation/valence profile inconsistent with a stable neutral lipid-like species), which strongly suggests an in-silico formula assignment artifact rather than an identifiable metabolite. Because there is no identifiable compound, there can be no literature on its behavior across the 5- to 12-month infant window. Searches did retrieve general papers on infant gut metabolome maturation and the complementary-feeding transition, but none of these can be attributed to this specific feature - even pathway-level reasoning is impossible without a credible structure or compound class, so this does not rise to 'weak/theoretical' support for the specific feature+group combination. Accordingly the score is 0 (no relevant literature located for this feature), not -1 (no contradicting study exists either).",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C21 H51 N16 O9 metabolite",
+    "\"C21H51N16O9\" mass spectrometry feature",
+    "unannotated lipidomics feature infant gut metabolome 12 months",
+    "\"C21H51N16O9\"",
+    "infant gut metabolome 5 months versus 12 months lipid features increase",
+    "polyamine guanidino metabolite infant gut 12 months weaning"
+  ],
+  "caveats": "A score of 0 here reflects the unannotated/unidentifiable nature of the feature, not evidence against the hypothesis. If the study's internal data show a robust 5- vs 12-month difference for this feature, the appropriate next step is chemical identification (MS/MS spectral matching, isotope-pattern-constrained formula re-assignment, adduct/in-source-fragment checking, and authentic standard comparison) before any literature-based interpretation. Note also that 'N16' formulas in positive-mode lipidomics pipelines commonly arise from poor formula fitting of multiply-charged or adducted ions, or from clustered/contaminant peaks, so the annotation string should be treated as provisional. Once a plausible compound class is assigned, the hypothesis could be re-evaluated against the substantial literature on infant gut metabolome maturation across the complementary-feeding transition."
+}

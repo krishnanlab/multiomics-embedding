@@ -1,0 +1,50 @@
+{
+  "feature_id": "COG4191",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "COG4191 (DctB-family signal transduction histidine kinase regulating C4-dicarboxylate transport) is increased/characteristic in 5-month-old infants relative to 12-month-old infants",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches (COG ID, gene family names dctB/dcuS, plus infant/weaning/complementary-feeding keywords) returned no primary study - human infant or otherwise - that reports COG4191 or the DctB/DcuS C4-dicarboxylate sensor kinase family as differentially abundant between younger (~5 mo, predominantly milk-fed) and older (~12 mo, complementary-fed) infant gut metagenomes. What the searches did retrieve is (a) purely functional/genomic characterization of COG4191 as the DctB family of sensor histidine kinases responding to C4-/C5-dicarboxylates (Pseudomonas MifS paper; sigma54 regulon comparative analysis), with no gut-development context, and (b) one infant shotgun-metagenomic study that reported the broad COG category 'signal transduction mechanisms' as overrepresented, but in formula-fed versus breastfed infants - a feeding-mode contrast rather than an age contrast, and at whole-category rather than single-COG resolution. Any support for the hypothesis therefore rests on indirect theoretical reasoning (DctB-type sensors are largely encoded by Proteobacteria/Enterobacteriaceae and other facultative anaerobes that are typically more abundant in early infancy and decline as the microbiota matures toward Bacteroides/Clostridia dominance by 12 months, and dicarboxylates such as succinate/fumarate are prominent in the early, less-reduced infant gut). That is generic pathway-level reasoning, not evidence on this feature+group combination. No study was found reporting the opposite direction for this specific COG either, so a contradicting score is not warranted; this fits the 'weak - only generic/pathway-level or theoretical reasoning' tier.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/32553056/",
+      "doi": null,
+      "title": "MifS, a DctB family histidine kinase, is a specific regulator of alpha-ketoglutarate response in Pseudomonas aeruginosa PAO1",
+      "study_population": "Bacterial genetics/biochemistry in Pseudomonas aeruginosa PAO1 (no host, no infant samples)",
+      "relevance": "Confirms the identity and function of COG4191 as the DctB family of dicarboxylate-sensing histidine kinases, establishing what the feature encodes; provides no infant gut or age-related abundance information."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12316311/",
+      "doi": null,
+      "title": "Analysis and comparison of the bacterial sigma54 regulon: Evidence of phylogenetic trends in gene regulation",
+      "study_population": "Comparative genomics across bacterial genomes (environmental/clinical taxa; not infant gut samples)",
+      "relevance": "Explicitly lists COG4191 among signal-transduction COGs overrepresented in sigma54-linked regulons, indicating the family is concentrated in Proteobacteria-type regulatory networks - relevant only as indirect, taxon-level reasoning for possible early-infancy enrichment."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/cellular-and-infection-microbiology/articles/10.3389/fcimb.2022.816601/full",
+      "doi": null,
+      "title": "Impact of Early Feeding: Metagenomics Analysis of the Infant Gut Microbiome",
+      "study_population": "Human infants; shotgun metagenomics of stool from breastfed versus formula-fed cohorts",
+      "relevance": "The only retrieved infant metagenomic study touching this functional space: reports the COG category 'signal transduction mechanisms' as overrepresented in formula-fed infants relative to breastfed infants. It is a feeding-mode rather than an age comparison, is at whole-category not single-COG resolution, and its direction (higher in formula-fed) does not straightforwardly support enrichment in the younger, predominantly milk-fed 5-month group."
+    }
+  ],
+  "contradicting_evidence": "No study directly reporting COG4191 higher at 12 months than at 5 months was found. However, the general expectation from infant microbiome maturation literature is that overall genomic regulatory/signal-transduction capacity rises as larger-genome Bacteroidetes and Clostridia replace Bifidobacterium after weaning, which would argue against enrichment at 5 months; conversely, Proteobacteria-driven DctB sensors would argue for it. The one infant metagenomic study retrieved linked higher 'signal transduction mechanisms' to formula feeding rather than to age, leaving the directionality unresolved.",
+  "search_queries_used": [
+    "COG4191 infant gut microbiome",
+    "C4-dicarboxylate transport histidine kinase DctB infant gut microbiome",
+    "signal transduction histidine kinase infant gut metagenome age 5 months 12 months",
+    "two-component system signal transduction enriched older infants weaning gut metagenome KEGG",
+    "COG functional category signal transduction mechanisms infant gut microbiome age breastfed weaned",
+    "Enterobacteriaceae decline 12 months infant gut microbiome succinate dicarboxylate",
+    "infant gut metagenome functional shift 6 to 12 months environmental information processing two-component",
+    "Adaptation of the infant gut microbiome during the complementary feeding transition signal transduction",
+    "infant gut microbiome weaning solid foods metagenome two-component system enriched 12 months",
+    "breast milk fed infant metagenome signal transduction mechanisms COG enriched",
+    "\"COG4191\"",
+    "dctB dcuS abundance gut microbiome infants age",
+    "succinate infant gut microbiome age decline Enterobacteriaceae fumarate respiration",
+    "signal transduction mechanisms COG category increases with age infant gut microbiome maturation metagenome"
+  ],
+  "caveats": "COG-level functional features are rarely reported individually in infant microbiome papers (most report KEGG pathways, CAZymes, or broad COG categories), so absence of direct evidence may reflect reporting granularity rather than a true absence of the association. COG4191 abundance in a metagenome is also largely a proxy for the abundance of Proteobacteria/other facultative anaerobes carrying DctB-type sensors, so any observed 5-month enrichment would most likely be a compositional (taxonomic) signal rather than an independent functional adaptation. Search coverage was limited by a server-side search quota during the final query batch."
+}

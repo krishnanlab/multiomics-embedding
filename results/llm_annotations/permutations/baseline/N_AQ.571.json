@@ -1,0 +1,63 @@
+{
+  "feature_id": "N_AQ.571",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "PI(17:2(9Z,12Z)/22:4(7Z,10Z,13Z,16Z)) is increased or characteristic in 5-month-old infants relative to 12-month-old infants",
+  "confidence_score": 1,
+  "rationale": "Multiple searches combining the exact lipid species name, its LIPID MAPS ID (LMGP06010274) and METLIN ID with infant gut/stool metabolome, weaning and complementary-feeding terms returned no study reporting this specific phosphatidylinositol molecular species (or any individual PI species) in infant feces, and none comparing it between ~5-6 month and ~12 month timepoints. What was found is only generic, class- and pathway-level reasoning that is consistent with (but far from establishing) the hypothesis: (i) phosphatidylinositol is a constituent of the milk fat globule membrane phospholipid fraction (~5-10% of MFGM phospholipids) of human and cow milk and of soy-lecithin-containing infant formulas, so milk-derived PI intake is proportionally greatest during exclusive/predominant milk feeding at ~5 months and declines as complementary foods displace milk by 12 months; (ii) young milk-fed infants have immature lipid digestion/absorption (limited bile salt pool, developing lipase activity) and therefore relatively high fecal excretion of undigested/partially digested lipid, which would tend to make milk-derived phospholipid species more prominent in early-infancy stool; (iii) longitudinal infant fecal metabolome studies (e.g. the 1-24 month Latino infant cohort) show substantial age-related shifts including lipid super-pathway metabolites, and explicitly attribute such shifts to decreasing breastfeeding and increasing solid-food intake \u2014 but they do not report this feature. No study was found reporting the opposite direction either, so this is weak/indirect support rather than contradiction. The odd-chain sn-1 (17:2) plus 22:4 (adrenic acid) combination is also an unusual, likely putatively annotated species, adding uncertainty about whether any literature could match it directly. Per the rubric this is 'only generic/pathway-level or theoretical reasoning found (no study on this specific feature+group combination)' = 1.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5479857/",
+      "doi": "10.1038/s41598-017-04298-0",
+      "title": "Fatty acid composition and phospholipid types used in infant formulas modifies the establishment of human gut bacteria in germ-free mice",
+      "study_population": "Germ-free mice colonized with human infant gut bacteria; background data on human milk/infant formula phospholipid composition",
+      "relevance": "Indirect/class-level: documents that phosphatidylinositol constitutes roughly 5-10% of the milk fat globule membrane phospholipid fraction of human milk, and that formula lipid droplets are stabilized with soy lecithin, establishing milk/formula as a dietary PI source that is quantitatively dominant during exclusive milk feeding (~5 months) and diluted after complementary feeding. Also notes differences in fecal fat excretion between breastfed and formula-fed infants. Does not measure any PI species in infant stool or compare ages."
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/abs/pii/S0308814616303405",
+      "doi": null,
+      "title": "Identification and quantification of phosphatidylinositol in infant formulas by liquid chromatography\u2013mass spectrometry",
+      "study_population": "Analytical study of commercial infant formulas (no human subjects)",
+      "relevance": "Indirect: confirms that PI molecular species are present and quantifiable in infant formulas and milk, supporting a dietary-milk origin for fecal PI species during the milk-feeding period. Provides no infant fecal or age-comparative data and does not report the 17:2/22:4 species."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9895434/",
+      "doi": null,
+      "title": "Longitudinal profiles of the fecal metabolome during the first 2 years of life",
+      "study_population": "101 Latino infants, fecal metabolome at 1, 6, 12, 18 and 24 months",
+      "relevance": "Most age-relevant primary study located: shows age-associated changes in the infant fecal metabolome including lipid super-pathway metabolites between 6 and 12 months, attributed to decreasing breastfeeding and increasing solid food. However, it reports pathway/named-metabolite level results and does not report this PI species or any individual glycerophospholipid species, so it supports only the general premise, not the specific feature."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3528963/",
+      "doi": null,
+      "title": "Development of the Digestive System\u2014Experimental Challenges and Approaches of Infant Lipid Digestion",
+      "study_population": "Review of human infant (term and preterm) lipid digestion physiology",
+      "relevance": "Mechanistic/theoretical support: describes immature bile salt pool and lipolytic capacity in early infancy with improving fat absorption as the infant matures, implying that unabsorbed milk-derived lipids (including phospholipids) would be relatively more abundant in stool at ~5 months than at 12 months. Not a measurement of this feature."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12076826/",
+      "doi": null,
+      "title": "Milk phospholipid-coated lipid droplets modulate the infant gut microbiota and metabolome influencing weight gain",
+      "study_population": "Infants receiving formula with milk phospholipid-coated lipid droplets; gut microbiota and metabolome",
+      "relevance": "Indirect: links dietary milk phospholipid supply to the infant gut metabolome, supporting the plausibility that milk-phospholipid-derived species (including PI) are detectable and diet-driven in infant stool. Does not examine this PI species or a 5- vs 12-month contrast."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "PI(17:2/22:4) phosphatidylinositol infant gut",
+    "phosphatidylinositol infant stool metabolome age",
+    "LMGP06010274 phosphatidylinositol",
+    "infant fecal lipidome glycerophospholipids decline weaning 6 months 12 months",
+    "fecal metabolome breastfed infants phospholipids higher than after complementary feeding",
+    "adrenic acid 22:4 infant gut breast milk",
+    "phospholipid human milk infant feces age 5 months 12 months lipidomics",
+    "longitudinal fecal metabolome first 2 years of life lipids decrease age Scientific Reports",
+    "infant stool metabolome 6 months versus 12 months lipid species decreased",
+    "phosphatidylinositol infant formula human milk content",
+    "glycerophospholipid metabolism pathway infant fecal metabolome decreased with age weaning",
+    "fecal fat excretion infant milk-fed higher younger infants lipid malabsorption",
+    "untargeted lipidomics infant stool breastfeeding phosphatidylinositol species"
+  ],
+  "caveats": "No literature exists (as far as searchable) on this exact molecular species in any infant gut context, so the score rests entirely on class-level (phosphatidylinositol / milk phospholipid) and physiological reasoning. Two further annotation caveats weaken even that reasoning: (1) PI(17:2/22:4) contains an odd-chain, doubly unsaturated 17:2 acyl group, which is atypical of mammalian milk PI and is more consistent with a bacterial/microbial membrane lipid or with an ambiguous MS1-level annotation - if microbial in origin, the direction could plausibly reverse, since microbial biomass and diversity increase toward 12 months; (2) untargeted 'aqueous' (N_AQ) fraction annotations of intact glycerophospholipids by database ID alone are frequently isomer-ambiguous (chain composition and double-bond positions rarely confirmed), so the feature may not be this compound at all. Confirmation by MS/MS and by direct comparison of PI species across the 5- vs 12-month timepoints in the study's own data would be needed."
+}

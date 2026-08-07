@@ -1,0 +1,21 @@
+{
+  "feature_id": "ENOG4111NUU",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "The eggNOG orthologous group ENOG4111NUU (function unknown) is increased or characteristic in the gut microbiome of 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for the exact eggNOG identifier ENOG4111NUU (alone, with eggNOG/ortholog terms, and combined with infant gut microbiome / complementary feeding / 12-month keywords) returned no primary studies, supplementary tables, or database pages describing this orthologous group at all, let alone its abundance in infant gut metagenomes. The identifier appears to be a narrow, taxon-restricted eggNOG group annotated as 'function unknown' (COG category S), so there is no named gene, protein family, or pathway that could be used as a proxy for indirect literature. Searches did surface general literature on functional maturation of the infant gut metagenome across the complementary feeding transition (e.g. shifts toward plant-polysaccharide degradation, SCFA production and adult-like functional profiles between ~6 and 12 months), but none of these sources mention this ortholog group, and an unannotated OG cannot be mapped onto those general functional trends with any specificity. I therefore found no relevant literature for this feature+group combination. This is a score of 0 (none found) rather than 1, because nothing feature-specific or even function-adjacent was located - not even a pathway-level rationale, since the feature's function is unknown. It is not -1, since no source reports the opposite direction either. Note this reflects only the state of the published/searchable literature; it does not imply the association is absent in the study's own data.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG4111NUU",
+    "ENOG4111NUU eggNOG infant gut microbiome",
+    "\"ENOG4111NUU\" ortholog group function",
+    "eggNOG orthologous group unknown function 12-month infant gut metagenome weaning",
+    "eggNOG functional gene families infant gut microbiome 6 months vs 12 months metagenomics",
+    "\"ENOG4111\" eggNOG gut microbiome age",
+    "eggNOG unknown function orthologous groups increased complementary feeding infant metagenome 12 months"
+  ],
+  "caveats": "Unannotated eggNOG OG identifiers are essentially never discussed by name in article text; they typically appear only inside supplementary data files, which are poorly indexed by web search. Absence of search hits therefore does not rule out that this OG has been reported as age-discriminating in some cohort's supplementary results. To evaluate this feature properly, the investigators should resolve ENOG4111NUU to its member sequences/taxa via the eggNOG database (v4.5/v5.0 mapping) and re-run the literature assessment on the resulting taxonomic assignment or inferred protein family; taxon-level evidence (e.g. Bacteroides/Firmicutes expansion by 12 months) may then become interpretable. Also note that eggNOG identifiers of the ENOG41* form are version-specific (eggNOG 4.x) and may be renamed or merged in eggNOG 5.0, further limiting searchability."
+}

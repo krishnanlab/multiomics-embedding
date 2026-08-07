@@ -1,0 +1,18 @@
+{
+  "feature_id": "N_LP.2019",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "The lipid feature 'N_LP.2019' (annotation '<none> Esi-0.80700034') is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "This feature has no chemical annotation: the name field is literally '<none>' with an internal analytical identifier ('Esi-0.80700034', apparently an ESI-mode instrument/feature label), and no database accession (HMDB, LIPID MAPS, KEGG, ChEBI, InChIKey) or even a lipid class/subclass is provided. Targeted searches on the identifier string returned only unrelated hits (a patent, unrelated ESI-MS methodology pages, generic infant lipid-profile papers), i.e. the identifier is study-internal and not indexed anywhere in the literature. Because the compound identity is unknown, it is impossible to locate any publication reporting this feature \u2014 or any clearly named homolog/compound \u2014 in relation to infant age, complementary feeding, or the 5- vs 12-month transition. Broader searches did surface general literature on age-related shifts in the infant fecal/blood metabolome and lipidome across the first two years, but none of these can be attributed to this specific unidentified feature, and using them would amount to assuming an identity the annotation does not support. Note that the scoring rubric distinguishes 'weak' evidence (some relevant, generic/pathway-level reasoning about the specific feature) from 'none found'; here not even pathway-level reasoning is possible, since an unannotated m/z feature belongs to no known pathway. I therefore score 0 (no relevant literature located). This is a limitation of annotation, not evidence against the hypothesis \u2014 the direction cannot be evaluated either way until the feature is structurally identified (e.g. by MS/MS spectral matching to a lipid class such as a triacylglycerol, phospholipid, sphingolipid, or bile-acid-conjugate).",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "Esi-0.80700034 lipid metabolite",
+    "N_LP.2019 unannotated lipid feature infant",
+    "infant fecal lipidome 12 months vs 5 months complementary feeding untargeted lipidomics",
+    "unannotated metabolite feature m/z retention time infant gut metabolome weaning age"
+  ],
+  "caveats": "Unannotated feature: no compound name, formula, adduct, m/z, retention time, or external database ID was supplied, so no literature-based evaluation of direction is possible. The identifier 'Esi-0.80700034' appears to be a pipeline-internal ESI-mode feature label rather than a public identifier. Recommended next steps: attempt MS/MS-based annotation (e.g. spectral library or in-silico tools) or at minimum assign a lipid class, then re-run this literature assessment; alternatively, treat the feature as data-driven only and report it without mechanistic interpretation. Scoring 0 here reflects absence of locatable literature, not evidence of absence of a real biological age effect."
+}

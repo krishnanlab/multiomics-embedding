@@ -1,0 +1,60 @@
+{
+  "feature_id": "ENOG4111GFI",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "The eggNOG orthologous group ENOG4111GFI (transposase; replication, recombination and repair) is increased/characteristic in the gut metagenome of 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 2,
+  "rationale": "Searches found no literature on the specific eggNOG orthologous group ENOG4111GFI (this identifier appears only in the context of eggNOG database documentation, not in any infant study), so evidence must be judged at the level of the annotated function (transposase / mobilome genes). At that level there is one directly relevant human infant study: Loo et al. (BMC Microbiology 2021), a paired longitudinal metagenomic cohort of >200 infants, reported that all mobile genetic element categories were significantly associated with sample age, with 'transposase activity' and 'DNA-mediated transposition' at greater relative abundance at 1 year, whereas 'transposition' and 'plasmid maintenance' were higher at 6 weeks. This matches the hypothesized direction (higher transposase functional abundance in the older, post-weaning infant), although the younger comparator was 6 weeks rather than 5 months. Supporting but indirect evidence comes from Xu et al. (iMeta 2024), which reported increased acquired resistance genes over time linked to increased horizontal gene transfer in the developing infant gut, and from a non-human metagenomic study (Seychelles warbler, ISME Communications 2025) in which the mobilome COG category and transposase genes increased significantly with host age. Against this, MGE-level findings are not uniform: the early-life resistome/mobilome meta-analysis (Bargheet et al., eBioMedicine 2025) found plasmid and resistome relative abundance decreasing as infants grow (driven by declining E. coli), and an Italian cohort covering 7 days to 4 months found the transposase tnpA1 and insertion sequences IS26/ISEcp1 decreasing over that neonatal window. Because those decreases concern plasmid-borne/Proteobacteria-associated elements and/or a much earlier age window than 5-12 months, they temper rather than reverse the hypothesized direction. One direct human infant study plus concordant indirect evidence, with some heterogeneity at the broader mobilome level, corresponds to Moderate (2).",
+  "mechanism": "Between ~5 and ~12 months the gut community shifts from a low-diversity, milk-oriented Bifidobacterium/Proteobacteria-dominated community to a more diverse, denser, solid-food-adapted community rich in Clostridiales/Lachnospiraceae, Bacteroides and other Firmicutes whose larger genomes carry more insertion sequences, transposons and prophage-associated transposase genes. In parallel, higher cell density, greater strain diversity, and increased dietary/environmental microbial input during complementary feeding raise opportunities for horizontal gene transfer and transposition, so DNA-mediated transposition/transposase functional gene families (COG category X / 'replication, recombination and repair' transposase orthologs) accumulate in the metagenome by 12 months, even while plasmid-associated E. coli-linked MGEs decline.",
+  "evidence": [
+    {
+      "url": "https://link.springer.com/article/10.1186/s12866-021-02129-x",
+      "doi": "10.1186/s12866-021-02129-x",
+      "title": "The infant gut resistome is associated with E. coli and early-life exposures",
+      "study_population": "Human infants; paired stool metagenomes at 6 weeks and 1 year from 195 term and 15 late-preterm infants (prospective cohort)",
+      "relevance": "Directly reports that mobile genetic element functions were significantly associated with infant age, with transposase activity and DNA-mediated transposition at greater relative abundance at 1 year than at 6 weeks - same direction as the hypothesis (higher transposase in older infants)."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8252198/",
+      "doi": null,
+      "title": "The infant gut resistome is associated with E. coli and early-life exposures (PMC full text)",
+      "study_population": "Human infants, 6 weeks vs 1 year, shotgun metagenomics",
+      "relevance": "Full-text version of the primary study above; also documents that overall ARG relative abundance was higher at 6 weeks while transposase/DNA-mediated transposition functions were higher at 1 year, i.e. the transposase increase is not simply tracking the resistome."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11170968/",
+      "doi": "10.1002/imt2.169",
+      "title": "Infant age inversely correlates with gut carriage of resistance genes, reflecting modifications in microbial carbohydrate metabolism during early life",
+      "study_population": "Human infants, longitudinal metagenomic profiling and metagenome-assembled genome analysis across the first years of life",
+      "relevance": "Indirect support: reports increased acquired resistance genes over time related to increased horizontal gene transfer in the developing infant gut, consistent with greater mobile-element/transposase activity in older infants, while total ARG carriage falls."
+    },
+    {
+      "url": "https://academic.oup.com/ismecommun/article/5/1/ycaf008/7976665",
+      "doi": "10.1093/ismeco/ycaf008",
+      "title": "Metagenomic analyses of gut microbiome composition and function with age in a wild bird; little change, except increased transposase gene abundance",
+      "study_population": "Wild Seychelles warblers (non-human vertebrate), 7 years of repeated gut metagenomes",
+      "relevance": "Indirect, non-human evidence that the mobilome COG category and specific transposase genes (e.g. COG2801) increase significantly in relative abundance with host age in a vertebrate gut microbiome."
+    },
+    {
+      "url": "https://www.thelancet.com/journals/ebiom/article/PIIS2352-3964(23)00178-0/fulltext",
+      "doi": null,
+      "title": "Development of early life gut resistome and mobilome across gestational ages and microbiota-modifying treatments",
+      "study_population": "Human infants (extremely preterm, very preterm, term), longitudinal shotgun metagenomics",
+      "relevance": "Context/corroboration that transposase markers dominate the quantifiable infant gut mobilome (most MGE reads assigned to the transposase family), establishing that transposase gene families are a measurable, dynamic component of the infant metagenome."
+    }
+  ],
+  "contradicting_evidence": "Not all MGE evidence points the same way. The early-life resistome/mobilome meta-analysis (Bargheet et al., eBioMedicine 2025; https://www.thelancet.com/journals/ebiom/article/PIIS2352-3964(25)00074-X/fulltext) reports that resistome and plasmid relative abundance decrease as infants grow, driven by declining E. coli, and that ARG-associated plasmids are gradually lost during infancy. An Italian cohort covering the first four months (https://link.springer.com/article/10.1186/s12941-024-00725-z) found the transposase tnpA1 and insertion sequences IS26 and ISEcp1 all decreased from 7 days to 4 months of age. These findings concern plasmid-borne/Enterobacteriaceae-associated elements and/or a pre-weaning age window, so they do not directly refute a 5-to-12-month increase, but they show the infant mobilome does not move uniformly upward with age.",
+  "search_queries_used": [
+    "transposase gene abundance infant gut microbiome age 12 months",
+    "mobile genetic elements infant gut metagenome weaning transposase",
+    "eggNOG ENOG4111GFI transposase",
+    "infant gut mobilome transposase abundance decreases with age first year metagenomics",
+    "gut resistome mobilome meta-analysis early life age transposase relative abundance months",
+    "infant gut microbiome functional maturation replication recombination repair genes 6 to 12 months metagenome",
+    "horizontal gene transfer rate infant gut microbiome age increases weaning",
+    "\"transposase\" infant gut microbiome increased with age 12 months relative abundance shotgun",
+    "infant age inversely correlates gut carriage resistance genes horizontal gene transfer transposase increase",
+    "B\u00e4ckhed infant gut metagenome 12 months functional genes transposase mobile element enriched vs 4 months"
+  ],
+  "caveats": "The specific eggNOG ortholog ENOG4111GFI has no literature of its own; all evidence is at the level of the generic 'transposase' gene family, which comprises thousands of unrelated ortholog groups whose individual trajectories may differ from the aggregate mobilome trend. The single direct human study compared 6 weeks with 1 year, not 5 with 12 months, so it cannot resolve whether the increase occurs specifically across the complementary-feeding window studied here. Transposase gene abundance in metagenomes is strongly confounded by which taxa dominate (genome size and IS content differ greatly between Bifidobacterium, Enterobacteriaceae, Bacteroides and Clostridiales), by assembly/annotation choices, and by antibiotic exposure; an apparent increase may reflect taxonomic turnover rather than genuinely elevated transposition. Direction should be interpreted as relative abundance of transposase-annotated reads, not measured transposition activity."
+}

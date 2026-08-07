@@ -1,0 +1,27 @@
+{
+  "feature_id": "ENOG410XPR3",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "The eggNOG orthologous group ENOG410XPR3 (Pfam:DUF3706, function unknown) is increased or characteristic in the gut microbiome of 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for the exact identifiers (eggNOG group 'ENOG410XPR3' and the Pfam domain 'DUF3706') returned no primary research, review, or database-derived literature describing this orthologous group or domain at all - let alone in the context of infant gut microbiome development, complementary feeding, or an age comparison between ~5 and ~12 months. Searches returned only unrelated DUF families (DUF674, DUF2006, DUF2063, DUF3869/DUF3870, plant DUF506/DUF266 families) and generic structural-genomics/DUF-annotation papers, plus generic infant gut functional-maturation studies that never mention this feature. Because the domain is entirely uncharacterized, there is also no pathway or enzymatic handle from which even indirect/theoretical directional reasoning could be constructed (e.g., no link to plant-polysaccharide degradation, amino-acid fermentation, or other functions known to expand after introduction of solid foods), and no information was found about which taxa carry it that could serve as a taxonomic proxy. The one search result that matched the study design (a preprint using metagenomics and metabolomics at infant ages 5 and 12 months with COG/orthologous-group features) appears to be the investigators' own study context rather than independent external corroboration, so it cannot be counted as supporting literature. I therefore score this 0 (no relevant literature located) rather than 1, since nothing feature-specific or even mechanistically suggestive was found; note that this is an absence of evidence, not evidence against the hypothesis.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG410XPR3 eggNOG infant gut microbiome",
+    "DUF3706 Pfam function",
+    "DUF3706 gut microbiome",
+    "\"DUF3706\"",
+    "\"ENOG410XPR3\"",
+    "DUF3706 Pfam PF12513 domain unknown function",
+    "infant gut microbiome 12 months functional genes unknown function weaning eggNOG orthologous groups",
+    "DUF3706 protein UniProt Bacteroides",
+    "eggNOG unknown function orthologous groups enriched 12-month infant gut metagenome shotgun age",
+    "infant gut metagenome functional gene families increase 12 months versus 6 months solid food",
+    "InterPro DUF3706 family PF12507 taxonomic distribution",
+    "\"DUF3706\" InterPro protein family",
+    "eggNOG ENOG410 unknown function ortholog group infant weaning increased abundance"
+  ],
+  "caveats": "Absence of published evidence for an uncharacterized eggNOG group/DUF is expected and is not informative about whether the internal data signal is real; unannotated gene families are rarely reported individually in infant microbiome papers, and web search does not index most supplementary tables where such identifiers would appear. Follow-up would be better served by (i) resolving the taxonomic distribution of ENOG410XPR3/DUF3706 in reference genomes or MAG catalogues of the early-life gut (e.g., eggNOG v5, InterPro, or the early-life MAG compendium) and then evaluating literature on those carrier taxa across the complementary-feeding transition, and (ii) checking supplementary differential-abundance tables of longitudinal infant metagenome cohorts directly for this identifier. The Pfam/eggNOG accession pairing given should also be verified, since the searches could not confirm a Pfam accession number for DUF3706."
+}

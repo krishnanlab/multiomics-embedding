@@ -1,0 +1,24 @@
+{
+  "feature_id": "ENOG4111NYT",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "The eggNOG orthologous group ENOG4111NYT, annotated only as a putative (lipo)protein of unknown function, is increased or characteristic of the gut metagenome/metaproteome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches for the exact eggNOG identifier (ENOG4111NYT) returned no primary or secondary literature at all - only generic eggNOG database/methods papers (eggNOG 4.5, eggNOG 5.0) and unrelated hits. The feature's only annotation is a low-information string, '(LipO)protein', with 'Function unknown', so there is no named enzyme, pathway, or compound whose age-dependence could be traced in the literature; broader searches for bacterial lipoprotein-encoding gene families being enriched in younger (pre-weaning, milk-fed) versus older (post-complementary-feeding) infant gut metagenomes likewise returned nothing that addresses lipoprotein gene abundance as a function of infant age. The studies retrieved on infant gut functional maturation (e.g. metagenomic/metaproteomic characterisations of infant microbiota development, complementary feeding transitions) do document that overall gene-family repertoires shift substantially between early milk-dominant and post-weaning stages, but none of them reports this ortholog group, nor lipoprotein genes as a class, in the hypothesized direction. Because nothing feature-specific and no interpretable pathway-level rationale could be located, this scores 0 (no relevant literature located) rather than 1. Note that absence of literature is expected for anonymous eggNOG groups and does not itself argue against the internal data; it simply means external corroboration is unavailable and any directional claim must rest on the study's own statistics.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG4111NYT eggNOG",
+    "ENOG4111NYT",
+    "eggNOG orthologous group lipoprotein infant gut microbiome 5 months",
+    "bacterial lipoprotein gene family infant gut metagenome breastfed versus weaned functional shift",
+    "uncharacterized eggNOG orthologous groups infant gut metagenome age 6 vs 12 months",
+    "infant gut microbiome functional gene composition 5 months versus 12 months metagenomics Bifidobacterium",
+    "lipoprotein encoding genes enriched breast-milk-fed infant gut microbiome metagenomics",
+    "bacterial surface lipoprotein Bifidobacterium breastfed infant gut abundance age decline",
+    "ENOG41 eggNOG uncharacterized ortholog gut microbiome infant age association",
+    "lipoprotein COG unknown function metagenome infant 5 month old enriched"
+  ],
+  "caveats": "Anonymous/uncharacterised eggNOG orthologous groups are essentially never discussed by identifier in the published literature, so a score of 0 reflects unsearchability as much as biological uncertainty. Any interpretation would require (a) resolving which taxa in the dataset carry this ortholog (e.g. via the eggNOG 5.0 web resource or by mapping representative sequences), and (b) checking whether the taxonomic carriers themselves are known to be enriched pre-weaning; if the ortholog is largely Bifidobacterium- or Enterobacteriaceae-derived, that taxon-level literature would be the appropriate surrogate evidence. Also note that 'lipoprotein' in eggNOG annotations is frequently a signal-peptide/lipobox prediction rather than an experimentally verified function, so the label should not be over-interpreted (e.g. as TLR2-ligand immunomodulation) without further evidence."
+}

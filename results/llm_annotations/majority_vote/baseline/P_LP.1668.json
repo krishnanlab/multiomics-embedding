@@ -1,0 +1,45 @@
+{
+  "feature_id": "P_LP.1668",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "4-Amino-6,7-dimethoxy-2-(1-piperazinyl)quinazoline is increased or characteristic in 5-month-old infants relative to 12-month-old infants",
+  "confidence_score": 0,
+  "rationale": "Repeated searches located no study - primary or otherwise - reporting this compound in infant stool, plasma, or milk, or in any developmental/age-related, breastfeeding, or complementary-feeding context. All retrievable literature and database records concern the compound's identity as a synthetic quinazoline: it is 2-piperazinyl-4-amino-6,7-dimethoxyquinazoline (CAS 60547-97-9), a known human metabolite of the alpha1-adrenergic antagonist prazosin, a specified pharmacopoeial impurity of terazosin, and a synthetic intermediate used in patents for prazosin/doxazosin-type drugs. It has no described endogenous biosynthetic route in humans or gut bacteria and is not a lipid, despite the 'metabolite_lipid' annotation class. There is therefore no literature basis - direct or indirect - for expecting higher abundance at 5 months than at 12 months, and equally no literature reporting the opposite direction, so the score is 'none found' rather than 'contradicting'. Searches of infant fecal/plasma metabolome and lipidome studies spanning the relevant window (1-6 months, 3-12 months, 6-12 months, complementary feeding transition) returned age-related changes in bile acids, amino acids, human-milk-derived and microbial metabolites and phospholipid/plasmalogen classes, but none mentioned quinazolines. Practically, a feature annotated to this compound in an untargeted infant lipidomics dataset is most plausibly a mis-annotation (isobaric/isomeric match at m/z 289.15 / MS1-level METLIN hit) or, far less likely, a genuine drug-derived xenobiotic from maternal or infant medication exposure; either explanation would need MS/MS confirmation before any age-related hypothesis could be evaluated.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://link.springer.com/article/10.1007/BF00542159",
+      "doi": null,
+      "title": "Identification of a prazosin metabolite and some preliminary data on its kinetics in hypertensive patients",
+      "study_population": "Adult hypertensive patients receiving prazosin",
+      "relevance": "Establishes 2-(1-piperazinyl)-4-amino-6,7-dimethoxyquinazoline as a drug (prazosin) metabolite detected in serum/urine/saliva of treated adults - i.e. a xenobiotic-derived compound. Provides identity context only; contains no infant, gut microbiome, or age-comparison data, so it neither supports nor refutes the hypothesized 5- vs 12-month direction."
+    },
+    {
+      "url": "https://pubchem.ncbi.nlm.nih.gov/compound/2-_1-Piperazinyl_-4-amino-6_7-dimethoxyquinazoline",
+      "doi": null,
+      "title": "2-(1-Piperazinyl)-4-amino-6,7-dimethoxyquinazoline | C14H19N5O2 | CID 616267 - PubChem",
+      "study_population": "Not applicable (chemical database record)",
+      "relevance": "Confirms the compound identity/formula (C14H19N5O2, MW 289.33) matching CAS 60547-97-9 and its classification as a synthetic quinazoline/pharmaceutical-related compound rather than an endogenous lipid; no biological association with infant age is recorded."
+    },
+    {
+      "url": "https://www.chemicalbook.com/ChemicalProductProperty_EN_CB0686459.htm",
+      "doi": null,
+      "title": "2-Piperazine-4-amino-6,7-dimethoxyquinazoline | 60547-97-9 (ChemicalBook record)",
+      "study_population": "Not applicable (chemical supplier/database record)",
+      "relevance": "States the compound is a metabolite of prazosin and a synthesis impurity of terazosin (Terazosin EP Impurity C), supporting the interpretation that any detection is drug/xenobiotic- or annotation-related; provides no infant metabolome evidence."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "4-Amino-6,7-dimethoxy-2-(1-piperazinyl)quinazoline",
+    "60547-97-9 quinazoline piperazinyl metabolite",
+    "4-amino-6,7-dimethoxy-2-(1-piperazinyl)quinazoline infant gut microbiome metabolome",
+    "prazosin metabolite piperazinyl quinazoline infant stool metabolomics",
+    "infant fecal metabolome 5 months versus 12 months age untargeted lipidomics quinazoline",
+    "quinazoline alkaloid infant gut microbiome complementary feeding weaning metabolite",
+    "METLIN 246 4-amino-6,7-dimethoxy-2-(1-piperazinyl)quinazoline untargeted metabolomics false annotation",
+    "\"6,7-dimethoxy-2-(piperazin-1-yl)quinazolin-4-amine\" plasma metabolomics human study",
+    "infant plasma lipidomics age 5 months 12 months xenobiotic drug-derived features annotation artifact"
+  ],
+  "caveats": "Annotation is almost certainly unreliable: a synthetic prazosin-related quinazoline is classified here as a 'metabolite_lipid', and the external ID given is a low-numbered METLIN entry (246), consistent with an MS1/library-level match rather than MS/MS-confirmed identification. Recommend orthogonal confirmation (MS2 spectral match to an authentic standard, retention-time check, and screening for isobaric endogenous candidates at ~289.154 Da) plus a check for maternal/infant medication and any plasticizer/reagent contamination before pursuing this feature. If the feature is real, it should be treated as an exogenous exposure marker and analyzed accordingly (e.g., presence/absence per subject, batch and blank comparisons), not as a developmental metabolite."
+}

@@ -1,0 +1,74 @@
+{
+  "feature_id": "K06159",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "The KEGG ortholog K06159 (multidrug/microcin transport system ATP-binding/permease protein, an ABC-transporter-type exporter typified by E. coli YojI) is increased/characteristic in the gut metagenome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 2,
+  "rationale": "No study was found that reports K06159 itself (or yojI/microcin-exporter orthologs by name) as differentially abundant between ~5-month and ~12-month infant gut metagenomes, so direct evidence at the KO level is absent. However, several independent primary human-infant metagenomic studies converge on the same direction at the level of the gene family and its likely taxonomic carriers: (i) in a longitudinal twin cohort, multidrug efflux pump genes were enriched in infants relative to mothers and became significantly less likely to be detected as infant age increased across the first year of life; (ii) quantitative longitudinal metagenomics shows absolute antibiotic-resistance/efflux gene abundance and richness peaking around 6 months and declining thereafter; (iii) a large multi-country analysis of 4132 infant metagenomes reports resistome carriage inversely correlated with infant age, attributed to loss of Pseudomonadota (Proteobacteria) during the transition to table foods; (iv) a first-year cohort found overall ARG carriage declining with age in lockstep with Proteobacteria population dynamics; and (v) 16S/metagenomic time series consistently show Escherichia/Enterobacteriaceae - the principal carriers of YojI-type multidrug/microcin exporters - falling between ~6 and 12 months as Bacteroidota/Lachnospiraceae expand. A complementary-feeding metagenomic study additionally reported that sequences annotated to the KEGG level-2 category 'signalling and cellular processes' (the BRITE branch in which this transporter is classified, including transporters) decreased from 4 to 12 months of age. This constitutes multiple indirect/pathway- and taxon-level studies in human infants all pointing in the hypothesized direction, i.e. moderate confidence (2) rather than strong (3).",
+  "mechanism": "K06159 encodes a fused ATP-binding/permease ABC exporter (YojI-type) that, together with TolC, effluxes the ribosomally synthesized peptide antibiotic microcin J25 and structurally related hydrophobic/peptide substrates, conferring self-protection against bacteriocins and drugs. Such exporters are chromosomally common in Enterobacteriaceae and other Pseudomonadota. In early infancy (around 5 months, when the gut is still milk-dominated, low in diversity and comparatively rich in facultative anaerobes such as Escherichia/Klebsiella/Enterococcus and in bacteriocin-mediated inter-strain competition), the metagenomic pool of these efflux/immunity transporters is correspondingly high. With complementary feeding and the shift toward obligate anaerobe-dominated, fiber-fermenting Bacteroidota/Lachnospiraceae communities by 12 months, the Proteobacteria niche contracts and the relative abundance of multidrug/microcin efflux transporter genes - including this KO - is expected to decline, mirroring the documented age-dependent decline of multidrug efflux pumps and the overall infant resistome.",
+  "evidence": [
+    {
+      "url": "https://link.springer.com/article/10.1186/s40168-015-0090-9",
+      "doi": "10.1186/s40168-015-0090-9",
+      "title": "Gut resistome development in healthy twin pairs in the first year of life",
+      "study_population": "Healthy human infant twin pairs and their mothers, longitudinal sampling across the first year of life (shotgun metagenomics/functional resistome)",
+      "relevance": "Reports that multidrug efflux pumps were significantly more common in infants than mothers and were significantly less likely to be present as infant age increased during the first year - the gene-family-level analogue of K06159 declining from mid-infancy to 12 months, supporting the hypothesized direction."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41467-025-63401-6",
+      "doi": "10.1038/s41467-025-63401-6",
+      "title": "Temporal dynamics and microbial interactions shaping the gut resistome in early infancy",
+      "study_population": "Human infant cohort with longitudinal quantitative (absolute-abundance) metagenomics through the first year(s) of life",
+      "relevance": "Shows resistance/efflux gene absolute abundance and richness peaking at ~6 months of age and subsequently declining, with Escherichia abundance linked to resistome load - consistent with higher multidrug-transporter gene content at ~5 months than at 12 months."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11170968/",
+      "doi": null,
+      "title": "Infant age inversely correlates with gut carriage of resistance genes, reflecting modifications in microbial carbohydrate metabolism during early life",
+      "study_population": "4132 metagenomes from 963 infants across six countries",
+      "relevance": "Large multi-cohort primary analysis showing resistance/efflux gene carriage declines with infant age, attributed to diminishing Pseudomonadota (the main carriers of YojI-type multidrug/microcin exporters) as infants transition to table food."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-024-69275-w",
+      "doi": "10.1038/s41598-024-69275-w",
+      "title": "Antibiotic resistance gene dynamics in the commensal infant gut microbiome over the first year of life",
+      "study_population": "Healthy human infants, densely sampled longitudinal shotgun metagenomics over the first year of life",
+      "relevance": "Independent primary study reporting that overall resistance-gene carriage (including efflux-type genes) declines across the first year and tracks Proteobacteria dynamics, supporting a decrease from ~5 to 12 months."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8537618/",
+      "doi": "10.3390/microorganisms9102140",
+      "title": "Effect of Environmental Exposures on the Gut Microbiota from Early Infancy to Two Years of Age",
+      "study_population": "Human infants followed from early infancy to 2 years (16S rRNA gut microbiota profiling)",
+      "relevance": "Documents that Escherichia (and other facultative anaerobes) decrease while Bacteroides/Lachnospiraceae/Faecalibacterium expand rapidly after 6 months, providing the taxonomic basis for a higher relative abundance of Enterobacteriaceae-encoded multidrug/microcin exporters at 5 vs 12 months."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy human infants sampled at 4, 9 and 12 months of age (shotgun metagenomics plus fecal metabolomics)",
+      "relevance": "Primary infant metagenomic study across exactly the relevant window showing that sequences annotated to the KEGG level-2 category 'signalling and cellular processes' (the BRITE branch containing transporters such as K06159) were highest at 4 months and decreased through 12 months."
+    },
+    {
+      "url": "https://journals.asm.org/doi/10.1128/jb.187.10.3465-3470.2005",
+      "doi": "10.1128/JB.187.10.3465-3470.2005",
+      "title": "YojI of Escherichia coli Functions as a Microcin J25 Efflux Pump",
+      "study_population": "Escherichia coli laboratory strains (in vitro molecular microbiology)",
+      "relevance": "Functional characterization of the YojI ABC exporter corresponding to this KO annotation (multidrug/microcin transport system ATP-binding/permease protein), establishing that the gene is an Enterobacteriaceae chromosomal microcin/drug efflux pump - the basis for interpreting its taxonomic distribution across infant age."
+    }
+  ],
+  "contradicting_evidence": "No study was found reporting K06159 or multidrug/microcin efflux transporter genes as higher at 12 months than in mid-infancy. Partially discordant nuances: (a) one antibiotic-restricted infant cohort reported lower Enterobacteriaceae relative abundance at 6 months without significant genus-level Escherichia/Klebsiella reduction, indicating cohort-to-cohort variability in the timing of the Proteobacteria decline; (b) ABC transporter capacity overall is not uniformly higher early in life, since weaning-associated Bacteroidota/Lachnospiraceae bring large numbers of other ABC/oligosaccharide transport systems and total ABC-transporter pathway abundance can increase after complementary feeding - so a broad 'ABC transporters' signal cannot be assumed to behave like this specific efflux KO.",
+  "search_queries_used": [
+    "K06159 multidrug microcin transport system ATP-binding permease",
+    "infant gut microbiome ABC transporters KEGG orthologs 5 months 12 months age",
+    "microcin transport system infant gut metagenome",
+    "YojI microcin J25 export ATP-binding permease Escherichia coli",
+    "infant gut resistome efflux pump genes decline with age Enterobacteriaceae metagenomics",
+    "breastfed infants gut metagenome enriched ABC transporters compared to weaned 12 months functional",
+    "K06159 KEGG ortholog gut microbiome",
+    "infant gut metagenome membrane transport ABC transporter pathway enriched early infancy decreases after weaning KEGG",
+    "Escherichia Enterobacteriaceae abundance higher at 6 months than 12 months infant gut microbiota longitudinal",
+    "multidrug efflux transporter gene abundance infant gut microbiome age months shotgun metagenomics KEGG orthologs differentially abundant"
+  ],
+  "caveats": "Evidence is indirect: it operates at the level of the multidrug-efflux gene family, the KEGG BRITE transporter/'signalling and cellular processes' category, and the taxa that carry YojI-type exporters, not at the level of KO K06159 itself; no publication observed in these searches quantified K06159 between infant ages. Resistome-based studies use ARG databases (CARD/ResFinder-style) rather than KEGG KOs, and 'multidrug efflux pump' hits there are not exactly equivalent to K06159. K06159 is also present outside Enterobacteriaceae (various Firmicutes/Bacillota and other lineages encode homologous fused ABC exporters), so its trajectory could be buffered or reversed by weaning-associated Firmicutes expansion. Relative-abundance compositionality (Bifidobacterium/Bacteroides expansion mechanically lowering Proteobacteria proportions) may also drive part of the apparent decline. Directionality should therefore be treated as plausible and literature-consistent, but requiring confirmation in the study's own KO-level data."
+}

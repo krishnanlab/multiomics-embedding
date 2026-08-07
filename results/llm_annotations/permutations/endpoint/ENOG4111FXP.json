@@ -1,0 +1,61 @@
+{
+  "feature_id": "ENOG4111FXP",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "The eggNOG orthologous group ENOG4111FXP ('transcriptional regulator', COG category Transcription) is increased/characteristic in the gut metagenome of 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Multiple searches on the specific eggNOG identifier (ENOG4111FXP) returned only documentation of the eggNOG database naming scheme and no study reporting this orthologous group in any infant (or other) gut microbiome context, in either direction. No primary study was found that tested this specific OG against infant age, complementary feeding, or weaning. What could be found is only generic, pathway/category-level and theoretical support: (i) longitudinal infant metagenomic work across the complementary feeding transition reports broad functional-category shifts with age (e.g. 'genetic information processing' sequences rising from ~15.1% at 4 months to ~17.2% at 12 months while 'signalling and cellular processes' declined), showing that regulatory/information-processing gene content does shift over this window, but it does not resolve individual transcriptional-regulator orthologs and the direction of the specific 'Transcription' category is not reported; (ii) weaning-associated taxonomic turnover away from HMO-utilising Bifidobacterium toward Bacteroides, Clostridia/Lachnospiraceae and other larger-genome anaerobes is well described, and comparative-genomics work shows the number of transcriptional regulators scales roughly quadratically with gene number in prokaryotic genomes, so a shift to larger-genome taxa would be expected to raise the aggregate abundance of transcriptional-regulator orthologs; this is an inference, not a measurement of ENOG4111FXP. Because relevant but only indirect/generic and non-feature-specific evidence was located (and nothing pointing the opposite way for this OG), this meets the '1 (Weak)' tier rather than 0 or 2. 'Transcriptional regulator' is also a highly non-specific annotation shared by thousands of unrelated LysR/GntR/AraC/TetR-family proteins, which makes literature confirmation of a single OG essentially impossible without the underlying sequence set.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy infants ('Nourish to Flourish' pilot), fecal shotgun metagenomics + LC-MS at ~4, ~9 and ~12 months of age",
+      "relevance": "Directly spans the 5- vs 12-month type comparison and shows age-related change in broad functional gene categories (e.g. genetic information processing increasing from ~15.1% at 4 mo to ~17.2% at 12 mo, signalling/cellular processes decreasing), consistent with remodelling of regulatory gene content with age - but it reports category-level, not this specific eggNOG transcriptional-regulator OG, so support is indirect."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12604632/",
+      "doi": "10.1080/19490976.2025.2571428",
+      "title": "Infant gut microbiome reprogramming following introduction of solid foods (weaning)",
+      "study_population": "Review of human infant cohorts around introduction of solid foods (~6 months onward)",
+      "relevance": "Corroborates that by ~12 months the community shifts from HMO-utilising Bifidobacterium toward Bacteroides, Roseburia, Clostridium, Anaerostipes and Bilophila; such taxa carry larger, regulator-rich genomes, providing the compositional premise for a rise in transcription-regulator orthologs, though the paper does not measure any eggNOG OG."
+    },
+    {
+      "url": "https://arxiv.org/pdf/q-bio/0311021",
+      "doi": null,
+      "title": "Is prokaryotic complexity limited by accelerated growth in regulatory overhead?",
+      "study_population": "89 completely sequenced bacterial and archaeal genomes (comparative genomics, not human subjects)",
+      "relevance": "Establishes the general scaling law that the number of transcriptional regulators grows ~quadratically with genome/gene number; supplies the theoretical (non-infant) basis for expecting transcriptional-regulator gene families to increase as the infant gut shifts to larger-genome taxa after weaning."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9248880/",
+      "doi": null,
+      "title": "Rapid evolution and strain turnover in the infant gut microbiome",
+      "study_population": "Human infants (longitudinal metagenomes) compared with adults",
+      "relevance": "Reports transcriptional regulators (along with membrane transporters and histidine kinases) as a gene class under parallel evolution specifically in the infant gut, indicating these genes are under selection during infant gut adaptation; it does not, however, test whether their abundance is higher at 12 vs 5 months."
+    },
+    {
+      "url": "https://www.biostars.org/p/240409/",
+      "doi": null,
+      "title": "What are those 'ENOG' numbers in eggNOG 4.5?",
+      "study_population": "Not applicable (database documentation/forum)",
+      "relevance": "Confirms ENOG4111FXP is simply an eggNOG-4.1-generated orthologous group identifier with no intrinsic literature footprint, explaining why no feature-specific publications could be retrieved for this ID."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG4111FXP eggNOG",
+    "eggNOG orthologous group infant gut microbiome 12 months transcriptional regulator",
+    "infant gut metagenome functional maturation 12 months transcriptional regulators",
+    "COG transcription category enriched infant gut microbiome after weaning solid foods metagenome",
+    "transcription factors gene family abundance increases adult-like gut microbiome versus breastfed infant metagenome",
+    "infant gut microbiome shotgun metagenomics 6 vs 12 months functional gene categories transcriptional regulators enriched",
+    "bacterial genome size number of transcriptional regulators scaling quadratic",
+    "infant gut microbiome age one year functional category transcription increased relative to 6 months eggNOG",
+    "complementary feeding metagenome functional shift transcription signal transduction categories increase infants",
+    "COG functional category 'Transcription' K abundance infant gut microbiome age comparison enriched younger infants",
+    "metagenome transcriptional regulator genes enriched Clostridia Lachnospiraceae versus Bifidobacterium genome content"
+  ],
+  "caveats": "The annotation is generic: thousands of distinct DNA-binding regulators (LysR, GntR, TetR, AraC families, etc.) share the label 'transcriptional regulator', so literature cannot confirm or refute this particular OG without knowing which taxa/genes contribute to it in your dataset. No published study reports ENOG4111FXP by ID in any context. Aggregate 'Transcription' category abundance in metagenomes is strongly confounded by community genome-size composition (Bifidobacterium-dominated 5-month vs Bacteroides/Firmicutes-dominated 12-month communities) and by gene-length/copy-number normalisation choices, so an age-related increase may reflect taxonomic turnover rather than a functionally meaningful regulatory expansion. Recommend resolving the OG to contributing taxa/genes and, if possible, mapping it to a named regulator family (e.g. a carbohydrate-utilisation regulon regulator) before interpreting biologically."
+}

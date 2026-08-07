@@ -1,0 +1,64 @@
+{
+  "feature_id": "N_LP.1826",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "Leukotriene F4 (KEGG C06462; LMFA03020009) is increased or characteristic in the fecal/lipid metabolome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Searches located essentially no primary literature testing leukotriene F4 (LTF4) as an age-discriminating metabolite between ~5 and ~12 months of infancy. The single study found that names LTF4 in an infant gut metabolome context is a network-representation-learning analysis of U.S. formula-fed infants during early complementary feeding (5-12 months, meat vs. dairy protein RCT); there, LTF4 was highlighted as a metabolite classified into the MEAT DIET group and interpreted as an arachidonic-acid derivative linked to animal-protein intake, not as a feature of the younger (baseline, ~5 month) timepoint. That report is therefore relevant to the feature and to this exact developmental window but does not support the specified 5-month direction; if anything, a complementary-food (meat)-associated metabolite would be expected to rise as infants progress toward 12 months, which points weakly the other way. Beyond that, only generic/theoretical support exists: cysteinyl leukotrienes derive from arachidonic acid, human milk and ARA-containing formula supply ARA and eicosanoid-like lipid signalling molecules to young infants, and gut mucosal immune/inflammatory tone (e.g., fecal calprotectin) is higher in early infancy and declines with age - all pathway-level reasoning rather than feature-specific data. An additional material caveat is analytical: vendor/chemical sources note LTF4 has been produced in vitro (LTE4 + gamma-glutamyl transpeptidase) but is not well documented in vivo, so an untargeted LC-MS annotation 'Leukotriene F4' in stool is likely low-confidence and may represent an isobaric cysteinyl-lipid. Because relevant material was found but is indirect and does not cleanly support (nor squarely refute, with a stated 5- vs 12-month direction) the hypothesis, this scores 1 (weak/mixed) rather than 0 or -1.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2024.11.01.621627v3.full",
+      "doi": "10.1101/2024.11.01.621627",
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial",
+      "study_population": "U.S. formula-fed infants followed from 5 to 12 months of age in a randomized controlled complementary feeding trial (meat- vs dairy-based protein), fecal metagenomics and metabolomics",
+      "relevance": "Only source found that names Leukotriene F4 in an infant gut metabolome of the same age window; it assigns LTF4 to the meat-diet group (arachidonic acid/animal-protein-associated) rather than reporting it as characteristic of the younger 5-month timepoint, so it is relevant but does not support the hypothesized age direction."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/40475488/",
+      "doi": null,
+      "title": "Network-based representation learning reveals the impact of age and diet on the gut microbial and metabolomic environment of U.S. infants in a randomized controlled feeding trial (PubMed record)",
+      "study_population": "Same 5-12 month U.S. formula-fed infant complementary feeding trial (peer-reviewed record of the preprint above)",
+      "relevance": "Confirms the study design (age and diet effects on infant gut metabolome from 5-12 months) in which Leukotriene F4 appeared as a diet-group rather than an explicitly age-group feature."
+    },
+    {
+      "url": "https://www.scbt.com/p/leukotriene-f4-83851-42-7",
+      "doi": null,
+      "title": "Leukotriene F4 | CAS 83851-42-7 (chemical vendor record)",
+      "study_population": "Not a study population (chemical/biochemical reference; in vitro pharmacology)",
+      "relevance": "Documents that LTF4 is a cysteinyl leukotriene generated in vitro from LTE4 via gamma-glutamyl transpeptidase and is not well established in vivo, an important annotation caveat for an untargeted fecal lipid feature."
+    },
+    {
+      "url": "https://hmdb.ca/metabolites/HMDB0006465",
+      "doi": null,
+      "title": "Human Metabolome Database: metabocard for Leukotriene F4 (HMDB0006465)",
+      "study_population": "Human metabolite database entry (no specific population)",
+      "relevance": "Confirms identity/pathway context (arachidonic acid -> cysteinyl leukotriene cascade, gamma-glutamyl transpeptidase step) used for the pathway-level reasoning; provides no age- or infant-specific abundance data."
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/pii/S0955286324000147",
+      "doi": null,
+      "title": "Lipids and lipid signaling molecules in human milk and infant formula, a chemical characterization of relevant biochemical components",
+      "study_population": "Human milk and infant formula composition (chemical characterization relevant to young infants)",
+      "relevance": "Supports only the generic premise that milk-fed young infants receive arachidonic-acid-derived eicosanoids/lipid signalling molecules; it does not measure leukotriene F4 or compare 5- vs 12-month-old infants."
+    }
+  ],
+  "contradicting_evidence": "The one infant-cohort source that names Leukotriene F4 (Price et al., bioRxiv/PubMed, 5-12 month U.S. infants) links it to the meat-based complementary diet group and to arachidonic acid from animal foods. Since meat/complementary food exposure accumulates after 5 months, this association implies LTF4 could be higher later in the complementary-feeding period (nearer 12 months) rather than at 5 months. However, the paper does not explicitly report a 5- vs 12-month directional contrast for LTF4, so this is suggestive counter-evidence rather than a direct opposite-direction finding.",
+  "search_queries_used": [
+    "Leukotriene F4 infant gut metabolome",
+    "leukotriene F4 KEGG C06462 infant",
+    "leukotriene infant stool metabolome age breastfed",
+    "eicosanoid infant fecal metabolome 5 months 12 months",
+    "\"Leukotriene F4\" infant",
+    "cysteinyl leukotrienes urine infants age decline",
+    "arachidonic acid derived lipid mediators infant stool decrease with age weaning",
+    "infant gut metabolome 6 months versus 12 months lipid arachidonic acid oxylipin",
+    "human milk leukotrienes content breast milk eicosanoids",
+    "Network-based representation learning age diet metabolites Leukotriene F4 meat group",
+    "fecal leukotriene infants inflammation age",
+    "infant fecal metabolome breastfeeding higher arachidonic acid metabolites 5 months",
+    "biorxiv 2024.11.01.621627 Leukotriene F4 baseline endpoint age-associated metabolites infants",
+    "infant gut metabolome age-associated metabolites baseline 5 months endpoint 12 months meat dairy complementary feeding trial metabolites enriched"
+  ],
+  "caveats": "1) Annotation risk is high: LTF4 is documented mainly as an in vitro product of LTE4 and is rarely confirmed in vivo, so an untargeted LC-MS feature labelled 'Leukotriene F4 Esi-4.458998' may be an isobar or a related cysteinyl/glutathione-conjugated lipid; MS/MS confirmation would be needed. 2) The one relevant infant study appears to be from the same or a very similar 5-12 month complementary-feeding cohort design, so it may not constitute independent external validation of any internal finding. 3) No targeted quantification of fecal cysteinyl leukotrienes by infant age was found in any search result. 4) Search tool quota was exhausted before a final pair of queries could be run, so coverage of the eicosanoid-by-age literature is not exhaustive."
+}

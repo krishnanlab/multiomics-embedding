@@ -1,0 +1,27 @@
+{
+  "feature_id": "ENOG411261G",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "This unannotated eggNOG orthologous group (ENOG411261G, 'function unknown') is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches on the exact identifier (ENOG411261G, and partial-ID variants) returned no hits in the primary or secondary literature: search engines returned only generic eggNOG/COG database documentation (eggNOG v3.0/4.5/5.0/6.0/7, eggNOG-mapper, DeepNOG) and unrelated human gene pages, with no study, supplementary table, or database page describing this orthologous group, its member proteins, or its taxonomic distribution. Searches combining the identifier with infant gut microbiome, complementary feeding, weaning, and 5- vs 12-month metagenome terms likewise returned nothing about this feature. Because the feature is annotated only as 'function unknown', there is also no named pathway, enzyme family, or homolog that could serve as a surrogate for indirect (pathway-level) literature support; I therefore could not even construct defensible mechanistic reasoning tied to weaning-associated functions such as plant polysaccharide or starch degradation. The one search result that matches this study design (a bioRxiv/PubMed report of a randomized protein-source complementary feeding trial in U.S. formula-fed infants sampled at 5 and 12 months, using metagenomics plus orthologous-group features) appears to describe the investigators' own cohort/analysis rather than independent corroboration, so I deliberately did not count it as external evidence, and in any case I did not observe this specific orthologous group ID reported in it. Per the rubric this is a score of 0 (no relevant literature located), not -1: nothing contradicting the hypothesized direction was found either. Note that the hypothesis remains biologically plausible a priori - infant gut gene content shifts substantially between early and established complementary feeding - but plausibility of the general phenomenon is not evidence for this particular unannotated gene family.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG411261G eggNOG",
+    "ENOG411261G infant gut microbiome",
+    "eggNOG orthologous group infant gut metagenome 12 months function unknown",
+    "\"ENOG411261G\"",
+    "eggNOG ortholog group unknown function increased 12 months infant gut metagenome weaning",
+    "infant gut microbiome functional genes 5 months vs 12 months metagenome eggNOG orthologous groups",
+    "complementary feeding gut microbiome gene families unknown function enriched 12-month-old infants",
+    "Network-based representation learning impact of age infant gut microbiome 5 months 12 months COG features",
+    "ENOG41 eggNOG unknown function orthologous group infant gut microbiome age discriminative",
+    "eggNOG-mapper unknown function orthologous groups Clostridia weaning infant increase Ruminococcaceae genes",
+    "ENOG411261G function",
+    "eggNOG \"1261G\" orthologous group protein family",
+    "unknown function genes increase infant gut microbiome age one year metagenome unannotated orthologous groups"
+  ],
+  "caveats": "Unannotated eggNOG groups are essentially unsearchable in the published literature: identifiers of this type are typically buried in supplementary tables that web search does not index, and eggNOG IDs are not stable across database releases (v4.x 'ENOG41...' IDs may be renumbered in v5/v6), so a score of 0 reflects lack of retrievable literature rather than positive evidence of absence. Broader literature does establish that infant gut metagenome gene content and functional profiles change markedly between exclusive milk feeding/early complementary feeding (~5 months) and established complementary feeding (~12 months), so the direction is plausible, but none of that work can be attributed to this specific orthologous group. To evaluate this feature properly, the investigators should resolve its member sequences (e.g., re-annotate representative proteins against current eggNOG/UniProt/Pfam and identify the contributing taxa) and then search literature for the resulting functional or taxonomic label; a taxon-level signal (e.g., if the group is carried mainly by Lachnospiraceae/Oscillospiraceae, which expand after weaning) would be a more tractable route to external validation. Any apparent support from the matching 5-vs-12-month U.S. formula-fed complementary feeding trial report should be treated as internal/self-referential, not independent."
+}

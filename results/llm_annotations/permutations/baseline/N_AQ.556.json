@@ -1,0 +1,24 @@
+{
+  "feature_id": "N_AQ.556",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "The aqueous-phase metabolite feature with molecular formula C14H19N6O12 is increased or characteristic in 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "This feature is an unannotated, formula-only untargeted metabolomics feature (no compound name, no HMDB/KEGG/PubChem identifier supplied). Multiple targeted searches on the exact formula string (C14H19N6O12) and on plausible neutral variants (C14H18N6O12, C14H20N6O12) returned no compound record, no database entry, and no primary literature - only unrelated Wikipedia 'same molecular formula' index pages and unrelated ChEBI/PubChem records. Consequently there is no literature at all that reports this specific feature in infant stool/plasma, let alone a directional age contrast between ~5 months (largely milk-fed / early complementary feeding) and ~12 months (established complementary feeding). Searches on the biological context (infant fecal/blood metabolome at 5 vs 12 months, breastfeeding vs weaning metabolomics) do retrieve relevant literature showing that the infant metabolome shifts substantially over the first year, but none of it can be attached to this formula, so it provides no support for the direction of change of this particular feature. Because nothing feature-specific (not even a pathway or compound class assignment that could be defended) was located, this scores 0 rather than 1. Note also a technical concern: for a neutral, even-electron CHNO molecule the nitrogen rule requires H+N to be even; here 19+6 = 25 (odd), so as written this is most consistent with an ion/adduct formula or a mis-assigned formula from the annotation pipeline, which further undermines any literature mapping. No contradicting evidence was found either - the literature is simply silent on this feature.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C14H19N6O12 metabolite",
+    "C14 H19 N6 O12 formula compound",
+    "infant gut metabolome 5 months vs 12 months untargeted metabolomics",
+    "\"C14H19N6O12\"",
+    "HMDB C14H19N6O12",
+    "unannotated metabolite molecular formula infant stool 5 months breastfeeding weaning aqueous metabolomics",
+    "infant fecal metabolome age 5 months 12 months complementary feeding nucleotide metabolites decrease",
+    "C14H18N6O12 compound identification",
+    "PubChem formula C14H20N6O12",
+    "molecular formula 463.07 Da metabolite six nitrogens purine glucuronide infant stool"
+  ],
+  "caveats": "1) The feature has no structural annotation; molecular formula alone cannot be matched to literature, and many isomers/formula neighbours could exist, so a score of 0 reflects unidentifiability as much as true absence of biology. 2) The formula violates the nitrogen rule for a neutral closed-shell molecule (H+N odd), suggesting it may represent an adduct/ionic species or an erroneous formula assignment; re-checking the formula, adduct assignment, and attempting MS2-based annotation (e.g. spectral library / in-silico tools) should precede any literature-based interpretation. 3) One search hit (a bioRxiv preprint using metagenomics plus untargeted metabolomics on longitudinal stool at 5 and 12 months of infant age, describing metabolites 'classified into the 5-month-old group') appears to describe the same or a closely related dataset/design as the study under evaluation; it was therefore deliberately not counted as independent supporting evidence, since doing so would be circular. 4) Directional interpretation for unannotated features at this stage should be treated as hypothesis-generating only."
+}

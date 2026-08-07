@@ -1,0 +1,21 @@
+{
+  "feature_id": "ENOG411261G",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "This unannotated eggNOG orthologous group (ENOG411261G, function unknown) is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "Multiple targeted searches on the exact identifier 'ENOG411261G' returned no matches to any primary study, database record, or review; search engines instead returned unrelated human gene pages (e.g., ENKD1, C16orf46) and generic eggNOG/orthology methodology papers (eggNOG 5.0/6.0, COG database), indicating the identifier itself has no discoverable literature footprint. Because the feature is annotated only as 'Function unknown', there is also no named pathway, enzyme, or homolog through which even indirect pathway-level reasoning about a 5- vs 12-month age contrast could be anchored. Searches for age-associated functional gene content in the infant gut metagenome did retrieve relevant developmental studies (e.g., a complementary-feeding metagenomics study reporting shifts in broad functional categories such as 'genetic information processing' from 4 to 12 months, and metatranscriptomic/metaproteomic work on the transition to solid foods), but none of these mention this orthologous group or any specific uncharacterized ortholog that could be mapped to it. Since the age-related functional remodelling literature is entirely non-specific to this feature and cannot be attached to it even hypothetically, no relevant literature for this feature+group combination was located, which corresponds to a score of 0 rather than 1 (no feature-linked generic reasoning is possible) and certainly not -1 (no contradicting report exists either). Investigators would need to resolve ENOG411261G to member sequences/taxa (e.g., via eggNOG v5 lookup or the source metagenome catalogue) and re-query on the resulting protein family or contributing species before literature-based prioritisation is feasible.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG411261G",
+    "ENOG411261G eggNOG infant gut microbiome",
+    "\"ENOG411261G\" ortholog group function",
+    "eggNOG orthologous groups unknown function increased 12 month infant gut metagenome weaning",
+    "infant gut microbiome functional gene families 5 months vs 12 months metagenome shift",
+    "ENOG411261G COG uncharacterized protein bacteria",
+    "eggNOG ENOG41 ortholog group infant stool metagenome age-associated 12 months"
+  ],
+  "caveats": "Absence of literature here reflects the identifier-level opacity of unannotated eggNOG orthologous groups rather than evidence against the hypothesis: such groups are rarely named in publications even when they are genuinely age-discriminant, and general-purpose web search does not index eggNOG database records well. A score of 0 should therefore not be read as biological implausibility. If the internal data show a robust 12-month enrichment, this feature may still be a legitimate novel finding, but it cannot be corroborated externally without first de-anonymising the ortholog group (taxonomic provenance, domain/HMM annotation, or nearest characterised homolog)."
+}

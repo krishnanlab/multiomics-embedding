@@ -1,0 +1,16 @@
+{
+  "feature_id": "P_LP.170",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "The unannotated positive-mode lipid feature 'Esi+6.430003' (P_LP.170) is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "This feature carries no chemical annotation at all: the name field is '<none>' and the identifier 'Esi+6.430003' is only an instrument-level descriptor (positive-mode electrospray ionization lipid feature at ~6.43 min retention time), with no m/z, adduct, molecular formula, lipid class, or external database ID (HMDB/LIPID MAPS/KEGG/ChEBI) supplied. Because there is no chemical entity to search for, no published study can report an association between THIS feature and infant age (12 vs 5 months); literature searches can only retrieve generically related work on infant fecal/plasma lipidomic maturation over the first year of life, which does not speak to the identity or direction of this particular peak. Searches for the feature label and for unannotated/unidentified lipid features in infant gut metabolomics returned only unrelated papers on milk lipid droplets, infant formula lipidomics, and general gut metabolome maturation - none of which can be mapped to Esi+6.430003. Since nothing relevant to this feature+group combination was located, the score is 0 (no evidence found) rather than 1 (weak/theoretical evidence about the feature itself). Note also that a scoring caveat applies: even the broad literature on lipid remodeling during weaning cannot be assigned a direction for an unknown peak, since features in a single lipid retention-time window can increase, decrease, or be unchanged with complementary feeding depending on class (e.g., milk-derived sphingolipids/phospholipids typically fall after weaning, while some plant- and solid-food-derived or microbially modified lipids rise). To make this feature evaluable, the investigators would need to provide at minimum accurate m/z, adduct, MS/MS-based putative annotation, or a database identifier.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "unannotated lipid feature Esi+ infant gut metabolome 12 months",
+    "untargeted lipidomics unidentified feature infant stool 5 months vs 12 months"
+  ],
+  "caveats": "Feature is completely unannotated (name '<none>'); only an ESI-positive retention-time label is given, with no m/z, adduct, formula, lipid class, or database ID. No literature-based evaluation of direction is possible until the feature is chemically identified. The search results retrieved (infant gut metabolome maturation, infant lipidomics) are topically adjacent but cannot be attributed to this specific feature, so they are not cited as evidence. A score of 0 here reflects unidentifiability of the feature, not evidence against the hypothesis; re-evaluation is warranted if an annotation becomes available."
+}

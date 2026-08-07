@@ -1,0 +1,53 @@
+{
+  "feature_id": "ENOG4111NYT",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "The eggNOG orthologous group ENOG4111NYT, annotated as a (lipo)protein of unknown function, is increased or characteristic in the gut metagenome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Targeted searches for the exact identifier 'ENOG4111NYT' returned only eggNOG database/methodology pages (and irrelevant non-biological hits) - no primary study, database annotation page, or review reports this specific orthologous group in any infant gut context, let alone comparing pre-weaning (~5 mo) versus post-weaning (~12 mo) timepoints. This is expected: ENOG-prefixed groups are narrow, non-COG, often functionally uncharacterized orthologous groups, and this one is annotated only as '(Lipo)protein / function unknown', i.e. it has no defined pathway that could anchor pathway-level literature. What searches did retrieve is generic supporting context: multiple infant cohort studies show that gut metagenome gene content shifts substantially between early milk-dominated feeding and the post-complementary-feeding period (e.g. age-related declines in milk-oligosaccharide/lactose-oriented carbohydrate metabolism genes and Bifidobacterium-associated functions, with expansion of Firmicutes/Bacteroides-associated functions by ~12 months), so it is plausible a priori that a lipoprotein-encoding ortholog carried mainly by early-life taxa (e.g. Bifidobacterium, Enterobacteriaceae, Streptococcus) would be relatively enriched at 5 months. However, that is theoretical reasoning only, with no directional evidence on this feature; the same generic argument could equally predict enrichment at 12 months if the ortholog is carried by later colonizers. Per the rubric, generic/theoretical reasoning with no feature+group study corresponds to a score of 1 (not 0, since relevant contextual literature was found; not -1, since nothing contradicts the direction either).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4702882/",
+      "doi": "10.1093/nar/gkv1248",
+      "title": "eggNOG 4.5: a hierarchical orthology framework with improved functional annotations for eukaryotic, prokaryotic and viral sequences",
+      "study_population": "Not applicable - database/resource paper (reference genomes and proteomes)",
+      "relevance": "Explains the eggNOG orthologous-group framework in which ENOG-prefixed identifiers such as ENOG4111NYT are non-COG, taxon-restricted groups that frequently lack functional characterization, supporting why no feature-specific literature exists for this ortholog."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11170968/",
+      "doi": null,
+      "title": "Infant age inversely correlates with gut carriage of resistance genes, reflecting modifications in microbial carbohydrate metabolism during early life",
+      "study_population": "Human infant cohort, longitudinal stool metagenomes across the first year of life",
+      "relevance": "Generic (not feature-specific) evidence that infant gut metagenome gene content, including many functional gene families, changes systematically with age between early infancy and ~12 months; establishes that age-differential gene abundances are common but does not address ENOG4111NYT."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5587937/",
+      "doi": null,
+      "title": "Feasibility of Metatranscriptome Analysis from Infant Gut Microbiota: Adaptation to Solid Foods Results in Increased Activity of Firmicutes at Six Months",
+      "study_population": "Healthy human infants sampled before and around introduction of solid foods (~6 months)",
+      "relevance": "Primary study showing functional/transcriptional reprogramming of the infant gut community around the milk-to-solids transition; provides only broad contextual plausibility for an age-differential gene family, with no data on this specific lipoprotein ortholog."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9366138/",
+      "doi": null,
+      "title": "Stepwise establishment of functional microbial groups in the infant gut between 6 months and 2 years: A prospective cohort study",
+      "study_population": "Prospective human infant cohort, 6 months to 2 years",
+      "relevance": "Documents stepwise, age-dependent turnover of functional microbial groups spanning the 5-12 month window, i.e. background support for age-associated functional features generally, but does not report this orthologous group."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "ENOG4111NYT eggNOG",
+    "ENOG4111NYT",
+    "eggNOG orthologous group infant gut microbiome 5 months lipoprotein",
+    "bacterial lipoprotein gene abundance infant gut metagenome breastfed weaning age",
+    "uncharacterized eggNOG orthologous groups infant gut metagenome 6 months 12 months functional shift",
+    "infant gut microbiome gene functional profile 5 months vs 12 months metagenomics Bifidobacterium",
+    "lipoprotein TLR2 infant gut microbiota development breast milk",
+    "Bifidobacterium lipoprotein solute binding surface protein infant gut early life enrichment metagenome",
+    "unknown function genes enriched early infancy gut metagenome compared to 12 months",
+    "eggNOG ENOG41 unknown function ortholog gut microbiome infant age association"
+  ],
+  "caveats": "The feature is an unnamed, functionally uncharacterized eggNOG orthologous group ('(Lipo)protein', function unknown), so literature can only ever be indirect: no publication indexes this identifier in an infant context, and 'lipoprotein' here refers to a bacterial membrane-anchored protein (not host plasma lipoproteins), a naming ambiguity that pollutes search results. Interpretation would require knowing which taxa/genomes carry this ortholog in the study cohort; without that taxonomic anchor the direction of any age association cannot be adjudicated from literature. Search coverage is also limited to indexed web results and may miss supplementary tables of metagenomic studies, where such identifiers most often appear."
+}

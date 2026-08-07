@@ -1,0 +1,52 @@
+{
+  "feature_id": "COG4481",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "COG4481 (uncharacterized protein conserved in bacteria, function unknown) is increased or characteristic in the metagenomes of 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches for COG4481 returned only database/genome-annotation hits (NCBI CDD/GenBank feature annotations and automated genome annotation dumps in Firmicutes such as Streptococcus pyogenes, Pediococcus sp., Coprococcus comes) and no primary or secondary study reporting the abundance of this specific orthologous group in relation to infant age, weaning, or complementary feeding. No study was found that tested COG4481 in any human gut metagenome, let alone comparing ~5-month vs ~12-month infants. The only relevant literature located is generic and indirect: primary work on the complementary feeding transition shows that between ~4 and 9-12 months the infant gut metagenome shifts from Actinobacteria (Bifidobacterium)-dominated toward Firmicutes clades (Lachnospiraceae including Coprococcus, Ruminococcaceae, Clostridiales), and that overall functional gene repertoires broaden and diversify with age. Because COG4481 is annotated predominantly in Firmicutes genomes (including Coprococcus comes and streptococci/lactobacillales) per the genome annotation records observed, a nonspecific expectation of increased relative abundance of such Firmicutes-borne accessory genes at 12 months is plausible. That is purely taxonomy-level/theoretical inference about a function-unknown COG rather than direct evidence, and no contradicting report was found either, so the evidence level is Weak (1) rather than 2, 0, or -1.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Human infants sampled longitudinally at approximately 4, 9 and 12 months of age (complementary feeding transition), shotgun/16S-based taxonomic and functional profiling",
+      "relevance": "Indirect, group-level support only: documents that Firmicutes taxa (Lachnospiraceae, Ruminococcaceae, Clostridiales, Veillonellaceae) and their gene content rise between 4 and 9-12 months while Actinobacteria/Proteobacteria decline, which is the taxonomic background that could carry a Firmicutes-associated uncharacterized COG such as COG4481; the study itself does not report COG4481."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9366138/",
+      "doi": "10.3389/fnut.2022.948131",
+      "title": "Stepwise establishment of functional microbial groups in the infant gut between 6 months and 2 years: A prospective cohort study",
+      "study_population": "Prospective cohort of healthy human infants, faecal samples from 6 months to 24 months",
+      "relevance": "Indirect pathway/community-level evidence that functional microbial groups and diversity increase stepwise across the second half of the first year, consistent with broad gene-family enrichment at ~12 months, but no data on COG4481 specifically."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12604632/",
+      "doi": null,
+      "title": "Infant gut microbiome reprogramming following introduction of solid foods (weaning)",
+      "study_population": "Review/synthesis of human infant weaning studies (6-12 month window emphasised)",
+      "relevance": "Corroborates that the 6-12 month window carries the largest changes in composition and functional potential of the infant gut microbiome, providing only generic support for age-associated increases in gene families; COG4481 is not mentioned."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=13445",
+      "doi": null,
+      "title": "CDD Conserved Protein Domain Family (NCBI Conserved Domain Database entry for an uncharacterized bacterial COG)",
+      "study_population": "Not applicable - protein domain/annotation database",
+      "relevance": "Confirms that COGs of this class, including COG4481 as seen in GenBank CDS annotations (CDD:226886, e.g. Streptococcus pyogenes MGAS10750), are curated purely as 'Uncharacterized protein conserved in bacteria [Function unknown]', i.e. there is no functional or ecological literature to anchor an age-specific hypothesis."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "COG4481",
+    "COG4481 uncharacterized protein conserved in bacteria",
+    "COG4481 infant gut microbiome",
+    "COG4481 metagenome abundance",
+    "COG4481 weaning infant metagenome function unknown",
+    "infant gut metagenome COG functional categories 6 months 12 months shift",
+    "COG4481 Firmicutes DUF gene function",
+    "Coprococcus Lachnospiraceae increase 12 months infant gut microbiome complementary feeding",
+    "COG4481 CDD conserved domain database"
+  ],
+  "caveats": "COG4481 has no known function, so no mechanistic or metabolic rationale can be tied to weaning/solid-food exposure; any inference rests entirely on the taxa that happen to encode it. Its observed occurrence in Firmicutes genomes comes from automated annotation records rather than a curated phylogenetic distribution analysis, and the same COG also occurs in streptococci/lactobacilli that are not uniformly age-increasing. Uncharacterized COGs are also sensitive to reference-database and annotation-pipeline choices, and their apparent abundance shifts can be driven by compositional changes (loss of Bifidobacterium-dominated milk-oriented communities) rather than genuine functional selection. Direct verification would require examining feature-level age contrasts in infant shotgun metagenome datasets."
+}

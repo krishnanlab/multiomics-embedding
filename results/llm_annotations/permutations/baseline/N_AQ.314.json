@@ -1,0 +1,61 @@
+{
+  "feature_id": "N_AQ.314",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "Monocerin is increased or characteristic in 5-month-old infants relative to 12-month-old infants (infant fecal aqueous metabolome).",
+  "confidence_score": 1,
+  "rationale": "Searches returned substantial literature on monocerin itself, but none of it concerns human infants, the infant gut metabolome, or age/feeding-stage comparisons. Monocerin is a fungal isocoumarin/polyketide secondary metabolite (phytotoxin/antifungal) produced by plant-associated fungi such as Helminthosporium (Drechslera) monoceras, Exserohilum turcicum/rostratum and the endophyte Microdochium bolleyi; the only mammalian-relevant work found is an in vitro endothelial cell toxicity study (Toxins 2023). No primary study - human or animal - reports monocerin in stool, milk, or plasma, and no study links it to infant age, breastfeeding, or complementary feeding. The only group-relevant reasoning available is indirect and pathway-level: fungal secondary metabolites/mycotoxins in infants derive largely from dietary exposure, and infant mycotoxin biomonitoring and total-diet studies show exposure rises with the introduction of cereal-based complementary foods (i.e., higher in older, non-exclusively breastfed infants). That generic reasoning would, if anything, predict the opposite direction (higher at 12 months than 5 months), but no study directly addresses monocerin in either age group, so this is scored as weak/theoretical rather than contradicting. Additionally, monocerin is a plausible annotation artifact in untargeted aqueous metabolomics (KEGG/METLIN library hit without MS/MS confirmation), which further limits confidence in either direction.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.mdpi.com/2072-6651/15/5/344",
+      "doi": "10.3390/toxins15050344",
+      "title": "Effect of Monocerin, a Fungal Secondary Metabolite, on Endothelial Cells",
+      "study_population": "In vitro human/mammalian endothelial cell culture; monocerin purified from the endophytic fungus Exserohilum rostratum",
+      "relevance": "Only mammalian-relevant primary study located. Establishes monocerin as a fungal isocoumarin polyketide with bioactivity on mammalian cells, but provides no data on human infants, gut metabolome, or age-related abundance - i.e., no support for or against the 5- vs 12-month direction."
+    },
+    {
+      "url": "https://pubs.rsc.org/en/content/articlelanding/1970/J3/j39700002598",
+      "doi": null,
+      "title": "Metabolites of Helminthosporium monoceras: structures of monocerin and related benzopyrans",
+      "study_population": "Fungal culture (Helminthosporium/Drechslera monoceras), chemical characterization",
+      "relevance": "Primary source defining monocerin as an antifungal fungal metabolite of a plant-pathogenic mould; supports an exogenous/fungal-dietary rather than host- or bacteria-derived origin, which is the only basis for reasoning about infant exposure."
+    },
+    {
+      "url": "https://academic.oup.com/bbb/article-abstract/46/11/2681/5969327",
+      "doi": "10.1080/00021369.1982.10865494",
+      "title": "Monocerin, a Phytotoxin from Exserohilum turcicum (= Drechslera turcica)",
+      "study_population": "Plant pathology / fungal culture (maize and sorghum leaf blight pathogen)",
+      "relevance": "Shows monocerin is produced by a pathogen of cereal crops (maize, sorghum), implying any infant exposure would most plausibly arrive with cereal-based complementary foods - a route that increases with age and argues against enrichment at 5 months."
+    },
+    {
+      "url": "https://www.medrxiv.org/content/10.1101/2020.05.28.20115055.full.pdf",
+      "doi": null,
+      "title": "Mycotoxin exposure biomonitoring in breastfed and non-exclusively breastfed Nigerian children",
+      "study_population": "Nigerian children: exclusively breastfed (1-6 months) and non-exclusively breastfed (3-18 months) cohorts",
+      "relevance": "Group-relevant but feature-indirect: fungal metabolite (mycotoxin) biomarker exposure in infants is tied to cessation of exclusive breastfeeding and introduction of complementary foods; monocerin was not among the analytes reported in the search result."
+    },
+    {
+      "url": "https://www.academia.edu/143489131/Dietary_exposure_to_mycotoxins_in_the_French_infant_total_diet_study",
+      "doi": null,
+      "title": "Dietary exposure to mycotoxins in the French infant total diet study",
+      "study_population": "French infants and young children, including 5-12 month age brackets",
+      "relevance": "Covers exactly the 5-12 month window and shows dietary fungal-metabolite exposure is driven by complementary foods, i.e., generally rising after ~6 months; provides pathway-level context that does not support a 5-month enrichment of a cereal-fungus metabolite."
+    }
+  ],
+  "contradicting_evidence": "No study directly reports monocerin in 12-month-old infants either, so there is no formal contradiction. However, the indirect dietary-exposure literature (infant mycotoxin biomonitoring in breastfed vs. non-exclusively breastfed children; French infant total diet study) consistently indicates that exposure to cereal/plant-fungus secondary metabolites increases once complementary foods are introduced, which points toward higher rather than lower levels at 12 months versus 5 months. This tempers, but does not formally refute, the hypothesis.",
+  "search_queries_used": [
+    "Monocerin metabolite",
+    "Monocerin infant gut metabolome",
+    "Monocerin KEGG C09953",
+    "monocerin fungal polyketide isocoumarin",
+    "monocerin human feces stool metabolomics",
+    "monocerin infant breast milk weaning",
+    "mycotoxin exposure infant complementary feeding fecal metabolome age 5 months 12 months",
+    "fungal metabolite isocoumarin infant gut mycobiome age",
+    "monocerin cereal grain contamination food",
+    "Exserohilum Drechslera monocerin maize sorghum food",
+    "monocerin mammalian toxicity human exposure"
+  ],
+  "caveats": "Monocerin has, to my knowledge from these searches, never been reported as an endogenous or gut-microbial human metabolite; detection in an untargeted aqueous fecal/serum metabolomics panel is most likely a spectral-library match (KEGG C09953 / METLIN 6804) that requires orthogonal confirmation (authentic standard, MS/MS, retention time) before biological interpretation. Isomeric/isobaric isocoumarins and other dietary polyketides are plausible alternative identities. If the identification is genuine, the compound would be exogenous (dietary/fungal), so its age pattern would reflect food and mould exposure rather than infant physiology, and would likely track complementary feeding (favoring 12 months). Absence of literature here reflects the obscurity of the compound in human studies, not evidence of absence in infant samples."
+}

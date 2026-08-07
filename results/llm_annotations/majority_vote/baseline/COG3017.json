@@ -1,0 +1,64 @@
+{
+  "feature_id": "COG3017",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "COG3017 (outer membrane lipoprotein involved in outer membrane biogenesis; LptE/RlpB-type, LPS assembly at the Gram-negative outer membrane) is increased/characteristic in 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "No study was found that reports COG3017 (or its named homolog LptE/RlpB) itself as differentially abundant between ~5-month and ~12-month infant gut metagenomes; searches for the COG ID and gene names returned only bacteriological/structural literature (LptE as the outer-membrane lipoprotein partner of LptD in the Lpt LPS-transport machine), with no infant-cohort context. Support for the hypothesis is therefore pathway- and taxon-level and indirect: a human infant metagenomic study of the complementary feeding transition (stool at 4, 9 and 12 months) reported that sequences assigned to 'biosynthesis of lipopolysaccharides' decreased in relative abundance over time, and multiple infant cohorts report that Escherichia/Enterobacteriaceae (LPS-rich Gram-negatives that carry lptE) peak in early infancy and decline by 12 months. However, the same age window is characterised by a rapid expansion of Bacteroides/Bacteroidaceae (also Gram-negative, also encoding LptE-family outer-membrane lipoproteins) between 4 and 12 months, so the total Gram-negative outer-membrane gene pool need not fall with age; some cohorts even find Bacteroidetes-dominant communities at 12 months. Because the directly relevant evidence is generic/pathway-level and the taxonomic reasoning is internally conflicting, this scores 1 (weak/mixed), not 2.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy human infants sampled at three 'snapshot' timepoints (approximately 4, 9 and 12 months) across the complementary feeding period; shotgun metagenomic functional profiling plus metabolites",
+      "relevance": "Direct human-infant, age-matched functional evidence in the hypothesised direction at pathway level: sequences assigned to 'biosynthesis of lipopolysaccharides' and associated protein-family pathways decreased in relative abundance with increasing age, implying a larger Gram-negative envelope/LPS gene pool earlier in infancy. It does not test COG3017/LptE (LPS transport/OM assembly) specifically."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8537618/",
+      "doi": "10.3390/microorganisms9102140",
+      "title": "Effect of Environmental Exposures on the Gut Microbiota from Early Infancy to Two Years of Age",
+      "study_population": "Human infants followed longitudinally from 1 month to 2 years (16S rRNA profiling, LonGP trajectory models)",
+      "relevance": "Indirect taxonomic support and partial contradiction: Escherichia declined as the microbiota matured over the first year (favouring higher Enterobacteriaceae-derived outer-membrane genes at ~5 months), while Bacteroides increased rapidly after 6 months (Bacteroides also encodes LptE-family outer-membrane lipoproteins, which could offset or reverse the expected COG3017 trend by 12 months)."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2021.793050/full",
+      "doi": "10.3389/fmicb.2021.793050",
+      "title": "Bacterial Gut Microbiota and Infections During Early Childhood",
+      "study_population": "Review summarising a large Swedish birth cohort (Roswall et al. 2021) with 16S profiling at newborn, 4 months, 12 months, 3 and 5 years",
+      "relevance": "Corroborates the compositional context for both directions: Enterobacteriaceae (with Bifidobacterium, Enterococcus, Streptococcus, Lactobacillus) peak at 4 months, whereas Bacteroides increases rapidly between 4 and 12 months \u2014 i.e. Gram-negative outer-membrane gene carriers shift in identity rather than uniformly declining."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2026.1862116/full",
+      "doi": null,
+      "title": "Age-associated gut microbiome succession, colonization resistance, and relative resistome patterns in an antibiotic-restricted infant cohort",
+      "study_population": "82 shotgun metagenomes from 54 healthy human infants (1 month and 6 months of age)",
+      "relevance": "Indirect support: Enterobacteriaceae relative abundance fell sharply with age within early infancy (median 16.6% at 1 month vs 1.9% at 6 months), consistent with declining LPS/outer-membrane-biogenesis gene carriage as infants age \u2014 but the comparison stops at 6 months and does not extend to 12 months."
+    },
+    {
+      "url": "https://www.pnas.org/doi/10.1073/pnas.1019089108",
+      "doi": "10.1073/pnas.1019089108",
+      "title": "Lipoprotein LptE is required for the assembly of LptD by the beta-barrel assembly machine in the outer membrane of Escherichia coli",
+      "study_population": "Escherichia coli laboratory genetics/biochemistry (not a human study)",
+      "relevance": "Establishes the functional identity behind COG3017: LptE is an essential outer-membrane lipoprotein of the LptD/E complex required for LPS insertion into the outer leaflet, so the COG is expected to track Gram-negative (LPS-producing) taxa abundance. Used only to justify the taxonomic proxy reasoning, not as evidence about infant age."
+    }
+  ],
+  "contradicting_evidence": "The strongest counterweight is that Bacteroides/Bacteroidaceae \u2014 Gram-negative organisms that also encode LptE-family outer-membrane lipoproteins and LPS \u2014 expand rapidly between 4 and 12 months in multiple infant cohorts (Roswall-based summary; Microorganisms 2021 trajectory models; a 1-year Italian cohort noting Bacteroidaceae rise with cessation of milk feeding), and Bacteroidetes-dominant clusters are common at 12 months. Thus even though Enterobacteriaceae/Escherichia fall with age, total outer-membrane-biogenesis gene abundance at 12 months could equal or exceed that at 5 months. No study was found directly reporting COG3017 higher at ~5 vs ~12 months, so this is unresolved rather than a clean contradiction.",
+  "search_queries_used": [
+    "COG3017 outer membrane lipoprotein LptE",
+    "infant gut microbiome Proteobacteria decrease 12 months age",
+    "infant gut metagenome functional pathways lipopolysaccharide biosynthesis age weaning",
+    "outer membrane biogenesis genes infant gut microbiome enriched early infancy",
+    "Backhed 2015 dynamics and stabilization infant gut microbiome first year functional gene 4 months 12 months",
+    "lipopolysaccharide biosynthesis genes enriched breastfed infants metagenome 4 months versus 12 months",
+    "membrane biogenesis COG category enriched early infant gut metagenome breastfeeding",
+    "Enterobacteriaceae Escherichia abundance decline 6 to 12 months infant gut",
+    "Backhed 2015 4-month microbiome enriched KEGG lipopolysaccharide biosynthesis module 12-month butyrate",
+    "Bacteroides increase 4 to 12 months infant gut gram-negative lipopolysaccharide",
+    "infant gut microbiome maturation cell envelope biogenesis gene functions decrease with age metagenomics",
+    "LptE rlpB gut microbiome infant age association",
+    "\"Impact of Early Feeding\" metagenomics infant gut COGs breastfed formula outer membrane lipoprotein",
+    "gram-negative outer membrane protein genes infant stool metagenome decrease after weaning solid food"
+  ],
+  "caveats": "COG3017 is a broadly distributed housekeeping gene present in essentially all Gram-negative gut bacteria, so its metagenomic abundance is largely a proxy for the aggregate Gram-negative fraction rather than a specific biological signal; direction therefore depends on the relative balance of Proteobacteria (declining) versus Bacteroidetes (rising) in the particular cohort, which varies with feeding mode, delivery mode, geography and antibiotic exposure. Relative-abundance gene profiles are also compositional, so a decline can reflect expansion of Gram-positive Firmicutes rather than an absolute drop. No literature was found addressing this exact COG at these exact timepoints; the PLOS One evidence concerns LPS biosynthesis rather than the Lpt outer-membrane assembly module."
+}

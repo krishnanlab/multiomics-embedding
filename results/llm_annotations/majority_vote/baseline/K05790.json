@@ -1,0 +1,65 @@
+{
+  "feature_id": "K05790",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "K05790 (lipopolysaccharide/enterobacterial common antigen chain-length regulator WzzE) is increased or characteristic in 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 2,
+  "rationale": "No study was found that reports the specific KEGG ortholog K05790/wzzE as differentially abundant between ~5-month and ~12-month infant stool metagenomes, so the evidence is indirect but consistently directional. (1) A primary human infant functional-metagenomics study of the complementary feeding transition (stool at ~4, 9 and 12 months) reported that sequences assigned to 'biosynthesis of lipopolysaccharides' decreased in relative abundance over time, with the largest change between 4 and 9 months, alongside a ~20% decrease in Proteobacteria - i.e. LPS-biosynthesis gene content is higher at the pre-/early-complementary-feeding timepoint, matching the hypothesized direction at pathway level. (2) WzzE is taxonomically restricted to Enterobacterales (it is the chain-length regulator for enterobacterial common antigen, co-annotated in KEGG as an LPS biosynthesis protein), so its metagenomic abundance essentially tracks Escherichia/Klebsiella/Shigella-type taxa. Multiple longitudinal human infant cohorts report that Enterobacteriaceae/Escherichia relative abundance falls across the weaning window: a longitudinal qPCR birth-to-12-month diet-microbiota study found Enterobacteriaceae decrease during the weaning period (while Bacteroides and Clostridium cluster IV increase), and a 1-month-to-2-year cohort modelling study found Escherichia (with Bifidobacterium, Veillonella, Streptococcus) decreasing over time while Bacteroides, Lachnospiraceae, Faecalibacterium and Akkermansia rose rapidly after 6 months. This combination (one pathway-level human infant metagenomic study plus several indirect taxon-level human studies in the same direction) meets the 'moderate' tier rather than 'strong', because no primary study directly interrogates this KO in this age contrast.",
+  "mechanism": "WzzE (K05790) is the polysaccharide co-polymerase that sets the modal chain length of enterobacterial common antigen/O-antigen-type polymers in the Wzy-dependent pathway and is confined to Gram-negative Enterobacterales genomes. At ~5 months, when infants are still largely milk-fed, the gut community typically retains a substantial facultative-anaerobe/Enterobacteriaceae component (Escherichia, Klebsiella, Enterobacter) established in early colonization. Introduction of solid foods and cessation of breastfeeding over the second half of the first year drives a shift toward strictly anaerobic, fibre-fermenting Bacteroidetes and Firmicutes (Bacteroides, Lachnospiraceae, Faecalibacterium) with a more reducing, SCFA-rich luminal environment that disfavours Enterobacteriaceae. Because wzzE gene copies are carried almost exclusively by those declining Enterobacterales, relative abundance of K05790 - and of LPS/ECA-biosynthesis gene content generally - is expected to be higher at 5 months than at 12 months.",
+  "evidence": [
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy human infants ('Nourish to Flourish' pilot), stool sampled at ~4 months (before solids), ~9 months and ~12 months; shotgun metagenomics plus metabolites",
+      "relevance": "Primary human infant study reporting that 'biosynthesis of lipopolysaccharides' gene content decreased in relative abundance across the complementary feeding period (greatest change 4->9 months), with Proteobacteria decreasing ~20% - pathway-level support for higher LPS-biosynthesis genes such as wzzE at ~5 months versus 12 months."
+    },
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/36461300/",
+      "doi": null,
+      "title": "Association between diet and fecal microbiota along the first year of life",
+      "study_population": "Longitudinal prospective human birth cohort, stool from birth to 365 days, bacterial groups quantified by qPCR with SCFA measurement",
+      "relevance": "Reports that Enterobacteriaceae (the sole carriers of wzzE) decrease during the weaning period whereas Bacteroides and Clostridium cluster IV increase, supporting a higher Enterobacterales/ECA-LPS gene reservoir at ~5 months than at 12 months."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8537618/",
+      "doi": null,
+      "title": "Effect of Environmental Exposures on the Gut Microbiota from Early Infancy to Two Years of Age",
+      "study_population": "Human infants sampled from 1 month to 2 years; longitudinal Gaussian-process (LonGP) modelling of taxa versus age and exposures",
+      "relevance": "Independent longitudinal human cohort showing Escherichia declining in abundance over time while Bacteroides, Lachnospiraceae, Faecalibacterium and Akkermansia increase rapidly after 6 months - indirect taxon-level support for the hypothesized direction."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12212991/",
+      "doi": null,
+      "title": "Recent advances in understanding of enterobacterial common antigen synthesis and regulation",
+      "study_population": "Not a human study (molecular microbiology review of Enterobacterales)",
+      "relevance": "Establishes that WzzE is the chain-length determinant required for cyclic enterobacterial common antigen synthesis and that ECA/WzzE is restricted to Enterobacterales, justifying use of Enterobacteriaceae abundance trajectories as a proxy for K05790 gene abundance."
+    },
+    {
+      "url": "https://www.biorxiv.org/content/10.1101/2025.06.25.661564.full.pdf",
+      "doi": "10.1101/2025.06.25.661564",
+      "title": "Chain-length regulation by WzzE is necessary for, but genetically separable from, cyclic enterobacterial common antigen synthesis",
+      "study_population": "Bacterial genetics (Enterobacterales, e.g. Escherichia/Salmonella-type strains); no human subjects",
+      "relevance": "Confirms the functional identity and Enterobacterales-specific distribution of WzzE, supporting the taxonomic inference underlying the hypothesis; provides no direct infant-age data."
+    }
+  ],
+  "contradicting_evidence": "A meta-analysis of mother-infant gut metagenomes (https://pmc.ncbi.nlm.nih.gov/articles/PMC8115609/) states that increases in the relative abundance of Escherichia/E. coli occur from approximately 6 to 12 months, potentially reflecting the shift from exclusive breastfeeding to solid foods - the opposite direction to the taxon-level reasoning used here. Enterobacteriaceae trajectories in the first year are also known to be heterogeneous across cohorts (delivery mode, antibiotics, geography), and separate work notes that overall resistome/E. coli-linked gene content peaks around 6 months in some cohorts but is highest in the first weeks in others. No study directly contradicts the LPS-biosynthesis pathway decline reported for the 4->12 month window, so the weight of evidence still favours the hypothesized direction, but the taxon-level proxy is not unanimous.",
+  "search_queries_used": [
+    "WzzE lipopolysaccharide biosynthesis infant gut microbiome",
+    "K05790 WzzE KEGG ortholog infant gut",
+    "lipopolysaccharide biosynthesis genes infant gut microbiome age 6 months 12 months",
+    "Enterobacteriaceae lipopolysaccharide O-antigen chain length regulator infant gut metagenome",
+    "lipopolysaccharide biosynthesis pathway relative abundance decreases infant gut metagenome first year of life",
+    "Backhed dynamics stabilization human gut microbiome first year of life functional Enterobacteriaceae 4 months 12 months",
+    "Proteobacteria Enterobacteriaceae decrease abundance 6 to 12 months infant gut microbiota weaning",
+    "enterobacterial common antigen wzzE gene abundance gut microbiome age",
+    "Enterobacteriaceae prevalence highest newborns infants declines age gut metagenome global populations",
+    "KEGG lipopolysaccharide biosynthesis module enriched 4-month-old infants compared 12-month-old metagenome",
+    "shotgun metagenomics infant gut 6 months vs 12 months LPS biosynthesis genes enriched breastfed",
+    "O-antigen biosynthesis genes higher early infancy Escherichia coli Klebsiella infant gut colonization decline weaning",
+    "infant gut microbiome maturation Proteobacteria lipopolysaccharide biosynthesis pathway decreased 12 months metagenomic functional",
+    "wzzE K05790 differential abundance stool metagenome infants breastfeeding",
+    "Escherichia coli relative abundance 5 months higher than 12 months infant stool longitudinal metagenome"
+  ],
+  "caveats": "Evidence is at the level of the LPS/ECA biosynthesis pathway and of the Enterobacterales taxa that carry wzzE, not the specific KEGG ortholog K05790; the only direct human functional-metagenomic study located used KEGG category-level ('biosynthesis of lipopolysaccharides') summaries in a small pilot cohort with 4/9/12-month sampling, not 5 vs 12 months. Relative-abundance framing means an apparent 5-month enrichment can reflect dilution by expanding Bacteroidetes/Firmicutes rather than an absolute increase in Enterobacterales gene copies. Enterobacteriaceae trajectories vary strongly with delivery mode, antibiotic exposure, feeding type and geography, so cohort-specific confounding is likely. KEGG also groups WzzE under generic structural proteins/unclassified, so annotation-based quantification may aggregate related Wzz-family co-polymerases across taxa."
+}

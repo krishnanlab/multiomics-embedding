@@ -1,0 +1,20 @@
+{
+  "feature_id": "N_LP.2395",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "The unidentified lipid-like feature N_LP.2395 (formula-level annotation C30H44NS, ESI mode, RT/m-z tag 11.995988) is increased or characteristic in 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "This feature is not a named chemical entity: it is an in-house untargeted LC-MS feature label (N_LP.2395) with only a putative molecular formula/adduct string ('C30 H44 N S', ESI, 11.995988) and no compound name, InChIKey, HMDB/KEGG/LIPID MAPS identifier, or lipid class assignment. Searches on the formula string, the internal feature ID, and combinations of a nitrogen- and sulfur-containing C30 lipid with infant fecal/plasma metabolome and age (5 vs 12 months, pre- vs post-weaning) returned no publication that reports this feature, a clearly named homolog, or a defined biochemical pathway for it. The hits retrieved were general infant lipidome/metabolome studies (breastfeeding vs formula, weaning transition, first-year fecal metabolome maturation) that do not contain any feature matching this formula-level annotation, so they cannot be used to support or refute the specific directional claim. In addition, the formula as written (C30H44NS, an odd-electron neutral composition lacking oxygen) is chemically ambiguous and most plausibly represents an adduct/fragment or a mis-assigned formula, which makes even indirect homolog-level literature matching impossible. Per the rubric this is 'no relevant literature located' for this feature+group combination rather than weak or contradicting evidence: no study addresses this feature at all, and no anchorable pathway-level reasoning exists because the compound identity is unknown. The hypothesis therefore remains entirely dependent on internal data and cannot be corroborated externally until the feature is structurally identified (e.g., MS2 matching to a named lipid or sulfur-containing metabolite).",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C30H44NS lipid metabolite infant gut",
+    "infant fecal lipidomics 5 months vs 12 months untargeted feature",
+    "unannotated lipid feature infant gut metabolome age breastfeeding weaning",
+    "\"C30H44NS\"",
+    "sulfur-containing nitrogen lipid infant feces age 5 months 12 months metabolomics",
+    "N_LP.2395 metabolite feature"
+  ],
+  "caveats": "Zero score reflects absence of literature on an unidentified MS feature, not evidence against the hypothesis. The direction may well be real in the study data (many milk-derived lipid species do decline from exclusive/partial breastfeeding at ~5 months to post-weaning at ~12 months), but no external validation is possible without a structural identification. Recommended next steps: confirm the monoisotopic mass and adduct, re-derive the neutral formula (the current odd-electron, oxygen-free C30H44NS composition is suspect), and attempt MS2 spectral library/in-silico matching (e.g., lipid or sulfur-metabolite databases); re-run this literature assessment once a named candidate compound or lipid class is available."
+}

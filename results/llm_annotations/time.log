@@ -1,0 +1,100 @@
+submitting 80 requests across 8 job(s) in one batch
+submitted batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB (80 requests)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+batch msgbatch_01JuB6BH1XYch4TJWkT2BLuB: MessageBatchRequestCounts(canceled=0, errored=0, expired=0, processing=80, succeeded=0)
+job 0 P_LP.2079: confidence_score=1 -> results/llm_annotations/permutations/endpoint/P_LP.2079.json
+job 0 P_LP.295: confidence_score=1 -> results/llm_annotations/permutations/endpoint/P_LP.295.json
+job 0 P_LP.1693: confidence_score=0 -> results/llm_annotations/permutations/endpoint/P_LP.1693.json
+job 0 N_AQ.553: confidence_score=0 -> results/llm_annotations/permutations/endpoint/N_AQ.553.json
+job 0 P_LP.170: confidence_score=0 -> results/llm_annotations/permutations/endpoint/P_LP.170.json
+job 0 N_AQ.1455: confidence_score=0 -> results/llm_annotations/permutations/endpoint/N_AQ.1455.json
+job 0 N_LP.2019: confidence_score=0 -> results/llm_annotations/permutations/endpoint/N_LP.2019.json
+job 0 P_LP.334: confidence_score=1 -> results/llm_annotations/permutations/endpoint/P_LP.334.json
+job 0 N_LP.1806: confidence_score=1 -> results/llm_annotations/permutations/endpoint/N_LP.1806.json
+job 0 P_LP.1981: confidence_score=0 -> results/llm_annotations/permutations/endpoint/P_LP.1981.json
+job 1 PF03885: confidence_score=1 -> results/llm_annotations/permutations/endpoint/PF03885.json
+job 1 ENOG4111GFI: confidence_score=2 -> results/llm_annotations/permutations/endpoint/ENOG4111GFI.json
+job 1 ENOG4111X7D: confidence_score=0 -> results/llm_annotations/permutations/endpoint/ENOG4111X7D.json
+job 1 ENOG41100UY: confidence_score=0 -> results/llm_annotations/permutations/endpoint/ENOG41100UY.json
+job 1 ENOG4111NUU: confidence_score=1 -> results/llm_annotations/permutations/endpoint/ENOG4111NUU.json
+job 1 ENOG410XTM1: confidence_score=0 -> results/llm_annotations/permutations/endpoint/ENOG410XTM1.json
+job 1 ENOG411261G: confidence_score=0 -> results/llm_annotations/permutations/endpoint/ENOG411261G.json
+job 1 ENOG4111FXP: confidence_score=1 -> results/llm_annotations/permutations/endpoint/ENOG4111FXP.json
+job 1 k_Bacteria.p_Firmicutes.c_Clostridia.o_Eubacteriales.f_Oscillospiraceae.g_Anaeromassilibacillus.s_Unclassified.Anaeromassilibacillus: confidence_score=2 -> results/llm_annotations/permutations/endpoint/k_Bacteria.p_Firmicutes.c_Clostridia.o_Eubacteriales.f_Oscillospiraceae.g_Anaeromassilibacillus.s_Unclassified.Anaeromassilibacillus.json
+job 1 COG4481: confidence_score=1 -> results/llm_annotations/permutations/endpoint/COG4481.json
+job 2 P_AQ.701: confidence_score=1 -> results/llm_annotations/permutations/baseline/P_AQ.701.json
+job 2 P_LP.250: confidence_score=0 -> results/llm_annotations/permutations/baseline/P_LP.250.json
+job 2 N_AQ.314: confidence_score=1 -> results/llm_annotations/permutations/baseline/N_AQ.314.json
+job 2 N_AQ.556: confidence_score=0 -> results/llm_annotations/permutations/baseline/N_AQ.556.json
+job 2 N_AQ.767: confidence_score=0 -> results/llm_annotations/permutations/baseline/N_AQ.767.json
+job 2 N_LP.1826: confidence_score=1 -> results/llm_annotations/permutations/baseline/N_LP.1826.json
+job 2 P_LP.2877: confidence_score=1 -> results/llm_annotations/permutations/baseline/P_LP.2877.json
+job 2 P_LP.1668: confidence_score=0 -> results/llm_annotations/permutations/baseline/P_LP.1668.json
+job 2 N_AQ.571: confidence_score=1 -> results/llm_annotations/permutations/baseline/N_AQ.571.json
+job 2 N_LP.2395: confidence_score=0 -> results/llm_annotations/permutations/baseline/N_LP.2395.json
+job 3 K00390: confidence_score=1 -> results/llm_annotations/permutations/baseline/K00390.json
+job 3 ENOG4111NYT: confidence_score=1 -> results/llm_annotations/permutations/baseline/ENOG4111NYT.json
+job 3 COG4191: confidence_score=1 -> results/llm_annotations/permutations/baseline/COG4191.json
+job 3 K06159: confidence_score=2 -> results/llm_annotations/permutations/baseline/K06159.json
+job 3 COG3017: confidence_score=2 -> results/llm_annotations/permutations/baseline/COG3017.json
+job 3 K16301: confidence_score=1 -> results/llm_annotations/permutations/baseline/K16301.json
+job 3 K07811: confidence_score=1 -> results/llm_annotations/permutations/baseline/K07811.json
+job 3 COG2944: confidence_score=1 -> results/llm_annotations/permutations/baseline/COG2944.json
+job 3 ENOG4111PR2: confidence_score=1 -> results/llm_annotations/permutations/baseline/ENOG4111PR2.json
+job 3 K03825: confidence_score=1 -> results/llm_annotations/permutations/baseline/K03825.json
+job 4 P_LP.2079: confidence_score=1 -> results/llm_annotations/majority_vote/endpoint/P_LP.2079.json
+job 4 N_LP.2019: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/N_LP.2019.json
+job 4 N_AQ.553: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/N_AQ.553.json
+job 4 P_LP.170: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/P_LP.170.json
+job 4 N_AQ.1455: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/N_AQ.1455.json
+job 4 P_LP.1693: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/P_LP.1693.json
+job 4 P_LP.1981: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/P_LP.1981.json
+job 4 P_LP.1205: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/P_LP.1205.json
+job 4 P_LP.3294: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/P_LP.3294.json
+job 4 P_AQ.1388: confidence_score=1 -> results/llm_annotations/majority_vote/endpoint/P_AQ.1388.json
+job 5 PF03885: confidence_score=1 -> results/llm_annotations/majority_vote/endpoint/PF03885.json
+job 5 ENOG4112DBJ: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/ENOG4112DBJ.json
+job 5 ENOG4111FXP: confidence_score=1 -> results/llm_annotations/majority_vote/endpoint/ENOG4111FXP.json
+job 5 ENOG4111GFI: confidence_score=1 -> results/llm_annotations/majority_vote/endpoint/ENOG4111GFI.json
+job 5 ENOG410XQTH: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/ENOG410XQTH.json
+job 5 ENOG4111NUU: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/ENOG4111NUU.json
+job 5 ENOG4111X7D: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/ENOG4111X7D.json
+job 5 ENOG411261G: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/ENOG411261G.json
+job 5 ENOG410XPR3: confidence_score=0 -> results/llm_annotations/majority_vote/endpoint/ENOG410XPR3.json
+job 5 COG4481: confidence_score=1 -> results/llm_annotations/majority_vote/endpoint/COG4481.json
+job 6 N_AQ.767: confidence_score=0 -> results/llm_annotations/majority_vote/baseline/N_AQ.767.json
+job 6 P_LP.1668: confidence_score=0 -> results/llm_annotations/majority_vote/baseline/P_LP.1668.json
+job 6 N_LP.1826: confidence_score=1 -> results/llm_annotations/majority_vote/baseline/N_LP.1826.json
+job 6 N_LP.307: confidence_score=1 -> results/llm_annotations/majority_vote/baseline/N_LP.307.json
+job 6 P_LP.2877: confidence_score=1 -> results/llm_annotations/majority_vote/baseline/P_LP.2877.json
+job 6 N_LP.63: confidence_score=1 -> results/llm_annotations/majority_vote/baseline/N_LP.63.json
+job 6 N_LP.2395: confidence_score=0 -> results/llm_annotations/majority_vote/baseline/N_LP.2395.json
+job 6 P_LP.1120: confidence_score=1 -> results/llm_annotations/majority_vote/baseline/P_LP.1120.json
+job 6 N_AQ.605: confidence_score=0 -> results/llm_annotations/majority_vote/baseline/N_AQ.605.json
+job 6 P_LP.1901: confidence_score=1 -> results/llm_annotations/majority_vote/baseline/P_LP.1901.json
+job 7 ENOG4111NYT: confidence_score=0 -> results/llm_annotations/majority_vote/baseline/ENOG4111NYT.json
+job 7 COG3017: confidence_score=1 -> results/llm_annotations/majority_vote/baseline/COG3017.json
+job 7 K00390: confidence_score=1 -> results/llm_annotations/majority_vote/baseline/K00390.json
+job 7 K06159: confidence_score=2 -> results/llm_annotations/majority_vote/baseline/K06159.json
+job 7 K05790: confidence_score=2 -> results/llm_annotations/majority_vote/baseline/K05790.json
+job 7 K07811: confidence_score=2 -> results/llm_annotations/majority_vote/baseline/K07811.json
+job 7 ENOG4111PR2: confidence_score=1 -> results/llm_annotations/majority_vote/baseline/ENOG4111PR2.json
+job 7 K09016: confidence_score=1 -> results/llm_annotations/majority_vote/baseline/K09016.json
+job 7 K03825: confidence_score=1 -> results/llm_annotations/majority_vote/baseline/K03825.json
+job 7 COG3161: confidence_score=2 -> results/llm_annotations/majority_vote/baseline/COG3161.json

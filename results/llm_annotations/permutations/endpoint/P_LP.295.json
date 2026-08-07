@@ -1,0 +1,54 @@
+{
+  "feature_id": "P_LP.295",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "The lipid-like feature with molecular formula C22H38N2O3 is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "This feature is annotated only by a molecular formula (C22H38N2O3; monoisotopic mass ~378.29, 5 degrees of unsaturation, 2 N and 3 O), with no compound name, HMDB/LIPID MAPS/PubChem identifier, or structure given. Repeated formula-based searches (Wikipedia formula index pages, HMDB, PubChem, LIPID MAPS) returned no compound assignment for C22H38N2O3, so no literature can be tied to this specific molecule, let alone to a 5- vs 12-month infant comparison. What I could find is only class/pathway-level and indirect: the elemental composition (two nitrogens, three oxygens, one or two carbonyl-degree unsaturations on a ~C16-C18 acyl-length backbone) is consistent with an N-acyl amide / N-acyl amino acid-type lipid, and a longitudinal Bangladeshi mother-infant study reported that microbially derived N-acyl lipids and bile amidates rise with infant age as the gut microbiome matures, while a Science study of Bangladeshi children showed that gut Faecalibacterium prausnitzii FAAH both hydrolyzes and synthesizes N-acylamides (notably N-acyl amino acids) detectable in child feces, with Faecalibacterium/Clostridia expansion being a hallmark of the post-weaning (~12-month) gut. Complementary-feeding studies also report that fecal lipid metabolite profiles shift substantially between the milk-dominant period and 9-12 months. All of this is generic, direction-plausible reasoning about a metabolite class rather than evidence about this feature, and the actual identity of C22H38N2O3 (which could equally be a non-lipid xenobiotic, dipeptide-like, or food-derived amide) is unresolved. That places the evidence squarely in the 'weak / theoretical, nothing on this feature+group combination' tier. No study reported the opposite direction for this feature, so -1 is not warranted, and because relevant class-level literature was located, 0 is not appropriate either.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://www.sciencedirect.com/science/article/pii/S1931312825004561",
+      "doi": null,
+      "title": "Environmental and maternal imprints on infant gut metabolic development",
+      "study_population": "55 mother-infant dyads in Bangladesh, longitudinal metagenomics + untargeted metabolomics over the first 6 months of life",
+      "relevance": "Indirect/class-level support: reports an age-related increase in microbially derived N-acyl lipids and bile amidates in infant feces as the microbiome matures. C22H38N2O3 (2 N, 3 O) is compositionally compatible with an N-acyl amide/N-acyl amino acid, so an age-related increase would be consistent - but this study does not report this formula or the 5- vs 12-month contrast."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11572954/",
+      "doi": "10.1126/science.ado6828",
+      "title": "A human gut Faecalibacterium prausnitzii fatty acid amide hydrolase",
+      "study_population": "Bangladeshi children with undernutrition (microbiota-directed complementary food trial) plus gnotobiotic mice and in vitro enzymology",
+      "relevance": "Indirect mechanistic/class evidence that gut bacteria that expand during and after the complementary-feeding transition both synthesize and degrade N-acylamides/N-acyl amino acids that are measurable in child feces (e.g., C18:1-Arg), establishing that this metabolite class is microbiome-dependent in early childhood; it does not address C22H38N2O3 or a 5- vs 12-month increase."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Healthy infants followed across the complementary feeding period in the first year of life (stool microbiome + LC-MS metabolomics)",
+      "relevance": "Provides general context that fecal lipid metabolite features change markedly with age during complementary feeding, particularly between 9 and 12 months, and correlate with taxonomic shifts - supporting the plausibility of age-discriminating lipid features at 12 months, but with no annotation matching C22H38N2O3."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-023-28862-z",
+      "doi": null,
+      "title": "Longitudinal profiles of the fecal metabolome during the first 2 years of life",
+      "study_population": "Infants sampled at 1, 6, 12, 18 and 24 months (fecal untargeted metabolomics)",
+      "relevance": "Background evidence that many fecal metabolites, including novel/less-characterized ones and amino acid-related metabolites, change significantly with infant age between ~6 and 12 months; useful as prior plausibility only, since no compound with formula C22H38N2O3 is named."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C22H38N2O3 metabolite lipid identification",
+    "C22H38N2O3 formula compound",
+    "infant gut metabolome 12 months versus 5 months lipid",
+    "fatty acid amide infant gut metabolome weaning",
+    "\"C22H38N2O3\" HMDB metabolite",
+    "\"C22H38N2O3\" PubChem compound name",
+    "N-acyl amino acid fecal metabolome infant age increase 12 months",
+    "fecal lipid metabolome infant 6 to 12 months solid food introduction untargeted",
+    "Faecalibacterium prausnitzii fatty acid amide hydrolase children gut N-acyl amino acids growth",
+    "N-acyl amide fecal levels increase with age infants complementary feeding metabolomics",
+    "unannotated molecular formula feature untargeted lipidomics infant stool age 12 months increased"
+  ],
+  "caveats": "The feature is formula-only (no structure, no database ID), so literature retrieval is fundamentally limited; C22H38N2O3 has many possible isomers spanning endogenous N-acyl amides, dipeptide-like species, food-derived compounds and xenobiotics, and my inference that it is an N-acyl amide type lipid is speculative. All cited support is class- or pathway-level and mostly from Bangladeshi cohorts or general complementary-feeding cohorts, not a 5- vs 12-month within-cohort contrast of this feature. Structural confirmation (MS/MS spectral matching or a candidate ID) would be required before the class-level age trend could be used as real support; the score should be revisited if the annotation is resolved."
+}

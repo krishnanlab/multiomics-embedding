@@ -1,0 +1,64 @@
+{
+  "feature_id": "K09016",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "The KEGG ortholog K09016 (putative pyrimidine permease RutG) is increased or characteristic of the gut metagenome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Searches located solid biochemical characterization of RutG itself (a NAT/NCS2-family uracil/pyrimidine permease encoded in the Escherichia coli rut pyrimidine-utilization operon, which allows pyrimidines to be used as a nitrogen source), but no study - human or animal - that reports K09016/RutG abundance as differing between younger (pre-/early-complementary-feeding, ~4-6 months) and older (~12 months) infants, nor between breastfed and weaned infants. The only age/development-related hits were pathway-level: infant fecal studies report pyrimidine metabolism and purine/pyrimidine (deoxy)ribonucleoside degradation among differentially abundant functions in early-life samples (e.g., preterm vs. term meconium and gestational-age comparisons), and pyrimidine/purine metabolism associated with delivery mode and feeding type in infant multi-omics work. These are generic pathway-level observations in different comparisons, not the 5- vs 12-month contrast, and they do not consistently indicate a decline of pyrimidine transport capacity with infant age. A plausible but untested indirect argument exists (rut genes are typical of Enterobacteriaceae/Proteobacteria, which are usually most abundant in the first months and decline over the first year, and human milk supplies free nucleotides/nucleosides), but I found no primary study testing this gene family across infant age, so this remains theoretical reasoning. Per the rubric this is weak (1) rather than moderate: no direct feature+group study, and the pathway-level evidence found is not directionally specific.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29437264/",
+      "doi": null,
+      "title": "Insight on specificity of uracil permeases of the NAT/NCS2 family from analysis of the transporter encoded in the pyrimidine utilization operon of Escherichia coli",
+      "study_population": "In vitro/bacterial genetics (Escherichia coli transporter characterization); no human subjects",
+      "relevance": "Establishes the molecular identity and function of RutG as a uracil/pyrimidine permease within the E. coli rut pyrimidine-utilization operon, i.e., confirms what the K09016 annotation represents, but provides no information about infant age groups."
+    },
+    {
+      "url": "https://journals.asm.org/doi/10.1128/jb.00201-10",
+      "doi": "10.1128/jb.00201-10",
+      "title": "The Rut Pathway for Pyrimidine Degradation: Novel Chemistry and Toxicity Problems",
+      "study_population": "Bacterial biochemistry/genetics (Escherichia coli rut operon); no human subjects",
+      "relevance": "Describes the rut pathway context (pyrimidine degradation enabling use of uracil-derived nitrogen) in which RutG functions; supports only generic pathway-level reasoning about why pyrimidine transport capacity might vary with dietary nitrogen/nucleotide availability, with no infant data."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-025-95198-1",
+      "doi": null,
+      "title": "Progression of gut microbiome in preterm infants during the first three months",
+      "study_population": "Preterm and term human infants, first three months of life (fecal shotgun metagenomics)",
+      "relevance": "Reports purine/pyrimidine deoxyribonucleoside and ribonucleoside degradation pathways as significantly elevated in early-life (preterm meconium) samples versus term infants - indirect, pathway-level evidence that pyrimidine catabolism functions are detectable and variable in very early infancy, but it does not test the 5- vs 12-month contrast or the RutG transporter specifically."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12146292/",
+      "doi": null,
+      "title": "Fecal 16S rRNA sequencing and metabolomics reveal abnormal metabolism activity in preterm infants with different gestational ages",
+      "study_population": "Human preterm infants of differing gestational ages and term controls (fecal 16S + metabolomics)",
+      "relevance": "Identifies pyrimidine metabolism as a differentially regulated pathway across infant maturity groups, corroborating that pyrimidine metabolism is developmentally variable in infants; however it is metabolite/pathway-level, uses 16S-inferred function, and does not address K09016 or a 5- vs 12-month comparison."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Human infants across the complementary feeding transition (fecal microbiome)",
+      "relevance": "Relevant group-context study on how infant gut microbial composition/function shifts with introduction of solid foods; searched as the most directly matching exposure context, but no reported result for pyrimidine permease/RutG (K09016), underscoring the absence of direct evidence for the hypothesis."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "K09016 RutG pyrimidine permease infant gut microbiome",
+    "RutG pyrimidine utilization infant gut microbiome",
+    "pyrimidine permease infant gut metagenome age 5 months 12 months",
+    "pyrimidine metabolism enriched infant gut microbiome early infancy metagenome functional pathways age",
+    "rut operon RutG Escherichia coli pyrimidine utilization uracil transporter",
+    "breastfed infant gut microbiome nucleotide metabolism pathway enriched compared to weaned",
+    "KEGG ortholog transporters infant gut microbiome 6 months versus 12 months functional shift",
+    "Backhed dynamics stabilization human gut microbiome first year of life functional pyrimidine nucleotide metabolism 4 months 12 months",
+    "human milk free nucleotides uracil uridine infant gut bacteria utilization",
+    "infant gut microbiome pyrimidine metabolism decreases with age metagenomics",
+    "Enterobacteriaceae rut operon nitrogen pyrimidine infant gut early colonization",
+    "\"pyrimidine\" KEGG module enriched breastfed infants metagenome shotgun functional profile age",
+    "infant gut microbiome purine pyrimidine biosynthesis enriched early months solid food introduction decreased",
+    "Backhed 4 months 12 months functional gene enrichment nucleotide metabolism breast milk cessation"
+  ],
+  "caveats": "K09016 is annotated as a 'putative' permease, so gene-family assignment in metagenomes is imprecise and homologs in the NAT/NCS2 family can be misannotated across taxa; abundance of this KO may largely track Proteobacteria/Enterobacteriaceae carriage rather than a distinct functional adaptation. Evidence retrieval was also limited by hitting the search-tool call quota, so additional targeted searches (e.g., rut gene distribution across gut taxa, Enterobacteriaceae decline between 6 and 12 months) could not be completed; a deeper search of supplementary tables in infant metagenomic cohorts (where KO-level results are usually buried and not indexed by web search) might yield direct evidence not captured here."
+}

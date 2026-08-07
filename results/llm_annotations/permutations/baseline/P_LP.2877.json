@@ -1,0 +1,53 @@
+{
+  "feature_id": "P_LP.2877",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "The unannotated lipid-class feature with molecular formula C30H30N4O3 is increased or characteristic in 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "The feature is provided only as a molecular formula (C30H30N4O3) with no compound name, HMDB/KEGG/LIPID MAPS identifier, adduct, or retention-time information, so it cannot be mapped to a specific named metabolite. Searches on the formula itself returned only chemical-catalog and patent entries (e.g., a PubChem entry for a patent example compound and a commercial hydrazone reagent), with no biological/endogenous compound, no human metabolome database hit, and no infant gut study reporting this formula. Notably the formula contains four nitrogens and only three oxygens, which does not match common milk- or host-derived lipid classes (glycerolipids, glycerophospholipids, sphingolipids, acylcarnitines, bile acids) nor common tetrapyrroles (bilirubin C33H36N4O6, biliverdin C33H34N4O6, urobilin C33H42N4O6, pheophorbide a C35H36N4O5), so even class-level inference is uncertain. The only relevant literature located is generic and pathway-level: multiple studies report that the infant fecal metabolome is dominated by lipid metabolism early in life and shifts away from a lipid-rich, milk-driven profile toward amino-acid/plant-polysaccharide-derived profiles as complementary feeding proceeds through 9-12 months. That broad pattern is directionally consistent with a milk-associated lipid feature being higher at 5 than 12 months, but it is not evidence about this specific feature, and an equally plausible alternative (a nitrogen-rich, possibly diet/plant/chlorophyll- or microbially derived amidated compound) would predict the opposite direction. Per the rubric, generic/theoretical pathway-level support with no feature-specific study equals a Weak (1).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10334852/",
+      "doi": null,
+      "title": "Maturation of the gut metabolome during the first year of life in humans",
+      "study_population": "Longitudinal infant cohort (Chinese cohort with Swedish comparison), fecal metabolome from birth through 12 months",
+      "relevance": "Reports that lipid metabolism (acylcarnitines, bile acids) is the most abundant metabolic pathway in the early infant gut and that the metabolome shifts away from a lipid-dominated profile with age/diet transition. Only generic class-level support for an early-infancy lipid enrichment; says nothing about C30H30N4O3."
+    },
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Human infants sampled longitudinally across the complementary feeding transition (approximately 5-12 months)",
+      "relevance": "Shows that fecal lipid metabolite profiles change substantially across the complementary feeding window, particularly between 9 and 12 months, supporting the general expectation of age-dependent lipid feature shifts but not identifying this specific formula or its direction."
+    },
+    {
+      "url": "https://www.nature.com/articles/s41598-023-28862-z",
+      "doi": null,
+      "title": "Longitudinal profiles of the fecal metabolome during the first 2 years of life",
+      "study_population": "Human infants, fecal metabolome sampled longitudinally over the first two years",
+      "relevance": "Documents which fecal metabolites increase (amino acids, uracil) versus decrease (glucose, fucose-related) with infant age; provides context that age-related direction is metabolite-specific, underscoring that no directional claim can be made for an unidentified formula."
+    },
+    {
+      "url": "https://pubchem.ncbi.nlm.nih.gov/compound/67979022",
+      "doi": null,
+      "title": "US9907800, Example A168 | C30H30N4O3 | CID 67979022 - PubChem",
+      "study_population": "Not applicable (chemical database record)",
+      "relevance": "Illustrates that database hits for the exact formula C30H30N4O3 correspond to synthetic patent/reagent compounds rather than any documented endogenous, dietary, or microbially derived human gut metabolite."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C30H30N4O3 metabolite",
+    "C30H30N4O3 lipid formula identification",
+    "untargeted lipidomics C30 H30 N4 O3 tetrapyrrole",
+    "HMDB C30H30N4O3",
+    "\"C30H30N4O3\" human metabolome",
+    "infant fecal metabolome 5 months 12 months lipid age differences",
+    "infant gut metabolome breastfeeding weaning unannotated lipid features age",
+    "fecal metabolome infant lipids decrease with age first year complementary feeding higher in breastfed",
+    "maturation gut metabolome first year of life lipids high early low later",
+    "\"C30H30N4O3\" natural product porphyrin"
+  ],
+  "caveats": "Feature is annotated only by molecular formula, with no confirmed structure, adduct, or database ID; literature cannot be searched for the actual compound. The formula (4 N, 3 O, 18 degrees of unsaturation) is atypical for classic milk-derived lipid classes, so even the 'lipid' class assignment used for the generic reasoning may be a mis-assignment. Any directional support here is inferred from broad age-related lipid trends in the infant fecal metabolome, not from feature-specific data. Structural confirmation (MS/MS spectral matching, isotope/adduct checking, retention behavior) should precede any biological interpretation."
+}

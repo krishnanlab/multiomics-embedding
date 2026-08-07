@@ -1,0 +1,28 @@
+{
+  "feature_id": "N_AQ.767",
+  "omics_type": "metabolite",
+  "group": "infant_5mo",
+  "hypothesis": "The aqueous-phase metabolite feature N_AQ.767, reported with the molecular formula C20 H32 N25, is increased/characteristic in 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "No literature could be located for this feature in any form. The only identifier available is an internal feature label (N_AQ.767) plus a putative molecular formula, 'C20 H32 N25'. Searches for that formula in compound databases and in the metabolomics literature returned nothing: PubChem/Wikipedia formula-browser hits were for unrelated formulas (e.g., C20H32N2O, C20H25NO3, C20H32), and no HMDB/PubChem/KEGG entry corresponds to C20H32N25. The formula is also chemically implausible as a biological metabolite: 25 nitrogens against 20 carbons with zero oxygens gives an extreme N/C ratio and a nitrogen/hydrogen balance that violates the standard heuristic element-ratio and RDBE/'seven golden rules' filters routinely applied to untargeted LC/HRMS formula assignment (see the annotation-rules literature retrieved). It is therefore most likely a mis-assigned or placeholder formula for an unidentified feature rather than a real, named compound. Because the chemical identity is unknown, there is no feature-specific literature - direct or indirect - on whether it differs between 5-month-old (early complementary feeding / largely milk-fed) and 12-month-old infants. Searches on infant fecal/urinary metabolome maturation from ~5 to ~12 months did surface relevant longitudinal studies (e.g., work on metabolome and microbiota maturation across 2.5, 6 and 12 months, and studies of complementary feeding from 5-12 months), but none of these can be linked to this particular unannotated feature, so they provide no support for the hypothesis about N_AQ.767 specifically. Per the rubric this is 'none found' (0) rather than 'weak' (1), because nothing relevant to this feature+group combination - not even a plausible pathway-level argument, which would require knowing the compound's identity - could be found. It is not -1: no study reports this feature in the opposite direction either.",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9682628/",
+      "doi": null,
+      "title": "IDSL.UFA assigns high confidence molecular formula annotations for untargeted LC/HRMS datasets in metabolomics and exposomics",
+      "study_population": "Methodological/computational study on untargeted LC-HRMS human specimen datasets (not an infant cohort)",
+      "relevance": "Not evidence for or against the hypothesis. Cited only to support the technical judgement that formulas violating element-ratio/RDBE plausibility rules - as C20H32N25 does (25 N, 20 C, no O) - are typically rejected as annotation artifacts, which is why no compound-level literature exists for this feature."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "C20H32N25 metabolite",
+    "\"C20 H32 N25\" compound formula",
+    "unannotated aqueous metabolite molecular formula infant gut metabolome 5 months",
+    "C20H32N25 PubChem HMDB",
+    "N_AQ.767 metabolite feature",
+    "high nitrogen molecular formula assignment error untargeted metabolomics implausible RDBE"
+  ],
+  "caveats": "The feature is effectively unannotated: 'C20 H32 N25' is not a recognized metabolite formula and is chemically implausible for an endogenous or diet-derived compound (extreme N:C ratio, no oxygen), so it is probably a formula mis-assignment, an isotope/adduct artifact, or a typographical rendering of something like C20H32N2O5-type formula. Any literature assessment is impossible until the feature is re-annotated with MS/MS spectral matching or an accurate-mass re-check. If a corrected formula or a candidate identity (with m/z, retention time, and MS2 evidence) becomes available, this feature should be re-submitted for literature evaluation - the 5- vs 12-month contrast itself is well studied in infant metabolome maturation work, so a named compound would very likely have retrievable evidence. Score of 0 reflects absence of feature-specific literature, not evidence against the hypothesis."
+}

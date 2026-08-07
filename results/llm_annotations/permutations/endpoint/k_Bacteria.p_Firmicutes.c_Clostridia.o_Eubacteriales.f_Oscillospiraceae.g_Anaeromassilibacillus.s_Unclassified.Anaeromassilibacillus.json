@@ -1,0 +1,70 @@
+{
+  "feature_id": "k_Bacteria.p_Firmicutes.c_Clostridia.o_Eubacteriales.f_Oscillospiraceae.g_Anaeromassilibacillus.s_Unclassified.Anaeromassilibacillus",
+  "omics_type": "microbiome",
+  "group": "infant_12mo",
+  "hypothesis": "Unclassified Anaeromassilibacillus (Oscillospiraceae, Clostridia) is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 2,
+  "rationale": "No primary study was located that reports Anaeromassilibacillus itself as differentially abundant between ~5-month and ~12-month infants, so the hypothesis is not directly supported at the genus level. However, multiple indirect lines of evidence all point in the hypothesized direction. (1) Human infant longitudinal/complementary-feeding studies show that the parent family Ruminococcaceae/Oscillospiraceae (Clostridium cluster IV relatives of Anaeromassilibacillus) increases in relative abundance across exactly this window: a PLOS One complementary-feeding cohort reported significant increases in Ruminococcaceae-assigned sequences from 4 to 9 months of age as Actinobacteria/Proteobacteria declined, and reviews of first-foods/weaning describe rising Lachnospiraceae/Ruminococcaceae from ~9-18 months as the community becomes adult-like. (2) A weaning animal model (suckling vs. weaned piglets) showed higher relative abundance of Oscillospiraceae, Ruminococcaceae and Christensenellaceae after weaning, attributed to plant-polysaccharide substrate availability. (3) Anaeromassilibacillus is demonstrably a member of the gut community at around 1 year of life and beyond: the type species A. senegalensis was cultured from the stool of a 1-year-old child, and the genus was detected and differentially abundant in 1.5-year-old children in a food-allergy study - establishing plausible colonization by 12 months, though not a 5- vs 12-month contrast. Because the evidence is family/related-taxa level and cross-species rather than a direct genus-by-age test in infants, this meets the 'multiple indirect studies pointing the same direction' bar (2) rather than 'strong' (3).",
+  "mechanism": "Anaeromassilibacillus belongs to Oscillospiraceae/Clostridium cluster IV, a group of strictly anaerobic, spore-forming, fibre- and complex-carbohydrate-fermenting SCFA (largely butyrate/acetate) producers. During the transition from a milk-dominated diet (~5 months, HMO/lactose-driven, Bifidobacterium-dominated, low redox-tolerant Clostridia) to established complementary feeding (~12 months), plant-derived non-digestible polysaccharides, resistant starch and host/animal-derived glycans become abundant, colonic pH rises and the environment becomes more strictly anaerobic. These conditions favour expansion of Clostridia cluster IV/Oscillospiraceae genera such as Anaeromassilibacillus, and spore formation aids environmental transmission with solid-food exposure - so the genus is expected to be characteristic of the older, more adult-like 12-month community.",
+  "evidence": [
+    {
+      "url": "https://journals.plos.org/plosone/article?id=10.1371%2Fjournal.pone.0270213",
+      "doi": "10.1371/journal.pone.0270213",
+      "title": "Adaptation of the infant gut microbiome during the complementary feeding transition",
+      "study_population": "Human infants sampled longitudinally across the complementary feeding transition (4 to 9 months of age)",
+      "relevance": "Primary human infant study showing significant increases in Ruminococcaceae (the family containing Anaeromassilibacillus, now Oscillospiraceae) and other Firmicutes between 4 and 9 months, i.e. family-level indirect support for enrichment at the later (12-month) timepoint relative to ~5 months."
+    },
+    {
+      "url": "https://pubs.acs.org/doi/10.1021/acs.jproteome.0c00745",
+      "doi": "10.1021/acs.jproteome.0c00745",
+      "title": "Gut Microbiota-Derived Metabolite Signature in Suckling and Weaned Piglets",
+      "study_population": "Suckling versus weaned piglets (animal weaning model)",
+      "relevance": "Reports higher relative abundance of Oscillospiraceae/Ruminococcaceae after weaning, linked to plant-substrate fermentation - indirect, cross-species support for post-weaning enrichment of this family/genus."
+    },
+    {
+      "url": "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2017.00356/full",
+      "doi": "10.3389/fmicb.2017.00356",
+      "title": "First Foods and Gut Microbes",
+      "study_population": "Review of human infant cohorts spanning introduction of solid foods to ~18 months",
+      "relevance": "Corroborates that Ruminococcaceae and Lachnospiraceae increase while Bifidobacteriaceae/Enterobacteriaceae decrease from ~9 to 18 months, consistent with the hypothesized direction at family level."
+    },
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12604632/",
+      "doi": "10.1080/19490976.2025.2571428",
+      "title": "Infant gut microbiome reprogramming following introduction of solid foods (weaning)",
+      "study_population": "Review synthesizing human infant cohorts, 6-12 months and >12 months age brackets",
+      "relevance": "Supports the general framework that weaning drives loss of HMO-utilizers and enrichment of fibre-fermenting, adult-like taxa between the mid-first-year and 12-month timepoints."
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5338722/",
+      "doi": null,
+      "title": "Genome sequence and description of Anaeromassilibacillus senegalensis gen. nov., sp. nov., isolated from the gut of patient with kwashiorkor",
+      "study_population": "Stool of a 1-year-old Senegalese child (culturomics case)",
+      "relevance": "Documents that Anaeromassilibacillus is a strictly anaerobic, spore-forming gut bacterium recoverable from a 1-year-old child's gut, establishing plausibility of colonization by 12 months; does not compare ages."
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/pii/S132389302400042X",
+      "doi": null,
+      "title": "Gut microbiota of one-and-a-half-year-old food-allergic and healthy children",
+      "study_population": "18-month-old children (food-allergic vs. healthy), 16S rRNA profiling",
+      "relevance": "Shows Anaeromassilibacillus is detectable and can be a discriminating genus in the gut microbiota of children shortly after 12 months, i.e. present in the older-infant/toddler community; the contrast is disease status, not age."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "Anaeromassilibacillus infant gut microbiome",
+    "Anaeromassilibacillus abundance age infants",
+    "Anaeromassilibacillus weaning complementary feeding gut",
+    "\"Anaeromassilibacillus\" infant 12 months stool metagenomics",
+    "Anaeromassilibacillus sp. An250 gut microbiome children",
+    "Oscillospiraceae increase after weaning infant gut 12 months",
+    "Anaeromassilibacillus senegalensis human gut",
+    "Anaeromassilibacillus age-associated increase gut microbiota adults",
+    "Anaeromassilibacillus infant cohort metagenomic species maturation",
+    "Ruminococcaceae Oscillospiraceae relative abundance 6 vs 12 months infant longitudinal increase",
+    "Anaeromassilibacillus butyrate producer Oscillospiraceae function",
+    "\"Anaeromassilibacillus\" solid food introduction infant gut species",
+    "\"Anaeromassilibacillus\" toddler gut microbiome 1 year old abundance"
+  ],
+  "caveats": "All supporting evidence is indirect: no located study tests Anaeromassilibacillus abundance as a function of infant age or complementary feeding. Oscillospiraceae/Ruminococcaceae are large, heterogeneous families, so family-level increases do not guarantee that this specific unclassified genus follows the same trajectory. Much of the genus-level literature found concerns unrelated contexts (social anxiety disorder, food allergy, chicken caecum, kwashiorkor), and 16S-based studies frequently cannot resolve this recently described genus, so absence in older literature may reflect annotation/database limitations rather than true absence. Note also an Expression of Concern published on the original A. senegalensis species description. Direction should be treated as biologically plausible but unverified for this taxon."
+}

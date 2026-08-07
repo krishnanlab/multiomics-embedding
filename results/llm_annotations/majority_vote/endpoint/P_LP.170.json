@@ -1,0 +1,16 @@
+{
+  "feature_id": "P_LP.170",
+  "omics_type": "metabolite",
+  "group": "infant_12mo",
+  "hypothesis": "The unannotated lipid feature P_LP.170 (\"<none> Esi+6.430003\") is increased or characteristic in 12-month-old infants relative to 5-month-old infants.",
+  "confidence_score": 0,
+  "rationale": "This feature carries no chemical annotation: the name field is literally \"<none>\" followed by an instrument-derived label (\"Esi+6.430003\"), which encodes only the ionization mode (positive-mode electrospray) and an approximate chromatographic retention time (~6.43 min) from the study's own lipidomics run. There is no compound name, lipid class, formula, m/z, adduct, or external database identifier (no HMDB/LIPID MAPS/ChEBI/KEGG/PubChem ID) that could be matched to any published compound. Web searches on the literal identifier returned only generic ESI/lipidomics methodology pages and unrelated documents, with no hit corresponding to this feature; searches on the biological context returned infant gut metabolome/lipidome maturation papers that concern named lipids and cannot be mapped to an anonymous feature. Because the feature identity is unknown, no published study can be said to report this specific feature in association with 12-month-old versus 5-month-old infants, in either direction. Per the rubric this is a genuine 'no relevant literature located' situation rather than weak or theoretical support: even generic pathway-level reasoning is impossible without knowing which lipid species the feature represents. Note that a defensible-sounding argument could be constructed that many lipid species shift with the transition from milk-dominant to family-food diets across 5-12 months, but applying that to an unidentified feature would be pure speculation and would not constitute evidence for this feature; therefore the score is 0 and no mechanism is proposed. To make this feature evaluable, the investigators would need to supply at minimum accurate m/z, adduct, and MS/MS-based putative annotation (or a database ID), after which a targeted literature assessment of that specific lipid class in infant gut/plasma metabolome maturation would be feasible.",
+  "mechanism": null,
+  "evidence": [],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "\"Esi+6.430003\" lipid feature",
+    "unannotated lipid feature infant gut metabolome 12 months"
+  ],
+  "caveats": "The feature is chemically unidentified (annotation is '<none>'), so literature-based confidence assessment is impossible in principle, not merely unsuccessful. The identifier component 'Esi+6.430003' is a study-internal positive-mode ESI retention-time tag and is not searchable in any public chemical or literature database. A score of 0 reflects absence of feature-specific evidence and should not be read as evidence against the hypothesis; the hypothesis is untestable from the literature until the feature is annotated. If the investigators later resolve this feature to a named lipid (e.g., a specific phosphatidylcholine, sphingomyelin, triacylglycerol, or acylcarnitine), the assessment should be re-run, since directional evidence for many named lipid classes across the 5-to-12-month complementary-feeding window does exist."
+}

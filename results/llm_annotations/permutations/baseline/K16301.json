@@ -1,0 +1,50 @@
+{
+  "feature_id": "K16301",
+  "omics_type": "microbiome",
+  "group": "infant_5mo",
+  "hypothesis": "The KEGG ortholog K16301 (deferrochelatase/peroxidase EfeB) is increased or characteristic of the gut metagenome of 5-month-old infants relative to 12-month-old infants.",
+  "confidence_score": 1,
+  "rationale": "Multiple targeted searches (feature name, KEGG ID K16301, and infant/weaning/age keywords) returned no primary study - human or animal - that reports EfeB / K16301 abundance as differing between early infancy (~4-6 months) and the end of the first year (~12 months), nor any study reporting EfeB in a complementary-feeding/weaning context. The only literature retrieved that is specific to this feature is bacterial physiology/biochemistry work on the EfeUOB (efeUOB/ycdNOB) ferrous-iron/heme utilization system in Escherichia coli, Shigella and Salmonella, which establishes that this gene is characteristically carried by Enterobacteriaceae and functions in iron acquisition and peroxidase/deferrochelatase chemistry under low-pH, iron-limited conditions. From that, a plausible but purely inferential argument can be made in the hypothesized direction: gene families restricted largely to Enterobacteriaceae tend to be relatively more prominent in the younger, less mature, more facultative-anaerobe-rich infant gut than after the shift to solid foods and obligate-anaerobe dominance. However, I did not locate any study that measured this ortholog (or the efeUOB operon) across infant age or feeding transitions, and I did not verify a quantitative Enterobacteriaceae 5-vs-12-month decline in any primary source retrieved in this session. This is therefore generic pathway/taxon-level reasoning rather than direct evidence, which maps to a score of 1 (not 0, since relevant mechanistic literature on the feature was found; not -1, since nothing found points the opposite way).",
+  "mechanism": null,
+  "evidence": [
+    {
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8865473/",
+      "doi": null,
+      "title": "Iron Transport and Metabolism in Escherichia, Shigella, and Salmonella",
+      "study_population": "Bacterial physiology/genetics review of Enterobacteriaceae (in vitro, non-human)",
+      "relevance": "Establishes that EfeB is part of the EfeUOB ferrous-iron/heme utilization system encoded chiefly by Enterobacteriaceae, giving the taxonomic anchor for the indirect inference that K16301 tracks Enterobacteriaceae abundance; provides no data on infant age or feeding stage."
+    },
+    {
+      "url": "https://www.pnas.org/doi/pdf/10.1073/pnas.0903842106",
+      "doi": "10.1073/pnas.0903842106",
+      "title": "Bacteria capture iron from heme by keeping tetrapyrrol skeleton intact",
+      "study_population": "In vitro bacterial biochemistry (deferrochelatase/peroxidase activity)",
+      "relevance": "Supports the functional annotation of EfeB-type deferrochelatase/peroxidase activity in bacterial iron acquisition from heme; mechanistic only, with no infant gut or age-related measurements."
+    },
+    {
+      "url": "https://www.sciencedirect.com/science/article/pii/S2666379121002512",
+      "doi": null,
+      "title": "Infant gut strain persistence is associated with maternal origin, phylogeny, and traits including surface adhesion and iron acquisition",
+      "study_population": "Human infants (mother-infant metagenomic cohort, strain-level analysis)",
+      "relevance": "Indicates that iron-acquisition gene content is a relevant, age-dynamic trait among infant gut strains, offering weak contextual support that iron-uptake functions such as EfeB matter in early-life colonization; it does not test K16301 or the 5- vs 12-month contrast."
+    }
+  ],
+  "contradicting_evidence": null,
+  "search_queries_used": [
+    "EfeB deferrochelatase peroxidase infant gut microbiome",
+    "K16301 EfeB KEGG infant gut metagenome age",
+    "iron acquisition genes infant gut microbiome age Enterobacteriaceae",
+    "infant gut microbiome iron transport pathway enrichment early infancy versus 12 months",
+    "Backhed dynamics and stabilization of the human gut microbiome first year of life functional genes 4 months 12 months",
+    "infant gut metagenome 6 months vs 12 months KEGG orthologs iron metabolism enriched",
+    "EfeUOB efeB iron uptake Escherichia coli Shigella heme peroxidase function",
+    "breastfed infant gut microbiome enriched iron acquisition siderophore genes weaning decline",
+    "infant gut microbiome 4 months enriched genes iron uptake ABC transporters 12 months enriched carbohydrate degradation metagenome",
+    "Enterobacteriaceae Escherichia coli relative abundance decreases 6 to 12 months infant gut",
+    "peroxidase catalase oxidative stress genes infant gut microbiome early infancy facultative anaerobes",
+    "heme iron utilization gut microbiome infant weaning solid foods iron fortified cereal Escherichia",
+    "\"Adaptation of the infant gut microbiome during the complementary feeding transition\" functional pathways iron",
+    "infant gut microbiome maturation metagenomic functional shift Enterobacteriaceae iron uptake genes decline first year"
+  ],
+  "caveats": "Evidence is entirely indirect: no retrieved study quantified K16301/efeB across infant age or feeding stage, so the directional call rests on the assumption that this ortholog behaves as an Enterobacteriaceae marker and that Enterobacteriaceae decline between 5 and 12 months - an assumption I could not confirm quantitatively in a primary source during this session. KEGG orthologs can also be assigned to homologous Dyp-type peroxidases outside Enterobacteriaceae, so taxonomic attribution of K16301 in shotgun data may be imperfect; iron fortification of complementary foods after ~6 months can conversely favour Enterobacteriaceae, which could blunt or reverse an expected 5>12-month difference. A final batch of confirmatory queries could not be completed because the search-tool use limit was reached, so absence of direct evidence should be treated as provisional."
+}
