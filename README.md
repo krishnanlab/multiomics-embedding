@@ -35,12 +35,13 @@ Run `bash scripts/<name>.sh --help` for details.
 ## Repository Organization 
 
 ```
-├── data/            # raw and processed data
-├── notebooks/       # exploratory analysis 
-├── src/             # main code
-├── results/         # all results for top performing embedding spaces
-├── run/             # shell scripts to call run code
-├── environment.yml  # conda environment
+├── data/                          # raw and processed data
+├── notebooks/                     # exploratory analysis 
+├── src/                           # main code
+├── post_prioritization_analyses/  # all post-embedding space analyses
+├── results/                       # all results for top performing embedding spaces
+├── run/                           # shell scripts to call run code
+├── environment.yml                # conda environment
 
 ```
 In this repository we only include data and results for our top performing embedding spaces which were used in the paper. The performance of other embedding spaces can be seen in our [public wandb project](https://wandb.ai/keenan-manpearl/multiomics_embedding). Variation of all models is explored in [src/2024-12-13_model_variance.ipynb](https://github.com/krishnanlab/multiomics-embedding/blob/main/src/2024-12-13_model_variance.ipynb)
