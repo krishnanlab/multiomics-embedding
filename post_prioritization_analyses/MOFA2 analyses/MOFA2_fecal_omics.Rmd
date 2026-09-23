@@ -1,0 +1,4369 @@
+---
+title: "MOFA2_fecal_omics"
+author: "Adelle Price"
+date: "2026-05-25"
+output: html_document
+---
+
+```{r}
+library(data.table)
+library(MOFA2)
+library(tidyverse)
+library(dplyr)
+library(ggpubr)
+library(matrixStats)
+library(patchwork)
+library(ggrepel)
+library(pheatmap)
+```
+
+
+
+```{r}
+
+set.seed(21)
+
+# -----------------------------
+# 1. Read data
+# -----------------------------
+
+metab <- read.csv("C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Data/metabolite_data_for_differential_abundance.csv")
+micro <- read.csv("C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Data/microbiome_data_for_differential_abundance.csv")
+
+
+metab$sample_ID <- metab$Vial.ID
+micro$sample_ID <- micro$ID
+
+
+# Matching diagnostics
+id_diagnostics <- tibble(
+  metric = c(
+    "Metabolomics observations",
+    "Microbiome observations",
+    "Matched observations",
+    "Metabolomics-only observations",
+    "Microbiome-only observations"
+  ),
+  n = c(
+    n_distinct(metab$sample_ID),
+    n_distinct(micro$sample_ID),
+    length(intersect(metab$sample_ID, micro$sample_ID)),
+    length(setdiff(metab$sample_ID, micro$sample_ID)),
+    length(setdiff(micro$sample_ID, metab$sample_ID))
+  )
+)
+
+print(id_diagnostics)
+
+```
+
+
+
+```{r}
+
+#Comparing Base and End
+
+
+# -----------------------------
+# 2. Keep Base and End only
+# -----------------------------
+
+metab <- metab %>%
+  filter(Time %in% c("Base", "End"))
+
+micro <- micro %>%
+  filter(Time %in% c("Base", "End"))
+
+# -----------------------------
+# 3. Define feature columns
+# -----------------------------
+
+metab_feature_cols <- colnames(metab[,11:8877])
+micro_feature_cols <- colnames(micro[,2:17035])
+
+# -----------------------------
+# 4. Build sample metadata
+# -----------------------------
+
+metab_meta <- metab %>%
+  transmute(
+    sample = paste0(as.character(sample_ID), "_", Time),
+    ID = as.character(sample_ID),
+    Group = as.character(Group),
+    Time = as.character(Time)
+  )
+
+micro_meta <- micro %>%
+  transmute(
+    sample = paste0(as.character(sample_ID), "_", Time),
+    ID = as.character(sample_ID),
+    Group = as.character(Group),
+    Time = as.character(Time)
+  )
+
+sample_metadata <- bind_rows(metab_meta, micro_meta) %>%
+  distinct(sample, .keep_all = TRUE)
+
+```
+
+
+```{r}
+
+# -----------------------------
+# 5. Convert metabolomics to matrix
+# -----------------------------
+
+metab_mat <- metab %>%
+  mutate(sample = paste0(as.character(sample_ID), "_", Time)) %>%
+  select(sample, all_of(metab_feature_cols)) %>%
+  mutate(across(all_of(metab_feature_cols), ~ as.numeric(.))) %>%
+  mutate(across(all_of(metab_feature_cols), ~ replace_na(., 0)))
+
+metab_sample_names <- metab_mat$sample
+
+metab_mat <- metab_mat %>%
+  select(-sample) %>%
+  as.matrix()
+
+storage.mode(metab_mat) <- "double"
+
+# Keep zeros as true zeros 
+positive_idx <- !is.na(metab_mat) & metab_mat > 0
+metab_mat[positive_idx] <- log2(metab_mat[positive_idx])
+
+rownames(metab_mat) <- metab_sample_names
+metab_view <- t(metab_mat)
+
+```
+
+
+
+
+```{r}
+
+# -----------------------------
+# 6. Convert microbiome to matrix
+# -----------------------------
+
+micro_mat <- micro %>%
+  mutate(sample = paste0(as.character(sample_ID), "_", Time)) %>%
+  select(sample, all_of(micro_feature_cols)) %>%
+  mutate(across(all_of(micro_feature_cols), ~ as.numeric(.))) %>%
+  mutate(across(all_of(micro_feature_cols), ~ replace_na(., 0)))
+
+# Save sample names before converting to a matrix
+micro_sample_names <- micro_mat$sample
+
+micro_mat <- micro_mat %>%
+  select(-sample) %>%
+  as.matrix()
+
+storage.mode(micro_mat) <- "double"
+rownames(micro_mat) <- micro_sample_names
+
+# CLR transform using a fixed pseudocount for zero values
+clr_transform <- function(x) {
+  x[!is.finite(x)] <- NA_real_
+
+  if (all(is.na(x))) {
+    return(rep(NA_real_, length(x)))
+  }
+
+  # Replace observed zeros only; NA values remain NA
+  x[x == 0 & !is.na(x)] <- 1e-6
+
+  # Log-transform values
+  lx <- log(x)
+
+  # Center the logged values within the sample
+  clr_values <- lx - mean(lx, na.rm = TRUE)
+
+  return(clr_values)
+}
+
+micro_clr <- t(apply(micro_mat, 1, clr_transform))
+
+# Restore feature and sample names
+colnames(micro_clr) <- colnames(micro_mat)
+rownames(micro_clr) <- rownames(micro_mat)
+
+# MOFA expects features in rows and samples in columns
+micro_view <- t(micro_clr)
+
+
+```
+
+
+
+
+```{r}
+# 6. Align both views to the same sample universe ------------------------------
+
+sample_ids_unique <- unique(append(rownames(metab_mat), rownames(micro_mat)))
+sample_ids_unique_ordered <- sample_ids_unique[order(sample_ids_unique)]
+
+
+align_view <- function(view_matrix, sample_ids) {
+  aligned <- matrix(
+    NA_real_,
+    nrow = nrow(view_matrix),
+    ncol = length(sample_ids),
+    dimnames = list(rownames(view_matrix), sample_ids)
+  )
+
+  shared <- intersect(colnames(view_matrix), sample_ids)
+  aligned[, shared] <- view_matrix[, shared, drop = FALSE]
+  aligned
+}
+
+metab_view_filled <- align_view(metab_view, sample_ids_unique_ordered)
+micro_view_filled <- align_view(micro_view, sample_ids_unique_ordered)
+
+mofa_data <- list(
+  Metabolomics = metab_view_filled,
+  Microbiome = micro_view_filled
+)
+
+stopifnot(
+  identical(colnames(mofa_data$Metabolomics), sample_ids_unique_ordered),
+  identical(colnames(mofa_data$Microbiome), sample_ids_unique_ordered)
+)
+
+#align the metadata as well
+sample_metadata <- sample_metadata %>%
+  filter(sample %in% sample_ids_unique_ordered) %>%
+  arrange(match(sample, sample_ids_unique_ordered))
+
+
+
+```
+
+
+```{r}
+
+
+
+
+hist(
+  colMeans(is.na(mofa_data$Metabolomics)),
+  main = "Metabolomics missing fraction per sample",
+  xlab = "Missing fraction"
+)
+
+hist(
+  colMeans(is.na(mofa_data$Microbiome)),
+  main = "Microbiome missing fraction per sample",
+  xlab = "Missing fraction"
+)
+
+plot(
+  density(as.numeric(mofa_data$Metabolomics), na.rm = TRUE),
+  main = "Log2 metabolomics value distribution",
+  xlab = "Log2 intensity"
+)
+
+plot(
+  density(as.numeric(mofa_data$Microbiome), na.rm = TRUE),
+  main = "CLR microbiome value distribution",
+  xlab = "CLR abundance"
+)
+
+
+```
+
+```{r}
+
+# 8. Create and train MOFA2 model ---------------------------------------------
+
+MOFAobject <- create_mofa(mofa_data)
+
+# Add metadata for plotting after training.
+samples_metadata(MOFAobject) <- sample_metadata %>%
+  arrange(match(sample, samples_names(MOFAobject))) %>%
+  as.data.frame()
+
+plot_data_overview(MOFAobject)
+
+model_opts <- get_default_model_options(MOFAobject)
+model_opts$num_factors <- 10
+
+
+MOFAobject <- prepare_mofa(MOFAobject, model_options = model_opts)
+
+
+```
+
+
+```{r}
+
+MOFAmodel <- run_mofa(
+  MOFAobject,
+  outfile = "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_base_end_groups.hdf5",
+  use_basilisk = TRUE
+)
+
+saveRDS(
+  MOFAmodel,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_base_end_groups.rds"
+)
+
+```
+
+```{r}
+# 9. Basic model diagnostics ---------------------------------------------------
+
+print(MOFAmodel)
+variance_explained <- get_variance_explained(MOFAmodel)
+
+plot_variance_explained(
+  MOFAmodel,
+  x = "view",
+  y = "factor"
+)
+
+# write.csv(
+#   variance_explained$r2_per_factor,
+#   "variance_explained_per_factor.csv",
+#   row.names = FALSE
+# )
+# 
+# write.csv(
+#   variance_explained$r2_total,
+#   "variance_explained_total.csv",
+#   row.names = FALSE
+# )
+plot_variance_explained(MOFAmodel, plot_total = T)[[2]]
+
+
+
+r2 <- MOFAmodel@cache$variance_explained$r2_per_factor[[1]]
+
+r2.dt <- r2 %>%
+  as.data.table %>% .[,factor:=as.factor(1:MOFAmodel@dimensions$K)] %>%
+  melt(id.vars=c("factor"), variable.name="view", value.name = "r2") %>%
+  .[,cum_r2:=cumsum(r2), by="view"]
+
+ggline(r2.dt, x="factor", y="cum_r2", color="view") +
+  labs(x="Factor number", y="Cumulative variance explained (%)") +
+  theme(
+    legend.title = element_blank(), 
+    legend.position = "top",
+    axis.text = element_text(size=rel(0.8))
+  )
+
+```
+```{r}
+# 10. Extract factor scores and test associations ------------------------------
+
+factor_scores <- get_factors(
+  MOFAmodel,
+  factors = "all",
+  as.data.frame = TRUE
+) %>%
+  left_join(sample_metadata, by = "sample")
+
+#write.csv(factor_scores, "factor_scores_with_metadata.csv", row.names = FALSE)
+
+factor_names <- unique(factor_scores$factor)
+
+
+
+# Repeated-measures association screen:
+# factor score ~ treatment + time + treatment-by-time + subject random intercept
+for (pkg in c("lmerTest", "broom.mixed")) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    install.packages(pkg)
+  }
+}
+library(lmerTest)
+
+factor_associations <- map_dfr(factor_names, function(fac) {
+  dat <- factor_scores %>%
+    filter(factor == fac, !is.na(value), !is.na(Group), !is.na(Time))
+
+  if (nrow(dat) < 10 || n_distinct(dat$ID) < 5) {
+    return(tibble())
+  }
+
+  fit <- lmer(
+    value ~ Group * Time + (1 | ID),
+    data = dat,
+    REML = FALSE
+  )
+
+  broom.mixed::tidy(fit, effects = "fixed") %>%
+    mutate(factor = fac, .before = 1)
+})
+
+
+
+factor_associations <- factor_associations %>%
+  mutate(
+    p_adjusted_global = p.adjust(p.value, method = "fdr")
+  )
+
+#write.csv(
+#   factor_associations,
+#   "factor_associations_group_time.csv",
+#   row.names = FALSE
+# )
+
+# Visualize each factor by treatment and time.
+#pdf("03_factor_scores_by_group_time.pdf", width = 9, height = 6)
+
+for (fac in factor_names) {
+  p <- factor_scores %>%
+    filter(factor == fac) %>%
+    ggplot(
+      aes(
+        x = Time,
+        y = value,
+        color = Group,
+        group = interaction(ID, Group)
+      )
+    ) +
+    geom_line(alpha = 0.25) +
+    geom_point(alpha = 0.75) +
+    stat_summary(
+      aes(group = Group),
+      fun = mean,
+      geom = "line",
+      linewidth = 1.2
+    ) +
+    stat_summary(
+      aes(group = Group),
+      fun = mean,
+      geom = "point",
+      size = 3
+    ) +
+    theme_bw() +
+    labs(
+      title = paste(fac, "scores"),
+      x = NULL,
+      y = "MOFA factor score"
+    )
+
+  print(p)
+}
+
+plot_weights_fn <- function(mofa, factor=1, view=1, nfeatures=10) {
+  p1 <- plot_weights(mofa, 
+    factors = factor, 
+    view = view,
+    nfeatures = nfeatures,
+    text_size = 4
+  )
+  
+  p2 <- plot_top_weights(mofa, 
+    factors = factor, 
+    view = view,
+    nfeatures = nfeatures
+  )
+  
+  p <- cowplot::plot_grid(plotlist=list(p1,p2), nrow=1)
+  return(p)
+}
+
+
+
+
+plot_weights_fn(MOFAmodel, factor=1, view="Microbiome", nfeatures=20)
+plot_weights_fn(MOFAmodel, factor=1, view="Metabolomics", nfeatures=20)
+
+
+
+
+
+p <- plot_factors(MOFAmodel, 
+  factors = c(1,2), 
+  color_by = "Time", 
+  dot_size = 4
+) + scale_fill_manual(values=c('green', 'purple'))
+p + 
+  # geom_density_2d(aes_string(color="color_by")) +
+  stat_ellipse(aes(color=color_by), geom = "polygon", alpha=0.25) +
+  scale_color_manual(values=c('green', 'purple'))
+
+
+plot_factor(MOFAmodel, 
+  factor = 1, 
+  color_by = "Time", 
+  dot_size = 4,
+  dodge = TRUE,
+  stroke = 0.4,
+  add_violin = T,
+  add_boxplot = T
+) +
+  scale_fill_manual(values=c('green', 'purple')) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+plot_factor(MOFAmodel, 
+  factor = 2, 
+  color_by = "Time", 
+  dot_size = 4,
+  dodge = TRUE,
+  stroke = 0.4,
+  add_violin = T,
+  add_boxplot = T
+) +
+  scale_fill_manual(values=c('green', 'purple')) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+
+
+
+p <- plot_factors(MOFAmodel,
+  factors = c(1,5),
+  color_by = "Group",
+  dot_size = 4
+) + scale_fill_manual(values=c('orange', 'blue'))
+p +
+  # geom_density_2d(aes_string(color="color_by")) +
+  stat_ellipse(aes(color=color_by), geom = "polygon", alpha=0.25) +
+  scale_color_manual(values=c('orange', 'blue'))
+
+
+plot_factor(MOFAmodel,
+  factor = 1,
+  color_by = "Group",
+  dot_size = 4,
+  dodge = TRUE,
+  stroke = 0.4,
+  add_violin = T,
+  add_boxplot = T
+) +
+  scale_fill_manual(values=c('orange', 'blue')) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+
+
+plot_factor(MOFAmodel,
+  factor = 2,
+  color_by = "Group",
+  dot_size = 4,
+  dodge = TRUE,
+  stroke = 0.4,
+  add_violin = T,
+  add_boxplot = T
+) +
+  scale_fill_manual(values=c('orange', 'blue')) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+
+#dev.off()
+
+```
+
+
+
+```{r}
+
+# 11. Extract feature weights --------------------------------------------------
+
+weights <- get_weights(
+  MOFAmodel,
+  views = "all",
+  factors = "all",
+  as.data.frame = TRUE
+) %>%
+  mutate(abs_weight = abs(value))
+
+#write.csv(weights, "all_feature_weights.csv", row.names = FALSE)
+
+top_weights <- weights %>%
+  group_by(view, factor) %>%
+  slice_max(abs_weight, n = 20, with_ties = FALSE) %>%
+  arrange(view, factor, desc(abs_weight)) %>%
+  ungroup()
+
+# write.csv(
+#   top_weights,
+#   "top_20_feature_weights_per_view_factor.csv",
+#   row.names = FALSE
+# )
+
+# Built-in weight plots for each factor and view.
+#pdf("04_top_feature_weights.pdf", width = 10, height = 7)
+
+for (fac in factor_names) {
+  for (vw in views_names(MOFAmodel)) {
+    print(
+      plot_weights(
+        MOFAmodel,
+        view = vw,
+        factor = fac,
+        nfeatures = 20,
+        scale = TRUE
+      ) +
+        ggtitle(paste(fac, "-", vw))
+    )
+  }
+}
+
+#dev.off()
+
+
+
+```
+
+```{r}
+library(dplyr)
+library(purrr)
+library(ggplot2)
+library(lmerTest)
+library(emmeans)
+library(broom.mixed)
+
+############################################################
+# Settings
+############################################################
+
+time_levels <- c("Base", "End")
+
+############################################################
+# 1. Fit mixed models and extract all results
+############################################################
+
+time_plot_results <- map(
+  unique(factor_scores$factor),
+  function(fac) {
+
+    dat <- factor_scores %>%
+      filter(
+        factor == fac,
+        !is.na(value),
+        !is.na(Time),
+        !is.na(Group),
+        !is.na(ID)
+      ) %>%
+      mutate(
+        Time = factor(
+          Time,
+          levels = time_levels
+        ),
+        Group = factor(Group),
+        ID = factor(ID)
+      )
+
+    if (
+      nrow(dat) < 10 ||
+      n_distinct(dat$ID) < 5 ||
+      n_distinct(dat$Time) < 2 ||
+      n_distinct(dat$Group) < 2
+    ) {
+      return(NULL)
+    }
+
+    ##########################################################
+    # Repeated-measures mixed model
+    ##########################################################
+
+    fit <- lmer(
+      value ~ Group * Time + (1 | ID),
+      data = dat,
+      REML = FALSE
+    )
+
+    ##########################################################
+    # Fixed effects directly from model
+    ##########################################################
+
+    fixed_results <- broom.mixed::tidy(
+      fit,
+      effects = "fixed"
+    ) %>%
+      transmute(
+        factor = fac,
+        effect = "fixed",
+        term,
+        estimate,
+        std.error,
+        statistic,
+        df,
+        p.value
+      )
+
+    ##########################################################
+    # Random effects directly from model
+    ##########################################################
+
+    random_results <- broom.mixed::tidy(
+      fit,
+      effects = "ran_pars"
+    ) %>%
+      transmute(
+        factor = fac,
+        effect = "random",
+        term = paste0(
+          group,
+          ": ",
+          term
+        ),
+        estimate,
+        std.error = NA_real_,
+        statistic = NA_real_,
+        df = NA_real_,
+        p.value = NA_real_
+      )
+
+    ##########################################################
+    # Marginal means for Time
+    #
+    # Averaged equally across diet group
+    ##########################################################
+
+    time_emmeans <- emmeans(
+      fit,
+      specs = ~ Time,
+      weights = "equal"
+    )
+
+    time_means <- as.data.frame(
+      summary(
+        time_emmeans,
+        infer = c(TRUE, FALSE),
+        level = 0.95
+      )
+    ) %>%
+      transmute(
+        factor = fac,
+        Time,
+        mean_factor_score = emmean,
+        standard_error = SE,
+        degrees_freedom = df,
+        ci_lower = lower.CL,
+        ci_upper = upper.CL
+      )
+
+    ##########################################################
+    # Overall End vs Base marginal contrast
+    #
+    # Averaged across diet groups
+    ##########################################################
+
+    time_test <- as.data.frame(
+      summary(
+        contrast(
+          time_emmeans,
+          method = list(
+            "End - Base" = c(-1, 1)
+          )
+        ),
+        infer = TRUE,
+        adjust = "none"
+      )
+    ) %>%
+      transmute(
+        factor = fac,
+        contrast,
+        estimate,
+        standard_error = SE,
+        degrees_freedom = df,
+        t_ratio = t.ratio,
+        p_value = p.value
+      )
+
+    ##########################################################
+    # Group x Time marginal means
+    #
+    # Gives:
+    # Dairy Base
+    # Dairy End
+    # Meat Base
+    # Meat End
+    ##########################################################
+
+    interaction_emmeans <- emmeans(
+      fit,
+      specs = ~ Group * Time
+    )
+
+    interaction_means <- as.data.frame(
+      summary(
+        interaction_emmeans,
+        infer = c(TRUE, FALSE),
+        level = 0.95
+      )
+    ) %>%
+      transmute(
+        factor = fac,
+        Group,
+        Time,
+        mean_factor_score = emmean,
+        standard_error = SE,
+        degrees_freedom = df,
+        ci_lower = lower.CL,
+        ci_upper = upper.CL
+      )
+
+    ##########################################################
+    # End vs Base within each diet group
+    #
+    # These are the p-values that will be attached to
+    # the Group x Time marginal means table.
+    ##########################################################
+
+    time_by_group_emmeans <- emmeans(
+      fit,
+      specs = ~ Time | Group
+    )
+
+    within_group_time_contrasts <- as.data.frame(
+      summary(
+        contrast(
+          time_by_group_emmeans,
+          method = list(
+            "End - Base" = c(-1, 1)
+          )
+        ),
+        infer = TRUE,
+        adjust = "none"
+      )
+    ) %>%
+      transmute(
+        factor = fac,
+        Group,
+        contrast,
+        estimate,
+        standard_error = SE,
+        degrees_freedom = df,
+        t_ratio = t.ratio,
+        p_value = p.value
+      )
+
+    ##########################################################
+    # Formal Group x Time interaction test
+    #
+    # Difference in change over time:
+    # Meat vs Dairy
+    ##########################################################
+
+    interaction_test <- as.data.frame(
+      summary(
+        contrast(
+          interaction_emmeans,
+          interaction = c(
+            "pairwise",
+            "pairwise"
+          ),
+          adjust = "none"
+        ),
+        infer = TRUE
+      )
+    ) %>%
+      transmute(
+        factor = fac,
+        Group_contrast = Group_pairwise,
+        Time_contrast = Time_pairwise,
+        estimate,
+        standard_error = SE,
+        degrees_freedom = df,
+        t_ratio = t.ratio,
+        p_value = p.value
+      )
+
+    ##########################################################
+    # Return all results for this factor
+    ##########################################################
+
+    list(
+      model_results = bind_rows(
+        fixed_results,
+        random_results
+      ),
+      time_means = time_means,
+      time_test = time_test,
+      interaction_means = interaction_means,
+      within_group_time_contrasts =
+        within_group_time_contrasts,
+      interaction_test = interaction_test
+    )
+  }
+)
+
+############################################################
+# 2. Combine direct model results across factors
+############################################################
+
+all_model_results <- time_plot_results %>%
+  compact() %>%
+  map_dfr("model_results")
+
+############################################################
+# 3. Global BH/FDR correction across all fixed-effect tests
+############################################################
+
+fixed_index <- all_model_results$effect == "fixed"
+
+all_model_results$p_adjusted_global <- NA_real_
+
+all_model_results$p_adjusted_global[
+  fixed_index
+] <- p.adjust(
+  all_model_results$p.value[
+    fixed_index
+  ],
+  method = "BH"
+)
+
+all_model_results <- all_model_results %>%
+  arrange(
+    p_adjusted_global,
+    p.value
+  )
+
+############################################################
+# 4. Combine overall Time marginal means
+############################################################
+
+time_mean_plot_data <- time_plot_results %>%
+  compact() %>%
+  map_dfr("time_means")
+
+############################################################
+# 5. Combine overall End vs Base marginal tests
+############################################################
+
+time_association_tests <- time_plot_results %>%
+  compact() %>%
+  map_dfr("time_test") %>%
+  mutate(
+    adjusted_p_value = p.adjust(
+      p_value,
+      method = "BH"
+    ),
+    significance = case_when(
+      adjusted_p_value < 0.001 ~ "***",
+      adjusted_p_value < 0.01  ~ "**",
+      adjusted_p_value < 0.05  ~ "*",
+      adjusted_p_value < 0.10  ~ ".",
+      TRUE                     ~ ""
+    )
+  )
+
+############################################################
+# 6. Attach overall Time p-values to Time marginal means
+############################################################
+
+time_mean_plot_data <- time_mean_plot_data %>%
+  left_join(
+    time_association_tests %>%
+      select(
+        factor,
+        p_value,
+        adjusted_p_value,
+        significance
+      ),
+    by = "factor"
+  )
+
+############################################################
+# 7. Combine Group x Time marginal means
+############################################################
+
+all_interaction_means <- time_plot_results %>%
+  compact() %>%
+  map_dfr("interaction_means")
+
+############################################################
+# 8. Combine within-group End vs Base contrasts
+############################################################
+
+all_within_group_time_contrasts <- time_plot_results %>%
+  compact() %>%
+  map_dfr("within_group_time_contrasts")
+
+############################################################
+# 9. BH/FDR correction for within-group time contrasts
+#
+# Correction is performed across all Factor x Group
+# End-vs-Base tests.
+############################################################
+
+all_within_group_time_contrasts <-
+  all_within_group_time_contrasts %>%
+  mutate(
+    adjusted_p_value = p.adjust(
+      p_value,
+      method = "BH"
+    ),
+    significance = case_when(
+      adjusted_p_value < 0.001 ~ "***",
+      adjusted_p_value < 0.01  ~ "**",
+      adjusted_p_value < 0.05  ~ "*",
+      adjusted_p_value < 0.10  ~ ".",
+      TRUE                     ~ ""
+    )
+  )
+
+############################################################
+# 10. Create diet x time marginal means results table
+#
+# Each Base/End row receives the p-value for the
+# End-vs-Base contrast within that diet group.
+############################################################
+
+diet_time_marginal_means <- all_interaction_means %>%
+  left_join(
+    all_within_group_time_contrasts %>%
+      select(
+        factor,
+        Group,
+        p_value,
+        adjusted_p_value,
+        significance
+      ),
+    by = c(
+      "factor",
+      "Group"
+    )
+  ) %>%
+  select(
+    factor,
+    Group,
+    Time,
+    mean_factor_score,
+    standard_error,
+    degrees_freedom,
+    ci_lower,
+    ci_upper,
+    p_value,
+    adjusted_p_value,
+    significance
+  )
+
+############################################################
+# 11. Combine formal Group x Time interaction tests
+############################################################
+
+all_interaction_tests <- time_plot_results %>%
+  compact() %>%
+  map_dfr("interaction_test") %>%
+  mutate(
+    adjusted_p_value = p.adjust(
+      p_value,
+      method = "BH"
+    ),
+    significance = case_when(
+      adjusted_p_value < 0.001 ~ "***",
+      adjusted_p_value < 0.01  ~ "**",
+      adjusted_p_value < 0.05  ~ "*",
+      adjusted_p_value < 0.10  ~ ".",
+      TRUE                     ~ ""
+    )
+  )
+
+############################################################
+# 12. Create one annotation per factor for overall Time plot
+############################################################
+
+time_annotations <- time_mean_plot_data %>%
+  group_by(factor) %>%
+  summarise(
+    max_ci = max(
+      ci_upper,
+      na.rm = TRUE
+    ),
+    min_ci = min(
+      ci_lower,
+      na.rm = TRUE
+    ),
+    p_value = first(p_value),
+    adjusted_p_value = first(adjusted_p_value),
+    significance = first(significance),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    factor_range = max_ci - min_ci,
+
+    factor_range = if_else(
+      is.finite(factor_range) &
+        factor_range > 0,
+      factor_range,
+      1
+    ),
+
+    annotation_y =
+      max_ci + 0.15 * factor_range,
+
+    annotation_label = significance
+  )
+
+############################################################
+# 13. Order factors numerically
+############################################################
+
+factor_levels <- time_mean_plot_data %>%
+  distinct(factor) %>%
+  mutate(
+    factor_number = as.numeric(
+      gsub(
+        "[^0-9]",
+        "",
+        as.character(factor)
+      )
+    )
+  ) %>%
+  arrange(factor_number) %>%
+  pull(factor) %>%
+  as.character()
+
+time_mean_plot_data <- time_mean_plot_data %>%
+  mutate(
+    factor = factor(
+      as.character(factor),
+      levels = factor_levels
+    ),
+    Time = factor(
+      Time,
+      levels = time_levels
+    )
+  )
+
+time_annotations <- time_annotations %>%
+  mutate(
+    factor = factor(
+      as.character(factor),
+      levels = factor_levels
+    )
+  )
+
+diet_time_marginal_means <- diet_time_marginal_means %>%
+  mutate(
+    factor = factor(
+      as.character(factor),
+      levels = factor_levels
+    ),
+    Time = factor(
+      Time,
+      levels = time_levels
+    )
+  )
+
+############################################################
+# 14. Bar plot: overall Time marginal means and 95% CI
+############################################################
+
+factor_time_barplot <- ggplot(
+  time_mean_plot_data,
+  aes(
+    x = factor,
+    y = mean_factor_score,
+    fill = Time
+  )
+) +
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    linewidth = 0.4
+  ) +
+  geom_col(
+    position = position_dodge(width = 0.8),
+    width = 0.7,
+    color = "black",
+    linewidth = 0.25
+  ) +
+  geom_errorbar(
+    aes(
+      ymin = ci_lower,
+      ymax = ci_upper
+    ),
+    position = position_dodge(width = 0.8),
+    width = 0.18,
+    linewidth = 0.7
+  ) +
+  geom_text(
+    data = time_annotations,
+    aes(
+      x = factor,
+      y = annotation_y,
+      label = annotation_label
+    ),
+    inherit.aes = FALSE,
+    size = 3.5,
+    lineheight = 0.9
+  ) +
+  scale_fill_manual(
+    breaks = c(
+      "Base",
+      "End"
+    ),
+    values = c(
+      "Base" = "orange",
+      "End" = "blue"
+    ),
+    labels = c(
+      "Base" = "5-months-old",
+      "End" = "12-months-old"
+    )
+  ) +
+  scale_y_continuous(
+    expand = expansion(
+      mult = c(0.08, 0.22)
+    )
+  ) +
+  coord_cartesian(
+    clip = "off"
+  ) +
+  labs(
+    x = "MOFA factor",
+    y = "Mean factor score (95% CI)",
+    fill = "Age"
+  ) +
+  theme_classic(
+    base_size = 14
+  ) +
+  theme(
+    legend.position = "top",
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1
+    ),
+    plot.margin = margin(
+      t = 20,
+      r = 10,
+      b = 10,
+      l = 10
+    )
+  )
+
+factor_time_barplot
+
+############################################################
+# 15. Save direct mixed-model results
+############################################################
+
+write.csv(
+  all_model_results,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_mixed_model_results_all_effects.csv",
+  row.names = FALSE
+)
+
+############################################################
+# 16. Save overall Time marginal means
+#
+# Format:
+# factor
+# Time
+# mean_factor_score
+# standard_error
+# degrees_freedom
+# ci_lower
+# ci_upper
+# p_value
+# adjusted_p_value
+# significance
+############################################################
+
+write.csv(
+  time_mean_plot_data,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_time_estimated_marginal_means.csv",
+  row.names = FALSE
+)
+
+############################################################
+# 17. Save overall End vs Base tests
+############################################################
+
+write.csv(
+  time_association_tests,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_time_marginal_association_tests.csv",
+  row.names = FALSE
+)
+
+############################################################
+# 18. Save diet x time marginal means
+#
+# Format:
+# factor
+# Group
+# Time
+# mean_factor_score
+# standard_error
+# degrees_freedom
+# ci_lower
+# ci_upper
+# p_value
+# adjusted_p_value
+# significance
+#
+# p-values correspond to the End-vs-Base comparison
+# within each diet group.
+############################################################
+
+write.csv(
+  diet_time_marginal_means,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_diet_by_time_estimated_marginal_means.csv",
+  row.names = FALSE
+)
+
+############################################################
+# 19. Save End vs Base tests within each diet group
+############################################################
+
+write.csv(
+  all_within_group_time_contrasts,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_diet_specific_time_contrasts.csv",
+  row.names = FALSE
+)
+
+############################################################
+# 20. Save formal Group x Time interaction tests
+############################################################
+
+write.csv(
+  all_interaction_tests,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_Group_Time_interaction_tests.csv",
+  row.names = FALSE
+)
+
+############################################################
+# 21. View diet x time marginal means
+############################################################
+
+print(
+  diet_time_marginal_means
+)
+
+############################################################
+# 22. View formal interaction tests
+############################################################
+
+print(
+  all_interaction_tests
+)
+```
+
+
+
+```{r}
+
+library(dplyr)
+library(purrr)
+library(ggplot2)
+library(lmerTest)
+library(emmeans)
+library(broom.mixed)
+
+############################################################
+# Settings
+############################################################
+
+time_levels <- c("Base", "End")
+
+############################################################
+# 1. Fit mixed models and extract all results
+############################################################
+
+time_plot_results <- map(
+  unique(factor_scores$factor),
+  function(fac) {
+
+    dat <- factor_scores %>%
+      filter(
+        factor == fac,
+        !is.na(value),
+        !is.na(Time),
+        !is.na(Group),
+        !is.na(ID)
+      ) %>%
+      mutate(
+        Time = factor(
+          Time,
+          levels = time_levels
+        ),
+        Group = factor(Group),
+        ID = factor(ID)
+      )
+
+    if (
+      nrow(dat) < 10 ||
+      n_distinct(dat$ID) < 5 ||
+      n_distinct(dat$Time) < 2 ||
+      n_distinct(dat$Group) < 2
+    ) {
+      return(NULL)
+    }
+
+    ##########################################################
+    # Repeated-measures mixed model
+    ##########################################################
+
+    fit <- lmer(
+      value ~ Group * Time + (1 | ID),
+      data = dat,
+      REML = FALSE
+    )
+
+    ##########################################################
+    # Fixed effects directly from model
+    ##########################################################
+
+    fixed_results <- broom.mixed::tidy(
+      fit,
+      effects = "fixed"
+    ) %>%
+      transmute(
+        factor = fac,
+        effect = "fixed",
+        term,
+        estimate,
+        std.error,
+        statistic,
+        df,
+        p.value
+      )
+
+    ##########################################################
+    # Random effects directly from model
+    ##########################################################
+
+    random_results <- broom.mixed::tidy(
+      fit,
+      effects = "ran_pars"
+    ) %>%
+      transmute(
+        factor = fac,
+        effect = "random",
+        term = paste0(
+          group,
+          ": ",
+          term
+        ),
+        estimate,
+        std.error = NA_real_,
+        statistic = NA_real_,
+        df = NA_real_,
+        p.value = NA_real_
+      )
+
+    ##########################################################
+    # Marginal means for Time
+    #
+    # Averaged equally across diet group
+    ##########################################################
+
+    time_emmeans <- emmeans(
+      fit,
+      specs = ~ Time,
+      weights = "equal"
+    )
+
+    time_means <- as.data.frame(
+      summary(
+        time_emmeans,
+        infer = c(TRUE, FALSE),
+        level = 0.95
+      )
+    ) %>%
+      transmute(
+        factor = fac,
+        Time,
+        mean_factor_score = emmean,
+        standard_error = SE,
+        degrees_freedom = df,
+        ci_lower = lower.CL,
+        ci_upper = upper.CL
+      )
+
+    ##########################################################
+    # Overall End vs Base marginal contrast
+    #
+    # Averaged across diet groups
+    ##########################################################
+
+    time_test <- as.data.frame(
+      summary(
+        contrast(
+          time_emmeans,
+          method = list(
+            "End - Base" = c(-1, 1)
+          )
+        ),
+        infer = TRUE,
+        adjust = "none"
+      )
+    ) %>%
+      transmute(
+        factor = fac,
+        contrast,
+        estimate,
+        standard_error = SE,
+        degrees_freedom = df,
+        t_ratio = t.ratio,
+        p_value = p.value
+      )
+
+    ##########################################################
+    # Marginal means for each Group x Time combination
+    ##########################################################
+
+    interaction_emmeans <- emmeans(
+      fit,
+      specs = ~ Group * Time
+    )
+
+    interaction_means <- as.data.frame(
+      summary(
+        interaction_emmeans,
+        infer = c(TRUE, FALSE),
+        level = 0.95
+      )
+    ) %>%
+      transmute(
+        factor = fac,
+        Group,
+        Time,
+        mean_factor_score = emmean,
+        standard_error = SE,
+        degrees_freedom = df,
+        ci_lower = lower.CL,
+        ci_upper = upper.CL
+      )
+
+    ##########################################################
+    # Time contrast within each diet group
+    #
+    # End - Base separately for Dairy and Meat
+    ##########################################################
+
+    time_by_group_emmeans <- emmeans(
+      fit,
+      specs = ~ Time | Group
+    )
+
+    within_group_time_contrasts <- as.data.frame(
+      summary(
+        contrast(
+          time_by_group_emmeans,
+          method = list(
+            "End - Base" = c(-1, 1)
+          )
+        ),
+        infer = TRUE,
+        adjust = "none"
+      )
+    ) %>%
+      transmute(
+        factor = fac,
+        Group,
+        contrast,
+        estimate,
+        standard_error = SE,
+        degrees_freedom = df,
+        t_ratio = t.ratio,
+        p_value = p.value
+      )
+
+    ##########################################################
+    # Formal interaction / difference-in-differences
+    #
+    # Tests whether the Base -> End change differs by Group
+    ##########################################################
+
+    interaction_test <- as.data.frame(
+      summary(
+        contrast(
+          interaction_emmeans,
+          interaction = c(
+            "pairwise",
+            "pairwise"
+          ),
+          adjust = "none"
+        ),
+        infer = TRUE
+      )
+    ) %>%
+      transmute(
+        factor = fac,
+        Group_contrast = Group_pairwise,
+        Time_contrast = Time_pairwise,
+        estimate,
+        standard_error = SE,
+        degrees_freedom = df,
+        t_ratio = t.ratio,
+        p_value = p.value
+      )
+
+    ##########################################################
+    # Return all results for this factor
+    ##########################################################
+
+    list(
+      model_results = bind_rows(
+        fixed_results,
+        random_results
+      ),
+      time_means = time_means,
+      time_test = time_test,
+      interaction_means = interaction_means,
+      within_group_time_contrasts = within_group_time_contrasts,
+      interaction_test = interaction_test
+    )
+  }
+)
+
+############################################################
+# 2. Combine direct model results across factors
+############################################################
+
+all_model_results <- time_plot_results %>%
+  compact() %>%
+  map_dfr("model_results")
+
+############################################################
+# 3. Global BH/FDR correction across all fixed-effect tests
+############################################################
+
+fixed_index <- all_model_results$effect == "fixed"
+
+all_model_results$p_adjusted_global <- NA_real_
+
+all_model_results$p_adjusted_global[
+  fixed_index
+] <- p.adjust(
+  all_model_results$p.value[
+    fixed_index
+  ],
+  method = "BH"
+)
+
+all_model_results <- all_model_results %>%
+  arrange(
+    p_adjusted_global,
+    p.value
+  )
+
+############################################################
+# 4. Combine Time marginal means
+############################################################
+
+time_mean_plot_data <- time_plot_results %>%
+  compact() %>%
+  map_dfr("time_means")
+
+############################################################
+# 5. Combine overall End vs Base tests
+############################################################
+
+time_association_tests <- time_plot_results %>%
+  compact() %>%
+  map_dfr("time_test") %>%
+  mutate(
+    adjusted_p_value = p.adjust(
+      p_value,
+      method = "BH"
+    ),
+    significance = case_when(
+      adjusted_p_value < 0.001 ~ "***",
+      adjusted_p_value < 0.01  ~ "**",
+      adjusted_p_value < 0.05  ~ "*",
+      adjusted_p_value < 0.10  ~ ".",
+      TRUE                     ~ ""
+    )
+  )
+
+############################################################
+# 6. Combine Group x Time marginal means
+############################################################
+
+all_interaction_means <- time_plot_results %>%
+  compact() %>%
+  map_dfr("interaction_means")
+
+############################################################
+# 7. Combine within-group time contrasts
+############################################################
+
+all_within_group_time_contrasts <- time_plot_results %>%
+  compact() %>%
+  map_dfr("within_group_time_contrasts") %>%
+  mutate(
+    adjusted_p_value = p.adjust(
+      p_value,
+      method = "BH"
+    )
+  )
+
+############################################################
+# 8. Combine formal interaction tests
+############################################################
+
+all_interaction_tests <- time_plot_results %>%
+  compact() %>%
+  map_dfr("interaction_test") %>%
+  mutate(
+    adjusted_p_value = p.adjust(
+      p_value,
+      method = "BH"
+    )
+  )
+
+############################################################
+# 9. Join overall Time p-values to plotting data
+############################################################
+
+time_mean_plot_data <- time_mean_plot_data %>%
+  left_join(
+    time_association_tests %>%
+      select(
+        factor,
+        p_value,
+        adjusted_p_value,
+        significance
+      ),
+    by = "factor"
+  )
+
+############################################################
+# 10. Create one annotation per factor
+############################################################
+
+time_annotations <- time_mean_plot_data %>%
+  group_by(factor) %>%
+  summarise(
+    max_ci = max(
+      ci_upper,
+      na.rm = TRUE
+    ),
+    min_ci = min(
+      ci_lower,
+      na.rm = TRUE
+    ),
+    p_value = first(p_value),
+    adjusted_p_value = first(adjusted_p_value),
+    significance = first(significance),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    factor_range = max_ci - min_ci,
+
+    factor_range = if_else(
+      is.finite(factor_range) &
+        factor_range > 0,
+      factor_range,
+      1
+    ),
+
+    annotation_y =
+      max_ci + 0.15 * factor_range,
+
+    annotation_label = significance
+  )
+
+############################################################
+# 11. Order factors numerically
+############################################################
+
+factor_levels <- time_mean_plot_data %>%
+  distinct(factor) %>%
+  mutate(
+    factor_number = as.numeric(
+      gsub(
+        "[^0-9]",
+        "",
+        as.character(factor)
+      )
+    )
+  ) %>%
+  arrange(factor_number) %>%
+  pull(factor) %>%
+  as.character()
+
+time_mean_plot_data <- time_mean_plot_data %>%
+  mutate(
+    factor = factor(
+      as.character(factor),
+      levels = factor_levels
+    ),
+    Time = factor(
+      Time,
+      levels = time_levels
+    )
+  )
+
+time_annotations <- time_annotations %>%
+  mutate(
+    factor = factor(
+      as.character(factor),
+      levels = factor_levels
+    )
+  )
+
+############################################################
+# 12. Bar plot: marginal Time means and 95% CI
+############################################################
+
+factor_time_barplot <- ggplot(
+  time_mean_plot_data,
+  aes(
+    x = factor,
+    y = mean_factor_score,
+    fill = Time
+  )
+) +
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    linewidth = 0.4
+  ) +
+  geom_col(
+    position = position_dodge(width = 0.8),
+    width = 0.7,
+    color = "black",
+    linewidth = 0.25
+  ) +
+  geom_errorbar(
+    aes(
+      ymin = ci_lower,
+      ymax = ci_upper
+    ),
+    position = position_dodge(width = 0.8),
+    width = 0.18,
+    linewidth = 0.7
+  ) +
+  geom_text(
+    data = time_annotations,
+    aes(
+      x = factor,
+      y = annotation_y,
+      label = annotation_label
+    ),
+    inherit.aes = FALSE,
+    size = 3.5,
+    lineheight = 0.9
+  ) +
+  scale_fill_manual(
+    breaks = c(
+      "Base",
+      "End"
+    ),
+    values = c(
+      "Base" = "orange",
+      "End" = "blue"
+    ),
+    labels = c(
+      "Base" = "5-months-old",
+      "End" = "12-months-old"
+    )
+  ) +
+  scale_y_continuous(
+    expand = expansion(
+      mult = c(0.08, 0.22)
+    )
+  ) +
+  coord_cartesian(
+    clip = "off"
+  ) +
+  labs(
+    x = "MOFA factor",
+    y = "Mean factor score (95% CI)",
+    fill = "Age"
+  ) +
+  theme_classic(
+    base_size = 14
+  ) +
+  theme(
+    legend.position = "top",
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1
+    ),
+    plot.margin = margin(
+      t = 20,
+      r = 10,
+      b = 10,
+      l = 10
+    )
+  )
+
+factor_time_barplot
+
+############################################################
+# 13. Save direct mixed-model results
+############################################################
+
+write.csv(
+  all_model_results,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_mixed_model_results_all_effects.csv",
+  row.names = FALSE
+)
+
+############################################################
+# 14. Save overall Time marginal means
+############################################################
+
+write.csv(
+  time_mean_plot_data,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_time_estimated_marginal_means.csv",
+  row.names = FALSE
+)
+
+############################################################
+# 15. Save overall End vs Base marginal tests
+############################################################
+
+write.csv(
+  time_association_tests,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_time_marginal_association_tests.csv",
+  row.names = FALSE
+)
+
+############################################################
+# 16. Save Group x Time marginal means
+############################################################
+
+write.csv(
+  all_interaction_means,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_Group_Time_estimated_marginal_means.csv",
+  row.names = FALSE
+)
+
+############################################################
+# 17. Save End vs Base contrasts within each diet group
+############################################################
+
+write.csv(
+  all_within_group_time_contrasts,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_Group_Time_within_group_time_contrasts.csv",
+  row.names = FALSE
+)
+
+############################################################
+# 18. Save formal Group x Time interaction tests
+############################################################
+
+write.csv(
+  all_interaction_tests,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_Group_Time_interaction_tests.csv",
+  row.names = FALSE
+)
+```
+
+
+
+
+
+
+
+
+```{r}
+library(dplyr)
+library(purrr)
+library(ggplot2)
+library(lmerTest)
+library(emmeans)
+
+############################################################
+# Settings
+############################################################
+
+time_levels <- c("Base", "End")
+
+############################################################
+# 1. Fit mixed model and obtain estimated means by Time
+#
+# The estimated time means are averaged across Meat and Dairy.
+############################################################
+
+time_plot_results <- map(
+  unique(factor_scores$factor),
+  function(fac) {
+
+    dat <- factor_scores %>%
+      filter(
+        factor == fac,
+        !is.na(value),
+        !is.na(Time),
+        !is.na(Group),
+        !is.na(ID)
+      ) %>%
+      mutate(
+        Time = factor(
+          Time,
+          levels = time_levels
+        ),
+        Group = factor(Group),
+        ID = factor(ID)
+      )
+
+    if (
+      nrow(dat) < 10 ||
+      n_distinct(dat$ID) < 5 ||
+      n_distinct(dat$Time) < 2
+    ) {
+      return(NULL)
+    }
+
+    ##########################################################
+    # Repeated-measures model
+    ##########################################################
+
+    fit <- lmer(
+      value ~ Group * Time + (1 | ID),
+      data = dat,
+      REML = FALSE
+    )
+
+    ##########################################################
+    # Estimated marginal mean for Base and End
+    #
+    # These means are averaged over diet group.
+    ##########################################################
+
+    time_emmeans <- emmeans(
+      fit,
+      specs = ~ Time,
+      weights = "equal"
+    )
+
+    time_means <- as.data.frame(
+      summary(
+        time_emmeans,
+        infer = c(TRUE, FALSE),
+        level = 0.95
+      )
+    ) %>%
+      transmute(
+        factor = fac,
+        Time,
+        mean_factor_score = emmean,
+        standard_error = SE,
+        degrees_freedom = df,
+        ci_lower = lower.CL,
+        ci_upper = upper.CL
+      )
+
+    ##########################################################
+    # End versus Base contrast
+    ##########################################################
+
+    time_test <- as.data.frame(
+      summary(
+        contrast(
+          time_emmeans,
+          method = list(
+            "End - Base" = c(-1, 1)
+          )
+        ),
+        infer = TRUE,
+        adjust = "none"
+      )
+    ) %>%
+      transmute(
+        factor = fac,
+        time_difference = estimate,
+        time_standard_error = SE,
+        time_df = df,
+        time_t_ratio = t.ratio,
+        p_value = p.value
+      )
+
+    list(
+      means = time_means,
+      test = time_test
+    )
+  }
+)
+
+############################################################
+# 2. Combine results across factors
+############################################################
+
+time_mean_plot_data <- time_plot_results %>%
+  compact() %>%
+  map_dfr("means")
+
+time_association_tests <- time_plot_results %>%
+  compact() %>%
+  map_dfr("test") %>%
+  mutate(
+    adjusted_p_value = p.adjust(
+      p_value,
+      method = "BH"
+    ),
+    significance = case_when(
+      adjusted_p_value < .001 ~ "***",
+      adjusted_p_value < 0.01  ~ "**",
+      adjusted_p_value < 0.05  ~ "*",
+      adjusted_p_value < 0.10  ~ ".",
+      TRUE            ~ ""
+    )
+  )
+
+############################################################
+# 3. Join p-values to plotting data
+############################################################
+
+time_mean_plot_data <- time_mean_plot_data %>%
+  left_join(
+    time_association_tests %>%
+      select(
+        factor,
+        p_value,
+        adjusted_p_value,
+        significance
+      ),
+    by = "factor"
+  )
+
+############################################################
+# 4. Create one annotation per factor
+############################################################
+
+time_annotations <- time_mean_plot_data %>%
+  group_by(factor) %>%
+  summarise(
+    max_ci = max(
+      ci_upper,
+      na.rm = TRUE
+    ),
+    min_ci = min(
+      ci_lower,
+      na.rm = TRUE
+    ),
+    p_value = first(p_value),
+    adjusted_p_value = first(adjusted_p_value),
+    significance = first(significance),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    factor_range = max_ci - min_ci,
+
+    factor_range = if_else(
+      is.finite(factor_range) &
+        factor_range > 0,
+      factor_range,
+      1
+    ),
+
+    annotation_y =
+      max_ci + 0.15 * factor_range,
+
+    annotation_label = paste0(
+      significance
+      )
+  )
+
+############################################################
+# 5. Order factors numerically
+############################################################
+
+factor_levels <- time_mean_plot_data %>%
+  distinct(factor) %>%
+  mutate(
+    factor_number = as.numeric(
+      gsub(
+        "[^0-9]",
+        "",
+        as.character(factor)
+      )
+    )
+  ) %>%
+  arrange(factor_number) %>%
+  pull(factor) %>%
+  as.character()
+
+time_mean_plot_data <- time_mean_plot_data %>%
+  mutate(
+    factor = factor(
+      as.character(factor),
+      levels = factor_levels
+    ),
+    Time = factor(
+      Time,
+      levels = time_levels
+    )
+  )
+
+time_annotations <- time_annotations %>%
+  mutate(
+    factor = factor(
+      as.character(factor),
+      levels = factor_levels
+    )
+  )
+
+############################################################
+# 6. Bar plot: estimated mean score and 95% CI
+############################################################
+
+factor_time_barplot <- ggplot(
+  time_mean_plot_data,
+  aes(
+    x = factor,
+    y = mean_factor_score,
+    fill = Time
+  )
+) +
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    linewidth = 0.4
+  ) +
+  geom_col(
+    position = position_dodge(width = 0.8),
+    width = 0.7,
+    color = "black",
+    linewidth = 0.25
+  ) +
+  geom_errorbar(
+    aes(
+      ymin = ci_lower,
+      ymax = ci_upper
+    ),
+    position = position_dodge(width = 0.8),
+    width = 0.18,
+    linewidth = 0.7
+  ) +
+  geom_text(
+    data = time_annotations,
+    aes(
+      x = factor,
+      y = annotation_y,
+      label = annotation_label
+    ),
+    inherit.aes = FALSE,
+    size = 3.5,
+    lineheight = 0.9
+  ) +
+
+  # Map colors to the actual values Base and End,
+  # but display age labels in the plot legend.
+  scale_fill_manual(
+    breaks = c(
+      "Base",
+      "End"
+    ),
+    values = c(
+      "Base" = "orange",
+      "End" = "blue"
+    ),
+    labels = c(
+      "Base" = "5-months-old",
+      "End" = "12-months-old"
+    )
+  ) +
+
+  scale_y_continuous(
+    expand = expansion(
+      mult = c(0.08, 0.22)
+    )
+  ) +
+  coord_cartesian(
+    clip = "off"
+  ) +
+  labs(
+    x = "MOFA factor",
+    y = "Mean factor score (95% CI)",
+    fill = "Age"
+  ) +
+  theme_classic(
+    base_size = 14
+  ) +
+  theme(
+    legend.position = "top",
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1
+    ),
+    plot.margin = margin(
+      t = 20,
+      r = 10,
+      b = 10,
+      l = 10
+    )
+  )
+
+factor_time_barplot
+```
+```{r}
+############################################################
+# FDR-adjusted time association p-values for all factors
+############################################################
+
+factor_time_pvalues <- time_association_tests %>%
+  select(
+    factor,
+    time_difference,
+    p_value,
+    adjusted_p_value
+  ) %>%
+  arrange(adjusted_p_value)
+
+factor_time_pvalues
+```
+
+```{r}
+############################################################
+# 7. Pull top 10 feature loadings for significant
+#    time-associated MOFA factors
+############################################################
+
+# Identify factors significantly associated with time
+# after Benjamini-Hochberg FDR correction
+significant_time_factors <- time_association_tests %>%
+  filter(
+    adjusted_p_value < 0.05
+  ) %>%
+  pull(factor) %>%
+  as.character()
+
+significant_time_factors
+
+
+############################################################
+# Extract MOFA feature loadings
+############################################################
+
+time_factor_loadings <- get_weights(
+  MOFAmodel,
+  views = "all",
+  factors = significant_time_factors,
+  as.data.frame = TRUE
+) %>%
+  transmute(
+    view,
+    factor,
+    feature,
+    loading = value,
+    absolute_loading = abs(value)
+  )
+
+
+############################################################
+# Select top 10 loadings within each factor AND omics view
+#
+# Ranking by absolute loading captures the features that
+# contribute most strongly to the factor regardless of
+# whether their loading is positive or negative.
+############################################################
+
+top10_time_factor_loadings <- time_factor_loadings %>%
+  group_by(
+    factor,
+    view
+  ) %>%
+  slice_max(
+    order_by = absolute_loading,
+    n = 100,
+    with_ties = FALSE
+  ) %>%
+  arrange(
+    factor,
+    view,
+    desc(absolute_loading)
+  ) %>%
+  mutate(
+    loading_direction = case_when(
+      loading > 0 ~ "Positive",
+      loading < 0 ~ "Negative",
+      TRUE        ~ "Zero"
+    )
+  ) %>%
+  ungroup()
+
+
+############################################################
+# Add time-association information
+############################################################
+
+top10_time_factor_loadings <- top10_time_factor_loadings %>%
+  left_join(
+    time_association_tests %>%
+      select(
+        factor,
+        time_difference,
+        p_value,
+        adjusted_p_value
+      ),
+    by = "factor"
+  )
+
+
+############################################################
+# View results
+############################################################
+
+top10_time_factor_loadings
+```
+
+```{r}
+
+library(dplyr)
+library(readr)
+
+############################################################
+# Read annotation key
+############################################################
+
+annotation_key <- read_csv(
+  "C:/Users/priceade/Desktop/Fecal_Omics/Older Code and Workflows/All_micro_metab_KEY.csv",
+  show_col_types = FALSE
+)
+
+############################################################
+# Merge top MOFA loadings with annotation key
+#
+# MOFA feature = key code
+############################################################
+
+top10_time_factor_loadings_annotated <-
+  top10_time_factor_loadings %>%
+  left_join(
+    annotation_key,
+    by = c("feature" = "code")
+  )
+
+############################################################
+# View results
+############################################################
+
+top10_time_factor_loadings_annotated
+```
+
+
+```{r}
+
+library(dplyr)
+library(ggplot2)
+library(MOFA2)
+
+############################################################
+# Factor 1 loadings from the time/age MOFA2 analysis
+#
+# Extract both Microbiome and Metabolomics views and
+# identify features in the top 10% of absolute loadings
+# separately within each view.
+############################################################
+
+
+############################################################
+# 1. Extract Factor 1 loadings from both omics views
+############################################################
+
+factor1_weights <- get_weights(
+  MOFAmodel,
+  views = c(
+    "Microbiome",
+    "Metabolomics"
+  ),
+  factors = 1,
+  as.data.frame = TRUE
+)
+
+str(factor1_weights)
+head(factor1_weights)
+
+
+############################################################
+# 2. Calculate absolute loading and loading direction
+############################################################
+
+factor1_loadings <- factor1_weights %>%
+  filter(
+    factor == "Factor1",
+    view %in% c(
+      "Microbiome",
+      "Metabolomics"
+    )
+  ) %>%
+  mutate(
+    absolute_loading = abs(value),
+
+    loading_direction = case_when(
+      value > 0 ~ "Positive",
+      value < 0 ~ "Negative",
+      TRUE      ~ "Zero"
+    )
+  ) %>%
+  arrange(
+    view,
+    desc(absolute_loading)
+  )
+
+factor1_loadings
+
+
+############################################################
+# 3. Calculate 90th, 95th, and 99th percentile cutoffs
+#    separately within each omics view
+############################################################
+
+factor1_loading_cutoffs <- factor1_loadings %>%
+  group_by(view) %>%
+  summarise(
+    percentile_90 = quantile(
+      absolute_loading,
+      0.90,
+      na.rm = TRUE
+    ),
+
+    percentile_95 = quantile(
+      absolute_loading,
+      0.95,
+      na.rm = TRUE
+    ),
+
+    percentile_99 = quantile(
+      absolute_loading,
+      0.99,
+      na.rm = TRUE
+    ),
+
+    n_total_features = n(),
+
+    .groups = "drop"
+  )
+
+factor1_loading_cutoffs
+
+
+############################################################
+# 4. Plot distribution of absolute Factor 1 loadings
+#    separately for Microbiome and Metabolomics
+############################################################
+
+factor1_loading_plot <- ggplot(
+  factor1_loadings,
+  aes(x = absolute_loading)
+) +
+  geom_histogram(
+    bins = 100,
+    color = "black",
+    fill = "steelblue"
+  ) +
+  geom_vline(
+    data = factor1_loading_cutoffs,
+    aes(
+      xintercept = percentile_90
+    ),
+    linetype = "dashed",
+    color = "goldenrod"
+  ) +
+  geom_vline(
+    data = factor1_loading_cutoffs,
+    aes(
+      xintercept = percentile_95
+    ),
+    linetype = "dashed",
+    color = "orange"
+  ) +
+  geom_vline(
+    data = factor1_loading_cutoffs,
+    aes(
+      xintercept = percentile_99
+    ),
+    linetype = "dashed",
+    color = "red"
+  ) +
+  facet_wrap(
+    ~ view,
+    scales = "free"
+  ) +
+  theme_classic() +
+  labs(
+    x = "Absolute Factor 1 loading",
+    y = "Number of features"
+  )
+
+factor1_loading_plot
+
+
+############################################################
+# 5. Pull features in the top 10% of absolute loadings
+#
+# IMPORTANT:
+# The 90th percentile is calculated separately for the
+# Microbiome and Metabolomics views.
+############################################################
+
+top_loadings_factor1 <- factor1_loadings %>%
+  group_by(view) %>%
+  mutate(
+    percentile_90 = quantile(
+      absolute_loading,
+      0.90,
+      na.rm = TRUE
+    )
+  ) %>%
+  filter(
+    absolute_loading >= percentile_90
+  ) %>%
+  arrange(
+    view,
+    desc(absolute_loading)
+  ) %>%
+  ungroup()
+
+
+############################################################
+# 8. Save top 10% Factor 1 loadings
+############################################################
+
+write.csv(
+  top_loadings_factor1,
+  paste0(
+    "C:/Users/priceade/Desktop/Fecal_Omics/",
+    "Current_Code&Workflow/Enrichment_Analysis/",
+    "Enrichment_Analysis_Embedding_Associations/",
+    "data_MOFA2/",
+    "Factor1_time_90_percentile_loadings_both_views.csv"
+  ),
+  row.names = FALSE
+)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+############################################################
+# 7. Test Group × Time interaction across all MOFA factors
+############################################################
+
+interaction_tests <- map_dfr(
+  unique(factor_scores$factor),
+  function(fac) {
+
+    dat <- factor_scores %>%
+      filter(
+        factor == fac,
+        !is.na(value),
+        !is.na(Time),
+        !is.na(Group),
+        !is.na(ID)
+      ) %>%
+      mutate(
+        Time = factor(
+          Time,
+          levels = time_levels
+        ),
+        Group = factor(Group),
+        ID = factor(ID)
+      )
+
+    if (
+      nrow(dat) < 10 ||
+      n_distinct(dat$ID) < 5 ||
+      n_distinct(dat$Time) < 2 ||
+      n_distinct(dat$Group) < 2
+    ) {
+      return(tibble())
+    }
+
+    fit <- lmer(
+      value ~ Group * Time + (1 | ID),
+      data = dat,
+      REML = FALSE
+    )
+
+    # Type III test of the Group × Time interaction
+    interaction_anova <- anova(
+      fit,
+      type = 3
+    )
+
+    interaction_row <- interaction_anova[
+      rownames(interaction_anova) == "Group:Time",
+      ,
+      drop = FALSE
+    ]
+
+    tibble(
+      factor = fac,
+      interaction_F = interaction_row$`F value`,
+      numerator_df = interaction_row$NumDF,
+      denominator_df = interaction_row$DenDF,
+      p_value = interaction_row$`Pr(>F)`
+    )
+  }
+) %>%
+  mutate(
+    adjusted_p_value = p.adjust(
+      p_value,
+      method = "BH"
+    ),
+    significance = case_when(
+      adjusted_p_value < 0.001 ~ "***",
+      adjusted_p_value < 0.01  ~ "**",
+      adjusted_p_value < 0.05  ~ "*",
+      adjusted_p_value < 0.10  ~ ".",
+      TRUE                     ~ ""
+    )
+  ) %>%
+  arrange(adjusted_p_value)
+
+interaction_tests
+```
+
+```{r}
+############################################################
+# 8. Test main effect of Diet across all MOFA factors
+############################################################
+
+diet_tests <- map_dfr(
+  unique(factor_scores$factor),
+  function(fac) {
+
+    dat <- factor_scores %>%
+      filter(
+        factor == fac,
+        !is.na(value),
+        !is.na(Time),
+        !is.na(Group),
+        !is.na(ID)
+      ) %>%
+      mutate(
+        Time = factor(
+          Time,
+          levels = time_levels
+        ),
+        Group = factor(
+          Group,
+          levels = c("Dairy", "Meat")
+        ),
+        ID = factor(ID)
+      )
+
+    if (
+      nrow(dat) < 10 ||
+      n_distinct(dat$ID) < 5 ||
+      n_distinct(dat$Time) < 2 ||
+      n_distinct(dat$Group) < 2
+    ) {
+      return(tibble())
+    }
+
+    ##########################################################
+    # Repeated-measures model
+    ##########################################################
+
+    fit <- lmer(
+      value ~ Group * Time + (1 | ID),
+      data = dat,
+      REML = FALSE
+    )
+
+    ##########################################################
+    # Type III test of main Diet effect
+    ##########################################################
+
+    diet_anova <- anova(
+      fit,
+      type = 3
+    )
+
+    diet_row <- diet_anova[
+      rownames(diet_anova) == "Group",
+      ,
+      drop = FALSE
+    ]
+
+    tibble(
+      factor = fac,
+      diet_F = diet_row$`F value`,
+      numerator_df = diet_row$NumDF,
+      denominator_df = diet_row$DenDF,
+      p_value = diet_row$`Pr(>F)`
+    )
+  }
+) %>%
+
+  ############################################################
+  # BH/FDR correction across all MOFA factors
+  ############################################################
+
+  mutate(
+    adjusted_p_value = p.adjust(
+      p_value,
+      method = "BH"
+    ),
+    significance = case_when(
+      adjusted_p_value < 0.001 ~ "***",
+      adjusted_p_value < 0.01  ~ "**",
+      adjusted_p_value < 0.05  ~ "*",
+      adjusted_p_value < 0.10  ~ ".",
+      TRUE                     ~ ""
+    )
+  ) %>%
+  arrange(adjusted_p_value)
+
+diet_tests
+```
+
+```{r}
+############################################################
+# 8. Investigate the significant Group × Time interaction
+#    for Factor5
+############################################################
+
+library(dplyr)
+library(ggplot2)
+library(lmerTest)
+library(emmeans)
+
+factor_to_investigate <- "Factor5"
+
+time_levels <- c("Base", "End")
+
+############################################################
+# Prepare Factor 5 data
+############################################################
+
+factor5_data <- factor_scores %>%
+  filter(
+    factor == factor_to_investigate,
+    !is.na(value),
+    !is.na(Time),
+    !is.na(Group),
+    !is.na(ID)
+  ) %>%
+  mutate(
+    Time = factor(
+      Time,
+      levels = time_levels
+    ),
+    Group = factor(
+      Group,
+      levels = c("Dairy", "Meat")
+    ),
+    ID = factor(ID)
+  )
+
+############################################################
+# Fit repeated-measures model
+############################################################
+
+factor5_fit <- lmer(
+  value ~ Group * Time + (1 | ID),
+  data = factor5_data,
+  REML = FALSE
+)
+
+############################################################
+# Model output and diagnostics
+############################################################
+
+summary(factor5_fit)
+
+anova(
+  factor5_fit,
+  type = 3
+)
+
+isSingular(
+  factor5_fit,
+  tol = 1e-4
+)
+
+VarCorr(factor5_fit)
+
+############################################################
+# Estimated marginal means for every Group × Time
+# combination
+############################################################
+
+factor5_emmeans <- emmeans(
+  factor5_fit,
+  specs = ~ Group * Time,
+  weights = "equal"
+)
+
+factor5_emmeans_table <- as.data.frame(
+  summary(
+    factor5_emmeans,
+    infer = c(TRUE, FALSE),
+    level = 0.95
+  )
+) %>%
+  transmute(
+    Group,
+    Time,
+    estimated_mean = emmean,
+    standard_error = SE,
+    degrees_freedom = df,
+    ci_lower = lower.CL,
+    ci_upper = upper.CL
+  )
+
+factor5_emmeans_table
+
+
+############################################################
+# Time effect within each diet group
+#
+# Tests:
+#   End - Base within Dairy
+#   End - Base within Meat
+#
+# Raw p-values are obtained first, followed by
+# Benjamini-Hochberg FDR correction across BOTH tests.
+############################################################
+
+factor5_time_by_group <- emmeans(
+  factor5_fit,
+  specs = ~ Time | Group,
+  weights = "equal"
+)
+
+factor5_time_contrasts <- as.data.frame(
+  summary(
+    contrast(
+      factor5_time_by_group,
+      method = list(
+        "End - Base" = c(-1, 1)
+      ),
+      by = "Group"
+    ),
+    infer = TRUE,
+    adjust = "none"
+  )
+) %>%
+  transmute(
+    Group,
+    contrast,
+    estimate,
+    standard_error = SE,
+    degrees_freedom = df,
+    t_ratio = t.ratio,
+    p_value = p.value
+  ) %>%
+  mutate(
+    adjusted_p_value = p.adjust(
+      p_value,
+      method = "BH"
+    ),
+
+    significance = case_when(
+      adjusted_p_value < 0.001 ~ "***",
+      adjusted_p_value < 0.01  ~ "**",
+      adjusted_p_value < 0.05  ~ "*",
+      adjusted_p_value < 0.10  ~ ".",
+      TRUE                     ~ ""
+    )
+  )
+
+factor5_time_contrasts
+
+
+############################################################
+# Diet-group difference within each timepoint
+#
+# Tests:
+#   Meat versus Dairy at Base
+#   Meat versus Dairy at End
+#
+# Raw p-values are obtained first, followed by
+# Benjamini-Hochberg FDR correction across BOTH tests.
+############################################################
+
+factor5_group_by_time <- emmeans(
+  factor5_fit,
+  specs = ~ Group | Time,
+  weights = "equal"
+)
+
+factor5_group_contrasts <- as.data.frame(
+  summary(
+    pairs(
+      factor5_group_by_time,
+      adjust = "none"
+    ),
+    infer = TRUE
+  )
+) %>%
+  transmute(
+    Time,
+    contrast,
+    estimate,
+    standard_error = SE,
+    degrees_freedom = df,
+    t_ratio = t.ratio,
+    p_value = p.value
+  ) %>%
+  mutate(
+    adjusted_p_value = p.adjust(
+      p_value,
+      method = "BH"
+    ),
+
+    significance = case_when(
+      adjusted_p_value < 0.001 ~ "***",
+      adjusted_p_value < 0.01  ~ "**",
+      adjusted_p_value < 0.05  ~ "*",
+      adjusted_p_value < 0.10  ~ ".",
+      TRUE                     ~ ""
+    )
+  )
+
+factor5_group_contrasts
+
+
+############################################################
+# Direct difference-in-differences interaction contrast
+#
+# This quantifies:
+#
+#   (End - Base in one diet group)
+#      minus
+#   (End - Base in the other diet group)
+#
+# This is a single contrast for Factor 5, so no
+# within-Factor-5 multiple-testing adjustment is required.
+#
+# The interaction p-values across ALL MOFA factors should
+# instead be BH-adjusted in the separate interaction screen.
+############################################################
+
+factor5_interaction_contrast <- as.data.frame(
+  summary(
+    contrast(
+      factor5_time_by_group,
+      method = "revpairwise",
+      by = NULL
+    ),
+    infer = TRUE,
+    adjust = "none"
+  )
+)
+
+factor5_interaction_contrast
+
+
+############################################################
+# Prepare plot annotations
+#
+# Stars represent the BH-adjusted End - Base comparison
+# within each diet group.
+############################################################
+
+factor5_annotations <- factor5_emmeans_table %>%
+  group_by(Group) %>%
+  summarise(
+    annotation_y = max(
+      ci_upper,
+      na.rm = TRUE
+    ),
+
+    group_range =
+      max(
+        ci_upper,
+        na.rm = TRUE
+      ) -
+      min(
+        ci_lower,
+        na.rm = TRUE
+      ),
+
+    .groups = "drop"
+  ) %>%
+  left_join(
+    factor5_time_contrasts %>%
+      select(
+        Group,
+        p_value,
+        adjusted_p_value,
+        significance
+      ),
+    by = "Group"
+  ) %>%
+  mutate(
+    group_range = if_else(
+      is.finite(group_range) &
+        group_range > 0,
+      group_range,
+      1
+    ),
+
+    annotation_y =
+      annotation_y +
+      0.12 * group_range,
+
+    annotation_time = factor(
+      "End",
+      levels = time_levels
+    )
+  )
+
+factor5_annotations
+
+
+############################################################
+# Interaction plot
+#
+# Estimated marginal means and 95% confidence intervals.
+# Significance symbols indicate BH-adjusted changes
+# from 5 to 12 months within each diet group.
+############################################################
+
+factor5_interaction_plot <- ggplot(
+  factor5_emmeans_table,
+  aes(
+    x = Time,
+    y = estimated_mean,
+    group = Group,
+    color = Group
+  )
+) +
+
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    linewidth = 0.4
+  ) +
+
+  geom_line(
+    linewidth = 1
+  ) +
+
+  geom_point(
+    size = 3
+  ) +
+
+  geom_errorbar(
+    aes(
+      ymin = ci_lower,
+      ymax = ci_upper
+    ),
+    width = 0.10,
+    linewidth = 0.7
+  ) +
+
+  geom_text(
+    data = factor5_annotations,
+    aes(
+      x = annotation_time,
+      y = annotation_y,
+      label = significance,
+      color = Group
+    ),
+    inherit.aes = FALSE,
+    size = 4,
+    fontface = "bold",
+    show.legend = FALSE
+  ) +
+
+  scale_x_discrete(
+    breaks = c(
+      "Base",
+      "End"
+    ),
+    labels = c(
+      "Base" = "5-months-old",
+      "End" = "12-months-old"
+    )
+  ) +
+
+  labs(
+    title = paste0(
+      factor_to_investigate,
+      ": Diet × Age interaction"
+    ),
+    subtitle =
+      "Estimated marginal means and 95% confidence intervals",
+    x = "Age",
+    y = "Mean factor score",
+    color = "Diet group"
+  ) +
+
+  scale_y_continuous(
+    expand = expansion(
+      mult = c(0.08, 0.18)
+    )
+  ) +
+
+  coord_cartesian(
+    clip = "off"
+  ) +
+
+  theme_classic(
+    base_size = 14
+  ) +
+
+  theme(
+    legend.position = "top",
+
+    plot.title = element_text(
+      face = "bold"
+    ),
+
+    plot.margin = margin(
+      t = 20,
+      r = 10,
+      b = 10,
+      l = 10
+    )
+  )
+
+factor5_interaction_plot
+
+
+############################################################
+# Optional: inspect individual paired observations
+############################################################
+
+factor5_individual_plot <- ggplot(
+  factor5_data,
+  aes(
+    x = Time,
+    y = value,
+    group = ID,
+    color = Group
+  )
+) +
+
+  geom_line(
+    alpha = 0.25,
+    linewidth = 0.5
+  ) +
+
+  geom_point(
+    alpha = 0.45,
+    size = 1.5
+  ) +
+
+  facet_wrap(
+    ~ Group
+  ) +
+
+  scale_x_discrete(
+    breaks = c(
+      "Base",
+      "End"
+    ),
+    labels = c(
+      "Base" = "5-months-old",
+      "End" = "12-months-old"
+    )
+  ) +
+
+  labs(
+    title = paste0(
+      factor_to_investigate,
+      ": Individual changes with age"
+    ),
+    x = "Age",
+    y = "Factor score",
+    color = "Diet group"
+  ) +
+
+  theme_classic(
+    base_size = 14
+  ) +
+
+  theme(
+    legend.position = "none",
+
+    plot.title = element_text(
+      face = "bold"
+    )
+  )
+
+factor5_individual_plot
+```
+
+
+```{r}
+############################################################
+# Extract Factor 5 microbiome loadings
+############################################################
+
+factor5_weights <- get_weights(
+  MOFAmodel,
+  views = "Microbiome",
+  factors = 5,
+  as.data.frame = TRUE
+)
+
+str(factor5_weights)
+head(factor5_weights)
+```
+
+
+```{r}
+
+############################################################
+# Rank microbiome features contributing to Factor 5
+############################################################
+
+factor5_microbiome_loadings <- factor5_weights %>%
+  filter(
+    view == "Microbiome",
+    factor == "Factor5"
+  ) %>%
+  mutate(
+    absolute_loading = abs(value),
+    loading_direction = case_when(
+      value > 0 ~ "Positive",
+      value < 0 ~ "Negative",
+      TRUE      ~ "Zero"
+    )
+  ) %>%
+  arrange(
+    desc(absolute_loading)
+  )
+
+top_factor5_microbiome <- factor5_microbiome_loadings %>%
+  slice_head(n = 500)
+
+top_factor5_microbiome
+```
+
+```{r}
+ggplot(factor5_microbiome_loadings,
+       aes(x = value)) +
+  geom_histogram(bins = 75) +
+  theme_classic()
+
+library(dplyr)
+
+ggplot(factor5_microbiome_loadings,
+       aes(x = abs(value))) +
+  geom_histogram(bins = 100, color = "black", fill = "steelblue") +
+  geom_vline(xintercept = quantile(abs(factor5_microbiome_loadings$value), c(0.90, 0.95, 0.99)),
+             linetype = "dashed",
+             color = c("goldenrod", "orange", "red")) +
+  theme_classic() +
+  labs(
+    x = "Absolute Factor 5 loading",
+    y = "Number of features"
+  )
+
+```
+
+
+```{r}
+
+top_loadings <- factor5_microbiome_loadings %>%
+  mutate(
+    absolute_loading = abs(value)
+  ) %>%
+  filter(
+    absolute_loading >= quantile(absolute_loading, 0.90)
+  ) %>%
+  arrange(
+    desc(absolute_loading)
+  )
+
+top_loadings
+
+write.csv(top_loadings, "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Enrichment_Analysis/Enrichment_Analysis_Embedding_Associations/data_MOFA2/90_percentile_loadings.csv", row.names = FALSE)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+
+set.seed(21)
+
+# -----------------------------
+# 1. Read data
+# -----------------------------
+
+metab <- read.csv("C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Data/metabolite_data_for_differential_abundance.csv")
+micro <- read.csv("C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Data/microbiome_data_for_differential_abundance.csv")
+
+
+metab$sample_ID <- metab$Vial.ID
+micro$sample_ID <- micro$ID
+
+
+# Matching diagnostics
+id_diagnostics <- tibble(
+  metric = c(
+    "Metabolomics observations",
+    "Microbiome observations",
+    "Matched observations",
+    "Metabolomics-only observations",
+    "Microbiome-only observations"
+  ),
+  n = c(
+    n_distinct(metab$sample_ID),
+    n_distinct(micro$sample_ID),
+    length(intersect(metab$sample_ID, micro$sample_ID)),
+    length(setdiff(metab$sample_ID, micro$sample_ID)),
+    length(setdiff(micro$sample_ID, metab$sample_ID))
+  )
+)
+
+print(id_diagnostics)
+
+```
+
+
+
+```{r}
+
+#Comparing End, Meat and Dairy
+
+
+# -----------------------------
+# 2. Keep End only
+# -----------------------------
+
+metab <- metab %>%
+  filter(Time %in% c("End"))
+
+micro <- micro %>%
+  filter(Time %in% c("End"))
+
+# -----------------------------
+# 3. Define feature columns
+# -----------------------------
+
+metab_feature_cols <- colnames(metab[,11:8877])
+micro_feature_cols <- colnames(micro[,2:17035])
+
+# -----------------------------
+# 4. Build sample metadata
+# -----------------------------
+
+metab_meta <- metab %>%
+  transmute(
+    sample = paste0(as.character(sample_ID), "_", Time),
+    ID = as.character(sample_ID),
+    Group = as.character(Group),
+    Time = as.character(Time)
+  )
+
+micro_meta <- micro %>%
+  transmute(
+    sample = paste0(as.character(sample_ID), "_", Time),
+    ID = as.character(sample_ID),
+    Group = as.character(Group),
+    Time = as.character(Time)
+  )
+
+sample_metadata <- bind_rows(metab_meta, micro_meta) %>%
+  distinct(sample, .keep_all = TRUE)
+
+```
+
+
+```{r}
+
+# -----------------------------
+# 5. Convert metabolomics to matrix
+# -----------------------------
+
+metab_mat <- metab %>%
+  mutate(sample = paste0(as.character(sample_ID), "_", Time)) %>%
+  select(sample, all_of(metab_feature_cols)) %>%
+  mutate(across(all_of(metab_feature_cols), ~ as.numeric(.))) %>%
+  mutate(across(all_of(metab_feature_cols), ~ replace_na(., 0)))
+
+metab_sample_names <- metab_mat$sample
+
+metab_mat <- metab_mat %>%
+  select(-sample) %>%
+  as.matrix()
+
+storage.mode(metab_mat) <- "double"
+
+# Keep zeros as true zeros and preserve NA values
+positive_idx <- !is.na(metab_mat) & metab_mat > 0
+metab_mat[positive_idx] <- log2(metab_mat[positive_idx])
+
+rownames(metab_mat) <- metab_sample_names
+metab_view <- t(metab_mat)
+
+```
+
+
+
+
+```{r}
+
+# -----------------------------
+# 6. Convert microbiome to matrix
+# -----------------------------
+
+micro_mat <- micro %>%
+  mutate(sample = paste0(as.character(sample_ID), "_", Time)) %>%
+  select(sample, all_of(micro_feature_cols)) %>%
+  mutate(across(all_of(micro_feature_cols), ~ as.numeric(.))) %>%
+  mutate(across(all_of(micro_feature_cols), ~ replace_na(., 0)))
+
+# Save sample names before converting to a matrix
+micro_sample_names <- micro_mat$sample
+
+micro_mat <- micro_mat %>%
+  select(-sample) %>%
+  as.matrix()
+
+storage.mode(micro_mat) <- "double"
+rownames(micro_mat) <- micro_sample_names
+
+# CLR transform using a fixed pseudocount for zero values
+clr_transform <- function(x) {
+  x[!is.finite(x)] <- NA_real_
+
+  if (all(is.na(x))) {
+    return(rep(NA_real_, length(x)))
+  }
+
+  # Replace observed zeros only; NA values remain NA
+  x[x == 0 & !is.na(x)] <- 1e-6
+
+  # Log-transform values
+  lx <- log(x)
+
+  # Center the logged values within the sample
+  clr_values <- lx - mean(lx, na.rm = TRUE)
+
+  return(clr_values)
+}
+
+micro_clr <- t(apply(micro_mat, 1, clr_transform))
+
+# Restore feature and sample names
+colnames(micro_clr) <- colnames(micro_mat)
+rownames(micro_clr) <- rownames(micro_mat)
+
+# MOFA expects features in rows and samples in columns
+micro_view <- t(micro_clr)
+
+
+```
+
+
+
+
+```{r}
+# 6. Align both views to the same sample universe ------------------------------
+
+sample_ids_unique <- unique(append(rownames(metab_mat), rownames(micro_mat)))
+sample_ids_unique_ordered <- sample_ids_unique[order(sample_ids_unique)]
+
+
+align_view <- function(view_matrix, sample_ids) {
+  aligned <- matrix(
+    NA_real_,
+    nrow = nrow(view_matrix),
+    ncol = length(sample_ids),
+    dimnames = list(rownames(view_matrix), sample_ids)
+  )
+
+  shared <- intersect(colnames(view_matrix), sample_ids)
+  aligned[, shared] <- view_matrix[, shared, drop = FALSE]
+  aligned
+}
+
+metab_view_filled <- align_view(metab_view, sample_ids_unique_ordered)
+micro_view_filled <- align_view(micro_view, sample_ids_unique_ordered)
+
+mofa_data <- list(
+  Metabolomics = metab_view_filled,
+  Microbiome = micro_view_filled
+)
+
+stopifnot(
+  identical(colnames(mofa_data$Metabolomics), sample_ids_unique_ordered),
+  identical(colnames(mofa_data$Microbiome), sample_ids_unique_ordered)
+)
+
+#align the metadata as well
+sample_metadata <- sample_metadata %>%
+  filter(sample %in% sample_ids_unique_ordered) %>%
+  arrange(match(sample, sample_ids_unique_ordered))
+
+
+
+```
+
+
+```{r}
+
+
+
+
+hist(
+  colMeans(is.na(mofa_data$Metabolomics)),
+  main = "Metabolomics missing fraction per sample",
+  xlab = "Missing fraction"
+)
+
+hist(
+  colMeans(is.na(mofa_data$Microbiome)),
+  main = "Microbiome missing fraction per sample",
+  xlab = "Missing fraction"
+)
+
+plot(
+  density(as.numeric(mofa_data$Metabolomics), na.rm = TRUE),
+  main = "Log2 metabolomics value distribution",
+  xlab = "Log2 intensity"
+)
+
+plot(
+  density(as.numeric(mofa_data$Microbiome), na.rm = TRUE),
+  main = "CLR microbiome value distribution",
+  xlab = "CLR abundance"
+)
+
+
+```
+
+```{r}
+
+# 8. Create and train MOFA2 model ---------------------------------------------
+
+MOFAobject <- create_mofa(mofa_data)
+
+# Add metadata for plotting after training.
+samples_metadata(MOFAobject) <- sample_metadata %>%
+  arrange(match(sample, samples_names(MOFAobject))) %>%
+  as.data.frame()
+
+plot_data_overview(MOFAobject)
+
+model_opts <- get_default_model_options(MOFAobject)
+model_opts$num_factors <- 10
+
+
+MOFAobject <- prepare_mofa(MOFAobject, model_options = model_opts)
+
+```
+
+
+```{r}
+
+MOFAmodel <- run_mofa(
+  MOFAobject,
+  outfile = "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_end_groups.hdf5",
+  use_basilisk = TRUE
+)
+
+saveRDS(
+  MOFAmodel,
+  "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/MOFA_end_groups.rds"
+)
+
+```
+
+```{r}
+# 9. Basic model diagnostics ---------------------------------------------------
+
+print(MOFAmodel)
+variance_explained <- get_variance_explained(MOFAmodel)
+
+plot_variance_explained(
+  MOFAmodel,
+  x = "view",
+  y = "factor"
+)
+
+# write.csv(
+#   variance_explained$r2_per_factor,
+#   "variance_explained_per_factor.csv",
+#   row.names = FALSE
+# )
+# 
+# write.csv(
+#   variance_explained$r2_total,
+#   "variance_explained_total.csv",
+#   row.names = FALSE
+# )
+plot_variance_explained(MOFAmodel, plot_total = T)[[2]]
+
+
+
+r2 <- MOFAmodel@cache$variance_explained$r2_per_factor[[1]]
+
+r2.dt <- r2 %>%
+  as.data.table %>% .[,factor:=as.factor(1:MOFAmodel@dimensions$K)] %>%
+  melt(id.vars=c("factor"), variable.name="view", value.name = "r2") %>%
+  .[,cum_r2:=cumsum(r2), by="view"]
+
+ggline(r2.dt, x="factor", y="cum_r2", color="view") +
+  labs(x="Factor number", y="Cumulative variance explained (%)") +
+  theme(
+    legend.title = element_blank(), 
+    legend.position = "top",
+    axis.text = element_text(size=rel(0.8))
+  )
+
+```
+```{r}
+# 10. Extract factor scores and test associations ------------------------------
+
+factor_scores <- get_factors(
+  MOFAmodel,
+  factors = "all",
+  as.data.frame = TRUE
+) %>%
+  left_join(sample_metadata, by = "sample")
+
+#write.csv(factor_scores, "factor_scores_with_metadata.csv", row.names = FALSE)
+
+factor_names <- unique(factor_scores$factor)
+
+
+
+# Repeated-measures association screen:
+# factor score ~ treatment + time + treatment-by-time + subject random intercept
+for (pkg in c("lmerTest", "broom.mixed")) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    install.packages(pkg)
+  }
+}
+library(lmerTest)
+
+
+
+p <- plot_factors(MOFAmodel, 
+  factors = c(1,2), 
+  color_by = "Group", 
+  dot_size = 4
+) + scale_fill_manual(values=c('orange', 'blue'))
+p + 
+  # geom_density_2d(aes_string(color="color_by")) +
+  stat_ellipse(aes(color=color_by), geom = "polygon", alpha=0.25) +
+  scale_color_manual(values=c('orange', 'blue'))
+
+
+plot_factor(MOFAmodel, 
+  factor = 1, 
+  color_by = "Group", 
+  dot_size = 4,
+  dodge = TRUE,
+  stroke = 0.4,
+  add_violin = T,
+  add_boxplot = T
+) +
+  scale_fill_manual(values=c('orange', 'blue')) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+
+
+plot_factor(MOFAmodel, 
+  factor = 2, 
+  color_by = "Group", 
+  dot_size = 4,
+  dodge = TRUE,
+  stroke = 0.4,
+  add_violin = T,
+  add_boxplot = T
+) +
+  scale_fill_manual(values=c('orange', 'blue')) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank()
+  )
+
+#dev.off()
+
+```
+
+
+
+```{r}
+
+# 11. Extract feature weights --------------------------------------------------
+
+weights <- get_weights(
+  MOFAmodel,
+  views = "all",
+  factors = "all",
+  as.data.frame = TRUE
+) %>%
+  mutate(abs_weight = abs(value))
+
+#write.csv(weights, "all_feature_weights.csv", row.names = FALSE)
+
+top_weights <- weights %>%
+  group_by(view, factor) %>%
+  slice_max(abs_weight, n = 20, with_ties = FALSE) %>%
+  arrange(view, factor, desc(abs_weight)) %>%
+  ungroup()
+
+# write.csv(
+#   top_weights,
+#   "top_20_feature_weights_per_view_factor.csv",
+#   row.names = FALSE
+# )
+
+# Built-in weight plots for each factor and view.
+#pdf("04_top_feature_weights.pdf", width = 10, height = 7)
+
+for (fac in factor_names) {
+  for (vw in views_names(MOFAmodel)) {
+    print(
+      plot_weights(
+        MOFAmodel,
+        view = vw,
+        factor = fac,
+        nfeatures = 20,
+        scale = TRUE
+      ) +
+        ggtitle(paste(fac, "-", vw))
+    )
+  }
+}
+
+#dev.off()
+
+
+
+```
+
+
+
+```{r}
+# -----------------------------
+# 13. Sample clustering in factor space
+# -----------------------------
+
+# One row per unique sample-time observation
+factor_matrix <- factor_scores %>%
+  select(sample, factor, value) %>%
+  distinct(sample, factor, .keep_all = TRUE) %>%
+  pivot_wider(
+    names_from = factor,
+    values_from = value
+  ) %>%
+  column_to_rownames("sample") %>%
+  as.matrix()
+
+storage.mode(factor_matrix) <- "double"
+
+# -----------------------------
+# Variance explained per factor
+# -----------------------------
+
+r2 <- as.data.frame(variance_explained$r2_per_factor)
+
+# Assign view names only if there are exactly two columns
+stopifnot(ncol(r2) == 2)
+
+colnames(r2) <- c("Metabolomics", "Microbiome")
+
+r2 <- r2 %>%
+  rownames_to_column("factor") %>%
+  mutate(
+    max_r2 = pmax(
+      Metabolomics,
+      Microbiome,
+      na.rm = TRUE
+    )
+  )
+
+active_factors <- r2 %>%
+  filter(max_r2 >= 0.01) %>%
+  pull(factor)
+
+# Check that factor names match the factor-matrix columns
+active_factors <- intersect(
+  active_factors,
+  colnames(factor_matrix)
+)
+
+# -----------------------------
+# Plot heatmap
+# -----------------------------
+
+if (length(active_factors) >= 2) {
+
+  factor_matrix_active <- factor_matrix[
+    ,
+    active_factors,
+    drop = FALSE
+  ]
+
+  annotation <- sample_metadata %>%
+    select(sample, Group) %>%
+    distinct(sample, .keep_all = TRUE) %>%
+    filter(sample %in% rownames(factor_matrix_active)) %>%
+    arrange(match(sample, rownames(factor_matrix_active))) %>%
+    column_to_rownames("sample")
+
+  # Confirm exact alignment
+  stopifnot(
+    identical(
+      rownames(annotation),
+      rownames(factor_matrix_active)
+    )
+  )
+
+  pheatmap::pheatmap(
+    factor_matrix_active,
+    scale = "column",
+    annotation_row = annotation,
+    main = "Samples in MOFA factor space"
+  )
+
+} else {
+  message(
+    "Fewer than two factors explain at least 1% variance in either view."
+  )
+}
+
+
+
+```
+
+```{r}
+
+library(dplyr)
+library(tidyr)
+library(tibble)
+library(readr)
+library(purrr)
+library(lmerTest)
+library(broom.mixed)
+
+############################################################
+# Settings
+############################################################
+
+output_dir <- paste0(
+  "C:/Users/priceade/Desktop/Fecal_Omics/",
+  "Current_Code&Workflow/Final_Manuscript_Figures/MOFA2/",
+  "enrichment_feature_selection"
+)
+
+dir.create(
+  output_dir,
+  recursive = TRUE,
+  showWarnings = FALSE
+)
+
+# FDR threshold for association between factor score and diet
+factor_fdr_threshold <- 0.05
+
+
+# Expected diet groups
+diet_groups <- c("Meat", "Dairy")
+
+############################################################
+# 1. Extract factor scores and attach metadata
+############################################################
+
+factor_scores <- get_factors(
+  MOFAmodel,
+  factors = "all",
+  as.data.frame = TRUE
+) %>%
+  left_join(
+    sample_metadata %>%
+      select(
+        sample,
+        ID,
+        Group,
+        Time
+      ) %>%
+      distinct(),
+    by = "sample"
+  ) %>%
+  filter(
+    Group %in% diet_groups,
+    !is.na(value)
+  )
+
+############################################################
+# 2. Check factor and group names
+############################################################
+
+print(unique(factor_scores$factor))
+print(unique(factor_scores$Group))
+
+
+
+############################################################
+#  Test factor-score association with diet
+#
+# factor score ~ Group
+############################################################
+
+test_factor_group_association <- function(factor_name) {
+
+  dat <- factor_scores %>%
+    filter(factor == factor_name) %>%
+    mutate(
+      Group = factor(
+        Group,
+        levels = c("Dairy", "Meat")
+      )
+    )
+
+  model <- lm(
+    value ~ Group,
+    data = dat
+  )
+
+  broom::tidy(model) %>%
+    filter(term == "GroupMeat") %>%
+    transmute(
+      factor = factor_name,
+      estimate_meat_minus_dairy = estimate,
+      standard_error = std.error,
+      statistic = statistic,
+      p_value = p.value
+    )
+}
+
+factor_association_tests <- map_dfr(
+  unique(factor_scores$factor),
+  test_factor_group_association
+) %>%
+  mutate(
+    adjusted_p_value = p.adjust(
+      p_value,
+      method = "BH"
+    )
+  )
+
+
+
+```
+
+```{r}
+
+
+library(dplyr)
+library(ggplot2)
+
+############################################################
+# Mean factor scores by diet with 95% confidence intervals
+############################################################
+
+factor_plot_data <- factor_scores %>%
+  filter(
+    Group %in% c("Meat", "Dairy"),
+    !is.na(value)
+  ) %>%
+  group_by(
+    factor,
+    Group
+  ) %>%
+  summarise(
+    n = n_distinct(sample),
+    mean_factor_score = mean(value, na.rm = TRUE),
+    sd_factor_score = sd(value, na.rm = TRUE),
+    se_factor_score = sd_factor_score / sqrt(n),
+
+    # 95% CI using the group-specific t distribution
+    t_critical = qt(
+      p = 0.975,
+      df = n - 1
+    ),
+
+    ci_lower =
+      mean_factor_score -
+      t_critical * se_factor_score,
+
+    ci_upper =
+      mean_factor_score +
+      t_critical * se_factor_score,
+
+    .groups = "drop"
+  ) %>%
+  left_join(
+    factor_summary %>%
+      select(
+        factor,
+        p_value,
+        adjusted_p_value
+      ),
+    by = "factor"
+  ) %>%
+  mutate(
+    significance = case_when(
+      adjusted_p_value < 0.001 ~ "***",
+      adjusted_p_value < 0.01  ~ "**",
+      adjusted_p_value < 0.05  ~ "*",
+      adjusted_p_value < 0.10  ~ ".",
+      TRUE            ~ ""
+    )
+  )
+
+############################################################
+# One p-value annotation per factor
+############################################################
+
+factor_annotations <- factor_plot_data %>%
+  group_by(factor) %>%
+  summarise(
+    max_ci = max(ci_upper, na.rm = TRUE),
+    min_ci = min(ci_lower, na.rm = TRUE),
+    p_value = first(p_value),
+    adjusted_p_value = first(adjusted_p_value),
+    significance = first(significance),
+    .groups = "drop"
+  ) %>%
+  mutate(
+    factor_range = max_ci - min_ci,
+
+    # Prevent zero or non-finite annotation spacing
+    factor_range = if_else(
+      is.finite(factor_range) & factor_range > 0,
+      factor_range,
+      1
+    ),
+
+    annotation_y =
+      max_ci + 0.15 * factor_range,
+
+    annotation_label = paste0(
+      significance
+      )
+    
+  )
+
+############################################################
+# Order factors numerically
+############################################################
+
+factor_levels <- factor_plot_data %>%
+  distinct(factor) %>%
+  mutate(
+    factor_number = as.numeric(
+      gsub("[^0-9]", "", as.character(factor))
+    )
+  ) %>%
+  arrange(factor_number) %>%
+  pull(factor) %>%
+  as.character()
+
+factor_plot_data <- factor_plot_data %>%
+  mutate(
+    factor = factor(
+      as.character(factor),
+      levels = factor_levels
+    ),
+    Group = factor(
+      Group,
+      levels = c("Dairy", "Meat")
+    )
+  )
+
+factor_annotations <- factor_annotations %>%
+  mutate(
+    factor = factor(
+      as.character(factor),
+      levels = factor_levels
+    )
+  )
+
+############################################################
+# Bar plot
+############################################################
+
+factor_score_barplot <- ggplot(
+  factor_plot_data,
+  aes(
+    x = factor,
+    y = mean_factor_score,
+    fill = Group
+  )
+) +
+  geom_hline(
+    yintercept = 0,
+    linetype = "dashed",
+    linewidth = 0.4
+  ) +
+  geom_col(
+    position = position_dodge(width = 0.8),
+    width = 0.7,
+    color = "black",
+    linewidth = 0.25
+  ) +
+  geom_errorbar(
+    aes(
+      ymin = ci_lower,
+      ymax = ci_upper
+    ),
+    position = position_dodge(width = 0.8),
+    width = 0.18,
+    linewidth = 0.7
+  ) +
+  geom_text(
+    data = factor_annotations,
+    aes(
+      x = factor,
+      y = annotation_y,
+      label = annotation_label
+    ),
+    inherit.aes = FALSE,
+    size = 3.5,
+    lineheight = 0.9
+  ) +
+  scale_fill_manual(
+    values = c(
+      "Dairy" = "darkgreen",
+      "Meat" = "maroon"
+    )
+  ) +
+  scale_y_continuous(
+    expand = expansion(
+      mult = c(0.08, 0.22)
+    )
+  ) +
+  coord_cartesian(
+    clip = "off"
+  ) +
+  labs(
+    x = "MOFA factor",
+    y = "Mean factor score (95% CI)",
+    fill = "Diet group"
+  ) +
+  theme_classic(
+    base_size = 14
+  ) +
+  theme(
+    legend.position = "top",
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1
+    ),
+    plot.margin = margin(
+      t = 20,
+      r = 10,
+      b = 10,
+      l = 10
+    )
+  )
+
+factor_score_barplot
+
+```
+

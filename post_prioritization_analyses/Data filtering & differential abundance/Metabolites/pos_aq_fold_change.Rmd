@@ -1,0 +1,589 @@
+---
+title: "pos_aqueous_normalization"
+output: html_document
+date: "2023-06-26"
+---
+
+```{r setup, include=FALSE, message=FALSE}
+library(readxl)
+library(tidyverse)
+library(data.table)
+#library(DT)
+library(lmerTest)
+library(stringr)
+library(htmlwidgets)
+
+library(here)
+```
+
+#Constant
+```{R}
+file.name <- "pos_aq"
+outcomes <- c("WAZ" ,"WLZ" ,"LAZ" ,"HCAZ")
+constant_IQR <- 1.5
+cv_human_threshold <-0.1
+```
+
+#reading raw data
+```{r}
+raw_philic <- read_csv(paste("C:/Users/priceade/Desktop/Fecal_Omics/Older Code and Workflows/processed_data_1/raw", file.name,".csv",sep = ""))
+```
+
+#Reading Phillic data
+Assigning Compound Names P_AQ.1, P_AQ.2, P_AQ.3, 1 to Positive aqueous compounds
+```{r}
+file <- here(paste("C:/Users/priceade/Desktop/Fecal_Omics/Older Code and Workflows/processed_data_1/cmpd_info_", file.name,".txt",sep = ""))
+phillic_cmpd_info <- as.data.frame(read.table(file = file, header=T))
+names(phillic_cmpd_info)[names(phillic_cmpd_info) == 'Compound'] <- 'Compound.Name'
+
+file <- here("C:/Users/priceade/Desktop/Fecal_Omics/Older Code and Workflows/processed_data",paste("merged_file_", file.name,".txt",sep = ""))
+fully_joined_phillic <- as.data.frame(read.table(file = file, header=T))
+
+Compound<- paste("P_AQ.",1:nrow(phillic_cmpd_info), sep = "")
+phillic_cmpd_info <- cbind(Compound,phillic_cmpd_info)
+
+#datatable(as.data.frame(phillic_cmpd_info),rownames=F,extensions=c("Buttons","ColReorder"),
+#          options=list(dom="Bfrtipl",scrollY=TRUE,scrollX=TRUE,colReorder=TRUE,buttons=c("excel","csv"),
+#                       pageLength=10,lengthMenu=c(10,25,50)),
+#          class="cell-border stripe", caption="Summary Information for Metabolites")
+file <- here("C:/Users/priceade/Desktop/Fecal_Omics/Older Code and Workflows/processed_data",paste("compound_Information_", file.name,".csv",sep = ""))
+write.csv(phillic_cmpd_info, file, row.names=F)
+
+## Naming Columns for "pc_18" 
+colnames(fully_joined_phillic)[12:ncol(fully_joined_phillic)] <- Compound
+fully_joined_phillic <-  fully_joined_phillic[complete.cases(fully_joined_phillic[,Compound]),]
+dim(fully_joined_phillic)
+```
+#check balancing
+```{r}
+
+check_balance <- cbind(fully_joined_phillic[,c(1:11)],fully_joined_phillic[,Compound])
+check_balance$Type <- ifelse(str_detect(check_balance$StudyID, "pool"), "pool", "Human")
+check_balance <- as.data.frame(check_balance[!(check_balance$Type=="pool"),])
+
+batch_check <- check_balance%>%
+  group_by(batch, Time, Group)%>%
+summarise(n())
+
+print(batch_check)
+
+Time_check <- check_balance%>%
+  group_by(Time)%>%
+summarise(n())
+print(Time_check)
+
+Group_check <- check_balance%>%
+  group_by(Group)%>%
+summarise(n())
+print(Group_check)
+
+all_check <- check_balance%>%
+  group_by(batch, Time, Group)%>%
+summarise(n())
+
+all_check_no_mid <-all_check%>%
+  filter(Time != "Mid")
+```
+
+
+## Filter By Missingness
+
+For this analysis, we will only consider metabolites seen in at least 25% of the plasma samples (regardless of time status). This will guarantee that the largest percent missing allowed is 75% across all compounds in our analysis.
+
+```{r Missingness Exploration, echo = T, message = FALSE, results = FALSE, cache = F}
+#how many compounds?
+
+dim(raw_philic) #1785 compounds
+
+
+dat_t <- raw_philic
+
+#Subset to raw data only:
+raw_dat <- dat_t
+
+raw_human <- raw_dat[grep("pool", raw_dat$StudyID, invert = T),]
+dim(raw_human) #167 samples
+
+rownames(raw_human) <- raw_human$StudyID
+raw_human <- raw_human[,-1]
+
+#missingness by compounds
+#turn into numeric
+raw_human <- apply(raw_human, 2, as.numeric)
+
+#colnames(raw_human) <- raw.mets$Compound
+missing_values_counts <- apply(raw_human, 2, function(x) sum(x == 1))
+missing_values_pcts <- apply(raw_human,2, function(x) sum(x==1)/167)
+
+missing_df <- data.frame(Compound.Name = names(missing_values_counts),
+                         Missing_Count = missing_values_counts,
+                         Missing_Pct = missing_values_pcts)
+
+```
+
+#Filtering Missingness
+```{R}
+
+missing_df2 <- left_join(missing_df, phillic_cmpd_info[,c(1,2)])
+missing_df <- missing_df2[,c(4,1,2,3)]
+
+missing_filtered <- merge(missing_df[missing_df$Missing_Pct<.9,], phillic_cmpd_info[,c(1,2)], by = c("Compound","Compound.Name"), all.x=T)
+
+Compound <- missing_filtered$Compound
+length(Compound)
+
+dim(missing_filtered)
+```
+
+
+
+# Calculating Absence(missing) Values of Compounds at baseline in each diet:
+```{r}
+#Meat_base
+phillic_meat_base <- fully_joined_phillic[fully_joined_phillic$Group !="Dairy"&fully_joined_phillic$Time == "Base", ]
+phillic_dairy_base <- fully_joined_phillic[fully_joined_phillic$Group !="Meat"&fully_joined_phillic$Time == "Base", ]
+## Calculating Missing in "Base", "Mid" and "End"
+
+my_frame <- data.frame(matrix(ncol=2, nrow=2))
+colnames(my_frame) <- c("Missing","Present")
+rownames(my_frame) <- c("dairy","meat")
+
+my_p_frame <- data.frame(matrix(ncol=1, nrow=length(Compound)))
+colnames(my_p_frame) <- "P_value"
+rownames(my_p_frame) <- Compound
+
+
+for (i in 1: length(Compound)){
+  my_frame[1,1] <- (sum(phillic_dairy_base[,Compound[i]]==1, na.rm = T))
+  my_frame[1,2] <- (sum(phillic_dairy_base[,Compound[i]]!=1, na.rm = T))
+  my_frame[2,1] <- (sum(phillic_meat_base[,Compound[i]]==1, na.rm = T))
+  my_frame[2,2] <- (sum(phillic_meat_base[,Compound[i]]!=1, na.rm = T))
+  fisher_i <- fisher.test(my_frame)
+  my_p_frame [i,1]<- fisher_i$p.value
+}
+
+paste("We have significant evidence that there is a difference between the compounds present at baseline in Dairy and Meat diet for",length(my_p_frame[my_p_frame$P_value< 0.05,]),"out of",nrow(my_p_frame),"compounds", sep = " ")
+
+```
+
+#Batch Correction preparation
+```{r}
+
+phillic_dat <- cbind(fully_joined_phillic[,c(1:11)],fully_joined_phillic[,Compound])
+
+phillic_dat[,c("ms.vial", "Group", "Time")] <- lapply(phillic_dat[,c("ms.vial", "Group", "Time")],factor)
+phillic_dat[,outcomes] <- lapply(phillic_dat[,outcomes],as.numeric)
+phillic_dat[,Compound] <- lapply(phillic_dat[,Compound],as.numeric)
+phillic_dat[,c("batch", "count")] <- lapply(phillic_dat[,c("batch", "count")],as.numeric)
+
+## Adding a New Column to Identify QC Values from Human
+phillic_dat$Type <- ifelse(str_detect(phillic_dat$StudyID, "pool"), "pool", "Human")
+```
+
+```{R}
+## Removing QC Rows
+phillic_dat <- as.data.frame(phillic_dat[!(phillic_dat$Type=="pool"),])
+
+phillic_dat <- droplevels(phillic_dat)
+
+```
+
+
+# Outliers and Correction
+Identifying outlier points
+```{r}
+## Identifying and Removing Outliers
+## replacing all 0 values in Metabolite with NAs 
+phillic_dat[,Compound][phillic_dat[,Compound]==1] <- NA
+
+## Identifying outliers
+cmpd_outlier <- as.data.frame(matrix(nrow = nrow(phillic_dat), ncol = ncol(phillic_dat[,Compound])))
+for(i in 1:length(Compound)){
+  cmpd_loop <- phillic_dat[,c(Compound[i], "count","batch")]
+  names(cmpd_loop) <- c("Compound", "count", "batch")
+  linear_reg <- lm(Compound~count*batch, data=cmpd_loop) 
+  cmpd_residuals <- as.vector(linear_reg$residuals)
+  cmpd_q3 <- quantile(cmpd_residuals, 0.75)
+  cmpd_q1 <- quantile(cmpd_residuals, 0.25)
+  iqr <- cmpd_q3 - cmpd_q1
+  cmpd_outlier[names(residuals(linear_reg)),i] <- cmpd_residuals 
+  cmpd_outlier[,i] <- ifelse(cmpd_outlier[,i] > (cmpd_q3 + constant_IQR*iqr) | cmpd_outlier[,i] < (cmpd_q1 - constant_IQR*iqr),F,T)
+}
+
+## Replacing T and F with 0 and 1, and Removing Empty Rows
+cmpd_outlier <- as.data.frame(sapply(cmpd_outlier, as.numeric))
+cmpd_outlier <- cmpd_outlier[rowSums(is.na(cmpd_outlier))!=ncol(cmpd_outlier),]
+      
+## Removing Outliers 
+updated_cmpd <- phillic_dat
+updated_cmpd[,Compound] <- mapply('*', updated_cmpd[,Compound], cmpd_outlier)
+updated_cmpd[,Compound][updated_cmpd[,Compound] == 0] <- NA #setting outliers to NA
+```
+
+
+## Normalization
+Normalizing the Dataset After Removing Outliers
+```{r}
+## Calculating the normalized values
+cmpd_normalized <- as.data.frame(matrix(nrow = nrow(updated_cmpd), ncol = ncol(updated_cmpd[,Compound])))
+
+predicted_value <- as.data.frame(matrix(nrow = nrow(updated_cmpd), ncol = ncol(updated_cmpd[,Compound])))
+
+#unique(updated_cmpd$count)
+#str(updated_cmpd[,c(1:12)])
+
+for(i in 1:length(Compound)){
+  linear_reg_normalized <- lm(updated_cmpd[,Compound[i]]~count*batch, data=updated_cmpd)
+  predicted_reg <- predict.lm(linear_reg_normalized, newdata = phillic_dat)
+  predicted_value[,i]<-as.data.frame(predicted_reg)
+  cmpd_normalized[,i] <- as.data.frame(phillic_dat[,Compound[i]]-predicted_reg)
+}
+
+colnames(cmpd_normalized) <- Compound
+colnames(predicted_value) <- Compound
+
+cmpd_normalized <- cbind(updated_cmpd[,c(1:11)],cmpd_normalized)
+cmpd_predicted <- cbind(updated_cmpd[,c(1:11)],predicted_value)
+```
+
+```{r}
+#Meat_base
+phillic_meat_base2 <- cmpd_normalized[cmpd_normalized$Group !="Dairy"&cmpd_normalized$Time == "Base", ]
+phillic_dairy_base2 <- cmpd_normalized[cmpd_normalized$Group !="Meat"&cmpd_normalized$Time == "Base", ]
+## Calculating Missing in "Base", "Mid" and "End"
+
+my_frame <- data.frame(matrix(ncol=2, nrow=2))
+colnames(my_frame) <- c("Missing","Present")
+rownames(my_frame) <- c("dairy","meat")
+
+my_p_frame <- data.frame(matrix(ncol=1, nrow=length(Compound)))
+colnames(my_p_frame) <- "P_value"
+rownames(my_p_frame) <- Compound
+
+
+for (i in 1: length(Compound)){
+  my_frame[1,1] <- (sum(is.na(phillic_dairy_base2[,Compound[i]])))
+  my_frame[1,2] <- (sum(!is.na(phillic_dairy_base2[,Compound[i]])))
+  my_frame[2,1] <- (sum(is.na(phillic_meat_base2[,Compound[i]])))
+  my_frame[2,2] <- (sum(!is.na(phillic_meat_base2[,Compound[i]])))
+  fisher_i <- fisher.test(my_frame)
+  my_p_frame [i,1]<- fisher_i$p.value
+}
+
+
+phillic_dairy_base2[,is.na(Compound[i])]
+paste("We have significant evidence that there is a difference between the compounds present at baseline in Dairy and Meat diet for",length(my_p_frame[my_p_frame$P_value< 0.05,]),"out of",nrow(my_p_frame),"compounds", sep = " ")
+```
+
+#minimum computing
+```{r}
+cmpd_minimum <- as.data.frame(matrix(nrow = nrow(updated_cmpd), ncol = ncol(updated_cmpd[,Compound])))
+# i<-1
+for(i in 1:length(Compound)){
+  raw_min <- min(phillic_dat[,Compound[i]], na.rm = T)
+  mod_min <- min(cmpd_normalized[,Compound[i]]-cmpd_predicted[,Compound[i]],na.rm = T)
+  cmpd_min <- raw_min - mod_min
+  cmpd_minimum[,i]<- cmpd_min
+  }
+colnames(cmpd_minimum) <- colnames(updated_cmpd[,Compound])
+
+cmpd_normalized_shift2<- cmpd_normalized[,Compound]+cmpd_minimum
+
+cmpd_normalized_shift <-cbind(updated_cmpd[,c(1:11)],cmpd_normalized_shift2)
+
+#write.csv(cmpd_normalized_shift, file, row.names=F)
+
+```
+
+
+#remove low variability. Only keep cpds >10% missing or non-0 cv > 0.1
+```{r CV Filter, message=F, warning=F, results=T, echo=F}
+#Function to calculate CV given a vector of values
+cv_calc <- function(x){
+  x <- x[complete.cases(x)]
+  mu <- mean(x)
+  sig <- sd(x)
+  
+  cv <- abs(sig/mu)
+  return(cv)
+}
+```
+
+
+## Filter by Coefficient of Variation in human samples and missingness threshold
+
+```{r}
+#Create a data set consisting of just samples
+cmpd_normalized_shift$Type <- ifelse(str_detect(cmpd_normalized_shift$StudyID, "pool"), "pool", "Human")
+
+Human_dat <- cmpd_normalized_shift[cmpd_normalized_shift$Type == "Human",Compound]
+
+#Human_dat[is.na(Human_dat)] <- 0
+
+#apply the CV function by metabolite
+cv_Human_dat <- data.frame(Compound = Compound,
+                     CV_value = apply(Human_dat[,Compound], 2, function(x) cv_calc(x)))
+
+summary(cv_Human_dat$CV_value)
+hist(cv_Human_dat$CV_value)
+
+missing.tmp <- missing_df2
+
+human_filtering_data <- left_join(cv_Human_dat,missing.tmp)
+
+hist(human_filtering_data$Missing_Pct)
+
+#Initial data
+cv_human_threshold <- quantile(cv_Human_dat$CV_value, .02)
+
+more_10_missing <- human_filtering_data%>%
+  filter(Missing_Pct>0.10)
+
+dim(more_10_missing)
+
+
+coef_var_high <- human_filtering_data%>%
+  filter(CV_value>cv_human_threshold)
+
+dim(coef_var_high)
+
+
+
+ #threshold: 1 ->#65
+#threshold: 0.5 ->#386
+ #threshold: 0.1 ->#1572
+ #threshold: 0.1 ->#1769
+
+Compound_2 <- human_filtering_data[human_filtering_data$CV_value>cv_human_threshold | human_filtering_data$Missing_Pct > 0.10, "Compound"]
+
+print(paste("After using a threshold of ", cv_human_threshold, " to remove compounds with low variability  for human samples there are ", length(Compound_2)," compounds remaining.", sep = ""))
+```
+
+
+```{r}
+cmpd_normalized_shift <-cbind(updated_cmpd[,c(1:11)],cmpd_normalized_shift[,Compound_2])
+#pos_aq <- cmpd_normalized_shift
+
+cmpd_normalized_shift <- cmpd_normalized_shift %>%
+  mutate(across(where(is.numeric),function(x) {if_else(is.na(x),min(x,na.rm=T),x)}))
+
+
+
+#we are just assessing base/end for now
+cmpd_normalized_shift_end <- cmpd_normalized_shift[cmpd_normalized_shift$Time == 'End',]
+
+
+########################################Explore significance############################
+micro_dairy <- cmpd_normalized_shift_end[cmpd_normalized_shift_end$Group == 'Dairy',]
+micro_meat <- cmpd_normalized_shift_end[cmpd_normalized_shift_end$Group == 'Meat',]
+
+micro_d_data <- as.matrix(micro_dairy[,12:1760])
+class(micro_d_data) <- "numeric"
+micro_m_data <- as.matrix(micro_meat[,12:1760])
+class(micro_m_data) <- "numeric"
+
+print(paste0('metabolites: dairy, pos aq ', dim(micro_d_data)[1]))
+print(paste0('metabolites: meat, pos aq', dim(micro_m_data)[1]))
+
+micro_d_data <- log2(micro_d_data)
+micro_m_data <- log2(micro_m_data)
+
+p_val <- c()
+stat <- c()
+
+for (i in 1:dim(micro_d_data)[2]){
+    test <-wilcox.test(micro_d_data[,(i)],micro_m_data[,(i)], paired = FALSE, exact = FALSE)
+    p_val <- append(p_val,as.numeric(test$p.value))
+    stat <- append(stat,as.numeric(test$statistic))
+  }
+bon_cor <- .05/dim(micro_d_data)[2]
+fdr_cor <- p.adjust(p_val, method = 'fdr', n= dim(micro_d_data)[2])
+
+###############################################################################################################################################
+
+#calculate the mean of each feature val per samp
+dairy = as.vector(apply(micro_d_data, 2, mean))
+
+#calcuate the mean of each gene per test group
+meat = as.vector(apply(micro_m_data, 2, mean))
+
+fold_change <- -1*(dairy-meat)
+full_results_pos_aq <- cbind.data.frame('feature'=colnames(micro_d_data), 'p_val' = p_val, 'fdr' = fdr_cor, 'fold_change' = fold_change)
+
+#merge fold change info with key for features
+#key <- read.csv("C://Users/priceade/Desktop/Fecal_Omics/Older Code and Workflows/All_micro_metab_KEY.csv")
+#full_results_neg_aq_key <- merge(full_results_neg_aq, key, by.x = "feature", by.y = "code", all.x =TRUE)
+#write.csv(full_results_neg_aq_key, "C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Final_Manuscript_Figures/diff_abun_neg_aq.csv", row.names=FALSE)
+
+
+
+###############################################################################################################################################
+
+
+
+########################################Explore significance base/end############################
+#we are just assessing base/end for now
+cmpd_normalized_shift <- cmpd_normalized_shift[cmpd_normalized_shift$Time == 'End' | cmpd_normalized_shift$Time == 'Base',]
+
+micro_labeled <- cmpd_normalized_shift[cmpd_normalized_shift$Vial.ID %in% names(which(table(cmpd_normalized_shift$Vial.ID) > 1)), ]
+
+micro_base <- micro_labeled[micro_labeled$Time == 'Base',]
+micro_base <- micro_base[order(micro_base$Vial.ID),]
+micro_end <- micro_labeled[micro_labeled$Time == 'End',]
+micro_end <- micro_end[order(micro_end$Vial.ID),]
+
+print(paste0('metabolites: base, pos aq ', dim(micro_base)[1]))
+print(paste0('metabolites: end, pos aq ', dim(micro_end)[1]))
+
+micro_b_data <- as.matrix(micro_base[,12:1760])
+class(micro_b_data) <- "numeric"
+micro_e_data <- as.matrix(micro_end[,12:1760])
+class(micro_e_data) <- "numeric"
+
+micro_b_data <- log2(micro_b_data)
+micro_e_data <- log2(micro_e_data)
+
+p_val <- c()
+stat <- c()
+
+for (i in 1:dim(micro_b_data)[2]){
+    test <-wilcox.test(micro_b_data[,(i)],micro_e_data[,(i)], paired = TRUE, exact = FALSE)
+    p_val <- append(p_val,as.numeric(test$p.value))
+    stat <- append(stat,as.numeric(test$statistic))
+  }
+
+
+
+############################################################################################################################################
+
+#calculate the mean of each feature val per samp
+base = as.vector(apply(micro_b_data, 2, mean))
+
+#calcuate the mean of each gene per test group
+end = as.vector(apply(micro_e_data, 2, mean))
+
+fold_change <- -1*(base-end)
+
+
+
+
+full_results_pos_aq_time <- cbind.data.frame('feature'=colnames(micro_b_data), 'p_val' = p_val, 'fdr' = fdr_cor, 'fold_change' = fold_change)
+############################################################################################################################################
+
+
+```
+
+
+
+
+
+
+#Ranking 
+```{R}
+cmpd_normalized_shift <-cbind(updated_cmpd[,c(1:11)],cmpd_normalized_shift[,Compound_2])
+
+
+## Replacing "NA" with -999 for Ranking
+
+# str(cmpd_updated)
+# unique(cmpd_updated$Group)
+# unique(cmpd_updated$Time)
+
+#Ranking dataset
+
+cmpd_ranked <- cmpd_normalized_shift
+cmpd_ranked[,Compound_2] <- as.data.frame(apply(cmpd_ranked[,Compound_2],2,function(x)
+ rank(replace(x,x==0, NA), na='keep')))
+cmpd_ranked[,Compound_2] <- as.data.frame(apply(cmpd_ranked[,Compound_2],2,function(x)
+ replace(x,is.na(x), 0)))
+#length(unique(cmpd_ranked$Vial.ID))
+
+cmpd_ranked$Vial.ID <- as.factor(cmpd_ranked$Vial.ID)
+#write.csv(cmpd_ranked,file, row.names=F)
+
+```
+
+#Rescale data
+```{r}
+cmpd_rescaled <- as.data.frame(matrix(nrow = nrow(cmpd_ranked), ncol = ncol(cmpd_ranked[,Compound_2])))
+for(i in 1:length(Compound_2)){
+  cmpd_rescaled[,i]<- cmpd_ranked[,Compound_2[i]]/max(cmpd_ranked[,Compound_2[i]])
+  }
+colnames(cmpd_rescaled) <- Compound_2
+cmpd_rescaled <-cbind(cmpd_ranked[,c(1:11)],cmpd_rescaled)
+
+dim(cmpd_rescaled)
+#Cmpd Rescaled
+file <- here("processed_data",paste("rescaled_", file.name,".csv",sep = ""))
+#write.csv(cmpd_rescaled, file, row.names=F)
+
+```
+
+
+#Put into format for Pecanpy
+#Format data into 3 columns (Baby, Compound, Rank) (Both normalized shifted, ranked) 
+##Positive Lipid
+```{r}
+ranked_pos_aq <- cmpd_rescaled
+ranked_pos_aq$sample.name <- paste(ranked_pos_aq$Vial.ID,ranked_pos_aq$Time,sep="_")
+Information_code_pos_aq <- ranked_pos_aq[,c("sample.name","Group","Time","ms.vial","Vial.ID","count","batch","WAZ","WLZ","LAZ","HCAZ")]
+
+
+transformed_data_pos_aq<- ranked_pos_aq[,c("sample.name", Compound_2)]
+#write.csv(transformed_data_pos_aq, paste("C:/Users/priceade/Desktop/Fecal_Omics/processed_data_1/Regression Model Data/", file.name,".csv",sep = ""), row.names=F)
+
+long_data_pos_aq <- transformed_data_pos_aq%>%
+  pivot_longer(starts_with("P_AQ."), names_to = "Compound", values_to = "Norm_value")
+
+#Long_compd
+#number of unique baby 
+length(unique(long_data_pos_aq$sample.name))
+#167
+
+#number of unique compounds 
+length(unique(long_data_pos_aq$Compound))
+#2789
+long_data_pos_aq <- long_data_pos_aq[long_data_pos_aq$Norm_value >0,]
+
+write_tsv(long_data_pos_aq, paste("C:/Users/priceade/Desktop/Fecal_Omics/Current_Code&Workflow/Data/long_format_", file.name,".tsv",sep = ""))
+
+
+```
+
+```{R}
+
+compound.1.init <- phillic_dat[,"P_AQ.1006"]
+
+compound.1.no.outlier <- updated_cmpd[,"P_AQ.1006"]
+
+compound.1.predicted <- cmpd_predicted[,"P_AQ.1006"]
+
+compound.1.norm <-cmpd_normalized[,"P_AQ.1006"]
+
+compound.1.norm_shiffted <- cmpd_normalized_shift[,"P_AQ.1006"]
+
+compound.1.ranked <- cmpd_ranked[,"P_AQ.1006"]
+
+compound.1.rescaled <- cmpd_rescaled[,"P_AQ.1006"]
+
+
+data_check <- data.frame(cbind(phillic_dat[,"ms.vial"],compound.1.init,compound.1.no.outlier,compound.1.predicted,compound.1.norm,compound.1.norm_shiffted,compound.1.ranked, compound.1.rescaled))
+
+long_data <-  data_check%>%
+  pivot_longer(!V1, names_to = "data_type", values_to = "value")
+
+
+long_data$data_type <- factor(long_data$data_type, levels=c("compound.1.init","compound.1.no.outlier","compound.1.predicted","compound.1.norm","compound.1.norm_shiffted","compound.1.ranked", "compound.1.rescaled"))
+
+levels(long_data$data_type)
+
+
+ggplot(long_data, aes(x = value, y = data_type, fill = data_type)) +
+  geom_density_ridges(
+    aes(point_color = data_type, point_fill = data_type),
+    alpha = .2, point_alpha = 1, jittered_points = TRUE
+  ) +
+  scale_point_color_hue(l = 40)+
+  theme_classic()
+
+```

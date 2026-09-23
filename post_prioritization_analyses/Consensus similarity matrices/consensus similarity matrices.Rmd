@@ -1,0 +1,289 @@
+---
+title: "Consensus similarity matrices"
+output: html_document
+date: "2023-10-31"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Full code block
+```{r}
+library(tidyverse)
+library(here)
+library(text2vec)
+
+embeddings <- c(
+  "7o4yga2v", 
+  "8lofhbbf", 
+  "21tdsqsa", 
+  "ai9n4jxs", 
+  "q2gzu1o3", 
+  "qb4y98x0", 
+  "wcksnlsg"
+)
+
+embedding_dir <- "X/top_embeddings"
+details_dir <- "X/top_embeddings/Embedding_Details"
+class_dir <- "X/Detecting_Local_Communties/classification_association_results/Permutations"
+
+key_file <- "XAll_micro_metab_KEY.csv"
+info_file <- "Xprocessed_data_1/microbiome_info_data.csv"
+
+Permutations_diet <- read.table(file = "X/Enrichment_Analysis/Enrichment_Analysis_Embedding_Associations/data_permutations/diet_significant_mean_confidence.tsv", fill = TRUE, header = TRUE)
+Permutations_time <- read.table(file = "X/Enrichment_Analysis/Enrichment_Analysis_Embedding_Associations/data_permutations/time_significant_mean_confidence.tsv", fill = TRUE, header = TRUE)
+
+
+meat_intersection <- Permutations_diet[Permutations_diet$direction == 'meat',]
+dairy_intersection <- Permutations_diet[Permutations_diet$direction == 'dairy',]
+base_intersection <- Permutations_time[Permutations_time$direction == 'baseline',]
+end_intersection <- Permutations_time[Permutations_time$direction == 'endpoint',]
+
+all_sig_mats <- list()
+
+for (emb in embeddings) {
+  
+  message("Processing embedding: ", emb)
+  
+  ############################################################
+  # Read PEcan embedding matrix
+  ############################################################
+  
+  pecan_matrix <- read.table(
+    file = file.path(embedding_dir, paste0(emb, ".tsv.gz")),
+    fill = TRUE
+  )
+  
+  colnames(pecan_matrix) <- paste0("dim_", 1:128)
+  
+  pecan_matrix_128 <- pecan_matrix
+  pecan_matrix_128$nodes <- rownames(pecan_matrix_128)
+  pecan_matrix_128 <- pecan_matrix_128[, c(129, 1:128)]
+  
+  
+  ############################################################
+  # Get reference metabolite/microbiome key
+  ############################################################
+  
+  dat_features <- cbind.data.frame(feature = pecan_matrix_128$nodes)
+  key <- read.csv(key_file)
+  all_key <- merge(
+    dat_features,
+    key,
+    by.x = "feature",
+    by.y = "code",
+    all.x = TRUE
+  )
+  
+  
+  ############################################################
+  # Read model weights and get retained dimensions
+  ############################################################
+  
+  coeffs_time <- read.table(
+    file = file.path(details_dir, paste0(emb, "_time_model_weights.txt")),
+    sep = "\t",
+    header = FALSE
+  )
+  
+  keep_time <- which(coeffs_time$V1 != 0)
+  
+  coeffs_type <- read.table(
+    file = file.path(details_dir, paste0(emb, "_diet_model_weights.txt")),
+    sep = "\t",
+    header = FALSE
+  )
+  
+  keep_type <- which(coeffs_type$V1 != 0)
+  
+  
+  ############################################################
+  # Add feature/sample labels
+  ############################################################
+  
+  pecan_matrix_128$category <- ifelse(
+    str_detect(pecan_matrix_128$nodes, "MD-"), "Baby",
+    ifelse(
+      str_detect(pecan_matrix_128$nodes, "k_|PF|K|COG|ENOG"),
+      "Microbiome",
+      "Metabolomic"
+    )
+  )
+  
+  pecan_matrix_128$point <- ifelse(str_detect(pecan_matrix_128$nodes, "SPE"), "Microbe_Species", "check")
+  pecan_matrix_128$point <- ifelse(str_detect(pecan_matrix_128$nodes, "PF"), "Microbe_PFAM", pecan_matrix_128$point)
+  pecan_matrix_128$point <- ifelse(startsWith(pecan_matrix_128$nodes, "K"), "Microbe_K0", pecan_matrix_128$point)
+  pecan_matrix_128$point <- ifelse(str_detect(pecan_matrix_128$nodes, "COG|ENOG"), "Microbe_COG", pecan_matrix_128$point)
+  pecan_matrix_128$point <- ifelse(str_detect(pecan_matrix_128$nodes, "Base"), "Baby_base", pecan_matrix_128$point)
+  pecan_matrix_128$point <- ifelse(str_detect(pecan_matrix_128$nodes, "End"), "Baby_end", pecan_matrix_128$point)
+  pecan_matrix_128$point <- ifelse(str_detect(pecan_matrix_128$nodes, "N_LP"), "meta_neg_lipid", pecan_matrix_128$point)
+  pecan_matrix_128$point <- ifelse(str_detect(pecan_matrix_128$nodes, "P_LP"), "meta_pos_lipid", pecan_matrix_128$point)
+  pecan_matrix_128$point <- ifelse(str_detect(pecan_matrix_128$nodes, "P_AQ"), "meta_pos_aq", pecan_matrix_128$point)
+  pecan_matrix_128$point <- ifelse(str_detect(pecan_matrix_128$nodes, "N_AQ"), "meta_neg_aq", pecan_matrix_128$point)
+  
+  
+  ############################################################
+  # Isolate baby samples
+  ############################################################
+  
+  info_data <- read_csv(info_file, show_col_types = FALSE)
+  colnames(info_data)[11] <- "nodes"
+  info_data <- info_data[, c(11, 2:10)]
+  info_data <- info_data[info_data$Timepoint != "??", ]
+  
+  
+  ############################################################
+  # Merge baby metadata with PEcan embedding
+  ############################################################
+  
+  baby_Pecan_128 <- inner_join(info_data, pecan_matrix_128, by = join_by(nodes))
+  
+  baby_Pecan_128_time <- baby_Pecan_128[
+    baby_Pecan_128$ID %in% names(which(table(baby_Pecan_128$ID) > 1)),
+  ]
+  
+  base_line <- baby_Pecan_128_time[baby_Pecan_128_time$Timepoint == "BL", ]
+  late_obs <- baby_Pecan_128_time[baby_Pecan_128_time$Timepoint == "E", ]
+  
+  pre_dairy <- late_obs[late_obs$Group == "Dairy", ]
+  pre_meat <- late_obs[late_obs$Group == "Meat", ]
+  
+  
+  ############################################################
+  # Feature embeddings for time and diet/type models
+  ############################################################
+  
+  pre_feature_embedding <- as.matrix(
+    pecan_matrix_128[
+      pecan_matrix_128$category != "Baby",
+      2:(dim(pecan_matrix_128)[2] - 2)
+    ]
+  )
+  
+  rownames(pre_feature_embedding) <- pecan_matrix_128$nodes[
+    pecan_matrix_128$category != "Baby"
+  ]
+  
+  feature_embedding_time <- pre_feature_embedding[, keep_time, drop = FALSE]
+  feature_embedding_type <- pre_feature_embedding[, keep_type, drop = FALSE]
+  
+  
+  ############################################################
+  # Cosine similarity matrices
+  ############################################################
+  
+  allfeature_feature_sim_type <- sim2(
+    feature_embedding_type,
+    feature_embedding_type,
+    method = "cosine",
+    norm = "l2"
+  )
+  
+  rownames(allfeature_feature_sim_type) <- rownames(feature_embedding_type)
+  colnames(allfeature_feature_sim_type) <- rownames(feature_embedding_type)
+  
+  
+  allfeature_feature_sim_time <- sim2(
+    feature_embedding_time,
+    feature_embedding_time,
+    method = "cosine",
+    norm = "l2"
+  )
+  
+  rownames(allfeature_feature_sim_time) <- rownames(feature_embedding_time)
+  colnames(allfeature_feature_sim_time) <- rownames(feature_embedding_time)
+  
+  
+  ############################################################
+  # Create sig matrices for each embedding
+  ############################################################
+  
+  sig_type_mat_meat <- allfeature_feature_sim_type[
+    meat_intersection$feature,
+    meat_intersection$feature
+  ]
+  
+  sig_type_mat_dairy <- allfeature_feature_sim_type[
+    dairy_intersection$feature,
+    dairy_intersection$feature
+  ]
+  
+  sig_type_mat_base <- allfeature_feature_sim_time[
+    base_intersection$feature,
+    base_intersection$feature
+  ]
+  
+  sig_type_mat_end <- allfeature_feature_sim_time[
+    end_intersection$feature,
+    end_intersection$feature
+  ]
+  
+  
+  ############################################################
+  # Save matrices into nested list
+  ############################################################
+  
+  all_sig_mats[[emb]] <- list(
+    sig_type_mat_meat = sig_type_mat_meat,
+    sig_type_mat_dairy = sig_type_mat_dairy,
+    sig_type_mat_base = sig_type_mat_base,
+    sig_type_mat_end = sig_type_mat_end
+  )
+}
+
+
+############################################################
+# Average matrices across all 7 embedding spaces
+############################################################
+
+avg_sig_type_mat_meat <- Reduce(
+  "+",
+  lapply(all_sig_mats, function(x) x$sig_type_mat_meat)
+) / length(all_sig_mats)
+
+avg_sig_type_mat_dairy <- Reduce(
+  "+",
+  lapply(all_sig_mats, function(x) x$sig_type_mat_dairy)
+) / length(all_sig_mats)
+
+avg_sig_type_mat_base <- Reduce(
+  "+",
+  lapply(all_sig_mats, function(x) x$sig_type_mat_base)
+) / length(all_sig_mats)
+
+avg_sig_type_mat_end <- Reduce(
+  "+",
+  lapply(all_sig_mats, function(x) x$sig_type_mat_end)
+) / length(all_sig_mats)
+
+
+############################################################
+# Save all averaged matrices in one list object
+############################################################
+
+avg_sig_type_mats <- list(
+  avg_sig_type_mat_meat = avg_sig_type_mat_meat,
+  avg_sig_type_mat_dairy = avg_sig_type_mat_dairy,
+  avg_sig_type_mat_base = avg_sig_type_mat_base,
+  avg_sig_type_mat_end = avg_sig_type_mat_end
+)
+
+
+############################################################
+# Optional: write averaged matrices to CSV
+############################################################
+
+write.csv(avg_sig_type_mat_meat, file.path(class_dir, "avg_sig_type_mat_meat.csv"))
+write.csv(avg_sig_type_mat_dairy, file.path(class_dir, "avg_sig_type_mat_dairy.csv"))
+write.csv(avg_sig_type_mat_base, file.path(class_dir, "avg_sig_type_mat_base.csv"))
+write.csv(avg_sig_type_mat_end, file.path(class_dir, "avg_sig_type_mat_end.csv"))
+
+saveRDS(avg_sig_type_mats, file.path(class_dir, "avg_sig_type_mats_all_embeddings.rds"))
+saveRDS(all_sig_mats, file.path(class_dir, "all_sig_mats_by_embedding.rds"))
+
+
+
+```
+
