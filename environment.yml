@@ -9,7 +9,7 @@ dependencies:
   - scikit-learn=1.6.1
   - scipy=1.13.1
   - pandas=2.2.3
-  - pip=25.1
+  - pip=26.2.2
   - wandb=0.16.6
   - pip:
       - pecanpy=2.0.9
